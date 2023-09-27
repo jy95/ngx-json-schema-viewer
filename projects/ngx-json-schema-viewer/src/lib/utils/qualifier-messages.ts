@@ -3,27 +3,29 @@ import { CommonModule } from '@angular/common';
 import { JSVOptionsService } from '../services/jsv-options';
 
 // qualifier messages
-import { ConstantComponent } from "./QualifierMessages/constant";
-import { DefaultValueComponent } from "./QualifierMessages/default-value";
-import { EnumComponent } from "./QualifierMessages/enum";
-import { ExamplesComponent } from "./QualifierMessages/examples";
-import { ReadOnlyComponent } from "./QualifierMessages/readOnly";
-import { WriteOnlyComponent } from "./QualifierMessages/writeOnly";
-import { ArrayUniqueItemsComponent } from "./QualifierMessages/array-unique-items";
-import { DeprecatedComponent } from "./QualifierMessages/deprecated";
-import { NullableComponent } from "./QualifierMessages/nullable";
-import { StringLengthComponent } from "./QualifierMessages/string-length";
-import { ObjectPropertiesComponent } from "./QualifierMessages/object-properties";
-import { NoExtraPropertiesComponent } from "./QualifierMessages/no-extra-properties";
-import { ArrayNumberOfItemsComponent } from "./QualifierMessages/array-number-of-items";
-import { ArrayContainsNumberComponent } from "./QualifierMessages/array-contains-number";
-import { NoExtraItemsComponent } from "./QualifierMessages/no-extra-items";
-import { NumberBoundsComponent } from "./QualifierMessages/number-bounds";
-import { PatternComponent } from "./QualifierMessages/pattern";
-import { MultipleOfComponent } from "./QualifierMessages/number-multiple-of";
-import { ContentEncodingComponent } from "./QualifierMessages/content-encoding";
-import { ContentMediaTypeComponent } from "./QualifierMessages/content-media";
-import { ContentSchemaComponent } from "./QualifierMessages/content-schema";
+import {
+    ConstantComponent,
+    ArrayContainsNumberComponent,
+    ArrayNumberOfItemsComponent,
+    ArrayUniqueItemsComponent,
+    ContentEncodingComponent,
+    ContentMediaTypeComponent,
+    ContentSchemaComponent,
+    DefaultValueComponent,
+    DeprecatedComponent,
+    EnumComponent,
+    ExamplesComponent,
+    MultipleOfComponent,
+    NoExtraItemsComponent,
+    NoExtraPropertiesComponent,
+    NullableComponent,
+    NumberBoundsComponent,
+    ObjectPropertiesComponent,
+    PatternComponent,
+    ReadOnlyComponent,
+    StringLengthComponent,
+    WriteOnlyComponent
+} from "./QualifierMessages/index";
 
 // Types
 import type { JSONSchema, JSONSchemaNS } from '../types';
