@@ -2,18 +2,86 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JSVOptionsService } from '../services/jsv-options';
 
+// qualifier messages
+import { ConstantComponent } from "./QualifierMessages/constant";
+import { DefaultValueComponent } from "./QualifierMessages/default-value";
+import { EnumComponent } from "./QualifierMessages/enum";
+import { ExamplesComponent } from "./QualifierMessages/examples";
+import { ReadOnlyComponent } from "./QualifierMessages/readOnly";
+import { WriteOnlyComponent } from "./QualifierMessages/writeOnly";
+import { ArrayUniqueItemsComponent } from "./QualifierMessages/array-unique-items";
+import { DeprecatedComponent } from "./QualifierMessages/deprecated";
+import { NullableComponent } from "./QualifierMessages/nullable";
+import { StringLengthComponent } from "./QualifierMessages/string-length";
+import { ObjectPropertiesComponent } from "./QualifierMessages/object-properties";
+import { NoExtraPropertiesComponent } from "./QualifierMessages/no-extra-properties";
+import { ArrayNumberOfItemsComponent } from "./QualifierMessages/array-number-of-items";
+import { ArrayContainsNumberComponent } from "./QualifierMessages/array-contains-number";
+import { NoExtraItemsComponent } from "./QualifierMessages/no-extra-items";
+import { NumberBoundsComponent } from "./QualifierMessages/number-bounds";
+import { PatternComponent } from "./QualifierMessages/pattern";
+import { MultipleOfComponent } from "./QualifierMessages/number-multiple-of";
+import { ContentEncodingComponent } from "./QualifierMessages/content-encoding";
+import { ContentMediaTypeComponent } from "./QualifierMessages/content-media";
+import { ContentSchemaComponent } from "./QualifierMessages/content-schema";
+
+// Types
 import type { JSONSchema, JSONSchemaNS } from '../types';
 import type { JSVOptions, CheckKey } from '../services/jsv-options';
-
 
 @Component({
     selector: 'qm-messages',
     standalone: true,
-    imports: [CommonModule],
+    imports: [
+        CommonModule,
+        ConstantComponent,
+        DefaultValueComponent,
+        EnumComponent,
+        ExamplesComponent,
+        ReadOnlyComponent,
+        WriteOnlyComponent,
+        ArrayUniqueItemsComponent,
+        DeprecatedComponent,
+        NullableComponent,
+        StringLengthComponent,
+        ObjectPropertiesComponent,
+        NoExtraPropertiesComponent,
+        ArrayNumberOfItemsComponent,
+        ArrayContainsNumberComponent,
+        NoExtraItemsComponent,
+        NumberBoundsComponent,
+        PatternComponent,
+        MultipleOfComponent,
+        ContentEncodingComponent,
+        ContentMediaTypeComponent,
+        ContentSchemaComponent
+    ],
     template: `
         <div>
             <ng-container *ngFor="let key of filteredQualifiers">
-                
+                <ng-container [ngSwitch]="key">
+                    <qm-constant *ngSwitchCase="'const'" [schema]="schema"/>
+                    <qm-default-value *ngSwitchCase="'default'" [schema]="schema"/>
+                    <qm-enum *ngSwitchCase="'enum'" [schema]="schema"/>
+                    <qm-examples *ngSwitchCase="'examples'" [schema]="schema"/>
+                    <qm-read-only *ngSwitchCase="'readOnly'" />
+                    <qm-write-only *ngSwitchCase="'writeOnly'" />
+                    <qm-array-unique-items *ngSwitchCase="'uniqueItems'" />
+                    <qm-deprecated *ngSwitchCase="'deprecated'" />
+                    <qm-nullable *ngSwitchCase="'nullable'" />
+                    <qm-string-length *ngSwitchCase="'stringLength'" [schema]="schema" />
+                    <qm-object-properties *ngSwitchCase="'objectProperties'" [schema]="schema" />
+                    <qm-no-extra-properties *ngSwitchCase="'no-extra-properties'" />
+                    <qm-array-number-of-items *ngSwitchCase="'arrayItems'" [schema]="schema" />
+                    <qm-array-contains *ngSwitchCase="'arrayContains'" [schema]="schema" />
+                    <qm-no-extra-items *ngSwitchCase="'no-extra-items'" />
+                    <qm-number-bounds *ngSwitchCase="'number-range'" [schema]="schema" />
+                    <qm-pattern *ngSwitchCase="'pattern'" [schema]="schema" />
+                    <qm-multiple-of *ngSwitchCase="'multipleOf'" [schema]="schema" />
+                    <qm-content-encoding *ngSwitchCase="'contentEncoding'" [schema]="schema" />
+                    <qm-content-media-type *ngSwitchCase="'contentMediaType'" [schema]="schema" />
+                    <qm-content-schema *ngSwitchCase="'contentSchema'" [schema]="typedAsJSONSchemaString" />
+                </ng-container>
             </ng-container>
         </div>
     `
@@ -25,6 +93,10 @@ export class QualifierMessages {
 
     get options(): JSVOptions {
         return this.jsvOptionsService.getOptions();
+    }
+
+    get typedAsJSONSchemaString(): JSONSchemaNS.String {
+        return this.schema as JSONSchemaNS.String;
     }
 
     get filteredQualifiers(): CheckKey[] {

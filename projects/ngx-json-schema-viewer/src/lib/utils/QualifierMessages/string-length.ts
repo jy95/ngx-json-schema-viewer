@@ -22,7 +22,7 @@ import type { JSONSchema } from '../../types';
     </div>
   `,
 })
-export class StringLengthQualifierMessageComponent {
+export class StringLengthComponent {
   @Input() schema!: Exclude<JSONSchema, true | false>;
 
   lengthLabel = 'Length :';

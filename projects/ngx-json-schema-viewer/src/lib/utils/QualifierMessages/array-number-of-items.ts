@@ -1,10 +1,13 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import type { JSONSchemaNS, JSONSchema } from '../../types';
 type typedJSONArraySchema = JSONSchemaNS.Array;
 
 @Component({
   selector: 'qm-array-number-of-items',
+  standalone: true,
+  imports: [CommonModule],
   template: `
     <div>
         <strong>Length :</strong>

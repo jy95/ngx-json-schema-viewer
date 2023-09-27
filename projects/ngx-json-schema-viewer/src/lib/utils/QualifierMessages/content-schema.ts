@@ -4,6 +4,8 @@ import type { JSONSchemaNS } from "../../types"
 
 @Component({
   selector: 'qm-content-schema',
+  standalone: true,
+  imports: [],
   template: `
     <div>
       <strong>{{ contentSchemaLabel }}</strong>

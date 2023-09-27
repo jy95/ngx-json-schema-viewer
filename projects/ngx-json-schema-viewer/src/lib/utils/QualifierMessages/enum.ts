@@ -15,7 +15,7 @@ import type { JSONSchema } from '../../types';
     </div>
   `,
 })
-export class EnumQualifierMessageComponent {
+export class EnumComponent {
   @Input() schema!: Exclude<JSONSchema, true | false>;
 
   enumLabel = 'Possible values :';

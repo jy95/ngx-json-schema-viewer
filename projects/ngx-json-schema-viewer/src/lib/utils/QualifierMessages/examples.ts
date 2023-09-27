@@ -19,7 +19,7 @@ import type { JSONSchema } from '../../types';
     </div>
   `,
 })
-export class ExamplesQualifierMessageComponent {
+export class ExamplesComponent {
   @Input() schema!: Exclude<JSONSchema, true | false>;
 
   examplesLabel = 'Example values :';

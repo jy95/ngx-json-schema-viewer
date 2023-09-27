@@ -5,7 +5,7 @@ import type { JSONSchemaNS, JSONSchema } from '../../types';
 type typedJSONArraySchema = JSONSchemaNS.Array;
 
 @Component({
-  selector: 'qm-array-contains-number',
+  selector: 'qm-array-contains',
   standalone: true,
   imports: [CommonModule],
   template: `
