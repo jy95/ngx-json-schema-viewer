@@ -5,7 +5,7 @@ import { PrintSchemaTypeComponent } from './print-schema-type';
 import type { JSONSchema } from '../../types';
 
 @Component({
-  selector: 'app-examples-qualifier-message',
+  selector: 'qm-examples',
   standalone: true,
   imports: [MatTabsModule, PrintSchemaTypeComponent],
   template: `

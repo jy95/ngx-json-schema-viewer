@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { PrintSchemaTypeComponent } from './print-schema-type';
 
+import type { JSONSchema } from '../../types';
+
 @Component({
   selector: 'qm-default-value',
   standalone: true,
@@ -14,7 +16,7 @@ import { PrintSchemaTypeComponent } from './print-schema-type';
   `,
 })
 export class DefaultValueComponent {
-  @Input() schema: any; // You may need to adjust the type according to your JSONSchema type
+  @Input() schema!: Exclude<JSONSchema, true | false>;
 
   defaultLabel = 'Default value :';
 }
