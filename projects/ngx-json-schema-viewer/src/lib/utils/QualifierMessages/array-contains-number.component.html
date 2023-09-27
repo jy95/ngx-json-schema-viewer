@@ -1,0 +1,16 @@
+<div *ngIf="schema as typedArraySchema">
+    <strong>Must contain : </strong>
+    <ng-container *ngIf="typedArraySchema.minContains !== undefined">
+      <code>
+        {{ getMinContainsLabel(typedArraySchema.minContains) }}
+      </code>
+    </ng-container>
+    <ng-container *ngIf="typedArraySchema.minContains !== undefined && typedArraySchema.maxContains !== undefined">
+      <app-and-label></app-and-label>
+    </ng-container>
+    <ng-container *ngIf="typedArraySchema.maxContains !== undefined">
+      <code>
+        {{ getMaxContainsLabel(typedArraySchema.maxContains) }}
+      </code>
+    </ng-container>
+</div>
