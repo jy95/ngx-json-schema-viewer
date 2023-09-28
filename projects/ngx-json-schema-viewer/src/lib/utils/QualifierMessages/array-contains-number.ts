@@ -1,14 +1,16 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { AndLabelComponent } from "../../labels/and-label";
+
 import type { JSONSchemaNS, JSONSchema } from '../../types';
+
 type typedJSONArraySchema = JSONSchemaNS.Array;
 
 @Component({
-  selector: 'qm-array-contains',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'qm-array-contains',
+    standalone: true,
+    template: `
   <div>
       <strong>Must contain : </strong>
       <ng-container *ngIf="typedSchema.minContains">
@@ -17,7 +19,7 @@ type typedJSONArraySchema = JSONSchemaNS.Array;
         </code>
       </ng-container>
       <ng-container *ngIf="typedSchema.minContains !== undefined && typedSchema.maxContains !== undefined">
-        <app-and-label></app-and-label>
+        <labels-and></labels-and>
       </ng-container>
       <ng-container *ngIf="typedSchema.maxContains !== undefined">
         <code>
@@ -25,7 +27,8 @@ type typedJSONArraySchema = JSONSchemaNS.Array;
         </code>
       </ng-container>
   </div>
-  `
+  `,
+    imports: [CommonModule, AndLabelComponent]
 })
 export class ArrayContainsNumberComponent {
   @Input() schema!: Exclude<JSONSchema, true | false>;

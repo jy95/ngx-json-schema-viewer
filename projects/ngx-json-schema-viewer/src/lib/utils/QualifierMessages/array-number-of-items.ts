@@ -1,13 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { AndLabelComponent } from "../../labels/and-label";
+
 import type { JSONSchemaNS, JSONSchema } from '../../types';
 type typedJSONArraySchema = JSONSchemaNS.Array;
 
 @Component({
   selector: 'qm-array-number-of-items',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,AndLabelComponent],
   template: `
     <div>
         <strong>Length :</strong>
@@ -18,7 +20,7 @@ type typedJSONArraySchema = JSONSchemaNS.Array;
           </code>
         </ng-container>
         <ng-container *ngIf="typedSchema.minItems !== undefined && typedSchema.maxItems !== undefined">
-          <app-and-label></app-and-label>
+          <labels-and></labels-and>
         </ng-container>
         <ng-container *ngIf="typedSchema.maxItems !== undefined">
           <code>
