@@ -1,23 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
-import { CreateEdge } from "@theme/JSONSchemaViewer/components";
+import {
+  CreateEdgeComponent
+} from "../../common/index";
 
 import type { JSONSchemaNS } from "../../types";
 
 @Component({
   selector: 'jse-array-unevaluated-items',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,CreateEdgeComponent],
   template: `
     <ul *ngIf="!isUndefinedOrBoolean(items)">
       <li>
-        <app-create-edge
-          key="array_unevaluatedItems"
-          [name]="unevaluatedItemsLabel()"
-          [schema]="items"
-          [required]="false"
-        ></app-create-edge>
+        <jse-common-create-edge [schema]="items!" [required]="false">
+          <code name>
+            {{ unevaluatedItemsLabel() }}
+          </code>
+        </jse-common-create-edge>
       </li>
     </ul>
   `,

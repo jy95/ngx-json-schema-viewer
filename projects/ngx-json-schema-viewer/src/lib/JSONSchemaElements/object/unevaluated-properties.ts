@@ -1,23 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
-import { CreateEdge } from "@theme/JSONSchemaViewer/components";
+import {
+  CreateEdgeComponent
+} from "../../common/index";
 
 import type { JSONSchemaNS } from "../../types";
 
 @Component({
   selector: 'jse-object-unevaluated-properties',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,CreateEdgeComponent],
   template: `
     <ul *ngIf="!isUndefinedOrBoolean(unevaluatedProperties)">
       <li>
-        <app-create-edge
-          key="object_unevaluatedProperties"
-          [name]="unevaluatedPropertiesLabel()"
-          [schema]="unevaluatedProperties"
-          [required]="false"
-        ></app-create-edge>
+        <jse-common-create-edge [schema]="unevaluatedProperties!" [required]="false">
+          <code name>
+            {{ unevaluatedPropertiesLabel() }}
+          </code>
+        </jse-common-create-edge>
       </li>
     </ul>
   `,

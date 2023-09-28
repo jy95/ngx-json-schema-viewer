@@ -1,16 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
-import { AllOfSchemaComponent } from "@theme/JSONSchemaViewer/JSONSchemaElements/schemaComposition/all-of-schema.component";
+import {
+  AllOfSchemaComponent
+} from "../schemaComposition/index";
 
 import type { JSONSchema, JSONSchemaNS } from "../../types";
 
 @Component({
   selector: 'jse-schema-conditional-dependent-schemas',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,AllOfSchemaComponent],
   template: `
-    <app-all-of-schema [schema]="simplifiedSchema"></app-all-of-schema>
+    <jse-schema-composition-all-of [schema]="simplifiedSchema" />
   `,
 })
 export class DependentSchemasComponent {

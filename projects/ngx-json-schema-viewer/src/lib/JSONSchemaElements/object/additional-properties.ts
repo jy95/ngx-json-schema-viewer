@@ -1,23 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
-import { CreateEdge } from "@theme/JSONSchemaViewer/components";
+import {
+  CreateEdgeComponent
+} from "../../common/index";
 
 import type { JSONSchemaNS } from "../../types";
 
 @Component({
   selector: 'jse-object-additional-properties',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,CreateEdgeComponent],
   template: `
     <ul *ngIf="!isUndefinedOrBoolean(additionalProperties)">
       <li>
-        <app-create-edge
-          key="object_additionalProperties"
-          [name]="additionalPropertiesLabel()"
-          [schema]="additionalProperties"
-          [required]="false"
-        ></app-create-edge>
+        <jse-common-create-edge [schema]="additionalProperties!" [required]="false">
+          <code name>
+            {{ additionalPropertiesLabel() }}
+          </code>
+        </jse-common-create-edge>
       </li>
     </ul>
   `,

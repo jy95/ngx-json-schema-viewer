@@ -7,6 +7,13 @@ import { DependentRequiredComponent } from "./dependent-required";
 import { DependentSchemasComponent } from "./dependent-schemas";
 import { DependenciesComponent } from "./dependencies";
 
+export {
+  IfElseThenComponent,
+  DependentRequiredComponent,
+  DependentSchemasComponent,
+  DependenciesComponent
+}
+
 import type { JSONSchema, JSONSchemaNS } from "../../types";
 
 @Component({

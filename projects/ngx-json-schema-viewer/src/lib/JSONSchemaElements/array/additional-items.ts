@@ -1,20 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
+import {
+  CreateEdgeComponent
+} from "../../common/index";
+
 import type { JSONSchemaNS } from '../../types';
 
 @Component({
   selector: 'jse-array-additional-items',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,CreateEdgeComponent],
   template: `
     <ul *ngIf="!isUndefinedOrBoolean(items)">
       <li>
-        <app-create-edge
-          [name]="additionalItemsLabel(startingIndex)"
-          [schema]="items"
-          [required]="isMinItemsValid()"
-        ></app-create-edge>
+        <jse-common-create-edge [schema]="items!" [required]="isMinItemsValid()">
+          <code name>
+            {{ additionalItemsLabel(startingIndex) }}
+          </code>
+        </jse-common-create-edge>
       </li>
     </ul>
   `,

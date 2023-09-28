@@ -1,21 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
-import { DependentRequiredComponent } from "@theme/JSONSchemaViewer/JSONSchemaElements/SchemaConditional/dependent-required.component";
-import { DependentSchemasComponent } from "@theme/JSONSchemaViewer/JSONSchemaElements/SchemaConditional/dependent-schemas.component";
+import {
+  DependentRequiredComponent,
+  DependentSchemasComponent
+} from "./index";
 
 import type { JSONSchema } from "../../types";
 
 @Component({
   selector: 'jse-schema-conditional-dependencies',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,DependentRequiredComponent,DependentSchemasComponent],
   template: `
     <div *ngIf="hasDependentRequired">
-      <app-dependent-required [schema]="dependentRequired"></app-dependent-required>
+      <jse-schema-conditional-dependent-required [schema]="dependentRequired" />
     </div>
     <div *ngIf="hasDependentSchemas">
-      <app-dependent-schemas [schema]="dependentSchemas"></app-dependent-schemas>
+      <jse-schema-conditional-dependent-schemas [schema]="dependentSchemas" />
     </div>
   `,
 })

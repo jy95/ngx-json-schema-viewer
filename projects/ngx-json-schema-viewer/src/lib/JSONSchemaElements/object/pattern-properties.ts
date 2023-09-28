@@ -1,23 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
-import { CreateEdge } from "@theme/JSONSchemaViewer/components";
+import {
+  CreateEdgeComponent
+} from "../../common/index";
 
 import type { JSONSchemaNS } from "../../types";
 
 @Component({
   selector: 'jse-object-pattern-properties',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,CreateEdgeComponent],
   template: `
     <ul>
       <li *ngFor="let entry of patternPropertiesEntries">
-        <app-create-edge
-          [key]="'object_patternProperties_' + entry[0]"
-          [name]="generatePropertyName(entry[0])"
-          [schema]="entry[1]"
-          [required]="false"
-        ></app-create-edge>
+        <jse-common-create-edge [schema]="entry[1]!" [required]="false">
+          <code name>
+            {{ generatePropertyName(entry[0]) }}
+          </code>
+        </jse-common-create-edge>
       </li>
     </ul>
   `,
@@ -30,6 +31,6 @@ export class CreatePatternPropertiesComponent {
   }
 
   generatePropertyName(key: string): string {
-    return `<code>${key}</code>`;
+    return `${key}`;
   }
 }

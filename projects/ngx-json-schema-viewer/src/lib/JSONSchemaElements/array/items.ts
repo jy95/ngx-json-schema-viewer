@@ -1,22 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
-import { CreateEdge } from "@theme/JSONSchemaViewer/components";
+import {
+  CreateEdgeComponent
+} from "../../common/index";
 
 import type { JSONSchemaNS } from "../../types";
 
 @Component({
   selector: 'jse-array-items',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,CreateEdgeComponent],
   template: `
     <ul>
       <li *ngFor="let item of itemsAsArray; let idx = index">
-        <app-create-edge
-          [name]="itemsLabel(startingIndex + idx, isArray)"
-          [schema]="item"
-          [required]="isMinItemsValid()"
-        ></app-create-edge>
+        <jse-common-create-edge [schema]="item!" [required]="isMinItemsValid()">
+          <code name>
+            {{ itemsLabel(startingIndex + idx, isArray) }}
+          </code>
+        </jse-common-create-edge>
       </li>
     </ul>
   `,

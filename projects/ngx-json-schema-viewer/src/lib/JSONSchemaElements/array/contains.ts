@@ -1,20 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
+import {
+  CreateEdgeComponent
+} from "../../common/index";
+
 import type { JSONSchemaNS } from '../../types';
 
 @Component({
   selector: 'jse-array-contains',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,CreateEdgeComponent],
   template: `
     <ul>
       <li *ngIf="!isUndefined(item)">
-        <app-create-edge
-          [name]="containsLabel"
-          [schema]="item"
-          [required]="isMinContainsValid()"
-        ></app-create-edge>
+        <jse-common-create-edge [schema]="item!" [required]="isMinContainsValid()">
+          <code name>
+            {{ containsLabel }}
+          </code>
+        </jse-common-create-edge>
       </li>
     </ul>
   `,
@@ -27,11 +31,7 @@ export class CreateContainsComponent {
   }
 
   get containsLabel() {
-    return `
-      <code>
-        items[..., x, ...]
-      </code>
-    `;
+    return `items[..., x, ...]`;
   }
 
   isUndefined(value: any): boolean {

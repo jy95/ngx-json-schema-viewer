@@ -1,23 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
-import { CreateEdge } from "@theme/JSONSchemaViewer/components";
+import {
+  CreateEdgeComponent
+} from "../../common/index";
 
 import type { JSONSchemaNS, JSONSchema } from "../../types";
 
 @Component({
   selector: 'jse-object-property-names',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,CreateEdgeComponent],
   template: `
     <ul *ngIf="isPropertyNamesValid()">
       <li>
-        <app-create-edge
-          key="propertyNames"
-          [name]="generatePropertyName()"
-          [schema]="generateSchema()"
-          [required]="false"
-        ></app-create-edge>
+        <jse-common-create-edge [schema]="generateSchema()" [required]="false">
+          <code name>
+            {{ generatePropertyName() }}
+          </code>
+        </jse-common-create-edge>
       </li>
     </ul>
   `,
@@ -37,7 +38,7 @@ export class PropertyNamesComponent {
   generatePropertyName(): string {
     const propertyNames = this.schema.propertyNames!;
     const pattern = typeof propertyNames !== "boolean" ? propertyNames?.pattern : "";
-    return `<code>${pattern}</code>`;
+    return `${pattern}`;
   }
 
   generateSchema(): JSONSchema {

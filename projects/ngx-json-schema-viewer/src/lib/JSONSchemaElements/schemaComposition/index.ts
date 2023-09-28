@@ -6,6 +6,13 @@ import { AnyOfSchemaComponent } from "./any-of";
 import { NotSchemaComponent } from "./not";
 import { OneOfSchemaComponent } from "./one-of";
 
+export {
+  AllOfSchemaComponent,
+  AnyOfSchemaComponent,
+  NotSchemaComponent,
+  OneOfSchemaComponent
+}
+
 import type {
     JSONSchema
 } from "../../types";
