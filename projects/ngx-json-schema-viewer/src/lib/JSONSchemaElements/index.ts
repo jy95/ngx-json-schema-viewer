@@ -5,7 +5,7 @@ export { SchemaComposition } from "@theme/JSONSchemaViewer/JSONSchemaElements/sc
 export { SchemaConditional } from "@theme/JSONSchemaViewer/JSONSchemaElements/SchemaConditional"
 
 // Component to deal with Object
-export { CreateObject } from "@theme/JSONSchemaViewer/JSONSchemaElements/object"
+export { CreateObjectComponent } from "./object/index"
 
 // Component to deal with Array
 export { CreateArrayComponent } from "./array/index"
