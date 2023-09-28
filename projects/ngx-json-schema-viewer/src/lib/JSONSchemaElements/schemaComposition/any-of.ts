@@ -3,14 +3,14 @@ import { Component, Input } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { GenerateFriendlyNameComponent } from "../../utils/index";
-import { CreateNodesComponent } from "@theme/JSONSchemaViewer/components/create-nodes.component";
+import { CreateNodesComponent } from "../../common/create-nodes";
 
 import type { JSONSchema } from "../../types";
 
 @Component({
   selector: 'jse-schema-composition-any-of',
   standalone: true,
-  imports: [CommonModule, MatTabsModule, GenerateFriendlyNameComponent],
+  imports: [CommonModule, MatTabsModule, GenerateFriendlyNameComponent, CreateNodesComponent],
   template: `
     <div>
       <span class="badge badge--info">{{ typeOf }}</span>
@@ -19,7 +19,7 @@ import type { JSONSchema } from "../../types";
           <ng-template mat-tab-label>
             <jsv-friendly-name [schema]="compositeSchema" />
           </ng-template>
-          <app-create-nodes [schema]="compositeSchema"></app-create-nodes>
+          <jse-common-create-nodes [schema]="compositeSchema" />
         </mat-tab>
       </mat-tab-group>
     </div>

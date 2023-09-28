@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 
-import { CreateNodesComponent } from "@theme/JSONSchemaViewer/components/create-nodes.component";
+import { CreateNodesComponent } from "../../common/create-nodes";
 
 import { IfLabelComponent, ThenLabelComponent, ElseLabelComponent } from "../../labels/index";
 
@@ -16,7 +16,8 @@ import type { JSONSchema } from "../../types";
     MatTabsModule,
     IfLabelComponent,
     ThenLabelComponent,
-    ElseLabelComponent
+    ElseLabelComponent,
+    CreateNodesComponent
   ],
   template: `
     <mat-tab-group>
@@ -35,7 +36,7 @@ import type { JSONSchema } from "../../types";
           </ng-template>
         </ng-template>
         <ng-template matTabContent>
-            <app-create-nodes [schema]="val.schema"></app-create-nodes>
+            <jse-common-create-nodes [schema]="val.schema" />
         </ng-template>
       </mat-tab>
     </mat-tab-group>

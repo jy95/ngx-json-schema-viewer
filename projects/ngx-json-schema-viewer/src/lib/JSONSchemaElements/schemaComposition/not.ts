@@ -1,18 +1,18 @@
 import { Component, Input } from '@angular/core';
 
-import { CreateNodesComponent } from "@theme/JSONSchemaViewer/components/create-nodes.component";
+import { CreateNodesComponent } from "../../common/create-nodes";
 
 import type { JSONSchema } from "../../types";
 
 @Component({
   selector: 'jse-schema-composition-not',
   standalone: true,
-  imports: [],
+  imports: [CreateNodesComponent],
   template: `
     <div>
         <span class="badge badge--info">{{ typeOf }}</span>
         <br />
-        <app-create-nodes [schema]="compositeSchema"></app-create-nodes>
+        <jse-common-create-nodes [schema]="typedSchema" />
     </div>
   `,
 })

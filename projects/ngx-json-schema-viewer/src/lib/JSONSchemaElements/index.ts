@@ -1,5 +1,5 @@
 // Component to deal with oneOf / anyOf / allOf / not
-export { SchemaComposition } from "@theme/JSONSchemaViewer/JSONSchemaElements/schemaComposition"
+export { SchemaCompositionComponent } from "./schemaComposition/index"
 
 // Component to deal with if-then-else , dependentRequired , dependentSchemas , dependencies
 export { SchemaConditionalComponent } from "./schemaConditional/index"

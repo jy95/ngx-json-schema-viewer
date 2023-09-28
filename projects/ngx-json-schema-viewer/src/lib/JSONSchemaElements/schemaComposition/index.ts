@@ -11,7 +11,7 @@ import type {
 } from "../../types";
 
 @Component({
-  selector: 'app-schema-composition',
+  selector: 'jse-schema-composition',
   standalone: true,
   imports: [
     CommonModule,

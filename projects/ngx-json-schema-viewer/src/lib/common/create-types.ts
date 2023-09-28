@@ -3,7 +3,8 @@ import { Component, Input } from '@angular/core';
 
 import {
     CreateValidOrInvalidComponent,
-    RenderProvidedTypeComponent
+    RenderProvidedTypeComponent,
+    RenderMultipleTypesComponent
 } from "./index";
 
 import {
@@ -19,7 +20,7 @@ import type {
 @Component({
   selector: 'jse-common-create-types',
   standalone: true,
-  imports: [CommonModule, CreateValidOrInvalidComponent, RenderProvidedTypeComponent],
+  imports: [CommonModule, CreateValidOrInvalidComponent, RenderProvidedTypeComponent,RenderMultipleTypesComponent],
   template: `
     <ng-container>
 
@@ -31,7 +32,7 @@ import type {
 
         <!-- Case 2: Multiple types -->
         <ng-template #case2>
-          <app-render-multiple-types [schema]="schema" [types]="notNullTypeValues" [nullable]="hasNull"></app-render-multiple-types>
+          <jse-common-multiple-types [schema]="schema" [types]="notNullTypeValues" [nullable]="hasNull" />
         </ng-template>
       </ng-container>
 
@@ -42,7 +43,7 @@ import type {
         </ng-container>
 
         <ng-template #compositionCase>
-          <!-- Handle SchemaComposition case here (if needed) -->
+          <!--  Otherwise, we have a SchemaComposition, which will be handled by CreateNodes -->
         </ng-template>
       </ng-template>
     </ng-container>
