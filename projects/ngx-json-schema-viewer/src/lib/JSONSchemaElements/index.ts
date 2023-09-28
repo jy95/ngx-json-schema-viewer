@@ -2,7 +2,7 @@
 export { SchemaComposition } from "@theme/JSONSchemaViewer/JSONSchemaElements/schemaComposition"
 
 // Component to deal with if-then-else , dependentRequired , dependentSchemas , dependencies
-export { SchemaConditional } from "@theme/JSONSchemaViewer/JSONSchemaElements/SchemaConditional"
+export { SchemaConditionalComponent } from "./schemaConditional/index"
 
 // Component to deal with Object
 export { CreateObjectComponent } from "./object/index"

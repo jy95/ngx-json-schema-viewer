@@ -12,7 +12,7 @@ import {
 
 import {
     QualifierMessages
-} from "../utils/qualifier-messages";
+} from "../utils/index";
 
 import type { JSONSchemaNS } from '../types';
 

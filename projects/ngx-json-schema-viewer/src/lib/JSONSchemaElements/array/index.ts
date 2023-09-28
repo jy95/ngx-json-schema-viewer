@@ -14,7 +14,7 @@ import { CreateAdditionalItemsComponent } from "./additional-items";
 import { CreateUnevaluatedItemsComponent } from "./unevaluated-items";
 import { CreateContainsComponent } from "./contains";
 
-import { QualifierMessages } from "../../utils/qualifier-messages";
+import { QualifierMessages } from "../../utils/index";
 
 import type { JSONSchemaNS } from "../../types";
 

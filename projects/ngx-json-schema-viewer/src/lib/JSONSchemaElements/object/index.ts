@@ -8,7 +8,7 @@ import { PropertyNamesComponent } from "./property-names";
 import { CreateAdditionalPropertiesComponent } from "./additional-properties";
 import { CreateUnevaluatedPropertiesComponent } from "./unevaluated-properties";
 
-import { QualifierMessages } from "../../utils/qualifier-messages";
+import { QualifierMessages } from "../../utils/index";
 
 import { 
     ObjectLabelComponent,
