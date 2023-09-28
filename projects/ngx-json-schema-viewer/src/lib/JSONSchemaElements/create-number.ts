@@ -18,7 +18,7 @@ import type { JSONSchemaNS } from '../types';
 
 
 @Component({
-  selector: 'jse-integer',
+  selector: 'jse-number',
   standalone: true,
   imports: [TypeLabelComponent, NumberLabelComponent,CreateDescriptionComponent,CommonModule,QualifierMessages],
   template: `

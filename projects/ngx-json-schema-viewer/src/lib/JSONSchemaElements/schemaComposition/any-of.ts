@@ -8,7 +8,7 @@ import { CreateNodesComponent } from "@theme/JSONSchemaViewer/components/create-
 import type { JSONSchema } from "../../types";
 
 @Component({
-  selector: 'jse-schema-composition-all-of',
+  selector: 'jse-schema-composition-any-of',
   standalone: true,
   imports: [CommonModule, MatTabsModule, GenerateFriendlyNameComponent],
   template: `
@@ -25,15 +25,15 @@ import type { JSONSchema } from "../../types";
     </div>
   `,
 })
-export class AllOfSchemaComponent {
+export class AnyOfSchemaComponent {
   @Input() schema!: Exclude<JSONSchema, true | false>;
 
   get typedSchema(): JSONSchema[] {
-    return this.schema.allOf! as JSONSchema[];
+    return this.schema.anyOf! as JSONSchema[];
   }
 
   get typeOf(): string {
-    return "allOf";
+    return "anyOf";
   }
 
 }
