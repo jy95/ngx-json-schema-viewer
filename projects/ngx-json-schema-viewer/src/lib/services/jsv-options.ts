@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import type { JSONSchema } from "../types"
-
 export type CheckKey =
   | "nullable"
   | "deprecated"
@@ -26,8 +24,6 @@ export type CheckKey =
   | "contentSchema"
 
 export type JSVOptions = {
-    // Full schema, useful for some specifics $ref cases (recursive / anchors / ...)
-    fullSchema: JSONSchema
     /**
      * Should we display "examples" ?
      * @default false
@@ -45,7 +41,6 @@ export type JSVOptions = {
 })
 export class JSVOptionsService {
     private options: JSVOptions = {
-        fullSchema: false,
         showExamples: false,
         qualifierMessagesOrder: [
             "nullable",
