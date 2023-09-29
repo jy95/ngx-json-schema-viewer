@@ -74,7 +74,7 @@ export class NgxJsonSchemaViewerComponent implements OnInit {
     this.resolveSchema();
   }
 
-  resolveSchema() {
+  private resolveSchema() {
     this.schemaResolutionService
       .resolveSchema(this.schema, this.resolverOptions)
       .pipe(

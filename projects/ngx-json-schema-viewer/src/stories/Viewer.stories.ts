@@ -1,6 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+//import { moduleMetadata } from '@storybook/angular';
 
 import { NgxJsonSchemaViewerComponent } from "ngx-json-schema-viewer";
+
+import type { Meta, StoryObj } from '@storybook/angular';
 
 const meta : Meta<NgxJsonSchemaViewerComponent> = {
     component: NgxJsonSchemaViewerComponent
