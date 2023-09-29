@@ -14,8 +14,8 @@ jobs:
     # Job steps
     steps:
       - uses: actions/checkout@v3
-      - run: yarn
-      - run: yarn run buildLib
+      - run: npm install
+      - run: npm run buildLib
         # https://www.chromatic.com/docs/cli/ 
         #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
