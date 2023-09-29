@@ -1,19 +1,31 @@
 import { Component, Input } from '@angular/core';
 
+import {MatExpansionModule} from '@angular/material/expansion';
+
+import {
+  CreateNodesComponent
+} from "../../common/index";
+
 import type { JSONSchemaNS } from "../../types"
 
 @Component({
   selector: 'qm-content-schema',
   standalone: true,
-  imports: [],
+  imports: [MatExpansionModule,CreateNodesComponent],
   template: `
     <div>
       <strong>{{ contentSchemaLabel }}</strong>
       &nbsp;
-      <app-collapsible [open]="true">
-        <strong>{{ title }}</strong>
-        <app-create-nodes [schema]="schema.contentSchema"></app-create-nodes>
-      </app-collapsible>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ title }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <jse-common-create-nodes [schema]="schema.contentSchema!"/>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
   `,
 })

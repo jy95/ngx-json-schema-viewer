@@ -1,12 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
+import {
+  AndLabelComponent
+} from "../../labels/index";
+
 import type { JSONSchema } from '../../types';
 
 @Component({
   selector: 'qm-number-bounds',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AndLabelComponent],
   template: `
     <div>
       <strong>{{ boundsLabel }}</strong>&nbsp;
@@ -18,7 +22,7 @@ import type { JSONSchema } from '../../types';
         </code>
       </ng-container>
       <ng-container *ngIf="minAndMax">
-        <app-and-label></app-and-label>
+        <labels-and />
       </ng-container>
       <ng-container *ngIf="maximum !== undefined">
         <code>
