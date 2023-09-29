@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 
 import { 
     TypeLabelComponent,
@@ -25,7 +25,7 @@ import type { JSONSchemaNS } from "../../types";
     CommonModule, 
     TypeLabelComponent, 
     ArrayLabelComponent,
-    CreateDescriptionComponent,
+    forwardRef(() => CreateDescriptionComponent),
     QualifierMessages,
     CreateAdditionalItemsComponent,
     CreateContainsComponent,

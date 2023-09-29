@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { GenerateFriendlyNameComponent } from "../../utils/index";
@@ -10,7 +10,12 @@ import type { JSONSchema } from "../../types";
 @Component({
   selector: 'jse-schema-composition-any-of',
   standalone: true,
-  imports: [CommonModule, MatTabsModule, GenerateFriendlyNameComponent, CreateNodesComponent],
+  imports: [
+    CommonModule,
+    MatTabsModule, 
+    forwardRef(() => GenerateFriendlyNameComponent), 
+    forwardRef(() => CreateNodesComponent)
+  ],
   template: `
     <div>
       <span class="badge badge--info">{{ typeOf }}</span>

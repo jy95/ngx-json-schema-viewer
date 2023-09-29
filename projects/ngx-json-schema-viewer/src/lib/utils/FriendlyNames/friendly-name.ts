@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -27,8 +27,8 @@ import type { JSONSchema, TypeValues } from "../../types";
     CommonModule,
     OrLabelComponent,
     TypeLabelSwitchComponent,
-    GenerateFriendlyNameFallbackComponent,
-    GenerateFriendlyNameCustomComponent
+    forwardRef( () => GenerateFriendlyNameFallbackComponent),
+    forwardRef( () => GenerateFriendlyNameCustomComponent)
   ],
   template: `
     <!--  In case the schema is always valid or not -->

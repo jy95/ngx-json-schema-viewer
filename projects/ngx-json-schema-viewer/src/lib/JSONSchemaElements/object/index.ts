@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 
 import { CreateUnlistedPropertiesComponent } from "./unlisted-required-properties";
 import { CreatePropertiesComponent } from "./properties";
@@ -33,7 +33,7 @@ import type { JSONSchemaNS } from "../../types";
     CreateUnevaluatedPropertiesComponent,
     ObjectLabelComponent,
     TypeLabelComponent,
-    CreateDescriptionComponent
+    forwardRef(() => CreateDescriptionComponent)
   ],
   template: `
     <div>
