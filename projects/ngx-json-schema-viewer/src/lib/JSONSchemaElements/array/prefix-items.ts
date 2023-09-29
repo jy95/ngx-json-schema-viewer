@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 
 import {
   CreateEdgeComponent
@@ -10,7 +10,10 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
 @Component({
   selector: 'jse-array-prefix-items',
   standalone: true,
-  imports: [CommonModule,CreateEdgeComponent],
+  imports: [
+    CommonModule,
+    forwardRef(() => CreateEdgeComponent)
+  ],
   template: `
     <ul>
       <li *ngFor="let val of array; let idx = index">
