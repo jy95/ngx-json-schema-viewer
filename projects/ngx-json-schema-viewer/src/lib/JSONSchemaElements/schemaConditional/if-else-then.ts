@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { CreateNodesComponent } from "../../common/create-nodes";
@@ -17,7 +17,7 @@ import type { JSONSchema } from "../../types";
     IfLabelComponent,
     ThenLabelComponent,
     ElseLabelComponent,
-    CreateNodesComponent
+    forwardRef(() => CreateNodesComponent)
   ],
   template: `
     <mat-tab-group>

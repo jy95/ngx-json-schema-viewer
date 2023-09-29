@@ -3,5 +3,4 @@
  */
 
 export { JSVOptionsService } from "./lib/services/jsv-options"
-export * from './lib/ngx-json-schema-viewer.component';
-export * from './lib/ngx-json-schema-viewer.module';
+export { NgxJsonSchemaViewerComponent } from './lib/ngx-json-schema-viewer.component';

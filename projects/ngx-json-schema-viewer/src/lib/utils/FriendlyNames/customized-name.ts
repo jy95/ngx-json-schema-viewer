@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -17,7 +17,7 @@ import type { JSONSchema, JSONSchemaNS, TypeValues } from "../../types";
     imports: [
       CommonModule,
       TypeLabelSwitchComponent,
-      GenerateFriendlyNameCustomArrayComponent
+      forwardRef(() => GenerateFriendlyNameCustomArrayComponent)
     ],
     template: `
         <ng-container *ngIf="type === 'string' && schema.format !== undefined">

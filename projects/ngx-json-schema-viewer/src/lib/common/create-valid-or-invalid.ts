@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 
 import {
     CreateAlwaysInvalidComponent,
@@ -11,7 +11,11 @@ import type { JSONSchema } from '../types';
 @Component({
   selector: 'jse-common-create-valid-or-invalid',
   standalone: true,
-  imports: [CommonModule, CreateAlwaysInvalidComponent, CreateAlwaysValidComponent],
+  imports: [
+    CommonModule,
+    forwardRef(() => CreateAlwaysInvalidComponent),
+    forwardRef(() => CreateAlwaysValidComponent),
+  ],
   template: `
     <ng-container *ngIf="schema; else alwaysInvalid">
       <jse-always-valid />

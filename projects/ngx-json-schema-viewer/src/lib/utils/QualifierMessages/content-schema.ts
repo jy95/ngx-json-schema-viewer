@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 
 import {MatExpansionModule} from '@angular/material/expansion';
 
@@ -11,7 +11,10 @@ import type { JSONSchemaNS } from "../../types"
 @Component({
   selector: 'qm-content-schema',
   standalone: true,
-  imports: [MatExpansionModule,CreateNodesComponent],
+  imports: [
+    MatExpansionModule,
+    forwardRef(() => CreateNodesComponent)
+  ],
   template: `
     <div>
       <strong>{{ contentSchemaLabel }}</strong>

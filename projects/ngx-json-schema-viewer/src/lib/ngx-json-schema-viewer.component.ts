@@ -2,14 +2,36 @@ import { Component, OnInit, Input } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+// imports
+import { CommonModule } from '@angular/common';
+import { MatExpansionModule } from '@angular/material/expansion';
+
+import {
+  CreateNodesComponent
+} from "./common/index"
+
+import {
+  ErrorOccurredLabelComponent,
+  LoadingLabelComponent
+} from "./labels/index";
+
 // services
 import { SchemaResolutionService } from './services/schema-resolver';
 
 import type { JSONSchema } from './types';
 import type { IResolveOpts } from "@stoplight/json-ref-resolver/types"
 
+
 @Component({
   selector: 'ngx-json-schema-viewer',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatExpansionModule,
+    CreateNodesComponent,
+    ErrorOccurredLabelComponent,
+    LoadingLabelComponent,
+  ],
   template: `
     <!-- Error ... -->
     <div *ngIf="error !== undefined">
@@ -52,7 +74,7 @@ export class NgxJsonSchemaViewerComponent implements OnInit {
     this.resolveSchema();
   }
 
-  resolveSchema() {
+  private resolveSchema() {
     this.schemaResolutionService
       .resolveSchema(this.schema, this.resolverOptions)
       .pipe(

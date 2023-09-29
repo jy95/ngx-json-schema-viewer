@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -14,7 +14,7 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
     imports: [
       CommonModule,
       TypeLabelSwitchComponent,
-      GenerateFriendlyNameComponent
+      forwardRef(() => GenerateFriendlyNameComponent)
     ],
     template: `
         <!-- KISS return the generic type when specs are messy -->

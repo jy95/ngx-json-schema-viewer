@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 
 import { CreateNodesComponent } from "../../common/create-nodes";
 
@@ -7,7 +7,9 @@ import type { JSONSchema } from "../../types";
 @Component({
   selector: 'jse-schema-composition-not',
   standalone: true,
-  imports: [CreateNodesComponent],
+  imports: [
+    forwardRef(() => CreateNodesComponent)
+  ],
   template: `
     <div>
         <span class="badge badge--info">{{ typeOf }}</span>

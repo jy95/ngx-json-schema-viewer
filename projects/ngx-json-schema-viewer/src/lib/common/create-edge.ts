@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 
 import {
@@ -30,7 +30,7 @@ import type { JSONSchema, JSONSchema_Draft_2019_09 } from '../types';
     ReadOnlyLabelComponent,
     WriteOnlyLabelComponent,
     DeprecatedLabelComponent,
-    CreateNodesComponent
+    forwardRef(() => CreateNodesComponent)
   ],
   template: `
     <li class="schemaItem">

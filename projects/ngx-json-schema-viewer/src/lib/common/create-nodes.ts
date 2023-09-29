@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 
 import {
     SchemaConditionalComponent,
@@ -24,10 +24,10 @@ import type { JSONSchema } from '../types';
   standalone: true,
   imports: [
     CommonModule,
-    SchemaConditionalComponent,
-    SchemaCompositionComponent,
-    CreateTypesComponent,
-    CreateValidOrInvalidComponent
+    forwardRef(() => SchemaConditionalComponent),
+    forwardRef(() => SchemaCompositionComponent),
+    forwardRef(() => CreateTypesComponent),
+    forwardRef(() => CreateValidOrInvalidComponent)
   ],
   template: `
     <ng-container *ngIf="isBooleanSchema">

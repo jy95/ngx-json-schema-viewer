@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 
 import {
     CreateArrayComponent,
@@ -22,13 +22,13 @@ import type {
   standalone: true,
   imports: [
     CommonModule,
-    CreateArrayComponent,
-    CreateObjectComponent,
-    CreateStringComponent,
-    CreateBooleanComponent,
-    CreateNumberComponent,
-    CreateIntegerComponent,
-    CreateNullComponent
+    forwardRef(() => CreateArrayComponent),
+    forwardRef(() => CreateObjectComponent),
+    forwardRef(() => CreateStringComponent),
+    forwardRef(() => CreateBooleanComponent),
+    forwardRef(() => CreateNumberComponent),
+    forwardRef(() => CreateIntegerComponent),
+    forwardRef(() => CreateNullComponent)
   ],
   template: `
     <ng-container [ngSwitch]="type">

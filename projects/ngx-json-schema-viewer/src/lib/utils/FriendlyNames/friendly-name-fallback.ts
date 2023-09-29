@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -29,7 +29,7 @@ type LinkType = "AND" | "OR" | "XOR";
       AndLabelComponent,
       XorLabelComponent,
       OrLabelComponent,
-      GenerateFriendlyNameComponent,
+      forwardRef(() => GenerateFriendlyNameComponent),
       TypeLabelSwitchComponent
     ],
     template: `

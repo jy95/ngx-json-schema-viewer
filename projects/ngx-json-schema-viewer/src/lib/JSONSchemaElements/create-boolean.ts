@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -20,7 +20,13 @@ import type { JSONSchemaNS } from '../types';
 @Component({
   selector: 'jse-boolean',
   standalone: true,
-  imports: [TypeLabelComponent, BooleanLabelComponent,CreateDescriptionComponent,CommonModule,QualifierMessages],
+  imports: [
+    TypeLabelComponent, 
+    BooleanLabelComponent,
+    forwardRef(() => CreateDescriptionComponent),
+    CommonModule,
+    QualifierMessages
+  ],
   template: `
     <div>
       <labels-type></labels-type>
