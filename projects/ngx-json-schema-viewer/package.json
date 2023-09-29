@@ -11,6 +11,9 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
+  "scripts": {
+    "packagr": "ng-packagr -p ng-package.json"
+  },
   "devDependencies": {
     "json-schema-typed": "^8.0.1"
   },
