@@ -50,7 +50,7 @@ import type {
   `,
 })
 export class CreateTypesComponent {
-  @Input() schema!: Exclude<JSONSchema, true | false>;
+  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
   get foundTypes(): TypeValues[] {
     return detectedTypes(this.schema);

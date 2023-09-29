@@ -24,7 +24,7 @@ import type { JSONSchemaNS } from "../../types";
   `,
 })
 export class CreatePatternPropertiesComponent {
-  @Input() schema!: JSONSchemaNS.Object;
+  @Input({ required: true }) schema!: JSONSchemaNS.Object;
 
   get patternPropertiesEntries() {
     return Object.entries(this.schema.patternProperties || {});

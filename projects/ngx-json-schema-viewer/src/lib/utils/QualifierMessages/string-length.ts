@@ -23,7 +23,7 @@ import type { JSONSchema } from '../../types';
   `,
 })
 export class StringLengthComponent {
-  @Input() schema!: Exclude<JSONSchema, true | false>;
+  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
   lengthLabel = 'Length :';
 

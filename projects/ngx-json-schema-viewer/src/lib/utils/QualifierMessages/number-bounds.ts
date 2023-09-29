@@ -31,7 +31,7 @@ import type { JSONSchema } from '../../types';
   `,
 })
 export class NumberBoundsComponent {
-  @Input() schema!: Exclude<JSONSchema, true | false>;
+  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
   boundsLabel = 'Possible values :';
 

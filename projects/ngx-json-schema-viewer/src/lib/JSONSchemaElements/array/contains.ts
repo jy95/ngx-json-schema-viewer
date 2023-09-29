@@ -24,7 +24,7 @@ import type { JSONSchemaNS } from '../../types';
   `,
 })
 export class CreateContainsComponent {
-  @Input() schema!: JSONSchemaNS.Array;
+  @Input({ required: true }) schema!: JSONSchemaNS.Array;
 
   get item() {
     return this.schema.contains;

@@ -16,6 +16,6 @@ import type { JSONSchema } from '../../types';
   `,
 })
 export class ContentMediaTypeComponent {
-  @Input() schema!: Exclude<JSONSchema, true | false>;
+  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
 }

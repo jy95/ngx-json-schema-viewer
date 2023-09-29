@@ -17,7 +17,7 @@ import type { JSONSchema } from "../../types";
   `,
 })
 export class NotSchemaComponent {
-  @Input() schema!: Exclude<JSONSchema, true | false>;
+  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
   get typedSchema(): JSONSchema {
     return this.schema.not!;

@@ -31,7 +31,7 @@ type typedJSONArraySchema = JSONSchemaNS.Array;
   `
 })
 export class ArrayNumberOfItemsComponent {
-  @Input() schema!: Exclude<JSONSchema, true | false>;
+  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
   get typedSchema(): typedJSONArraySchema {
     return this.schema as typedJSONArraySchema;

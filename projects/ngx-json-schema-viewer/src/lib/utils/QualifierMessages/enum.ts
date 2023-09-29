@@ -16,7 +16,7 @@ import type { JSONSchema } from '../../types';
   `,
 })
 export class EnumComponent {
-  @Input() schema!: Exclude<JSONSchema, true | false>;
+  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
   enumLabel = 'Possible values :';
 }

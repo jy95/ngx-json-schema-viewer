@@ -36,7 +36,7 @@ import type {
   `
 })
 export class RenderMultipleTypesComponent {
-  @Input() schema!: Exclude<JSONSchema, true | false>;
+  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
   @Input() nullable?: boolean;
-  @Input() types!: TypeValues[];
+  @Input({ required: true }) types!: TypeValues[];
 }

@@ -66,8 +66,8 @@ import type { JSONSchema, JSONSchema_Draft_2019_09 } from '../types';
   styleUrls: ['./create-edge.component.css']
 })
 export class CreateEdgeComponent {
-  @Input() schema!: JSONSchema;
-  @Input() required!: boolean;
+  @Input({ required: true }) schema!: JSONSchema;
+  @Input({ required: true }) required!: boolean;
 
   get typedSchema(): JSONSchema_Draft_2019_09 {
     return this.schema as JSONSchema_Draft_2019_09;

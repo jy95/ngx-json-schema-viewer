@@ -22,7 +22,7 @@ import type { JSONSchema } from "../../types";
   `,
 })
 export class DependenciesComponent {
-  @Input() schema!: Exclude<JSONSchema, true | false>;
+  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
   get hasDependentRequired(): boolean {
     return (

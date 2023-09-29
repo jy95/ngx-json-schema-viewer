@@ -89,7 +89,7 @@ import type { JSVOptions, CheckKey } from '../services/jsv-options';
     `
 })
 export class QualifierMessages {
-    @Input() schema!: Exclude<JSONSchema, true | false>;
+    @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
     constructor(private jsvOptionsService: JSVOptionsService) {}
 

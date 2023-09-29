@@ -24,7 +24,7 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
   `,
 })
 export class PropertyNamesComponent {
-  @Input() schema!: JSONSchemaNS.Object;
+  @Input({ required: true }) schema!: JSONSchemaNS.Object;
 
   isPropertyNamesValid(): boolean {
     const propertyNames = this.schema.propertyNames;

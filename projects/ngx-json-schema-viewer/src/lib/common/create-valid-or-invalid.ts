@@ -22,5 +22,5 @@ import type { JSONSchema } from '../types';
   `,
 })
 export class CreateValidOrInvalidComponent {
-  @Input() schema!: JSONSchema;
+  @Input({ required: true }) schema!: JSONSchema;
 }

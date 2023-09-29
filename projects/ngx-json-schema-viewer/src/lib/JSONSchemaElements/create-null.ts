@@ -36,6 +36,6 @@ import type { JSONSchemaNS } from '../types';
   `,
 })
 export class CreateNullComponent {
-  @Input() schema!: JSONSchemaNS.Null;
+  @Input({ required: true }) schema!: JSONSchemaNS.Null;
   @Input() description?: string;
 }

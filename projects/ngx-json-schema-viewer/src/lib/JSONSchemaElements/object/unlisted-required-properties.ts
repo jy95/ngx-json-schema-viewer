@@ -1,26 +1,33 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
+import {
+  CreateEdgeComponent
+} from "../../common/index";
+
 import type { JSONSchemaNS } from "../../types";
 
 @Component({
   selector: 'jse-object-unlisted-properties',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CreateEdgeComponent],
   template: `
     <ul>
       <li *ngFor="let prop of unlistedProperties">
-        <app-create-edge
-          [name]="generatePropertyName(prop)"
-          [schema]="true"
-          [required]="true"
-        ></app-create-edge>
+        <jse-common-create-edge
+          [schema]="true"]
+          [required]="true"]
+        >
+          <strong name>
+            {{ generatePropertyName(prop) }}
+          </strong>
+        </jse-common-create-edge>
       </li>
     </ul>
   `,
 })
 export class CreateUnlistedPropertiesComponent {
-  @Input() schema!: JSONSchemaNS.Object;
+  @Input({ required: true }) schema!: JSONSchemaNS.Object;
 
   get unlistedProperties() {
     const required: string[] = (this.schema.required || []) as string[];
@@ -29,6 +36,6 @@ export class CreateUnlistedPropertiesComponent {
   }
 
   generatePropertyName(prop: string): string {
-    return `<strong>${prop}</strong>`;
+    return `${prop}`;
   }
 }

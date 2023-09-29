@@ -64,7 +64,7 @@ type LinkType = "AND" | "OR" | "XOR";
     `
 })
 export class GenerateFriendlyNameFallbackComponent {
-    @Input() schema!: Exclude<JSONSchema, true | false>
+    @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>
 
     // has a "...Of" keyword ?
     hasOfKeyword : boolean = this.schema.allOf !== undefined || this.schema.anyOf !== undefined || this.schema.oneOf !== undefined;

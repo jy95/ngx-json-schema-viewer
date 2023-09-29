@@ -32,7 +32,7 @@ import type { JSONSchema, JSONSchemaNS, TypeValues } from "../../types";
     `
 })
 export class GenerateFriendlyNameCustomComponent {
-    @Input() schema!: Exclude<JSONSchema, true | false>;
+    @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
     @Input() type!: TypeValues | string;
 
     get asTypedArray() {

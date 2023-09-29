@@ -36,6 +36,6 @@ import type { JSONSchemaNS } from '../types';
   `,
 })
 export class CreateBooleanComponent {
-  @Input() schema!: JSONSchemaNS.Boolean;
+  @Input({ required: true }) schema!: JSONSchemaNS.Boolean;
   @Input() description?: string;
 }

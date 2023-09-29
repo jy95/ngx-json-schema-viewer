@@ -56,6 +56,6 @@ import type { JSONSchemaNS } from "../../types";
   `,
 })
 export class CreateObjectComponent {
-  @Input() schema!: JSONSchemaNS.Object;
+  @Input({ required: true }) schema!: JSONSchemaNS.Object;
   @Input() description?: string;
 }

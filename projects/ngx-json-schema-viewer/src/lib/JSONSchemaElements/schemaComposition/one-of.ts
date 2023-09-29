@@ -26,7 +26,7 @@ import type { JSONSchema } from "../../types";
   `,
 })
 export class OneOfSchemaComponent {
-  @Input() schema!: Exclude<JSONSchema, true | false>;
+  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
   get typedSchema(): JSONSchema[] {
     return this.schema.oneOf! as JSONSchema[];

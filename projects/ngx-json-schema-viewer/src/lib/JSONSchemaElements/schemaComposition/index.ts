@@ -43,5 +43,5 @@ import type {
   `,
 })
 export class SchemaCompositionComponent {
-  @Input() schema!: Exclude<JSONSchema, true | false>;
+  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 }

@@ -53,6 +53,6 @@ import type { JSONSchemaNS } from "../../types";
   `,
 })
 export class CreateArrayComponent {
-  @Input() schema!: JSONSchemaNS.Array;
+  @Input({ required: true }) schema!: JSONSchemaNS.Array;
   @Input() description?: string;
 }

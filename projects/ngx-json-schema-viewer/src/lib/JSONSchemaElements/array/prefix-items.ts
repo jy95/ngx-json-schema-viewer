@@ -24,7 +24,7 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
   `,
 })
 export class CreatePrefixItemsComponent {
-  @Input() schema!: JSONSchemaNS.Array;
+  @Input({ required: true }) schema!: JSONSchemaNS.Array;
 
   array: JSONSchema[] = [];
 

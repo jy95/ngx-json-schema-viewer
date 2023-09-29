@@ -48,7 +48,7 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
   `,
 })
 export class SchemaConditionalComponent {
-  @Input() schema!: Exclude<JSONSchema, true | false>;
+  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
   get isIfThenElse(): boolean {
     return this.schema.if !== undefined;

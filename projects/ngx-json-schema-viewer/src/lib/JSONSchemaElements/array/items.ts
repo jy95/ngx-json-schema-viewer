@@ -24,7 +24,7 @@ import type { JSONSchemaNS } from "../../types";
   `,
 })
 export class CreateItemsComponent {
-  @Input() schema!: JSONSchemaNS.Array;
+  @Input({ required: true }) schema!: JSONSchemaNS.Array;
 
   itemsAsArray: any[] = [];
   startingIndex: number = 0;

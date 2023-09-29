@@ -24,7 +24,7 @@ import type { JSONSchemaNS } from "../../types";
   `,
 })
 export class CreateUnevaluatedPropertiesComponent {
-  @Input() schema!: JSONSchemaNS.Object;
+  @Input({ required: true }) schema!: JSONSchemaNS.Object;
 
   get unevaluatedProperties() {
     return this.schema.unevaluatedProperties;

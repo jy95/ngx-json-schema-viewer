@@ -18,7 +18,7 @@ import type { JSONSchemaNS } from "../../types"
   `,
 })
 export class ContentSchemaComponent {
-  @Input() schema!: JSONSchemaNS.String;
+  @Input({ required: true }) schema!: JSONSchemaNS.String;
 
   // Translated Label
   contentSchemaLabel = 'Decoded content must be validated against this schema :';

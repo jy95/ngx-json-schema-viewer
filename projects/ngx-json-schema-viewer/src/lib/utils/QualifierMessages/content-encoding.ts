@@ -17,5 +17,5 @@ import { PrintSchemaTypeComponent } from './print-schema-type';
   `,
 })
 export class ContentEncodingComponent {
-  @Input() schema!: Exclude<JSONSchema, true | false>;
+  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 }

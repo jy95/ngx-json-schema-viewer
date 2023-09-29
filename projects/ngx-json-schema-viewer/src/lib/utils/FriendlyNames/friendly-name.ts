@@ -61,7 +61,7 @@ import type { JSONSchema, TypeValues } from "../../types";
   `,
 })
 export class GenerateFriendlyNameComponent {
-  @Input() schema!: JSONSchema;
+  @Input({ required: true }) schema!: JSONSchema;
 
   get foundTypes(): TypeValues[] {
     // Unknow types in this case

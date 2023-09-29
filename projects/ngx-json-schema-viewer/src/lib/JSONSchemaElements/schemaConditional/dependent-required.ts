@@ -16,7 +16,7 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
   `,
 })
 export class DependentRequiredComponent {
-  @Input() schema!: Exclude<JSONSchema, true | false>;
+  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
   get dependentRequired(): JSONSchemaNS.Object {
     return this.schema as JSONSchemaNS.Object;

@@ -91,7 +91,7 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
     `
 })
 export class GenerateFriendlyNameCustomArrayComponent {
-    @Input() schema!: JSONSchemaNS.Array;
+    @Input({ required: true }) schema!: JSONSchemaNS.Array;
 
     // For separators
     firstSeparator : boolean = this.isPrefixItemsArray && this.hasItems;

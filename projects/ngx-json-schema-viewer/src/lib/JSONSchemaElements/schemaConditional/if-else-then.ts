@@ -43,7 +43,7 @@ import type { JSONSchema } from "../../types";
   `,
 })
 export class IfElseThenComponent {
-  @Input() schema!: Exclude<JSONSchema, true | false>;
+  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
   get hasThen(): boolean {
     return this.schema.then !== undefined;

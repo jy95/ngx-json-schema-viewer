@@ -27,7 +27,7 @@ import type { JSONSchema } from '../../types';
   `,
 })
 export class ObjectPropertiesComponent {
-  @Input() schema!: Exclude<JSONSchema, true | false>;
+  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
   lengthLabel = 'Length :';
 
   minAndMax: boolean = false;

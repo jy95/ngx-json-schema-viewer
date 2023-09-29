@@ -53,7 +53,7 @@ import type { JSONSchema } from '../types';
   `,
 })
 export class CreateNodesComponent {
-  @Input() schema!: JSONSchema;
+  @Input({ required: true }) schema!: JSONSchema;
 
   // Define a method to check if the schema is a boolean
   get isBooleanSchema(): boolean {

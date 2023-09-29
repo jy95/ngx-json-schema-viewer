@@ -24,7 +24,7 @@ import type { JSONSchemaNS } from "../../types";
   `,
 })
 export class CreatePropertiesComponent {
-  @Input() schema!: JSONSchemaNS.Object;
+  @Input({ required: true }) schema!: JSONSchemaNS.Object;
 
   get propertiesEntries() {
     return Object.entries(this.schema.properties || {});

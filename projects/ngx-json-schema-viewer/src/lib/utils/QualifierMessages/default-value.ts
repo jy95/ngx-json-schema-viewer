@@ -16,7 +16,7 @@ import type { JSONSchema } from '../../types';
   `,
 })
 export class DefaultValueComponent {
-  @Input() schema!: Exclude<JSONSchema, true | false>;
+  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
   defaultLabel = 'Default value :';
 }

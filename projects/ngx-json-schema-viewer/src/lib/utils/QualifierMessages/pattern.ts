@@ -14,6 +14,6 @@ import type { JSONSchema } from '../../types';
     `,
   })
   export class PatternComponent {
-    @Input() schema!: Exclude<JSONSchema, true | false>;
+    @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
     patternLabel = 'Pattern :';
   }
