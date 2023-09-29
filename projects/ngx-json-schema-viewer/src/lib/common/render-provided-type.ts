@@ -73,8 +73,11 @@ import type {
 export class RenderProvidedTypeComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
   @Input({ required: true }) type!: TypeValues;
-  @Input({ required: true }) description!: string;
   @Input() nullable?: boolean;
+
+  get description(): string | undefined {
+    return this.schema.description;
+  }
 
   get asTypedArray() : JSONSchemaNS.Array {
     return this.schema as JSONSchemaNS.Array;
