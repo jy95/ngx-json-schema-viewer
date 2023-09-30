@@ -5,7 +5,8 @@ import docJson from "../documentation.json";
 setCompodocJson(docJson);
 
 // https://storybook.js.org/docs/angular/configure/styling-and-css#importing-css-files
-import "../src/styles/global.scss"
+// For some reason, it doesn't work with my version of Angular
+// import "../src/styles/global.scss"
 
 const preview: Preview = {
   parameters: {
