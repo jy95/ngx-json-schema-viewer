@@ -4681,7 +4681,7 @@
         },
         {
             "name": "NgxJsonSchemaViewerComponent",
-            "id": "component-NgxJsonSchemaViewerComponent-24b8686bdc0eaa574359f755ad60376c58b07988177a8c719ce17d4223e7bf9a54ee5ef5600125b70475cc3817dcedcddecd69edd8e887297e48a4dc175ceed3",
+            "id": "component-NgxJsonSchemaViewerComponent-8740ca0c74eef3ace03c4df388c3f88c15aad72fb7dd655b095042f014ead3131e74770939354ae0dcd61ed46d4ce0cb3124726f9070064f1a9d086ed8e792ed",
             "file": "projects/ngx-json-schema-viewer/src/lib/ngx-json-schema-viewer.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -4691,7 +4691,7 @@
             "selector": "ngx-json-schema-viewer",
             "styleUrls": [],
             "styles": [],
-            "template": "<!-- Error ... -->\n<div *ngIf=\"error !== undefined\">\n  <labels-error-occurred [error]=\"error!\"/>\n</div>\n<!-- Loading ... -->\n<div *ngIf=\"resolvedSchema === undefined && error === undefined\">\n  <labels-loading />\n</div>\n\n<!-- Schema -->\n<div *ngIf=\"resolvedSchema !== undefined\">\n  <mat-accordion>\n    <mat-expansion-panel-header>\n      <mat-panel-title>\n        <strong>\n          {{ getSchemaTitle }}\n        </strong>\n      </mat-panel-title>\n    </mat-expansion-panel-header>\n    <jse-common-create-nodes [schema]=\"resolvedSchema\" />\n  </mat-accordion>\n</div>\n",
+            "template": "<!-- Error ... -->\n<div *ngIf=\"error !== undefined\">\n  <labels-error-occurred [error]=\"error!\"/>\n</div>\n<!-- Loading ... -->\n<div *ngIf=\"resolvedSchema === undefined && error === undefined\">\n  <labels-loading />\n</div>\n\n<!-- Schema -->\n<div *ngIf=\"resolvedSchema !== undefined\">\n  <mat-accordion>\n    <<mat-expansion-panel>\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>\n            {{ getSchemaTitle }}\n          </strong>\n        </mat-panel-title>\n      </mat-expansion-panel-header>\n      <jse-common-create-nodes [schema]=\"resolvedSchema\" />\n    </mat-expansion-panel>\n  </mat-accordion>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -4700,7 +4700,7 @@
                     "name": "resolverOptions",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 64,
+                    "line": 66,
                     "type": "IResolveOpts",
                     "decorators": []
                 },
@@ -4710,7 +4710,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 63,
+                    "line": 65,
                     "type": "",
                     "decorators": []
                 }
@@ -4724,7 +4724,7 @@
                     "type": "Error | undefined",
                     "optional": false,
                     "description": "",
-                    "line": 66
+                    "line": 68
                 },
                 {
                     "name": "resolvedSchema",
@@ -4734,7 +4734,7 @@
                     "type": "JSONSchema",
                     "optional": false,
                     "description": "",
-                    "line": 65
+                    "line": 67
                 }
             ],
             "methodsClass": [
@@ -4744,7 +4744,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 72,
+                    "line": 74,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4754,7 +4754,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 77,
+                    "line": 79,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -4792,7 +4792,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input } from '@angular/core';\r\nimport { throwError } from 'rxjs';\r\nimport { catchError } from 'rxjs/operators';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\n\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\n\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  template: `\r\n    <!-- Error ... -->\r\n    <div *ngIf=\"error !== undefined\">\r\n      <labels-error-occurred [error]=\"error!\"/>\r\n    </div>\r\n    <!-- Loading ... -->\r\n    <div *ngIf=\"resolvedSchema === undefined && error === undefined\">\r\n      <labels-loading />\r\n    </div>\r\n\r\n    <!-- Schema -->\r\n    <div *ngIf=\"resolvedSchema !== undefined\">\r\n      <mat-accordion>\r\n        <mat-expansion-panel-header>\r\n          <mat-panel-title>\r\n            <strong>\r\n              {{ getSchemaTitle }}\r\n            </strong>\r\n          </mat-panel-title>\r\n        </mat-expansion-panel-header>\r\n        <jse-common-create-nodes [schema]=\"resolvedSchema\" />\r\n      </mat-accordion>\r\n    </div>\r\n  `,\r\n  styles: [\r\n  ]\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  resolvedSchema: JSONSchema = false;\r\n  error: Error | undefined;\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService\r\n  ) {}\r\n\r\n  ngOnInit(): void {\r\n    // Perform the asynchronous schema resolution\r\n    this.resolveSchema();\r\n  }\r\n\r\n  private resolveSchema() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .pipe(\r\n        catchError((error) => {\r\n          this.error = error;\r\n          return throwError(error);\r\n        })\r\n      )\r\n      .subscribe((result) => {\r\n        this.resolvedSchema = result;\r\n      });\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    if (typeof this.resolvedSchema !== \"boolean\" && this.resolvedSchema.title !== undefined) {\r\n      return this.resolvedSchema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit, Input } from '@angular/core';\r\nimport { throwError } from 'rxjs';\r\nimport { catchError } from 'rxjs/operators';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\n\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\n\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  template: `\r\n    <!-- Error ... -->\r\n    <div *ngIf=\"error !== undefined\">\r\n      <labels-error-occurred [error]=\"error!\"/>\r\n    </div>\r\n    <!-- Loading ... -->\r\n    <div *ngIf=\"resolvedSchema === undefined && error === undefined\">\r\n      <labels-loading />\r\n    </div>\r\n\r\n    <!-- Schema -->\r\n    <div *ngIf=\"resolvedSchema !== undefined\">\r\n      <mat-accordion>\r\n        <<mat-expansion-panel>\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <jse-common-create-nodes [schema]=\"resolvedSchema\" />\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </div>\r\n  `,\r\n  styles: [\r\n  ]\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  resolvedSchema: JSONSchema = false;\r\n  error: Error | undefined;\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService\r\n  ) {}\r\n\r\n  ngOnInit(): void {\r\n    // Perform the asynchronous schema resolution\r\n    this.resolveSchema();\r\n  }\r\n\r\n  private resolveSchema() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .pipe(\r\n        catchError((error) => {\r\n          this.error = error;\r\n          return throwError(error);\r\n        })\r\n      )\r\n      .subscribe((result) => {\r\n        this.resolvedSchema = result;\r\n      });\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    if (typeof this.resolvedSchema !== \"boolean\" && this.resolvedSchema.title !== undefined) {\r\n      return this.resolvedSchema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -4809,7 +4809,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 66,
+                "line": 68,
                 "jsdoctags": [
                     {
                         "name": "schemaResolutionService",
@@ -4832,7 +4832,7 @@
                         "name": "getSchemaTitle",
                         "type": "string",
                         "returnType": "string",
-                        "line": 91
+                        "line": 93
                     }
                 }
             }

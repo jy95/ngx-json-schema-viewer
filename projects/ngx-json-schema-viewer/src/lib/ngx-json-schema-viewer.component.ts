@@ -45,14 +45,16 @@ import type { IResolveOpts } from "@stoplight/json-ref-resolver/types"
     <!-- Schema -->
     <div *ngIf="resolvedSchema !== undefined">
       <mat-accordion>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <strong>
-              {{ getSchemaTitle }}
-            </strong>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <jse-common-create-nodes [schema]="resolvedSchema" />
+        <<mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <strong>
+                {{ getSchemaTitle }}
+              </strong>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <jse-common-create-nodes [schema]="resolvedSchema" />
+        </mat-expansion-panel>
       </mat-accordion>
     </div>
   `,
