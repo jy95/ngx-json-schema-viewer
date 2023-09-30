@@ -1,27 +1,78 @@
-# JsonSchemaViewer
+<h1 align="center">ngx-json-schema-viewer</h1>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.3.
+<div align="center">
+<img width="200" src="https://json-schema.org/assets/logo.svg" />
+</div>
 
-## Development server
+<div align="center">
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+JSON Schema viewer in Angular
 
-## Code scaffolding
+<img src="https://img.shields.io/badge/dynamic/json?style=for-the-badge&logo=meta&color=blueviolet&label=Angular&query=peerDependencies%5B%22%40angular%2Fcore%22%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2Fjy95%2Fngx-json-schema-viewer%2Fmaster%2Fprojects%2Fngx-json-schema-viewer%2Fpackage.json" />
+<br/><br/>
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://github.com/jy95/ngx-json-schema-viewer/blob/main/LICENSE) [![npm latest package](https://img.shields.io/npm/v/ngx-json-schema-viewer/latest.svg)] [![npm downloads](https://img.shields.io/npm/dm/ngx-json-schema-viewer.svg)] [![Codacy Badge](https://app.codacy.com/project/badge/Grade/43d9fa27054841f5a884afc88188ef01)](https://app.codacy.com/gh/jy95/ngx-json-schema-viewer/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/jy95/ngx-json-schema-viewer/blob/main/CONTRIBUTING.md) [![prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) <a href="https://www.buymeacoffee.com/GPFR" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="41" width="174" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;" ></a>
+<br />
 
-## Build
+</div>
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+---
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Overview
 
-## Running end-to-end tests
+Key Features:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **Compatible:** Works with JSON Schema Draft-07 / Draft 2019-09 / Draft 2020-12
+- **Human-friendly** Make exploration of specs a delightful experience
 
-## Further help
+Storybook : https://65174c82cd070b9998efd7f6-xtavqrcxat.chromatic.com/
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Installation
+
+```bash
+npm install ngx-json-schema-viewer
+```
+
+## Usage
+
+```ts
+import { NgxJsonSchemaViewerComponent } from "ngx-json-schema-viewer";
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [NgxJsonSchemaViewerComponent],
+  template: `
+    <div>
+      <ngx-json-schema-viewer [schema]="jsonSchema"></ngx-json-schema-viewer>
+    </div>
+  `
+})
+export class AppComponent {
+  // Your JSON Schema here
+  jsonSchema = {
+    "type": "array",
+    "items": [
+        {
+            "type": "integer"
+        },
+        {
+            "type": "string"
+        }
+    ],
+    "additionalItems": false
+  };
+}
+```
+
+## Credits
+
+Special thanks to [docusaurus-json-schema-plugin](https://github.com/jy95/docusaurus-json-schema-plugin), which this project ported it to the Angular world.
+
+## Contributors
+
+<a href="https://github.com/jy95/ngx-json-schema-viewer/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=jy95/ngx-json-schema-viewer" />
+</a>
