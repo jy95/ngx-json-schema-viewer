@@ -4,6 +4,9 @@ import { componentWrapperDecorator } from '@storybook/angular';
 import docJson from "../documentation.json";
 setCompodocJson(docJson);
 
+// https://storybook.js.org/docs/angular/configure/styling-and-css#importing-css-files
+import "../src/styles/global.scss"
+
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },

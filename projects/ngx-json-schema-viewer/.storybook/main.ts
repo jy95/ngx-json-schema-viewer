@@ -6,6 +6,29 @@ const config: StorybookConfig = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
+    {
+      name: '@storybook/addon-styling-webpack',
+      options: {
+        rules: [
+            {
+                test: /\.scss$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            implementation: require.resolve('sass'),
+                            sassOptions: {
+                                includePaths: ['node_modules'],
+                            },
+                        },
+                    },
+                ],
+            },
+        ],
+      },
+    }
   ],
   framework: {
     name: "@storybook/angular",
@@ -13,6 +36,6 @@ const config: StorybookConfig = {
   },
   docs: {
     autodocs: "tag",
-  },
+  }
 };
 export default config;
