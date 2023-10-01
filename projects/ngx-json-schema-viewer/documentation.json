@@ -6880,7 +6880,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n    args: {\r\n        schema: {\r\n            \"type\": \"array\",\r\n            \"items\": [\r\n              {\r\n                \"type\": \"integer\"\r\n              },\r\n              {\r\n                \"type\": \"string\"\r\n              }\r\n            ],\r\n            \"additionalItems\": false\r\n        }\r\n    }\r\n}"
+                "defaultValue": "{\r\n    render: (args) => ({\r\n      props: args,\r\n      template: `\r\n        <ngx-json-schema-viewer></ngx-json-schema-viewer>\r\n      `\r\n    }),\r\n    args: {\r\n        schema: {\r\n            \"type\": \"array\",\r\n            \"items\": [\r\n              {\r\n                \"type\": \"integer\"\r\n              },\r\n              {\r\n                \"type\": \"string\"\r\n              }\r\n            ],\r\n            \"additionalItems\": false\r\n        }\r\n    }\r\n}"
             },
             {
                 "name": "isArrayType",
@@ -6980,7 +6980,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<NgxJsonSchemaViewerComponent>",
-                "defaultValue": "{\r\n    component: NgxJsonSchemaViewerComponent\r\n}"
+                "defaultValue": "{\r\n    //component: NgxJsonSchemaViewerComponent,\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [\r\n          BrowserAnimationsModule,\r\n          NgxJsonSchemaViewerComponent\r\n        ]\r\n      })\r\n    ]\r\n}"
             },
             {
                 "name": "preview",
@@ -7187,7 +7187,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n    args: {\r\n        schema: {\r\n            \"type\": \"array\",\r\n            \"items\": [\r\n              {\r\n                \"type\": \"integer\"\r\n              },\r\n              {\r\n                \"type\": \"string\"\r\n              }\r\n            ],\r\n            \"additionalItems\": false\r\n        }\r\n    }\r\n}"
+                    "defaultValue": "{\r\n    render: (args) => ({\r\n      props: args,\r\n      template: `\r\n        <ngx-json-schema-viewer></ngx-json-schema-viewer>\r\n      `\r\n    }),\r\n    args: {\r\n        schema: {\r\n            \"type\": \"array\",\r\n            \"items\": [\r\n              {\r\n                \"type\": \"integer\"\r\n              },\r\n              {\r\n                \"type\": \"string\"\r\n              }\r\n            ],\r\n            \"additionalItems\": false\r\n        }\r\n    }\r\n}"
                 },
                 {
                     "name": "meta",
@@ -7197,7 +7197,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<NgxJsonSchemaViewerComponent>",
-                    "defaultValue": "{\r\n    component: NgxJsonSchemaViewerComponent\r\n}"
+                    "defaultValue": "{\r\n    //component: NgxJsonSchemaViewerComponent,\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [\r\n          BrowserAnimationsModule,\r\n          NgxJsonSchemaViewerComponent\r\n        ]\r\n      })\r\n    ]\r\n}"
                 }
             ],
             "projects/ngx-json-schema-viewer/src/lib/utils/detectTypes.ts": [
