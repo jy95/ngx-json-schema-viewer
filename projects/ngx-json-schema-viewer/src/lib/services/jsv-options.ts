@@ -28,72 +28,59 @@ export type JSVOptions = {
      * Should we display "examples" ?
      * @default false
      */
-    showExamples?: boolean
+    showExamples: boolean
     /**
      * To overwrite the order to display qualifier messages
      * @default ["nullable","deprecated","readOnly","writeOnly","enum","stringLength","objectProperties","no-extra-properties","arrayItems","arrayContains","no-extra-items","number-range","pattern","multipleOf","uniqueItems","contentEncoding","contentMediaType","contentSchema","default","const","examples"]
      */
-    qualifierMessagesOrder?: CheckKey[]
+    qualifierMessagesOrder: CheckKey[]
 }
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: "root"
 })
 export class JSVOptionsService {
-    private options: JSVOptions = {
-        showExamples: false,
-        qualifierMessagesOrder: [
-            "nullable",
-            "deprecated",
-            "readOnly",
-            "writeOnly",
-            "enum",
-            "stringLength",
-            "objectProperties",
-            "no-extra-properties",
-            "arrayItems",
-            "arrayContains",
-            "no-extra-items",
-            "number-range",
-            "pattern",
-            "multipleOf",
-            "uniqueItems",
-            "contentEncoding",
-            "contentMediaType",
-            "contentSchema",
-            "default",
-            "const",
-            "examples"
-        ]
+
+    private options: JSVOptions;
+
+    constructor() {
+        this.options = {
+            showExamples: false,
+            qualifierMessagesOrder: [
+                "nullable",
+                "deprecated",
+                "readOnly",
+                "writeOnly",
+                "enum",
+                "stringLength",
+                "objectProperties",
+                "no-extra-properties",
+                "arrayItems",
+                "arrayContains",
+                "no-extra-items",
+                "number-range",
+                "pattern",
+                "multipleOf",
+                "uniqueItems",
+                "contentEncoding",
+                "contentMediaType",
+                "contentSchema",
+                "default",
+                "const",
+                "examples"
+            ]
+        }
+    }
+
+    setOptions(userOptions?: Partial<JSVOptions>) {
+        this.options = {
+            ...this.options,
+            ...userOptions
+        }
     }
 
     getOptions(): JSVOptions {
         return this.options;
     }
 
-    getDefaultQualifierMessageOrder(): CheckKey[] {
-        return [
-            "nullable",
-            "deprecated",
-            "readOnly",
-            "writeOnly",
-            "enum",
-            "stringLength",
-            "objectProperties",
-            "no-extra-properties",
-            "arrayItems",
-            "arrayContains",
-            "no-extra-items",
-            "number-range",
-            "pattern",
-            "multipleOf",
-            "uniqueItems",
-            "contentEncoding",
-            "contentMediaType",
-            "contentSchema",
-            "default",
-            "const",
-            "examples"
-        ]
-    }
 }

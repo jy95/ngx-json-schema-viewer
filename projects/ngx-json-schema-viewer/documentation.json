@@ -1,34 +1,20 @@
 {
     "pipes": [],
-    "interfaces": [
-        {
-            "name": "User",
-            "id": "interface-User-dcc5c3137cd472dd0002d85b562efd23162e3eff53ca4438a6251e6c46e3b8299076255380d1d42f386510cb6f2cbaab49fa5b5f253be459cdc3869428c5c400",
-            "file": "projects/ngx-json-schema-viewer/src/stories/User.ts",
-            "deprecated": false,
-            "deprecationMessage": "",
-            "type": "interface",
-            "sourceCode": "export interface User {}\r\n",
-            "properties": [],
-            "indexSignatures": [],
-            "methods": []
-        }
-    ],
+    "interfaces": [],
     "injectables": [
         {
             "name": "JSVOptionsService",
-            "id": "injectable-JSVOptionsService-15d644cfded02164ff8ab12243af95c44fb97ad7eea366ce1099fcaac6085b4192eaf62fceee32d1f5324ffaac7cad0fda9fba2d6086caab21e3d3714f0a61db",
+            "id": "injectable-JSVOptionsService-64e9d6382bec6ea6a3fde1450bf67f5df65b416671aef23334a417bd4614a566f0f7b3f9d538d34450845fc3dbf9b1e1fdd3c2b3d2268b26a7136a7d6daa0f9d",
             "file": "projects/ngx-json-schema-viewer/src/lib/services/jsv-options.ts",
             "properties": [
                 {
                     "name": "options",
-                    "defaultValue": "{\r\n        showExamples: false,\r\n        qualifierMessagesOrder: [\r\n            \"nullable\",\r\n            \"deprecated\",\r\n            \"readOnly\",\r\n            \"writeOnly\",\r\n            \"enum\",\r\n            \"stringLength\",\r\n            \"objectProperties\",\r\n            \"no-extra-properties\",\r\n            \"arrayItems\",\r\n            \"arrayContains\",\r\n            \"no-extra-items\",\r\n            \"number-range\",\r\n            \"pattern\",\r\n            \"multipleOf\",\r\n            \"uniqueItems\",\r\n            \"contentEncoding\",\r\n            \"contentMediaType\",\r\n            \"contentSchema\",\r\n            \"default\",\r\n            \"const\",\r\n            \"examples\"\r\n        ]\r\n    }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "JSVOptions",
                     "optional": false,
                     "description": "",
-                    "line": 43,
+                    "line": 44,
                     "modifierKind": [
                         121
                     ]
@@ -36,31 +22,59 @@
             ],
             "methods": [
                 {
-                    "name": "getDefaultQualifierMessageOrder",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "CheckKey[]",
-                    "typeParameters": [],
-                    "line": 74,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                },
-                {
                     "name": "getOptions",
                     "args": [],
                     "optional": false,
                     "returnType": "JSVOptions",
                     "typeParameters": [],
-                    "line": 70,
+                    "line": 82,
                     "deprecated": false,
                     "deprecationMessage": ""
+                },
+                {
+                    "name": "setOptions",
+                    "args": [
+                        {
+                            "name": "userOptions",
+                            "type": "Partial<JSVOptions>",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "optional": true
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 75,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "userOptions",
+                            "type": "Partial<JSVOptions>",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "optional": true,
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
                 }
             ],
             "deprecated": false,
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\r\n\r\nexport type CheckKey =\r\n  | \"nullable\"\r\n  | \"deprecated\"\r\n  | \"readOnly\"\r\n  | \"writeOnly\"\r\n  | \"enum\"\r\n  | \"stringLength\"\r\n  | \"objectProperties\"\r\n  | \"no-extra-properties\"\r\n  | \"arrayItems\"\r\n  | \"arrayContains\"\r\n  | \"no-extra-items\"\r\n  | \"number-range\"\r\n  | \"pattern\"\r\n  | \"multipleOf\"\r\n  | \"uniqueItems\"\r\n  | \"default\"\r\n  | \"const\"\r\n  | \"examples\"\r\n  | \"contentMediaType\"\r\n  | \"contentEncoding\"\r\n  | \"contentSchema\"\r\n\r\nexport type JSVOptions = {\r\n    /**\r\n     * Should we display \"examples\" ?\r\n     * @default false\r\n     */\r\n    showExamples?: boolean\r\n    /**\r\n     * To overwrite the order to display qualifier messages\r\n     * @default [\"nullable\",\"deprecated\",\"readOnly\",\"writeOnly\",\"enum\",\"stringLength\",\"objectProperties\",\"no-extra-properties\",\"arrayItems\",\"arrayContains\",\"no-extra-items\",\"number-range\",\"pattern\",\"multipleOf\",\"uniqueItems\",\"contentEncoding\",\"contentMediaType\",\"contentSchema\",\"default\",\"const\",\"examples\"]\r\n     */\r\n    qualifierMessagesOrder?: CheckKey[]\r\n}\r\n\r\n@Injectable({\r\n    providedIn: 'root',\r\n})\r\nexport class JSVOptionsService {\r\n    private options: JSVOptions = {\r\n        showExamples: false,\r\n        qualifierMessagesOrder: [\r\n            \"nullable\",\r\n            \"deprecated\",\r\n            \"readOnly\",\r\n            \"writeOnly\",\r\n            \"enum\",\r\n            \"stringLength\",\r\n            \"objectProperties\",\r\n            \"no-extra-properties\",\r\n            \"arrayItems\",\r\n            \"arrayContains\",\r\n            \"no-extra-items\",\r\n            \"number-range\",\r\n            \"pattern\",\r\n            \"multipleOf\",\r\n            \"uniqueItems\",\r\n            \"contentEncoding\",\r\n            \"contentMediaType\",\r\n            \"contentSchema\",\r\n            \"default\",\r\n            \"const\",\r\n            \"examples\"\r\n        ]\r\n    }\r\n\r\n    getOptions(): JSVOptions {\r\n        return this.options;\r\n    }\r\n\r\n    getDefaultQualifierMessageOrder(): CheckKey[] {\r\n        return [\r\n            \"nullable\",\r\n            \"deprecated\",\r\n            \"readOnly\",\r\n            \"writeOnly\",\r\n            \"enum\",\r\n            \"stringLength\",\r\n            \"objectProperties\",\r\n            \"no-extra-properties\",\r\n            \"arrayItems\",\r\n            \"arrayContains\",\r\n            \"no-extra-items\",\r\n            \"number-range\",\r\n            \"pattern\",\r\n            \"multipleOf\",\r\n            \"uniqueItems\",\r\n            \"contentEncoding\",\r\n            \"contentMediaType\",\r\n            \"contentSchema\",\r\n            \"default\",\r\n            \"const\",\r\n            \"examples\"\r\n        ]\r\n    }\r\n}",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\n\r\nexport type CheckKey =\r\n  | \"nullable\"\r\n  | \"deprecated\"\r\n  | \"readOnly\"\r\n  | \"writeOnly\"\r\n  | \"enum\"\r\n  | \"stringLength\"\r\n  | \"objectProperties\"\r\n  | \"no-extra-properties\"\r\n  | \"arrayItems\"\r\n  | \"arrayContains\"\r\n  | \"no-extra-items\"\r\n  | \"number-range\"\r\n  | \"pattern\"\r\n  | \"multipleOf\"\r\n  | \"uniqueItems\"\r\n  | \"default\"\r\n  | \"const\"\r\n  | \"examples\"\r\n  | \"contentMediaType\"\r\n  | \"contentEncoding\"\r\n  | \"contentSchema\"\r\n\r\nexport type JSVOptions = {\r\n    /**\r\n     * Should we display \"examples\" ?\r\n     * @default false\r\n     */\r\n    showExamples: boolean\r\n    /**\r\n     * To overwrite the order to display qualifier messages\r\n     * @default [\"nullable\",\"deprecated\",\"readOnly\",\"writeOnly\",\"enum\",\"stringLength\",\"objectProperties\",\"no-extra-properties\",\"arrayItems\",\"arrayContains\",\"no-extra-items\",\"number-range\",\"pattern\",\"multipleOf\",\"uniqueItems\",\"contentEncoding\",\"contentMediaType\",\"contentSchema\",\"default\",\"const\",\"examples\"]\r\n     */\r\n    qualifierMessagesOrder: CheckKey[]\r\n}\r\n\r\n@Injectable({\r\n    providedIn: \"root\"\r\n})\r\nexport class JSVOptionsService {\r\n\r\n    private options: JSVOptions;\r\n\r\n    constructor() {\r\n        this.options = {\r\n            showExamples: false,\r\n            qualifierMessagesOrder: [\r\n                \"nullable\",\r\n                \"deprecated\",\r\n                \"readOnly\",\r\n                \"writeOnly\",\r\n                \"enum\",\r\n                \"stringLength\",\r\n                \"objectProperties\",\r\n                \"no-extra-properties\",\r\n                \"arrayItems\",\r\n                \"arrayContains\",\r\n                \"no-extra-items\",\r\n                \"number-range\",\r\n                \"pattern\",\r\n                \"multipleOf\",\r\n                \"uniqueItems\",\r\n                \"contentEncoding\",\r\n                \"contentMediaType\",\r\n                \"contentSchema\",\r\n                \"default\",\r\n                \"const\",\r\n                \"examples\"\r\n            ]\r\n        }\r\n    }\r\n\r\n    setOptions(userOptions?: Partial<JSVOptions>) {\r\n        this.options = {\r\n            ...this.options,\r\n            ...userOptions\r\n        }\r\n    }\r\n\r\n    getOptions(): JSVOptions {\r\n        return this.options;\r\n    }\r\n\r\n}",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 44
+            },
             "type": "injectable"
         },
         {
@@ -4681,13 +4695,18 @@
         },
         {
             "name": "NgxJsonSchemaViewerComponent",
-            "id": "component-NgxJsonSchemaViewerComponent-8740ca0c74eef3ace03c4df388c3f88c15aad72fb7dd655b095042f014ead3131e74770939354ae0dcd61ed46d4ce0cb3124726f9070064f1a9d086ed8e792ed",
+            "id": "component-NgxJsonSchemaViewerComponent-46def2f628ed75923765375852ae5d2a81dbff4c18356524c4a321e5ff1c7e9ea4ccde62d8a0a8dd912cc01879e9c7efe7bd076e6d00369b6358535d1f0bf580",
             "file": "projects/ngx-json-schema-viewer/src/lib/ngx-json-schema-viewer.component.ts",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
             "outputs": [],
-            "providers": [],
+            "providers": [
+                {
+                    "name": "JSVOptionsService",
+                    "type": "injectable"
+                }
+            ],
             "selector": "ngx-json-schema-viewer",
             "styleUrls": [],
             "styles": [],
@@ -4700,7 +4719,7 @@
                     "name": "resolverOptions",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 66,
+                    "line": 71,
                     "type": "IResolveOpts",
                     "decorators": []
                 },
@@ -4710,8 +4729,16 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 65,
+                    "line": 70,
                     "type": "",
+                    "decorators": []
+                },
+                {
+                    "name": "vierwerOptions",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 72,
+                    "type": "JSVOptions",
                     "decorators": []
                 }
             ],
@@ -4724,7 +4751,7 @@
                     "type": "Error | undefined",
                     "optional": false,
                     "description": "",
-                    "line": 68
+                    "line": 74
                 },
                 {
                     "name": "resolvedSchema",
@@ -4734,7 +4761,7 @@
                     "type": "JSONSchema",
                     "optional": false,
                     "description": "",
-                    "line": 67
+                    "line": 73
                 }
             ],
             "methodsClass": [
@@ -4744,7 +4771,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 74,
+                    "line": 86,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4754,7 +4781,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 79,
+                    "line": 91,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -4792,7 +4819,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input } from '@angular/core';\r\nimport { throwError } from 'rxjs';\r\nimport { catchError } from 'rxjs/operators';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\n\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\n\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  template: `\r\n    <!-- Error ... -->\r\n    <div *ngIf=\"error !== undefined\">\r\n      <labels-error-occurred [error]=\"error!\"/>\r\n    </div>\r\n    <!-- Loading ... -->\r\n    <div *ngIf=\"resolvedSchema === undefined && error === undefined\">\r\n      <labels-loading />\r\n    </div>\r\n\r\n    <!-- Schema -->\r\n    <div *ngIf=\"resolvedSchema !== undefined\">\r\n      <mat-accordion>\r\n        <<mat-expansion-panel>\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <jse-common-create-nodes [schema]=\"resolvedSchema\" />\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </div>\r\n  `,\r\n  styles: [\r\n  ]\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  resolvedSchema: JSONSchema = false;\r\n  error: Error | undefined;\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService\r\n  ) {}\r\n\r\n  ngOnInit(): void {\r\n    // Perform the asynchronous schema resolution\r\n    this.resolveSchema();\r\n  }\r\n\r\n  private resolveSchema() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .pipe(\r\n        catchError((error) => {\r\n          this.error = error;\r\n          return throwError(error);\r\n        })\r\n      )\r\n      .subscribe((result) => {\r\n        this.resolvedSchema = result;\r\n      });\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    if (typeof this.resolvedSchema !== \"boolean\" && this.resolvedSchema.title !== undefined) {\r\n      return this.resolvedSchema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit, Input } from '@angular/core';\r\nimport { throwError } from 'rxjs';\r\nimport { catchError } from 'rxjs/operators';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\nimport { JSVOptionsService } from \"./services/jsv-options\";\r\n\r\n// Labels\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// Types\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSVOptions } from \"./services/jsv-options\";\r\n\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  providers: [\r\n    JSVOptionsService\r\n  ],\r\n  template: `\r\n    <!-- Error ... -->\r\n    <div *ngIf=\"error !== undefined\">\r\n      <labels-error-occurred [error]=\"error!\"/>\r\n    </div>\r\n    <!-- Loading ... -->\r\n    <div *ngIf=\"resolvedSchema === undefined && error === undefined\">\r\n      <labels-loading />\r\n    </div>\r\n\r\n    <!-- Schema -->\r\n    <div *ngIf=\"resolvedSchema !== undefined\">\r\n      <mat-accordion>\r\n        <<mat-expansion-panel>\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <jse-common-create-nodes [schema]=\"resolvedSchema\" />\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </div>\r\n  `\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  @Input() vierwerOptions?: JSVOptions;\r\n  resolvedSchema: JSONSchema = false;\r\n  error: Error | undefined;\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService,\r\n    private jsvOptionsService: JSVOptionsService \r\n  ) {\r\n    // If asked, apply user options\r\n    if (this.vierwerOptions) {\r\n      this.jsvOptionsService.setOptions(this.vierwerOptions);\r\n    }\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    // Perform the asynchronous schema resolution\r\n    this.resolveSchema();\r\n  }\r\n\r\n  private resolveSchema() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .pipe(\r\n        catchError((error) => {\r\n          this.error = error;\r\n          return throwError(error);\r\n        })\r\n      )\r\n      .subscribe((result) => {\r\n        this.resolvedSchema = result;\r\n      });\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    if (typeof this.resolvedSchema !== \"boolean\" && this.resolvedSchema.title !== undefined) {\r\n      return this.resolvedSchema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -4807,13 +4834,28 @@
                         "type": "SchemaResolutionService",
                         "deprecated": false,
                         "deprecationMessage": ""
+                    },
+                    {
+                        "name": "jsvOptionsService",
+                        "type": "JSVOptionsService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
                 ],
-                "line": 68,
+                "line": 74,
                 "jsdoctags": [
                     {
                         "name": "schemaResolutionService",
                         "type": "SchemaResolutionService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "jsvOptionsService",
+                        "type": "JSVOptionsService",
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
@@ -4832,7 +4874,7 @@
                         "name": "getSchemaTitle",
                         "type": "string",
                         "returnType": "string",
-                        "line": 93
+                        "line": 105
                     }
                 }
             }
@@ -5693,7 +5735,7 @@
         },
         {
             "name": "QualifierMessages",
-            "id": "component-QualifierMessages-7391fb844022ad2a10f9cc066fe06ce41034cb5153a791675721697fc9720c387e323b26b692b4d8211dd29a23d7343497f76d32465c0f2c93b6da0072b75252",
+            "id": "component-QualifierMessages-4cc5b74fa99f59d50ba1c196f92360e337312656ca48ea88e75373b05f3a04b98bafedfc0435eb9d9a0b74a322136a9342fc7ced69bbb7510b9765bc2ea29476",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/qualifier-messages.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5820,7 +5862,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { JSVOptionsService } from '../services/jsv-options';\r\n\r\n// qualifier messages\r\nimport {\r\n    ConstantComponent,\r\n    ArrayContainsNumberComponent,\r\n    ArrayNumberOfItemsComponent,\r\n    ArrayUniqueItemsComponent,\r\n    ContentEncodingComponent,\r\n    ContentMediaTypeComponent,\r\n    ContentSchemaComponent,\r\n    DefaultValueComponent,\r\n    DeprecatedComponent,\r\n    EnumComponent,\r\n    ExamplesComponent,\r\n    MultipleOfComponent,\r\n    NoExtraItemsComponent,\r\n    NoExtraPropertiesComponent,\r\n    NullableComponent,\r\n    NumberBoundsComponent,\r\n    ObjectPropertiesComponent,\r\n    PatternComponent,\r\n    ReadOnlyComponent,\r\n    StringLengthComponent,\r\n    WriteOnlyComponent\r\n} from \"./QualifierMessages/index\";\r\n\r\n// Types\r\nimport type { JSONSchema, JSONSchemaNS } from '../types';\r\nimport type { JSVOptions, CheckKey } from '../services/jsv-options';\r\n\r\n@Component({\r\n    selector: 'qm-messages',\r\n    standalone: true,\r\n    imports: [\r\n        CommonModule,\r\n        ConstantComponent,\r\n        DefaultValueComponent,\r\n        EnumComponent,\r\n        ExamplesComponent,\r\n        ReadOnlyComponent,\r\n        WriteOnlyComponent,\r\n        ArrayUniqueItemsComponent,\r\n        DeprecatedComponent,\r\n        NullableComponent,\r\n        StringLengthComponent,\r\n        ObjectPropertiesComponent,\r\n        NoExtraPropertiesComponent,\r\n        ArrayNumberOfItemsComponent,\r\n        ArrayContainsNumberComponent,\r\n        NoExtraItemsComponent,\r\n        NumberBoundsComponent,\r\n        PatternComponent,\r\n        MultipleOfComponent,\r\n        ContentEncodingComponent,\r\n        ContentMediaTypeComponent,\r\n        ContentSchemaComponent\r\n    ],\r\n    template: `\r\n        <div>\r\n            <ng-container *ngFor=\"let key of filteredQualifiers\">\r\n                <ng-container [ngSwitch]=\"key\">\r\n                    <qm-constant *ngSwitchCase=\"'const'\" [schema]=\"schema\"/>\r\n                    <qm-default-value *ngSwitchCase=\"'default'\" [schema]=\"schema\"/>\r\n                    <qm-enum *ngSwitchCase=\"'enum'\" [schema]=\"schema\"/>\r\n                    <qm-examples *ngSwitchCase=\"'examples'\" [schema]=\"schema\"/>\r\n                    <qm-read-only *ngSwitchCase=\"'readOnly'\" />\r\n                    <qm-write-only *ngSwitchCase=\"'writeOnly'\" />\r\n                    <qm-array-unique-items *ngSwitchCase=\"'uniqueItems'\" />\r\n                    <qm-deprecated *ngSwitchCase=\"'deprecated'\" />\r\n                    <qm-nullable *ngSwitchCase=\"'nullable'\" />\r\n                    <qm-string-length *ngSwitchCase=\"'stringLength'\" [schema]=\"schema\" />\r\n                    <qm-object-properties *ngSwitchCase=\"'objectProperties'\" [schema]=\"schema\" />\r\n                    <qm-no-extra-properties *ngSwitchCase=\"'no-extra-properties'\" />\r\n                    <qm-array-number-of-items *ngSwitchCase=\"'arrayItems'\" [schema]=\"schema\" />\r\n                    <qm-array-contains *ngSwitchCase=\"'arrayContains'\" [schema]=\"schema\" />\r\n                    <qm-no-extra-items *ngSwitchCase=\"'no-extra-items'\" />\r\n                    <qm-number-bounds *ngSwitchCase=\"'number-range'\" [schema]=\"schema\" />\r\n                    <qm-pattern *ngSwitchCase=\"'pattern'\" [schema]=\"schema\" />\r\n                    <qm-multiple-of *ngSwitchCase=\"'multipleOf'\" [schema]=\"schema\" />\r\n                    <qm-content-encoding *ngSwitchCase=\"'contentEncoding'\" [schema]=\"schema\" />\r\n                    <qm-content-media-type *ngSwitchCase=\"'contentMediaType'\" [schema]=\"schema\" />\r\n                    <qm-content-schema *ngSwitchCase=\"'contentSchema'\" [schema]=\"typedAsJSONSchemaString\" />\r\n                </ng-container>\r\n            </ng-container>\r\n        </div>\r\n    `\r\n})\r\nexport class QualifierMessages {\r\n    @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n    constructor(private jsvOptionsService: JSVOptionsService) {}\r\n\r\n    get options(): JSVOptions {\r\n        return this.jsvOptionsService.getOptions();\r\n    }\r\n\r\n    get typedAsJSONSchemaString(): JSONSchemaNS.String {\r\n        return this.schema as JSONSchemaNS.String;\r\n    }\r\n\r\n    get filteredQualifiers(): CheckKey[] {\r\n        const qualifierMessagesOrder = this.options.qualifierMessagesOrder || this.jsvOptionsService.getDefaultQualifierMessageOrder();\r\n\r\n        return qualifierMessagesOrder.filter(qualifierKey => {\r\n            switch(qualifierKey) {\r\n                case 'const':\r\n                    return this.schema.const !== undefined;\r\n                case 'default':\r\n                    return this.schema.default !== undefined;\r\n                case 'enum':\r\n                    return this.schema.enum !== undefined;\r\n                case 'examples':\r\n                    return (this.options.showExamples || false) && this.schema.examples !== undefined;\r\n                case 'readOnly':\r\n                    return this.schema.readOnly === true;\r\n                case 'writeOnly':\r\n                    return this.schema.writeOnly === true;\r\n                case 'uniqueItems':\r\n                    return this.schema.uniqueItems === true;\r\n                case 'deprecated':\r\n                    return (this.schema as JSONSchemaNS.Object).deprecated === true;\r\n                case 'nullable':\r\n                    return (this.schema as any).nullable === true;\r\n                case 'stringLength':\r\n                    return this.schema.minLength !== undefined || this.schema.maxLength !== undefined;\r\n                case 'objectProperties':\r\n                    return this.schema.minProperties !== undefined || this.schema.maxProperties !== undefined;\r\n                case 'no-extra-properties':\r\n                    return this.schema.additionalProperties === false || (this.schema as JSONSchemaNS.Object).unevaluatedProperties === false;\r\n                case 'arrayItems':\r\n                    return this.schema.minItems !== undefined || this.schema.maxItems !== undefined;\r\n                case 'arrayContains':\r\n                    return (this.schema as JSONSchemaNS.Array).minContains !== undefined || (this.schema as JSONSchemaNS.Array).maxContains !== undefined;\r\n                case 'no-extra-items':\r\n                    return (this.schema as JSONSchemaNS.Array).unevaluatedItems === false || this.schema.items === false || this.schema.additionalItems === false;\r\n                case 'number-range':\r\n                    return this.schema.minimum !== undefined || this.schema.exclusiveMinimum !== undefined || this.schema.maximum !== undefined || this.schema.exclusiveMaximum !== undefined;\r\n                case 'pattern':\r\n                    return this.schema.pattern !== undefined;\r\n                case 'multipleOf':\r\n                    return this.schema.multipleOf !== undefined;\r\n                case 'contentMediaType':\r\n                    return this.schema.contentMediaType !== undefined;\r\n                case 'contentEncoding':\r\n                    return this.schema.contentEncoding !== undefined;\r\n                case 'contentSchema':\r\n                    return (this.schema as JSONSchemaNS.String).contentSchema !== undefined;\r\n            }\r\n        });\r\n    }\r\n}",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { JSVOptionsService } from '../services/jsv-options';\r\n\r\n// qualifier messages\r\nimport {\r\n    ConstantComponent,\r\n    ArrayContainsNumberComponent,\r\n    ArrayNumberOfItemsComponent,\r\n    ArrayUniqueItemsComponent,\r\n    ContentEncodingComponent,\r\n    ContentMediaTypeComponent,\r\n    ContentSchemaComponent,\r\n    DefaultValueComponent,\r\n    DeprecatedComponent,\r\n    EnumComponent,\r\n    ExamplesComponent,\r\n    MultipleOfComponent,\r\n    NoExtraItemsComponent,\r\n    NoExtraPropertiesComponent,\r\n    NullableComponent,\r\n    NumberBoundsComponent,\r\n    ObjectPropertiesComponent,\r\n    PatternComponent,\r\n    ReadOnlyComponent,\r\n    StringLengthComponent,\r\n    WriteOnlyComponent\r\n} from \"./QualifierMessages/index\";\r\n\r\n// Types\r\nimport type { JSONSchema, JSONSchemaNS } from '../types';\r\nimport type { JSVOptions, CheckKey } from '../services/jsv-options';\r\n\r\n@Component({\r\n    selector: 'qm-messages',\r\n    standalone: true,\r\n    imports: [\r\n        CommonModule,\r\n        ConstantComponent,\r\n        DefaultValueComponent,\r\n        EnumComponent,\r\n        ExamplesComponent,\r\n        ReadOnlyComponent,\r\n        WriteOnlyComponent,\r\n        ArrayUniqueItemsComponent,\r\n        DeprecatedComponent,\r\n        NullableComponent,\r\n        StringLengthComponent,\r\n        ObjectPropertiesComponent,\r\n        NoExtraPropertiesComponent,\r\n        ArrayNumberOfItemsComponent,\r\n        ArrayContainsNumberComponent,\r\n        NoExtraItemsComponent,\r\n        NumberBoundsComponent,\r\n        PatternComponent,\r\n        MultipleOfComponent,\r\n        ContentEncodingComponent,\r\n        ContentMediaTypeComponent,\r\n        ContentSchemaComponent\r\n    ],\r\n    template: `\r\n        <div>\r\n            <ng-container *ngFor=\"let key of filteredQualifiers\">\r\n                <ng-container [ngSwitch]=\"key\">\r\n                    <qm-constant *ngSwitchCase=\"'const'\" [schema]=\"schema\"/>\r\n                    <qm-default-value *ngSwitchCase=\"'default'\" [schema]=\"schema\"/>\r\n                    <qm-enum *ngSwitchCase=\"'enum'\" [schema]=\"schema\"/>\r\n                    <qm-examples *ngSwitchCase=\"'examples'\" [schema]=\"schema\"/>\r\n                    <qm-read-only *ngSwitchCase=\"'readOnly'\" />\r\n                    <qm-write-only *ngSwitchCase=\"'writeOnly'\" />\r\n                    <qm-array-unique-items *ngSwitchCase=\"'uniqueItems'\" />\r\n                    <qm-deprecated *ngSwitchCase=\"'deprecated'\" />\r\n                    <qm-nullable *ngSwitchCase=\"'nullable'\" />\r\n                    <qm-string-length *ngSwitchCase=\"'stringLength'\" [schema]=\"schema\" />\r\n                    <qm-object-properties *ngSwitchCase=\"'objectProperties'\" [schema]=\"schema\" />\r\n                    <qm-no-extra-properties *ngSwitchCase=\"'no-extra-properties'\" />\r\n                    <qm-array-number-of-items *ngSwitchCase=\"'arrayItems'\" [schema]=\"schema\" />\r\n                    <qm-array-contains *ngSwitchCase=\"'arrayContains'\" [schema]=\"schema\" />\r\n                    <qm-no-extra-items *ngSwitchCase=\"'no-extra-items'\" />\r\n                    <qm-number-bounds *ngSwitchCase=\"'number-range'\" [schema]=\"schema\" />\r\n                    <qm-pattern *ngSwitchCase=\"'pattern'\" [schema]=\"schema\" />\r\n                    <qm-multiple-of *ngSwitchCase=\"'multipleOf'\" [schema]=\"schema\" />\r\n                    <qm-content-encoding *ngSwitchCase=\"'contentEncoding'\" [schema]=\"schema\" />\r\n                    <qm-content-media-type *ngSwitchCase=\"'contentMediaType'\" [schema]=\"schema\" />\r\n                    <qm-content-schema *ngSwitchCase=\"'contentSchema'\" [schema]=\"typedAsJSONSchemaString\" />\r\n                </ng-container>\r\n            </ng-container>\r\n        </div>\r\n    `\r\n})\r\nexport class QualifierMessages {\r\n    @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n    constructor(private jsvOptionsService: JSVOptionsService) {}\r\n\r\n    get options(): JSVOptions {\r\n        return this.jsvOptionsService.getOptions();\r\n    }\r\n\r\n    get typedAsJSONSchemaString(): JSONSchemaNS.String {\r\n        return this.schema as JSONSchemaNS.String;\r\n    }\r\n\r\n    get filteredQualifiers(): CheckKey[] {\r\n        const qualifierMessagesOrder = this.options.qualifierMessagesOrder;\r\n\r\n        return qualifierMessagesOrder.filter(qualifierKey => {\r\n            switch(qualifierKey) {\r\n                case 'const':\r\n                    return this.schema.const !== undefined;\r\n                case 'default':\r\n                    return this.schema.default !== undefined;\r\n                case 'enum':\r\n                    return this.schema.enum !== undefined;\r\n                case 'examples':\r\n                    return (this.options.showExamples || false) && this.schema.examples !== undefined;\r\n                case 'readOnly':\r\n                    return this.schema.readOnly === true;\r\n                case 'writeOnly':\r\n                    return this.schema.writeOnly === true;\r\n                case 'uniqueItems':\r\n                    return this.schema.uniqueItems === true;\r\n                case 'deprecated':\r\n                    return (this.schema as JSONSchemaNS.Object).deprecated === true;\r\n                case 'nullable':\r\n                    return (this.schema as any).nullable === true;\r\n                case 'stringLength':\r\n                    return this.schema.minLength !== undefined || this.schema.maxLength !== undefined;\r\n                case 'objectProperties':\r\n                    return this.schema.minProperties !== undefined || this.schema.maxProperties !== undefined;\r\n                case 'no-extra-properties':\r\n                    return this.schema.additionalProperties === false || (this.schema as JSONSchemaNS.Object).unevaluatedProperties === false;\r\n                case 'arrayItems':\r\n                    return this.schema.minItems !== undefined || this.schema.maxItems !== undefined;\r\n                case 'arrayContains':\r\n                    return (this.schema as JSONSchemaNS.Array).minContains !== undefined || (this.schema as JSONSchemaNS.Array).maxContains !== undefined;\r\n                case 'no-extra-items':\r\n                    return (this.schema as JSONSchemaNS.Array).unevaluatedItems === false || this.schema.items === false || this.schema.additionalItems === false;\r\n                case 'number-range':\r\n                    return this.schema.minimum !== undefined || this.schema.exclusiveMinimum !== undefined || this.schema.maximum !== undefined || this.schema.exclusiveMaximum !== undefined;\r\n                case 'pattern':\r\n                    return this.schema.pattern !== undefined;\r\n                case 'multipleOf':\r\n                    return this.schema.multipleOf !== undefined;\r\n                case 'contentMediaType':\r\n                    return this.schema.contentMediaType !== undefined;\r\n                case 'contentEncoding':\r\n                    return this.schema.contentEncoding !== undefined;\r\n                case 'contentSchema':\r\n                    return (this.schema as JSONSchemaNS.String).contentSchema !== undefined;\r\n            }\r\n        });\r\n    }\r\n}",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -6876,7 +6918,7 @@
                 "name": "AdditionalItems1",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/ngx-json-schema-viewer/src/stories/Viewer.stories.ts",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
@@ -6976,11 +7018,11 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/ngx-json-schema-viewer/src/stories/Viewer.stories.ts",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<NgxJsonSchemaViewerComponent>",
-                "defaultValue": "{\r\n    //component: NgxJsonSchemaViewerComponent,\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [\r\n          BrowserAnimationsModule,\r\n          NgxJsonSchemaViewerComponent\r\n        ]\r\n      })\r\n    ]\r\n}"
+                "defaultValue": "{\r\n    //component: NgxJsonSchemaViewerComponent,\r\n    title: \"Viewer/Array\",\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [BrowserAnimationsModule, NgxJsonSchemaViewerComponent],\r\n      }),\r\n    ]\r\n}"
             },
             {
                 "name": "preview",
@@ -7136,7 +7178,7 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "StoryObj<NgxJsonSchemaViewerComponent>",
-                "file": "projects/ngx-json-schema-viewer/src/stories/Viewer.stories.ts",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -7178,12 +7220,12 @@
         ],
         "enumerations": [],
         "groupedVariables": {
-            "projects/ngx-json-schema-viewer/src/stories/Viewer.stories.ts": [
+            "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts": [
                 {
                     "name": "AdditionalItems1",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/ngx-json-schema-viewer/src/stories/Viewer.stories.ts",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
@@ -7193,11 +7235,11 @@
                     "name": "meta",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/ngx-json-schema-viewer/src/stories/Viewer.stories.ts",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<NgxJsonSchemaViewerComponent>",
-                    "defaultValue": "{\r\n    //component: NgxJsonSchemaViewerComponent,\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [\r\n          BrowserAnimationsModule,\r\n          NgxJsonSchemaViewerComponent\r\n        ]\r\n      })\r\n    ]\r\n}"
+                    "defaultValue": "{\r\n    //component: NgxJsonSchemaViewerComponent,\r\n    title: \"Viewer/Array\",\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [BrowserAnimationsModule, NgxJsonSchemaViewerComponent],\r\n      }),\r\n    ]\r\n}"
                 }
             ],
             "projects/ngx-json-schema-viewer/src/lib/utils/detectTypes.ts": [
@@ -7463,13 +7505,13 @@
                     "kind": 189
                 }
             ],
-            "projects/ngx-json-schema-viewer/src/stories/Viewer.stories.ts": [
+            "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts": [
                 {
                     "name": "Story",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
                     "rawtype": "StoryObj<NgxJsonSchemaViewerComponent>",
-                    "file": "projects/ngx-json-schema-viewer/src/stories/Viewer.stories.ts",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -8065,7 +8107,7 @@
                 "linktype": "component",
                 "name": "NgxJsonSchemaViewerComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/8",
+                "coverageCount": "0/9",
                 "status": "low"
             },
             {
@@ -8074,7 +8116,7 @@
                 "linktype": "injectable",
                 "name": "JSVOptionsService",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/5",
                 "status": "low"
             },
             {
@@ -8449,16 +8491,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/ngx-json-schema-viewer/src/stories/User.ts",
-                "type": "interface",
-                "linktype": "interface",
-                "name": "User",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/ngx-json-schema-viewer/src/stories/Viewer.stories.ts",
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -8468,7 +8501,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/ngx-json-schema-viewer/src/stories/Viewer.stories.ts",
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",

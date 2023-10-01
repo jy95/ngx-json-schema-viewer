@@ -102,7 +102,7 @@ export class QualifierMessages {
     }
 
     get filteredQualifiers(): CheckKey[] {
-        const qualifierMessagesOrder = this.options.qualifierMessagesOrder || this.jsvOptionsService.getDefaultQualifierMessageOrder();
+        const qualifierMessagesOrder = this.options.qualifierMessagesOrder;
 
         return qualifierMessagesOrder.filter(qualifierKey => {
             switch(qualifierKey) {

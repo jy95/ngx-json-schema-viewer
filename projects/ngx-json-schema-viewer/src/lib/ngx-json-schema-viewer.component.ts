@@ -10,16 +10,20 @@ import {
   CreateNodesComponent
 } from "./common/index"
 
+// services
+import { SchemaResolutionService } from './services/schema-resolver';
+import { JSVOptionsService } from "./services/jsv-options";
+
+// Labels
 import {
   ErrorOccurredLabelComponent,
   LoadingLabelComponent
 } from "./labels/index";
 
-// services
-import { SchemaResolutionService } from './services/schema-resolver';
-
+// Types
 import type { JSONSchema } from './types';
 import type { IResolveOpts } from "@stoplight/json-ref-resolver/types"
+import type { JSVOptions } from "./services/jsv-options";
 
 
 @Component({
@@ -31,6 +35,9 @@ import type { IResolveOpts } from "@stoplight/json-ref-resolver/types"
     CreateNodesComponent,
     ErrorOccurredLabelComponent,
     LoadingLabelComponent,
+  ],
+  providers: [
+    JSVOptionsService
   ],
   template: `
     <!-- Error ... -->
@@ -57,19 +64,24 @@ import type { IResolveOpts } from "@stoplight/json-ref-resolver/types"
         </mat-expansion-panel>
       </mat-accordion>
     </div>
-  `,
-  styles: [
-  ]
+  `
 })
 export class NgxJsonSchemaViewerComponent implements OnInit {
   @Input({ required: true }) schema: unknown;
   @Input() resolverOptions?: IResolveOpts;
+  @Input() vierwerOptions?: JSVOptions;
   resolvedSchema: JSONSchema = false;
   error: Error | undefined;
   
   constructor(
-    private schemaResolutionService: SchemaResolutionService
-  ) {}
+    private schemaResolutionService: SchemaResolutionService,
+    private jsvOptionsService: JSVOptionsService 
+  ) {
+    // If asked, apply user options
+    if (this.vierwerOptions) {
+      this.jsvOptionsService.setOptions(this.vierwerOptions);
+    }
+  }
 
   ngOnInit(): void {
     // Perform the asynchronous schema resolution
