@@ -7022,7 +7022,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<NgxJsonSchemaViewerComponent>",
-                "defaultValue": "{\r\n    //component: NgxJsonSchemaViewerComponent,\r\n    title: \"Viewer/Array\",\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [BrowserAnimationsModule, NgxJsonSchemaViewerComponent],\r\n      }),\r\n    ]\r\n}"
+                "defaultValue": "{\r\n    //component: NgxJsonSchemaViewerComponent,\r\n    title: \"Viewer/Array\",\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [NgxJsonSchemaViewerComponent],\r\n      }),\r\n      applicationConfig({\r\n        providers: [provideAnimations()],\r\n      })\r\n    ]\r\n}"
             },
             {
                 "name": "preview",
@@ -7239,7 +7239,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<NgxJsonSchemaViewerComponent>",
-                    "defaultValue": "{\r\n    //component: NgxJsonSchemaViewerComponent,\r\n    title: \"Viewer/Array\",\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [BrowserAnimationsModule, NgxJsonSchemaViewerComponent],\r\n      }),\r\n    ]\r\n}"
+                    "defaultValue": "{\r\n    //component: NgxJsonSchemaViewerComponent,\r\n    title: \"Viewer/Array\",\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [NgxJsonSchemaViewerComponent],\r\n      }),\r\n      applicationConfig({\r\n        providers: [provideAnimations()],\r\n      })\r\n    ]\r\n}"
                 }
             ],
             "projects/ngx-json-schema-viewer/src/lib/utils/detectTypes.ts": [

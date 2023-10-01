@@ -1,6 +1,6 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { NgxJsonSchemaViewerComponent } from "ngx-json-schema-viewer";
-import { moduleMetadata } from '@storybook/angular';
+import { moduleMetadata, applicationConfig } from '@storybook/angular';
 
 import type { Meta, StoryObj } from '@storybook/angular';
 
@@ -9,8 +9,11 @@ const meta : Meta<NgxJsonSchemaViewerComponent> = {
     title: "Viewer/Array",
     decorators: [
       moduleMetadata({
-        imports: [BrowserAnimationsModule, NgxJsonSchemaViewerComponent],
+        imports: [NgxJsonSchemaViewerComponent],
       }),
+      applicationConfig({
+        providers: [provideAnimations()],
+      })
     ]
 };
 
