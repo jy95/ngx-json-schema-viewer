@@ -12,9 +12,6 @@
     "storybook": "ng run ngx-json-schema-viewer:storybook",
     "build-storybook": "ng run ngx-json-schema-viewer:build-storybook"
   },
-  "stackblitz": {
-    "startCommand": "npm run buildLib && npm run storybook"
-  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^16.2.0",
