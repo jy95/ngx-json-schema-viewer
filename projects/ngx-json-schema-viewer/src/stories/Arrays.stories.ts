@@ -1,8 +1,9 @@
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { NgxJsonSchemaViewerComponent } from "ngx-json-schema-viewer";
 import { moduleMetadata, applicationConfig } from '@storybook/angular';
 
 import type { Meta, StoryObj } from '@storybook/angular';
+import { importProvidersFrom } from '@angular/core';
 
 const meta : Meta<NgxJsonSchemaViewerComponent> = {
     //component: NgxJsonSchemaViewerComponent,
@@ -12,7 +13,10 @@ const meta : Meta<NgxJsonSchemaViewerComponent> = {
         imports: [NgxJsonSchemaViewerComponent],
       }),
       applicationConfig({
-        providers: [provideAnimations()],
+        providers: [
+          //importProvidersFrom(BrowserAnimationsModule),
+          provideAnimations()
+        ],
       })
     ]
 };

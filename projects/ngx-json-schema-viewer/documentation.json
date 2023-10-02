@@ -4695,7 +4695,7 @@
         },
         {
             "name": "NgxJsonSchemaViewerComponent",
-            "id": "component-NgxJsonSchemaViewerComponent-46def2f628ed75923765375852ae5d2a81dbff4c18356524c4a321e5ff1c7e9ea4ccde62d8a0a8dd912cc01879e9c7efe7bd076e6d00369b6358535d1f0bf580",
+            "id": "component-NgxJsonSchemaViewerComponent-787d74c8754c89d7ee59db765b628d3b8cf60f4b2f1a11b10be29c570b111f53bae289aecf75698073c48d8e3f76bd5c0a72e366a57fb9de11670a4adaf33744",
             "file": "projects/ngx-json-schema-viewer/src/lib/ngx-json-schema-viewer.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -4719,7 +4719,7 @@
                     "name": "resolverOptions",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 71,
+                    "line": 69,
                     "type": "IResolveOpts",
                     "decorators": []
                 },
@@ -4729,7 +4729,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 70,
+                    "line": 68,
                     "type": "",
                     "decorators": []
                 },
@@ -4737,7 +4737,7 @@
                     "name": "vierwerOptions",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 72,
+                    "line": 70,
                     "type": "JSVOptions",
                     "decorators": []
                 }
@@ -4751,7 +4751,7 @@
                     "type": "Error | undefined",
                     "optional": false,
                     "description": "",
-                    "line": 74
+                    "line": 72
                 },
                 {
                     "name": "resolvedSchema",
@@ -4761,7 +4761,7 @@
                     "type": "JSONSchema",
                     "optional": false,
                     "description": "",
-                    "line": 73
+                    "line": 71
                 }
             ],
             "methodsClass": [
@@ -4771,17 +4771,17 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 86,
+                    "line": 84,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
                 {
-                    "name": "resolveSchema",
+                    "name": "schemaResolution",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 91,
+                    "line": 89,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -4819,7 +4819,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input } from '@angular/core';\r\nimport { throwError } from 'rxjs';\r\nimport { catchError } from 'rxjs/operators';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\nimport { JSVOptionsService } from \"./services/jsv-options\";\r\n\r\n// Labels\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// Types\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSVOptions } from \"./services/jsv-options\";\r\n\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  providers: [\r\n    JSVOptionsService\r\n  ],\r\n  template: `\r\n    <!-- Error ... -->\r\n    <div *ngIf=\"error !== undefined\">\r\n      <labels-error-occurred [error]=\"error!\"/>\r\n    </div>\r\n    <!-- Loading ... -->\r\n    <div *ngIf=\"resolvedSchema === undefined && error === undefined\">\r\n      <labels-loading />\r\n    </div>\r\n\r\n    <!-- Schema -->\r\n    <div *ngIf=\"resolvedSchema !== undefined\">\r\n      <mat-accordion>\r\n        <<mat-expansion-panel>\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <jse-common-create-nodes [schema]=\"resolvedSchema\" />\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </div>\r\n  `\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  @Input() vierwerOptions?: JSVOptions;\r\n  resolvedSchema: JSONSchema = false;\r\n  error: Error | undefined;\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService,\r\n    private jsvOptionsService: JSVOptionsService \r\n  ) {\r\n    // If asked, apply user options\r\n    if (this.vierwerOptions) {\r\n      this.jsvOptionsService.setOptions(this.vierwerOptions);\r\n    }\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    // Perform the asynchronous schema resolution\r\n    this.resolveSchema();\r\n  }\r\n\r\n  private resolveSchema() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .pipe(\r\n        catchError((error) => {\r\n          this.error = error;\r\n          return throwError(error);\r\n        })\r\n      )\r\n      .subscribe((result) => {\r\n        this.resolvedSchema = result;\r\n      });\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    if (typeof this.resolvedSchema !== \"boolean\" && this.resolvedSchema.title !== undefined) {\r\n      return this.resolvedSchema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit, Input } from '@angular/core';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\nimport { JSVOptionsService } from \"./services/jsv-options\";\r\n\r\n// Labels\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// Types\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSVOptions } from \"./services/jsv-options\";\r\n\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  providers: [\r\n    JSVOptionsService\r\n  ],\r\n  template: `\r\n    <!-- Error ... -->\r\n    <div *ngIf=\"error !== undefined\">\r\n      <labels-error-occurred [error]=\"error!\"/>\r\n    </div>\r\n    <!-- Loading ... -->\r\n    <div *ngIf=\"resolvedSchema === undefined && error === undefined\">\r\n      <labels-loading />\r\n    </div>\r\n\r\n    <!-- Schema -->\r\n    <div *ngIf=\"resolvedSchema !== undefined\">\r\n      <mat-accordion>\r\n        <<mat-expansion-panel>\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <jse-common-create-nodes [schema]=\"resolvedSchema\" />\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </div>\r\n  `\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  @Input() vierwerOptions?: JSVOptions;\r\n  resolvedSchema: JSONSchema = false;\r\n  error: Error | undefined;\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService,\r\n    private jsvOptionsService: JSVOptionsService \r\n  ) {\r\n    // If asked, apply user options\r\n    if (this.vierwerOptions) {\r\n      this.jsvOptionsService.setOptions(this.vierwerOptions);\r\n    }\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    // Perform the asynchronous schema resolution\r\n    this.schemaResolution();\r\n  }\r\n\r\n  private schemaResolution() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .subscribe({\r\n        error: (err) => {\r\n          this.error = err;\r\n          this.resolvedSchema = false;\r\n        },\r\n        next: (result) => {\r\n          this.resolvedSchema = result;\r\n          this.error = undefined;\r\n        }\r\n      });\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    if (typeof this.resolvedSchema !== \"boolean\" && this.resolvedSchema.title !== undefined) {\r\n      return this.resolvedSchema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -4842,7 +4842,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 74,
+                "line": 72,
                 "jsdoctags": [
                     {
                         "name": "schemaResolutionService",
@@ -4874,7 +4874,7 @@
                         "name": "getSchemaTitle",
                         "type": "string",
                         "returnType": "string",
-                        "line": 105
+                        "line": 104
                     }
                 }
             }
@@ -7022,7 +7022,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<NgxJsonSchemaViewerComponent>",
-                "defaultValue": "{\r\n    //component: NgxJsonSchemaViewerComponent,\r\n    title: \"Viewer/Array\",\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [NgxJsonSchemaViewerComponent],\r\n      }),\r\n      applicationConfig({\r\n        providers: [provideAnimations()],\r\n      })\r\n    ]\r\n}"
+                "defaultValue": "{\r\n    //component: NgxJsonSchemaViewerComponent,\r\n    title: \"Viewer/Array\",\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [NgxJsonSchemaViewerComponent],\r\n      }),\r\n      applicationConfig({\r\n        providers: [\r\n          //importProvidersFrom(BrowserAnimationsModule),\r\n          provideAnimations()\r\n        ],\r\n      })\r\n    ]\r\n}"
             },
             {
                 "name": "preview",
@@ -7239,7 +7239,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<NgxJsonSchemaViewerComponent>",
-                    "defaultValue": "{\r\n    //component: NgxJsonSchemaViewerComponent,\r\n    title: \"Viewer/Array\",\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [NgxJsonSchemaViewerComponent],\r\n      }),\r\n      applicationConfig({\r\n        providers: [provideAnimations()],\r\n      })\r\n    ]\r\n}"
+                    "defaultValue": "{\r\n    //component: NgxJsonSchemaViewerComponent,\r\n    title: \"Viewer/Array\",\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [NgxJsonSchemaViewerComponent],\r\n      }),\r\n      applicationConfig({\r\n        providers: [\r\n          //importProvidersFrom(BrowserAnimationsModule),\r\n          provideAnimations()\r\n        ],\r\n      })\r\n    ]\r\n}"
                 }
             ],
             "projects/ngx-json-schema-viewer/src/lib/utils/detectTypes.ts": [

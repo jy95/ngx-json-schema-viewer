@@ -1,6 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 
 // imports
 import { CommonModule } from '@angular/common';
@@ -85,20 +83,21 @@ export class NgxJsonSchemaViewerComponent implements OnInit {
 
   ngOnInit(): void {
     // Perform the asynchronous schema resolution
-    this.resolveSchema();
+    this.schemaResolution();
   }
 
-  private resolveSchema() {
+  private schemaResolution() {
     this.schemaResolutionService
       .resolveSchema(this.schema, this.resolverOptions)
-      .pipe(
-        catchError((error) => {
-          this.error = error;
-          return throwError(error);
-        })
-      )
-      .subscribe((result) => {
-        this.resolvedSchema = result;
+      .subscribe({
+        error: (err) => {
+          this.error = err;
+          this.resolvedSchema = false;
+        },
+        next: (result) => {
+          this.resolvedSchema = result;
+          this.error = undefined;
+        }
       });
   }
 
