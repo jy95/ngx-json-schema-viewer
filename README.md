@@ -1,7 +1,7 @@
 <h1 align="center">ngx-json-schema-viewer</h1>
 
 <div align="center">
-<img width="200" src="https://json-schema.org/assets/logo.svg" />
+<img width="200" src="https://raw.githubusercontent.com/jy95/ngx-json-schema-viewer/master/logo.svg" />
 </div>
 
 <div align="center">
@@ -26,7 +26,7 @@ Key Features:
 - **Compatible:** Works with JSON Schema Draft-07 / Draft 2019-09 / Draft 2020-12
 - **Human-friendly** Make exploration of specs a delightful experience
 
-Storybook : https://65174c82cd070b9998efd7f6-xtavqrcxat.chromatic.com/
+Storybook : https://master--65174c82cd070b9998efd7f6.chromatic.com/
 
 ## Installation
 
