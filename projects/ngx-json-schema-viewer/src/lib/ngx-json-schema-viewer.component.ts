@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 // imports
 import { CommonModule } from '@angular/common';
@@ -37,6 +37,7 @@ import type { JSVOptions } from "./services/jsv-options";
   providers: [
     JSVOptionsService
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- Error ... -->
     <div *ngIf="error !== undefined">
@@ -73,7 +74,8 @@ export class NgxJsonSchemaViewerComponent implements OnInit {
   
   constructor(
     private schemaResolutionService: SchemaResolutionService,
-    private jsvOptionsService: JSVOptionsService 
+    private jsvOptionsService: JSVOptionsService,
+    private cdr: ChangeDetectorRef
   ) {
     // If asked, apply user options
     if (this.vierwerOptions) {
@@ -93,10 +95,12 @@ export class NgxJsonSchemaViewerComponent implements OnInit {
         error: (err) => {
           this.error = err;
           this.resolvedSchema = false;
+          this.cdr.markForCheck();
         },
         next: (result) => {
           this.resolvedSchema = result;
           this.error = undefined;
+          this.cdr.markForCheck();
         }
       });
   }
