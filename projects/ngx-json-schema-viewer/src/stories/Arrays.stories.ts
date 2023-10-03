@@ -26,11 +26,12 @@ export default meta;
 type Story = StoryObj<NgxJsonSchemaViewerComponent>;
 
 // https://storybook.js.org/docs/angular/writing-stories/naming-components-and-hierarchy#grouping
+// https://www.chromatic.com/setup
 export const AdditionalItems1 : Story = {
     render: (args) => ({
       props: args,
       template: `
-        <ngx-json-schema-viewer></ngx-json-schema-viewer>
+        <ngx-json-schema-viewer [schema]="schema"></ngx-json-schema-viewer>
       `
     }),
     args: {

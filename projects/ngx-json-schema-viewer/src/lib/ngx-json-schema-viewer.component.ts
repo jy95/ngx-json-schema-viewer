@@ -40,13 +40,18 @@ import type { JSVOptions } from "./services/jsv-options";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- Error ... -->
-    <div *ngIf="error !== undefined">
-      <labels-error-occurred [error]="error!"/>
-    </div>
+    <ng-container *ngIf="error !== undefined; else loadingSchema">
+      <div>
+        <labels-error-occurred [error]="error!"/>
+      </div>
+    </ng-container>
+
     <!-- Loading ... -->
-    <div *ngIf="resolvedSchema === undefined && error === undefined">
-      <labels-loading />
-    </div>
+    <ng-template #loadingSchema>
+      <div *ngIf="resolvedSchema === undefined">
+        <labels-loading />
+      </div>
+    </ng-template>
 
     <!-- Schema -->
     <div *ngIf="resolvedSchema !== undefined">
