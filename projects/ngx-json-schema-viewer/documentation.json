@@ -79,7 +79,7 @@
         },
         {
             "name": "SchemaResolutionService",
-            "id": "injectable-SchemaResolutionService-9306df5112f9932bfce434b9f0873b3e5d5265309b93edaec313f6828dc1c297569e2db716b9fa6c4efea54793c080ce777f27105745abd76d20cfb9b21f99d4",
+            "id": "injectable-SchemaResolutionService-5f8aaf0fe6af184844c88c7095b8b73f1beabb13e9bb1825f615b5600e77a780e6acf3f93eace573f1c9de5e721c4e7f722d81f8c063a1fb470e67eacbedf3e4",
             "file": "projects/ngx-json-schema-viewer/src/lib/services/schema-resolver.ts",
             "properties": [],
             "methods": [
@@ -133,7 +133,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Resolver } from '@stoplight/json-ref-resolver';\r\nimport { Observable } from 'rxjs';\r\n\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSONSchema } from \"../types\";\r\n\r\n@Injectable({\r\n    providedIn: 'root',\r\n})\r\nexport class SchemaResolutionService {\r\n\r\n    resolveSchema(schema: unknown, resolverOptions?: IResolveOpts): Observable<JSONSchema> {\r\n        return new Observable((observer) => {\r\n          new Resolver()\r\n            .resolve(schema, resolverOptions)\r\n            .then((result) => {\r\n              console.log(\"INSIDE FUNC\")\r\n              console.log(result);\r\n              console.log(schema);\r\n              observer.next(result.result);\r\n              observer.complete();\r\n            })\r\n            .catch((err) => {\r\n              observer.error(err);\r\n            });\r\n        });\r\n    }\r\n}",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Resolver } from '@stoplight/json-ref-resolver';\r\nimport { Observable } from 'rxjs';\r\n\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSONSchema } from \"../types\";\r\n\r\n@Injectable({\r\n    providedIn: 'root',\r\n})\r\nexport class SchemaResolutionService {\r\n\r\n    resolveSchema(schema: unknown, resolverOptions?: IResolveOpts): Observable<JSONSchema> {\r\n        return new Observable((observer) => {\r\n          new Resolver()\r\n            .resolve(schema, resolverOptions)\r\n            .then((result) => {\r\n              observer.next(result.result);\r\n              observer.complete();\r\n            })\r\n            .catch((err) => {\r\n              observer.error(err);\r\n            });\r\n        });\r\n    }\r\n}",
             "type": "injectable"
         }
     ],
@@ -4695,7 +4695,7 @@
         },
         {
             "name": "NgxJsonSchemaViewerComponent",
-            "id": "component-NgxJsonSchemaViewerComponent-b2864d22d5f1653ecc4d23f0dc50553de6b21a88a944cbfd0b8ffa1492a5bb1a491aebe1878719daa12e55baf20430ae0c1fc9c7bdc5d8ecd7fe70ac2c219836",
+            "id": "component-NgxJsonSchemaViewerComponent-bcd72bb6a73eaf4f60e93c36dd4006dc41d545e979dbf7f48d62baa0cf585946c2f07c55b13b5e5410996be7661d0526a438fe4600be74ed8d42380dca4f83ac",
             "file": "projects/ngx-json-schema-viewer/src/lib/ngx-json-schema-viewer.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -4711,7 +4711,7 @@
             "selector": "ngx-json-schema-viewer",
             "styleUrls": [],
             "styles": [],
-            "template": "<!-- Error ... -->\n<ng-container *ngIf=\"error !== undefined; else loadingSchema\">\n  <div>\n    <labels-error-occurred [error]=\"error!\"/>\n  </div>\n</ng-container>\n\n<!-- Loading ... -->\n<ng-template #loadingSchema>\n  <div *ngIf=\"resolvedSchema === undefined\">\n    <labels-loading />\n  </div>\n</ng-template>\n\n<!-- Schema -->\n<div *ngIf=\"resolvedSchema !== undefined\">\n  <mat-accordion>\n    <<mat-expansion-panel>\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>\n            {{ getSchemaTitle }}\n          </strong>\n        </mat-panel-title>\n      </mat-expansion-panel-header>\n      <jse-common-create-nodes [schema]=\"resolvedSchema\" />\n    </mat-expansion-panel>\n  </mat-accordion>\n</div>\n",
+            "template": "<!-- Error ... -->\n<ng-container *ngIf=\"error !== undefined; else loadingSchema\">\n  <div>\n    <labels-error-occurred [error]=\"error!\"/>\n  </div>\n</ng-container>\n\n<!-- Loading ... -->\n<ng-template #loadingSchema>\n  <div *ngIf=\"resolvedSchema === undefined\">\n    <labels-loading />\n  </div>\n</ng-template>\n\n<!-- Schema -->\n<div *ngIf=\"resolvedSchema !== undefined\">\n  <mat-accordion>\n    <mat-expansion-panel [expanded]=\"expanded\">\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>\n            {{ getSchemaTitle }}\n          </strong>\n        </mat-panel-title>\n      </mat-expansion-panel-header>\n      <jse-common-create-nodes [schema]=\"resolvedSchema\" />\n    </mat-expansion-panel>\n  </mat-accordion>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -4755,6 +4755,16 @@
                     "line": 78
                 },
                 {
+                    "name": "expanded",
+                    "defaultValue": "true",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 80
+                },
+                {
                     "name": "resolvedSchema",
                     "defaultValue": "false",
                     "deprecated": false,
@@ -4772,7 +4782,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 91,
+                    "line": 88,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4782,12 +4792,22 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 96,
+                    "line": 97,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
                         121
                     ]
+                },
+                {
+                    "name": "toggleExpended",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 114,
+                    "deprecated": false,
+                    "deprecationMessage": ""
                 }
             ],
             "deprecated": false,
@@ -4820,7 +4840,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\nimport { JSVOptionsService } from \"./services/jsv-options\";\r\n\r\n// Labels\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// Types\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSVOptions } from \"./services/jsv-options\";\r\n\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  providers: [\r\n    JSVOptionsService\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <!-- Error ... -->\r\n    <ng-container *ngIf=\"error !== undefined; else loadingSchema\">\r\n      <div>\r\n        <labels-error-occurred [error]=\"error!\"/>\r\n      </div>\r\n    </ng-container>\r\n\r\n    <!-- Loading ... -->\r\n    <ng-template #loadingSchema>\r\n      <div *ngIf=\"resolvedSchema === undefined\">\r\n        <labels-loading />\r\n      </div>\r\n    </ng-template>\r\n\r\n    <!-- Schema -->\r\n    <div *ngIf=\"resolvedSchema !== undefined\">\r\n      <mat-accordion>\r\n        <<mat-expansion-panel>\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <jse-common-create-nodes [schema]=\"resolvedSchema\" />\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </div>\r\n  `\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  @Input() vierwerOptions?: JSVOptions;\r\n  resolvedSchema: JSONSchema = false;\r\n  error: Error | undefined;\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService,\r\n    private jsvOptionsService: JSVOptionsService,\r\n    private cdr: ChangeDetectorRef\r\n  ) {\r\n    // If asked, apply user options\r\n    if (this.vierwerOptions) {\r\n      this.jsvOptionsService.setOptions(this.vierwerOptions);\r\n    }\r\n  }\r\n\r\n  ngOnInit(): void {\r\n    // Perform the asynchronous schema resolution\r\n    this.schemaResolution();\r\n  }\r\n\r\n  private schemaResolution() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .subscribe({\r\n        error: (err) => {\r\n          this.error = err;\r\n          this.resolvedSchema = false;\r\n          this.cdr.markForCheck();\r\n        },\r\n        next: (result) => {\r\n          console.log(result);\r\n          this.resolvedSchema = result;\r\n          this.error = undefined;\r\n          this.cdr.markForCheck();\r\n        }\r\n      });\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    if (typeof this.resolvedSchema !== \"boolean\" && this.resolvedSchema.title !== undefined) {\r\n      return this.resolvedSchema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\nimport { JSVOptionsService } from \"./services/jsv-options\";\r\n\r\n// Labels\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// Types\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSVOptions } from \"./services/jsv-options\";\r\n\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  providers: [\r\n    JSVOptionsService\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <!-- Error ... -->\r\n    <ng-container *ngIf=\"error !== undefined; else loadingSchema\">\r\n      <div>\r\n        <labels-error-occurred [error]=\"error!\"/>\r\n      </div>\r\n    </ng-container>\r\n\r\n    <!-- Loading ... -->\r\n    <ng-template #loadingSchema>\r\n      <div *ngIf=\"resolvedSchema === undefined\">\r\n        <labels-loading />\r\n      </div>\r\n    </ng-template>\r\n\r\n    <!-- Schema -->\r\n    <div *ngIf=\"resolvedSchema !== undefined\">\r\n      <mat-accordion>\r\n        <mat-expansion-panel [expanded]=\"expanded\">\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <jse-common-create-nodes [schema]=\"resolvedSchema\" />\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </div>\r\n  `\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  @Input() vierwerOptions?: JSVOptions;\r\n  resolvedSchema: JSONSchema = false;\r\n  error: Error | undefined;\r\n\r\n  expanded : boolean = true;\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService,\r\n    private jsvOptionsService: JSVOptionsService,\r\n    private cdr: ChangeDetectorRef\r\n  ) {}\r\n\r\n  ngOnInit(): void {\r\n    // If asked, apply user options\r\n    if (this.vierwerOptions) {\r\n      this.jsvOptionsService.setOptions(this.vierwerOptions);\r\n    }\r\n    // Perform the asynchronous schema resolution\r\n    this.schemaResolution();\r\n  }\r\n\r\n  private schemaResolution() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .subscribe({\r\n        error: (err) => {\r\n          this.error = err;\r\n          this.resolvedSchema = false;\r\n          this.cdr.markForCheck();\r\n        },\r\n        next: (result) => {\r\n          this.resolvedSchema = result;\r\n          this.error = undefined;\r\n          this.cdr.markForCheck();\r\n        }\r\n      });\r\n  }\r\n\r\n  toggleExpended(): void {\r\n    this.expanded = !this.expanded;\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    if (typeof this.resolvedSchema !== \"boolean\" && this.resolvedSchema.title !== undefined) {\r\n      return this.resolvedSchema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -4849,7 +4869,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 78,
+                "line": 80,
                 "jsdoctags": [
                     {
                         "name": "schemaResolutionService",
@@ -4890,7 +4910,7 @@
                         "name": "getSchemaTitle",
                         "type": "string",
                         "returnType": "string",
-                        "line": 114
+                        "line": 118
                     }
                 }
             }
@@ -6937,8 +6957,38 @@
                 "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\r\n    render: (args) => ({\r\n      props: args,\r\n      template: `\r\n        <ngx-json-schema-viewer [schema]=\"schema\"></ngx-json-schema-viewer>\r\n      `\r\n    }),\r\n    args: {\r\n        schema: {\r\n            \"type\": \"array\",\r\n            \"items\": [\r\n              {\r\n                \"type\": \"integer\"\r\n              },\r\n              {\r\n                \"type\": \"string\"\r\n              }\r\n            ],\r\n            \"additionalItems\": false\r\n        }\r\n    }\r\n}"
+                "type": "",
+                "defaultValue": "createStory({\r\n  \"storybook-name\": \"❌ AdditionalItems (1)\",\r\n  schema: {\r\n      \"type\": \"array\",\r\n      \"items\": [\r\n        {\r\n          \"type\": \"integer\"\r\n        },\r\n        {\r\n          \"type\": \"string\"\r\n        }\r\n      ],\r\n      \"additionalItems\": false\r\n  }\r\n})"
+            },
+            {
+                "name": "AdditionalItems2",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n  \"storybook-name\": \"➕ AdditionalItems (2)\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"items\": [\r\n      {\r\n        \"type\": \"integer\"\r\n      },\r\n      {\r\n        \"type\": \"string\"\r\n      }\r\n    ],\r\n    \"additionalItems\": {\r\n      \"type\": \"boolean\"\r\n    }\r\n  }\r\n})"
+            },
+            {
+                "name": "Contains",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n  \"storybook-name\": \"🍱 Contains\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"contains\": {\r\n      \"type\": \"number\"\r\n    }\r\n  }\r\n})"
+            },
+            {
+                "name": "defaultMeta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/setup.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgxJsonSchemaViewerComponent>",
+                "defaultValue": "{\r\n    decorators: [\r\n        moduleMetadata({\r\n            imports: [NgxJsonSchemaViewerComponent],\r\n        }),\r\n        applicationConfig({\r\n            providers: [\r\n                //importProvidersFrom(BrowserAnimationsModule),\r\n                provideAnimations()\r\n            ],\r\n        })\r\n    ]\r\n}"
             },
             {
                 "name": "isArrayType",
@@ -7031,14 +7081,44 @@
                 "defaultValue": "(schema: JSONSchema) =>\r\n    typeof schema !== \"boolean\" &&\r\n    (schema.type === \"string\" ||\r\n      schema.minLength !== undefined ||\r\n      schema.maxLength !== undefined ||\r\n      schema.pattern !== undefined ||\r\n      schema.enum?.some((val) => typeof val === \"string\") ||\r\n      typeof schema.const === \"string\")"
             },
             {
+                "name": "Items",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n  \"storybook-name\": \"🛍️ Items\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"items\": {\r\n      \"type\": \"number\"\r\n    }\r\n  }\r\n})"
+            },
+            {
+                "name": "Length",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n  \"storybook-name\": \"📐 Length\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"minItems\": 2,\r\n    \"maxItems\": 3\r\n  }\r\n})"
+            },
+            {
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<NgxJsonSchemaViewerComponent>",
-                "defaultValue": "{\r\n    //component: NgxJsonSchemaViewerComponent,\r\n    title: \"Viewer/Array\",\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [NgxJsonSchemaViewerComponent],\r\n      }),\r\n      applicationConfig({\r\n        providers: [\r\n          //importProvidersFrom(BrowserAnimationsModule),\r\n          provideAnimations()\r\n        ],\r\n      })\r\n    ]\r\n}"
+                "type": "MetaViewer",
+                "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Array\"\r\n}"
+            },
+            {
+                "name": "minContainsAndmaxContains",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n  \"storybook-name\": \"📊 minContains & maxContains\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"contains\": {\r\n      \"type\": \"number\"\r\n    },\r\n    \"minContains\": 2,\r\n    \"maxContains\": 3\r\n  }\r\n})"
             },
             {
                 "name": "preview",
@@ -7049,9 +7129,88 @@
                 "deprecationMessage": "",
                 "type": "Preview",
                 "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    // https://material.angular.io/guide/theming#application-background-color\r\n    componentWrapperDecorator((story) => `<div class=\"mat-app-background\">${story}</div>`),\r\n  ]\r\n}"
+            },
+            {
+                "name": "Simple",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n  \"storybook-name\": \"🟦 Simple\",\r\n  schema: {\r\n    \"type\": \"array\"\r\n  }\r\n})"
+            },
+            {
+                "name": "Tuples",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n  \"storybook-name\": \"📋 Tuples\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"description\": \"Represent a street address such as ['1600','Pennsylvania','Avenue','NW']\",\r\n    \"items\": false,\r\n    \"prefixItems\": [\r\n      {\r\n        \"type\": \"number\",\r\n        \"description\": \"The address number\"\r\n      },\r\n      {\r\n        \"type\": \"string\",\r\n        \"description\": \"The name of the street\"\r\n      },\r\n      {\r\n        \"enum\": [\r\n          \"Street\",\r\n          \"Avenue\",\r\n          \"Boulevard\"\r\n        ],\r\n        \"description\": \"The type of street\"\r\n      },\r\n      {\r\n        \"enum\": [\r\n          \"NW\",\r\n          \"NE\",\r\n          \"SW\",\r\n          \"SE\"\r\n        ],\r\n        \"description\": \"The city quadrant of the address\"\r\n      }\r\n    ]\r\n  }\r\n})"
+            },
+            {
+                "name": "UnevaluatedItems1",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n  \"storybook-name\": \"🤔 UnevaluatedItems (1)\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"prefixItems\": [\r\n      {\r\n        \"type\": \"integer\"\r\n      },\r\n      {\r\n        \"type\": \"string\"\r\n      }\r\n    ],\r\n    \"unevaluatedItems\": false\r\n  }\r\n})"
+            },
+            {
+                "name": "UnevaluatedItems2",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n  \"storybook-name\": \"📋 UnevaluatedItems (2)\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"prefixItems\": [\r\n      {\r\n        \"type\": \"integer\"\r\n      },\r\n      {\r\n        \"type\": \"string\"\r\n      }\r\n    ],\r\n    \"unevaluatedItems\": {\r\n      \"type\": \"boolean\"\r\n    }\r\n  }\r\n})"
+            },
+            {
+                "name": "UniqueItems",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n  \"storybook-name\": \"🦄 Unique items\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"uniqueItems\": true\r\n  }\r\n})"
             }
         ],
         "functions": [
+            {
+                "name": "createStory",
+                "file": "projects/ngx-json-schema-viewer/src/stories/setup.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "params",
+                        "type": "Params",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "returnType": "Story",
+                "jsdoctags": [
+                    {
+                        "name": "params",
+                        "type": "Params",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
             {
                 "name": "detectedTypes",
                 "file": "projects/ngx-json-schema-viewer/src/lib/utils/detectTypes.ts",
@@ -7124,6 +7283,17 @@
                 "kind": 189
             },
             {
+                "name": "ComponentProps",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "NgxJsonSchemaViewerComponent",
+                "file": "projects/ngx-json-schema-viewer/src/stories/setup.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 180
+            },
+            {
                 "name": "JSONSchema",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
@@ -7190,11 +7360,33 @@
                 "kind": 189
             },
             {
+                "name": "MetaViewer",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "Meta<NgxJsonSchemaViewerComponent>",
+                "file": "projects/ngx-json-schema-viewer/src/stories/setup.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 180
+            },
+            {
+                "name": "Params",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "",
+                "file": "projects/ngx-json-schema-viewer/src/stories/setup.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 190
+            },
+            {
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "StoryObj<NgxJsonSchemaViewerComponent>",
-                "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "file": "projects/ngx-json-schema-viewer/src/stories/setup.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -7244,8 +7436,48 @@
                     "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n    render: (args) => ({\r\n      props: args,\r\n      template: `\r\n        <ngx-json-schema-viewer [schema]=\"schema\"></ngx-json-schema-viewer>\r\n      `\r\n    }),\r\n    args: {\r\n        schema: {\r\n            \"type\": \"array\",\r\n            \"items\": [\r\n              {\r\n                \"type\": \"integer\"\r\n              },\r\n              {\r\n                \"type\": \"string\"\r\n              }\r\n            ],\r\n            \"additionalItems\": false\r\n        }\r\n    }\r\n}"
+                    "type": "",
+                    "defaultValue": "createStory({\r\n  \"storybook-name\": \"❌ AdditionalItems (1)\",\r\n  schema: {\r\n      \"type\": \"array\",\r\n      \"items\": [\r\n        {\r\n          \"type\": \"integer\"\r\n        },\r\n        {\r\n          \"type\": \"string\"\r\n        }\r\n      ],\r\n      \"additionalItems\": false\r\n  }\r\n})"
+                },
+                {
+                    "name": "AdditionalItems2",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n  \"storybook-name\": \"➕ AdditionalItems (2)\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"items\": [\r\n      {\r\n        \"type\": \"integer\"\r\n      },\r\n      {\r\n        \"type\": \"string\"\r\n      }\r\n    ],\r\n    \"additionalItems\": {\r\n      \"type\": \"boolean\"\r\n    }\r\n  }\r\n})"
+                },
+                {
+                    "name": "Contains",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n  \"storybook-name\": \"🍱 Contains\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"contains\": {\r\n      \"type\": \"number\"\r\n    }\r\n  }\r\n})"
+                },
+                {
+                    "name": "Items",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n  \"storybook-name\": \"🛍️ Items\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"items\": {\r\n      \"type\": \"number\"\r\n    }\r\n  }\r\n})"
+                },
+                {
+                    "name": "Length",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n  \"storybook-name\": \"📐 Length\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"minItems\": 2,\r\n    \"maxItems\": 3\r\n  }\r\n})"
                 },
                 {
                     "name": "meta",
@@ -7254,8 +7486,80 @@
                     "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
+                    "type": "MetaViewer",
+                    "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Array\"\r\n}"
+                },
+                {
+                    "name": "minContainsAndmaxContains",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n  \"storybook-name\": \"📊 minContains & maxContains\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"contains\": {\r\n      \"type\": \"number\"\r\n    },\r\n    \"minContains\": 2,\r\n    \"maxContains\": 3\r\n  }\r\n})"
+                },
+                {
+                    "name": "Simple",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n  \"storybook-name\": \"🟦 Simple\",\r\n  schema: {\r\n    \"type\": \"array\"\r\n  }\r\n})"
+                },
+                {
+                    "name": "Tuples",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n  \"storybook-name\": \"📋 Tuples\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"description\": \"Represent a street address such as ['1600','Pennsylvania','Avenue','NW']\",\r\n    \"items\": false,\r\n    \"prefixItems\": [\r\n      {\r\n        \"type\": \"number\",\r\n        \"description\": \"The address number\"\r\n      },\r\n      {\r\n        \"type\": \"string\",\r\n        \"description\": \"The name of the street\"\r\n      },\r\n      {\r\n        \"enum\": [\r\n          \"Street\",\r\n          \"Avenue\",\r\n          \"Boulevard\"\r\n        ],\r\n        \"description\": \"The type of street\"\r\n      },\r\n      {\r\n        \"enum\": [\r\n          \"NW\",\r\n          \"NE\",\r\n          \"SW\",\r\n          \"SE\"\r\n        ],\r\n        \"description\": \"The city quadrant of the address\"\r\n      }\r\n    ]\r\n  }\r\n})"
+                },
+                {
+                    "name": "UnevaluatedItems1",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n  \"storybook-name\": \"🤔 UnevaluatedItems (1)\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"prefixItems\": [\r\n      {\r\n        \"type\": \"integer\"\r\n      },\r\n      {\r\n        \"type\": \"string\"\r\n      }\r\n    ],\r\n    \"unevaluatedItems\": false\r\n  }\r\n})"
+                },
+                {
+                    "name": "UnevaluatedItems2",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n  \"storybook-name\": \"📋 UnevaluatedItems (2)\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"prefixItems\": [\r\n      {\r\n        \"type\": \"integer\"\r\n      },\r\n      {\r\n        \"type\": \"string\"\r\n      }\r\n    ],\r\n    \"unevaluatedItems\": {\r\n      \"type\": \"boolean\"\r\n    }\r\n  }\r\n})"
+                },
+                {
+                    "name": "UniqueItems",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n  \"storybook-name\": \"🦄 Unique items\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"uniqueItems\": true\r\n  }\r\n})"
+                }
+            ],
+            "projects/ngx-json-schema-viewer/src/stories/setup.ts": [
+                {
+                    "name": "defaultMeta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/setup.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
                     "type": "Meta<NgxJsonSchemaViewerComponent>",
-                    "defaultValue": "{\r\n    //component: NgxJsonSchemaViewerComponent,\r\n    title: \"Viewer/Array\",\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [NgxJsonSchemaViewerComponent],\r\n      }),\r\n      applicationConfig({\r\n        providers: [\r\n          //importProvidersFrom(BrowserAnimationsModule),\r\n          provideAnimations()\r\n        ],\r\n      })\r\n    ]\r\n}"
+                    "defaultValue": "{\r\n    decorators: [\r\n        moduleMetadata({\r\n            imports: [NgxJsonSchemaViewerComponent],\r\n        }),\r\n        applicationConfig({\r\n            providers: [\r\n                //importProvidersFrom(BrowserAnimationsModule),\r\n                provideAnimations()\r\n            ],\r\n        })\r\n    ]\r\n}"
                 }
             ],
             "projects/ngx-json-schema-viewer/src/lib/utils/detectTypes.ts": [
@@ -7364,6 +7668,37 @@
             ]
         },
         "groupedFunctions": {
+            "projects/ngx-json-schema-viewer/src/stories/setup.ts": [
+                {
+                    "name": "createStory",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/setup.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "params",
+                            "type": "Params",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "returnType": "Story",
+                    "jsdoctags": [
+                        {
+                            "name": "params",
+                            "type": "Params",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
             "projects/ngx-json-schema-viewer/src/lib/utils/detectTypes.ts": [
                 {
                     "name": "detectedTypes",
@@ -7451,6 +7786,52 @@
                     "kind": 184
                 }
             ],
+            "projects/ngx-json-schema-viewer/src/stories/setup.ts": [
+                {
+                    "name": "ComponentProps",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "NgxJsonSchemaViewerComponent",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/setup.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 180
+                },
+                {
+                    "name": "MetaViewer",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "Meta<NgxJsonSchemaViewerComponent>",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/setup.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 180
+                },
+                {
+                    "name": "Params",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/setup.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 190
+                },
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NgxJsonSchemaViewerComponent>",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/setup.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 180
+                }
+            ],
             "projects/ngx-json-schema-viewer/src/lib/types.ts": [
                 {
                     "name": "JSONSchema",
@@ -7519,19 +7900,6 @@
                     "deprecationMessage": "",
                     "description": "",
                     "kind": 189
-                }
-            ],
-            "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<NgxJsonSchemaViewerComponent>",
-                    "file": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 180
                 }
             ],
             "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/array-contains-number.ts": [
@@ -8123,7 +8491,7 @@
                 "linktype": "component",
                 "name": "NgxJsonSchemaViewerComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/9",
+                "coverageCount": "0/11",
                 "status": "low"
             },
             {
@@ -8521,7 +8889,127 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "AdditionalItems2",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Contains",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Items",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Length",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
                 "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "minContainsAndmaxContains",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Simple",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Tuples",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "UnevaluatedItems1",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "UnevaluatedItems2",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Arrays.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "UniqueItems",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/setup.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "createStory",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/setup.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "defaultMeta",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

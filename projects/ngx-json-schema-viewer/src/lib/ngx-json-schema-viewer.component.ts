@@ -56,7 +56,7 @@ import type { JSVOptions } from "./services/jsv-options";
     <!-- Schema -->
     <div *ngIf="resolvedSchema !== undefined">
       <mat-accordion>
-        <<mat-expansion-panel>
+        <mat-expansion-panel [expanded]="expanded">
           <mat-expansion-panel-header>
             <mat-panel-title>
               <strong>
@@ -76,19 +76,20 @@ export class NgxJsonSchemaViewerComponent implements OnInit {
   @Input() vierwerOptions?: JSVOptions;
   resolvedSchema: JSONSchema = false;
   error: Error | undefined;
+
+  expanded : boolean = true;
   
   constructor(
     private schemaResolutionService: SchemaResolutionService,
     private jsvOptionsService: JSVOptionsService,
     private cdr: ChangeDetectorRef
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     // If asked, apply user options
     if (this.vierwerOptions) {
       this.jsvOptionsService.setOptions(this.vierwerOptions);
     }
-  }
-
-  ngOnInit(): void {
     // Perform the asynchronous schema resolution
     this.schemaResolution();
   }
@@ -108,6 +109,10 @@ export class NgxJsonSchemaViewerComponent implements OnInit {
           this.cdr.markForCheck();
         }
       });
+  }
+
+  toggleExpended(): void {
+    this.expanded = !this.expanded;
   }
 
   get getSchemaTitle() : string {
