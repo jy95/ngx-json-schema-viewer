@@ -917,7 +917,7 @@
         },
         {
             "name": "CreateAdditionalItemsComponent",
-            "id": "component-CreateAdditionalItemsComponent-f8e22de401ee7b4cc39831c6a55896da07ad102fef5bf3e20da34520d8fbe41c4788c3528763410fc7ec19ed78fa02bede88fbc71c329221b51cdd85fe4ec155",
+            "id": "component-CreateAdditionalItemsComponent-310ef2aee25843d411e367ba01c97bfdd8b7f8becdee6f6c8087e3d4bed25b1b47dc5e20353a918a317caacb82ba5d68cd9abe2e56d742e2c385dabc36fc701c",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/array/additional-items.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -927,7 +927,7 @@
             "selector": "jse-array-additional-items",
             "styleUrls": [],
             "styles": [],
-            "template": "<ul *ngIf=\"!isUndefinedOrBoolean(items)\">\n  <li>\n    <jse-common-create-edge [schema]=\"items!\" [required]=\"isMinItemsValid()\">\n      <code name>\n        {{ additionalItemsLabel(startingIndex) }}\n      </code>\n    </jse-common-create-edge>\n  </li>\n</ul>\n",
+            "template": "<ul *ngIf=\"!isUndefinedOrBoolean(items)\">\n  <jse-common-create-edge [schema]=\"items!\" [required]=\"isMinItemsValid()\">\n    <code name>\n      {{ additionalItemsLabel(startingIndex) }}\n    </code>\n  </jse-common-create-edge>\n</ul>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -938,7 +938,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 30,
+                    "line": 28,
                     "type": "JSONSchemaNS.Array",
                     "decorators": []
                 }
@@ -959,7 +959,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 50,
+                    "line": 48,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -980,7 +980,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 44,
+                    "line": 42,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -997,7 +997,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 40,
+                    "line": 38,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1031,7 +1031,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from '../../types';\r\n\r\n@Component({\r\n  selector: 'jse-array-additional-items',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul *ngIf=\"!isUndefinedOrBoolean(items)\">\r\n      <li>\r\n        <jse-common-create-edge [schema]=\"items!\" [required]=\"isMinItemsValid()\">\r\n          <code name>\r\n            {{ additionalItemsLabel(startingIndex) }}\r\n          </code>\r\n        </jse-common-create-edge>\r\n      </li>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateAdditionalItemsComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  get items() {\r\n    return this.schema.additionalItems;\r\n  }\r\n\r\n  get startingIndex() {\r\n    return Array.isArray(this.schema.items) ? this.schema.items.length : 1;\r\n  }\r\n\r\n  isUndefinedOrBoolean(value: any): boolean {\r\n    return value === undefined || typeof value === 'boolean';\r\n  }\r\n\r\n  isMinItemsValid(): boolean {\r\n    return (\r\n      this.schema.minItems !== undefined && this.startingIndex >= this.schema.minItems - 1\r\n    );\r\n  }\r\n\r\n  additionalItemsLabel(count: number): string {\r\n    return `items[${count},...]`;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from '../../types';\r\n\r\n@Component({\r\n  selector: 'jse-array-additional-items',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul *ngIf=\"!isUndefinedOrBoolean(items)\">\r\n      <jse-common-create-edge [schema]=\"items!\" [required]=\"isMinItemsValid()\">\r\n        <code name>\r\n          {{ additionalItemsLabel(startingIndex) }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateAdditionalItemsComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  get items() {\r\n    return this.schema.additionalItems;\r\n  }\r\n\r\n  get startingIndex() {\r\n    return Array.isArray(this.schema.items) ? this.schema.items.length : 1;\r\n  }\r\n\r\n  isUndefinedOrBoolean(value: any): boolean {\r\n    return value === undefined || typeof value === 'boolean';\r\n  }\r\n\r\n  isMinItemsValid(): boolean {\r\n    return (\r\n      this.schema.minItems !== undefined && this.startingIndex >= this.schema.minItems - 1\r\n    );\r\n  }\r\n\r\n  additionalItemsLabel(count: number): string {\r\n    return `items[${count},...]`;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -1042,7 +1042,7 @@
                         "name": "items",
                         "type": "",
                         "returnType": "",
-                        "line": 32
+                        "line": 30
                     }
                 },
                 "startingIndex": {
@@ -1051,14 +1051,14 @@
                         "name": "startingIndex",
                         "type": "",
                         "returnType": "",
-                        "line": 36
+                        "line": 34
                     }
                 }
             }
         },
         {
             "name": "CreateAdditionalPropertiesComponent",
-            "id": "component-CreateAdditionalPropertiesComponent-307701ad12de3eae3fbfc17f1c96f6e2d0c466ba8182378b797d2932d823d0349f8a672c3776f8ac2a7db6d1511262947180c28e7ae5b537798ea6255d6349d0",
+            "id": "component-CreateAdditionalPropertiesComponent-ce2fde7d8a48bdd575003d562c2bfc19220bdeb76efa93f6b1f33641264bd4ce3c32c0229e40215a81665fbf214c6fc5fa2d5508b5a4d6bc751a138e299c30dd",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/object/additional-properties.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1068,7 +1068,7 @@
             "selector": "jse-object-additional-properties",
             "styleUrls": [],
             "styles": [],
-            "template": "<ul *ngIf=\"!isUndefinedOrBoolean(additionalProperties)\">\n  <li>\n    <jse-common-create-edge [schema]=\"additionalProperties!\" [required]=\"false\">\n      <code name>\n        {{ additionalPropertiesLabel() }}\n      </code>\n    </jse-common-create-edge>\n  </li>\n</ul>\n",
+            "template": "<ul *ngIf=\"!isUndefinedOrBoolean(additionalProperties)\">\n  <jse-common-create-edge [schema]=\"additionalProperties!\" [required]=\"false\">\n    <code name>\n      {{ additionalPropertiesLabel() }}\n    </code>\n  </jse-common-create-edge>\n</ul>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -1079,7 +1079,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 30,
+                    "line": 28,
                     "type": "JSONSchemaNS.Object",
                     "decorators": []
                 }
@@ -1093,7 +1093,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 40,
+                    "line": 38,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -1110,7 +1110,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 36,
+                    "line": 34,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1144,7 +1144,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-additional-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul *ngIf=\"!isUndefinedOrBoolean(additionalProperties)\">\r\n      <li>\r\n        <jse-common-create-edge [schema]=\"additionalProperties!\" [required]=\"false\">\r\n          <code name>\r\n            {{ additionalPropertiesLabel() }}\r\n          </code>\r\n        </jse-common-create-edge>\r\n      </li>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateAdditionalPropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  get additionalProperties() {\r\n    return this.schema.additionalProperties;\r\n  }\r\n\r\n  isUndefinedOrBoolean(value: any): boolean {\r\n    return value === undefined || typeof value === 'boolean';\r\n  }\r\n\r\n  additionalPropertiesLabel(): string {\r\n    return `property name*`;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-additional-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul *ngIf=\"!isUndefinedOrBoolean(additionalProperties)\">\r\n      <jse-common-create-edge [schema]=\"additionalProperties!\" [required]=\"false\">\r\n        <code name>\r\n          {{ additionalPropertiesLabel() }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateAdditionalPropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  get additionalProperties() {\r\n    return this.schema.additionalProperties;\r\n  }\r\n\r\n  isUndefinedOrBoolean(value: any): boolean {\r\n    return value === undefined || typeof value === 'boolean';\r\n  }\r\n\r\n  additionalPropertiesLabel(): string {\r\n    return `property name*`;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -1155,7 +1155,7 @@
                         "name": "additionalProperties",
                         "type": "",
                         "returnType": "",
-                        "line": 32
+                        "line": 30
                     }
                 }
             }
@@ -1414,7 +1414,7 @@
         },
         {
             "name": "CreateContainsComponent",
-            "id": "component-CreateContainsComponent-3e0161affaaaab7d1d803a523082b99e22cf01f65489cfdae500675823ff611323475e1c5129991a8b4b33a4254d66d02fffafd17b7830b966beed32a7d883a9",
+            "id": "component-CreateContainsComponent-cd3c54fe3b4132e752320aefd962913e7c5622f1e987d16a3dd4d6c7b4bab7ed630a7d00a57fb8ca91ed7f6b4b0b3784072f820b52c7a97844282bb7c7aeb84c",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/array/contains.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1424,7 +1424,7 @@
             "selector": "jse-array-contains",
             "styleUrls": [],
             "styles": [],
-            "template": "<ul>\n  <li *ngIf=\"!isUndefined(item)\">\n    <jse-common-create-edge [schema]=\"item!\" [required]=\"isMinContainsValid()\">\n      <code name>\n        {{ containsLabel }}\n      </code>\n    </jse-common-create-edge>\n  </li>\n</ul>\n",
+            "template": "<ul *ngIf=\"!isUndefined(item)\">\n  <jse-common-create-edge [schema]=\"item!\" [required]=\"isMinContainsValid()\">\n    <code name>\n      {{ containsLabel }}\n    </code>\n  </jse-common-create-edge>\n</ul>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -1435,7 +1435,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 30,
+                    "line": 28,
                     "type": "JSONSchemaNS.Array",
                     "decorators": []
                 }
@@ -1449,7 +1449,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 44,
+                    "line": 42,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -1466,7 +1466,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 40,
+                    "line": 38,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1500,7 +1500,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from '../../types';\r\n\r\n@Component({\r\n  selector: 'jse-array-contains',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul>\r\n      <li *ngIf=\"!isUndefined(item)\">\r\n        <jse-common-create-edge [schema]=\"item!\" [required]=\"isMinContainsValid()\">\r\n          <code name>\r\n            {{ containsLabel }}\r\n          </code>\r\n        </jse-common-create-edge>\r\n      </li>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateContainsComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  get item() {\r\n    return this.schema.contains;\r\n  }\r\n\r\n  get containsLabel() {\r\n    return `items[..., x, ...]`;\r\n  }\r\n\r\n  isUndefined(value: any): boolean {\r\n    return value === undefined;\r\n  }\r\n\r\n  isMinContainsValid(): boolean {\r\n    return this.schema.minContains !== undefined && this.schema.minContains > 0;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from '../../types';\r\n\r\n@Component({\r\n  selector: 'jse-array-contains',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul *ngIf=\"!isUndefined(item)\">\r\n      <jse-common-create-edge [schema]=\"item!\" [required]=\"isMinContainsValid()\">\r\n        <code name>\r\n          {{ containsLabel }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateContainsComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  get item() {\r\n    return this.schema.contains;\r\n  }\r\n\r\n  get containsLabel() {\r\n    return `items[..., x, ...]`;\r\n  }\r\n\r\n  isUndefined(value: any): boolean {\r\n    return value === undefined;\r\n  }\r\n\r\n  isMinContainsValid(): boolean {\r\n    return this.schema.minContains !== undefined && this.schema.minContains > 0;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -1511,7 +1511,7 @@
                         "name": "item",
                         "type": "",
                         "returnType": "",
-                        "line": 32
+                        "line": 30
                     }
                 },
                 "containsLabel": {
@@ -1520,7 +1520,7 @@
                         "name": "containsLabel",
                         "type": "",
                         "returnType": "",
-                        "line": 36
+                        "line": 34
                     }
                 }
             }
@@ -1785,7 +1785,7 @@
         },
         {
             "name": "CreateItemsComponent",
-            "id": "component-CreateItemsComponent-154d2610a8bdec33e1eef2ec8f036fc084d1181ff01974e73c2514e3c2081a4a7633470f046e65d442e1f46341c31aac4f53cab92cbc23f59c1144a05618cd5b",
+            "id": "component-CreateItemsComponent-3a2aa5d56098106cd6541ae9e8080babbd4003b2265a8c005ad755b6a18b889939418ad00a9e3780c25a7af621afe92f45cb17bc339fad4c80815a8085e3b646",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/array/items.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1795,7 +1795,7 @@
             "selector": "jse-array-items",
             "styleUrls": [],
             "styles": [],
-            "template": "<ul>\n  <li *ngFor=\"let item of itemsAsArray; let idx = index\">\n    <jse-common-create-edge [schema]=\"item!\" [required]=\"isMinItemsValid()\">\n      <code name>\n        {{ itemsLabel(startingIndex + idx, isArray) }}\n      </code>\n    </jse-common-create-edge>\n  </li>\n</ul>\n",
+            "template": "<ul>\n  <jse-common-create-edge [schema]=\"item!\" [required]=\"isMinItemsValid()\" *ngFor=\"let item of itemsAsArray; let idx = index\">\n    <code name>\n      {{ itemsLabel(startingIndex + idx, isArray) }}\n    </code>\n  </jse-common-create-edge>\n</ul>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -1806,7 +1806,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 30,
+                    "line": 28,
                     "type": "JSONSchemaNS.Array",
                     "decorators": []
                 }
@@ -1821,7 +1821,7 @@
                     "type": "boolean",
                     "optional": false,
                     "description": "",
-                    "line": 34
+                    "line": 32
                 },
                 {
                     "name": "itemsAsArray",
@@ -1831,7 +1831,7 @@
                     "type": "any[]",
                     "optional": false,
                     "description": "",
-                    "line": 32
+                    "line": 30
                 },
                 {
                     "name": "startingIndex",
@@ -1841,7 +1841,7 @@
                     "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 33
+                    "line": 31
                 }
             ],
             "methodsClass": [
@@ -1851,7 +1851,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 42,
+                    "line": 40,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -1874,7 +1874,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 46,
+                    "line": 44,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1904,7 +1904,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 36,
+                    "line": 34,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -1927,7 +1927,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-array-items',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul>\r\n      <li *ngFor=\"let item of itemsAsArray; let idx = index\">\r\n        <jse-common-create-edge [schema]=\"item!\" [required]=\"isMinItemsValid()\">\r\n          <code name>\r\n            {{ itemsLabel(startingIndex + idx, isArray) }}\r\n          </code>\r\n        </jse-common-create-edge>\r\n      </li>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateItemsComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  itemsAsArray: any[] = [];\r\n  startingIndex: number = 0;\r\n  isArray: boolean = false;\r\n\r\n  ngOnInit() {\r\n    this.itemsAsArray = Array.isArray(this.schema.items) ? this.schema.items : [this.schema.items];\r\n    this.startingIndex = Array.isArray(this.schema.prefixItems) ? this.schema.prefixItems.length : 0;\r\n    this.isArray = Array.isArray(this.schema.items);\r\n  }\r\n\r\n  isMinItemsValid(): boolean {\r\n    return this.schema.minItems !== undefined && this.schema.minItems >= this.itemsAsArray.length;\r\n  }\r\n\r\n  itemsLabel(index: number, isArray: boolean): string {\r\n    const finalIdx = isArray ? index.toString() : 'x';\r\n    return `items[${finalIdx}]`;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-array-items',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul>\r\n      <jse-common-create-edge [schema]=\"item!\" [required]=\"isMinItemsValid()\" *ngFor=\"let item of itemsAsArray; let idx = index\">\r\n        <code name>\r\n          {{ itemsLabel(startingIndex + idx, isArray) }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateItemsComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  itemsAsArray: any[] = [];\r\n  startingIndex: number = 0;\r\n  isArray: boolean = false;\r\n\r\n  ngOnInit() {\r\n    this.itemsAsArray = Array.isArray(this.schema.items) ? this.schema.items : [this.schema.items];\r\n    this.startingIndex = Array.isArray(this.schema.prefixItems) ? this.schema.prefixItems.length : 0;\r\n    this.isArray = Array.isArray(this.schema.items);\r\n  }\r\n\r\n  isMinItemsValid(): boolean {\r\n    return this.schema.minItems !== undefined && this.schema.minItems >= this.itemsAsArray.length;\r\n  }\r\n\r\n  itemsLabel(index: number, isArray: boolean): string {\r\n    const finalIdx = isArray ? index.toString() : 'x';\r\n    return `items[${finalIdx}]`;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -2281,7 +2281,7 @@
         },
         {
             "name": "CreatePatternPropertiesComponent",
-            "id": "component-CreatePatternPropertiesComponent-6f60ed8c1b3a41da715aa605fa55b85bea52630aa23ef0ca23cd1589c307ad1a331aad147378f2524e86a818cffe85ca909ee331d2eab8c101b7e0eea778986d",
+            "id": "component-CreatePatternPropertiesComponent-2c6d8f7c75c3703ac4e04987d7b2d1df2730457924a1446ffbbdca19587cd71fa2ea07820987f2e8e27be4e66f7dfd6084d10976b0462037ef12c1a5a94e78bd",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/object/pattern-properties.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2291,7 +2291,7 @@
             "selector": "jse-object-pattern-properties",
             "styleUrls": [],
             "styles": [],
-            "template": "<ul>\n  <li *ngFor=\"let entry of patternPropertiesEntries\">\n    <jse-common-create-edge [schema]=\"entry[1]!\" [required]=\"false\">\n      <code name>\n        {{ generatePropertyName(entry[0]) }}\n      </code>\n    </jse-common-create-edge>\n  </li>\n</ul>\n",
+            "template": "<ul>\n  <jse-common-create-edge [schema]=\"entry[1]!\" [required]=\"false\" *ngFor=\"let entry of patternPropertiesEntries\">\n    <code name>\n      {{ generatePropertyName(entry[0]) }}\n    </code>\n  </jse-common-create-edge>\n</ul>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -2302,7 +2302,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 30,
+                    "line": 28,
                     "type": "JSONSchemaNS.Object",
                     "decorators": []
                 }
@@ -2323,7 +2323,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 36,
+                    "line": 34,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2357,7 +2357,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-pattern-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul>\r\n      <li *ngFor=\"let entry of patternPropertiesEntries\">\r\n        <jse-common-create-edge [schema]=\"entry[1]!\" [required]=\"false\">\r\n          <code name>\r\n            {{ generatePropertyName(entry[0]) }}\r\n          </code>\r\n        </jse-common-create-edge>\r\n      </li>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreatePatternPropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  get patternPropertiesEntries() {\r\n    return Object.entries(this.schema.patternProperties || {});\r\n  }\r\n\r\n  generatePropertyName(key: string): string {\r\n    return `${key}`;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-pattern-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul>\r\n      <jse-common-create-edge [schema]=\"entry[1]!\" [required]=\"false\" *ngFor=\"let entry of patternPropertiesEntries\">\r\n        <code name>\r\n          {{ generatePropertyName(entry[0]) }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreatePatternPropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  get patternPropertiesEntries() {\r\n    return Object.entries(this.schema.patternProperties || {});\r\n  }\r\n\r\n  generatePropertyName(key: string): string {\r\n    return `${key}`;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -2368,14 +2368,14 @@
                         "name": "patternPropertiesEntries",
                         "type": "",
                         "returnType": "",
-                        "line": 32
+                        "line": 30
                     }
                 }
             }
         },
         {
             "name": "CreatePrefixItemsComponent",
-            "id": "component-CreatePrefixItemsComponent-632b5008e34e6129a5b20a15032d9df3755667dfc9b2f86e9ca21888d1e9ac0f35bd65147f7ab12ef6046cc8b68e2de7a24207df40605424dc72f89c3f304b96",
+            "id": "component-CreatePrefixItemsComponent-20478648a44f6c6e160920e71b6adfb5feca181646f696c84c27b7ddc97f9b9bb7d0d7b027190af8412f746460f04f8b45fdc94360c432b1690bed304a18b5dc",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/array/prefix-items.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2385,7 +2385,7 @@
             "selector": "jse-array-prefix-items",
             "styleUrls": [],
             "styles": [],
-            "template": "<ul>\n  <li *ngFor=\"let val of array; let idx = index\">\n    <jse-common-create-edge [schema]=\"val!\" [required]=\"isMinItemsValid()\">\n      <code name>\n        {{ prefixItemsLabel(idx) }}\n      </code>\n    </jse-common-create-edge>\n  </li>\n</ul>\n",
+            "template": "<ul>\n  <jse-common-create-edge [schema]=\"val!\" [required]=\"isMinItemsValid()\" *ngFor=\"let val of array; let idx = index\">\n    <code name>\n      {{ prefixItemsLabel(idx) }}\n    </code>\n  </jse-common-create-edge>\n</ul>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -2396,7 +2396,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 30,
+                    "line": 28,
                     "type": "JSONSchemaNS.Array",
                     "decorators": []
                 }
@@ -2411,7 +2411,7 @@
                     "type": "JSONSchema[]",
                     "optional": false,
                     "description": "",
-                    "line": 32
+                    "line": 30
                 }
             ],
             "methodsClass": [
@@ -2421,7 +2421,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 38,
+                    "line": 36,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -2431,7 +2431,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 34,
+                    "line": 32,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -2448,7 +2448,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 42,
+                    "line": 40,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2482,14 +2482,14 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchema, JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-array-prefix-items',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul>\r\n      <li *ngFor=\"let val of array; let idx = index\">\r\n        <jse-common-create-edge [schema]=\"val!\" [required]=\"isMinItemsValid()\">\r\n          <code name>\r\n            {{ prefixItemsLabel(idx) }}\r\n          </code>\r\n        </jse-common-create-edge>\r\n      </li>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreatePrefixItemsComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  array: JSONSchema[] = [];\r\n\r\n  ngOnInit() {\r\n    this.array = Array.isArray(this.schema.prefixItems) ? this.schema.prefixItems : [this.schema.prefixItems!] as JSONSchema[];\r\n  }\r\n\r\n  isMinItemsValid(): boolean {\r\n    return this.schema.minItems !== undefined && this.schema.minItems >= this.array.length;\r\n  }\r\n\r\n  prefixItemsLabel(index: number): string {\r\n    return `items[${index}]`;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchema, JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-array-prefix-items',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul>\r\n      <jse-common-create-edge [schema]=\"val!\" [required]=\"isMinItemsValid()\" *ngFor=\"let val of array; let idx = index\">\r\n        <code name>\r\n          {{ prefixItemsLabel(idx) }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreatePrefixItemsComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  array: JSONSchema[] = [];\r\n\r\n  ngOnInit() {\r\n    this.array = Array.isArray(this.schema.prefixItems) ? this.schema.prefixItems : [this.schema.prefixItems!] as JSONSchema[];\r\n  }\r\n\r\n  isMinItemsValid(): boolean {\r\n    return this.schema.minItems !== undefined && this.schema.minItems >= this.array.length;\r\n  }\r\n\r\n  prefixItemsLabel(index: number): string {\r\n    return `items[${index}]`;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
         },
         {
             "name": "CreatePropertiesComponent",
-            "id": "component-CreatePropertiesComponent-9672dcd559d08234729f454003b61ffda0b6f2a1924bcc9431be55605cb68027c6530a856040cc55f662c4f8916f00f76dccc6649df949aa53478648bc9a2511",
+            "id": "component-CreatePropertiesComponent-d282aeb38c63bf4a6cb733c0d4c5daa91bad0e0ba40a89063ba2c384839714af3321cbc65a8e6c14866c2f55c45e195418e2004f68fec2950605301259b35582",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/object/properties.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2499,7 +2499,7 @@
             "selector": "jse-object-properties",
             "styleUrls": [],
             "styles": [],
-            "template": "<ul>\n  <li *ngFor=\"let entry of propertiesEntries\">\n    <jse-common-create-edge [schema]=\"entry[1]\" [required]=\"isRequired(entry[0])\">\n      <strong name>\n        {{ generatePropertyName(entry[0]) }}\n      </strong>\n    </jse-common-create-edge>\n  </li>\n</ul>\n",
+            "template": "<ul>\n  <jse-common-create-edge [schema]=\"entry[1]\" [required]=\"isRequired(entry[0])\" *ngFor=\"let entry of propertiesEntries\">\n    <strong name>\n      {{ generatePropertyName(entry[0]) }}\n    </strong>\n  </jse-common-create-edge>\n</ul>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -2510,7 +2510,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 30,
+                    "line": 28,
                     "type": "JSONSchemaNS.Object",
                     "decorators": []
                 }
@@ -2531,7 +2531,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 36,
+                    "line": 34,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2559,7 +2559,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 40,
+                    "line": 38,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2593,7 +2593,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul>\r\n      <li *ngFor=\"let entry of propertiesEntries\">\r\n        <jse-common-create-edge [schema]=\"entry[1]\" [required]=\"isRequired(entry[0])\">\r\n          <strong name>\r\n            {{ generatePropertyName(entry[0]) }}\r\n          </strong>\r\n        </jse-common-create-edge>\r\n      </li>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreatePropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  get propertiesEntries() {\r\n    return Object.entries(this.schema.properties || {});\r\n  }\r\n\r\n  generatePropertyName(key: string): string {\r\n    return `${key}`;\r\n  }\r\n\r\n  isRequired(key: string): boolean {\r\n    return Array.isArray(this.schema.required) ? this.schema.required.includes(key) : false;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul>\r\n      <jse-common-create-edge [schema]=\"entry[1]\" [required]=\"isRequired(entry[0])\" *ngFor=\"let entry of propertiesEntries\">\r\n        <strong name>\r\n          {{ generatePropertyName(entry[0]) }}\r\n        </strong>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreatePropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  get propertiesEntries() {\r\n    return Object.entries(this.schema.properties || {});\r\n  }\r\n\r\n  generatePropertyName(key: string): string {\r\n    return `${key}`;\r\n  }\r\n\r\n  isRequired(key: string): boolean {\r\n    return Array.isArray(this.schema.required) ? this.schema.required.includes(key) : false;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -2604,7 +2604,7 @@
                         "name": "propertiesEntries",
                         "type": "",
                         "returnType": "",
-                        "line": 32
+                        "line": 30
                     }
                 }
             }
@@ -2793,7 +2793,7 @@
         },
         {
             "name": "CreateUnevaluatedItemsComponent",
-            "id": "component-CreateUnevaluatedItemsComponent-b159f5b36186d7d8371df3ec4e06979e50ae9cd5dbba6fcf7b1f7cc2e614cb1e6ab90fefef68bb8a797d18dc48590c3b89514be64912a66b8786256cc16129f5",
+            "id": "component-CreateUnevaluatedItemsComponent-0821f35c194bef40130bfa49745209870d11d4cb79b55ef848847401f6a9ff7e494e4b7f05af6ee3760b698fcb9afa86bf49175c21e3bbd528eed1cde03858ea",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/array/unevaluated-items.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2803,7 +2803,7 @@
             "selector": "jse-array-unevaluated-items",
             "styleUrls": [],
             "styles": [],
-            "template": "<ul *ngIf=\"!isUndefinedOrBoolean(items)\">\n  <li>\n    <jse-common-create-edge [schema]=\"items!\" [required]=\"false\">\n      <code name>\n        {{ unevaluatedItemsLabel() }}\n      </code>\n    </jse-common-create-edge>\n  </li>\n</ul>\n",
+            "template": "<ul *ngIf=\"!isUndefinedOrBoolean(items)\">\n  <jse-common-create-edge [schema]=\"items!\" [required]=\"false\">\n    <code name>\n      {{ unevaluatedItemsLabel() }}\n    </code>\n  </jse-common-create-edge>\n</ul>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -2814,7 +2814,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 30,
+                    "line": 28,
                     "type": "JSONSchemaNS.Array",
                     "decorators": []
                 }
@@ -2835,7 +2835,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 36,
+                    "line": 34,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2856,7 +2856,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 40,
+                    "line": 38,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -2879,7 +2879,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-array-unevaluated-items',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul *ngIf=\"!isUndefinedOrBoolean(items)\">\r\n      <li>\r\n        <jse-common-create-edge [schema]=\"items!\" [required]=\"false\">\r\n          <code name>\r\n            {{ unevaluatedItemsLabel() }}\r\n          </code>\r\n        </jse-common-create-edge>\r\n      </li>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateUnevaluatedItemsComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  get items() {\r\n    return this.schema.unevaluatedItems;\r\n  }\r\n\r\n  isUndefinedOrBoolean(value: any): boolean {\r\n    return value === undefined || typeof value === 'boolean';\r\n  }\r\n\r\n  unevaluatedItemsLabel(): string {\r\n    return `items[y]`;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-array-unevaluated-items',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul *ngIf=\"!isUndefinedOrBoolean(items)\">\r\n      <jse-common-create-edge [schema]=\"items!\" [required]=\"false\">\r\n        <code name>\r\n          {{ unevaluatedItemsLabel() }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateUnevaluatedItemsComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  get items() {\r\n    return this.schema.unevaluatedItems;\r\n  }\r\n\r\n  isUndefinedOrBoolean(value: any): boolean {\r\n    return value === undefined || typeof value === 'boolean';\r\n  }\r\n\r\n  unevaluatedItemsLabel(): string {\r\n    return `items[y]`;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -2890,14 +2890,14 @@
                         "name": "items",
                         "type": "",
                         "returnType": "",
-                        "line": 32
+                        "line": 30
                     }
                 }
             }
         },
         {
             "name": "CreateUnevaluatedPropertiesComponent",
-            "id": "component-CreateUnevaluatedPropertiesComponent-c7022db6a65f73c55d9b8e2c56854aac96d4930be84e38f3a983cd9ce3892555ce1d06298feced433f04fe9f1e92ddf6cf95606eb9c26ad764bbe1ad47679e08",
+            "id": "component-CreateUnevaluatedPropertiesComponent-13a0a1f01daeb65161650ca9aa429cf1bdb7af30bb1c60287fbc77ce223758c8db82cf9d79f94664af1c06194f5948112c92697aaf771ddcefc2f1d7f75f7c28",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/object/unevaluated-properties.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2907,7 +2907,7 @@
             "selector": "jse-object-unevaluated-properties",
             "styleUrls": [],
             "styles": [],
-            "template": "<ul *ngIf=\"!isUndefinedOrBoolean(unevaluatedProperties)\">\n  <li>\n    <jse-common-create-edge [schema]=\"unevaluatedProperties!\" [required]=\"false\">\n      <code name>\n        {{ unevaluatedPropertiesLabel() }}\n      </code>\n    </jse-common-create-edge>\n  </li>\n</ul>\n",
+            "template": "<ul *ngIf=\"!isUndefinedOrBoolean(unevaluatedProperties)\">\n  <jse-common-create-edge [schema]=\"unevaluatedProperties!\" [required]=\"false\">\n    <code name>\n      {{ unevaluatedPropertiesLabel() }}\n    </code>\n  </jse-common-create-edge>\n</ul>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -2918,7 +2918,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 30,
+                    "line": 28,
                     "type": "JSONSchemaNS.Object",
                     "decorators": []
                 }
@@ -2939,7 +2939,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 36,
+                    "line": 34,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2960,7 +2960,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 40,
+                    "line": 38,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -2983,7 +2983,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-unevaluated-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul *ngIf=\"!isUndefinedOrBoolean(unevaluatedProperties)\">\r\n      <li>\r\n        <jse-common-create-edge [schema]=\"unevaluatedProperties!\" [required]=\"false\">\r\n          <code name>\r\n            {{ unevaluatedPropertiesLabel() }}\r\n          </code>\r\n        </jse-common-create-edge>\r\n      </li>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateUnevaluatedPropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  get unevaluatedProperties() {\r\n    return this.schema.unevaluatedProperties;\r\n  }\r\n\r\n  isUndefinedOrBoolean(value: any): boolean {\r\n    return value === undefined || typeof value === 'boolean';\r\n  }\r\n\r\n  unevaluatedPropertiesLabel(): string {\r\n    return `property name*`;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-unevaluated-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul *ngIf=\"!isUndefinedOrBoolean(unevaluatedProperties)\">\r\n      <jse-common-create-edge [schema]=\"unevaluatedProperties!\" [required]=\"false\">\r\n        <code name>\r\n          {{ unevaluatedPropertiesLabel() }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateUnevaluatedPropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  get unevaluatedProperties() {\r\n    return this.schema.unevaluatedProperties;\r\n  }\r\n\r\n  isUndefinedOrBoolean(value: any): boolean {\r\n    return value === undefined || typeof value === 'boolean';\r\n  }\r\n\r\n  unevaluatedPropertiesLabel(): string {\r\n    return `property name*`;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -2994,14 +2994,14 @@
                         "name": "unevaluatedProperties",
                         "type": "",
                         "returnType": "",
-                        "line": 32
+                        "line": 30
                     }
                 }
             }
         },
         {
             "name": "CreateUnlistedPropertiesComponent",
-            "id": "component-CreateUnlistedPropertiesComponent-046fd5180e9fc44901e0f8bdf57b8a1233071e0b1d00c712f931c06dbfa52ccb33a4288b054e40a015cb4a3df5e4a37d439267bd06450981072069efa0b31f3d",
+            "id": "component-CreateUnlistedPropertiesComponent-d4698d1e8ed94cfa32c65a587ee08b33945dbee3845cfcd25ac9757f70aefa4ac7af2e384efea4973f5efa8dfcdeb5b577dd774717325e437a998f2dad9d77af",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/object/unlisted-required-properties.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3011,7 +3011,7 @@
             "selector": "jse-object-unlisted-properties",
             "styleUrls": [],
             "styles": [],
-            "template": "<ul>\n  <li *ngFor=\"let prop of unlistedProperties\">\n    <jse-common-create-edge\n      [schema]=\"true\"]\n      [required]=\"true\"]\n    >\n      <strong name>\n        {{ generatePropertyName(prop) }}\n      </strong>\n    </jse-common-create-edge>\n  </li>\n</ul>\n",
+            "template": "<ul>\n  <jse-common-create-edge\n    [schema]=\"true\"]\n    [required]=\"true\"]\n    *ngFor=\"let prop of unlistedProperties\"\n  >\n    <strong name>\n      {{ generatePropertyName(prop) }}\n    </strong>\n  </jse-common-create-edge>\n</ul>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -3022,7 +3022,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 33,
+                    "line": 32,
                     "type": "JSONSchemaNS.Object",
                     "decorators": []
                 }
@@ -3043,7 +3043,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 41,
+                    "line": 40,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -3077,7 +3077,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-unlisted-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul>\r\n      <li *ngFor=\"let prop of unlistedProperties\">\r\n        <jse-common-create-edge\r\n          [schema]=\"true\"]\r\n          [required]=\"true\"]\r\n        >\r\n          <strong name>\r\n            {{ generatePropertyName(prop) }}\r\n          </strong>\r\n        </jse-common-create-edge>\r\n      </li>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateUnlistedPropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  get unlistedProperties() {\r\n    const required: string[] = (this.schema.required || []) as string[];\r\n    const listedProperties = Object.keys(this.schema.properties || {});\r\n    return required.filter((r) => !listedProperties.includes(r));\r\n  }\r\n\r\n  generatePropertyName(prop: string): string {\r\n    return `${prop}`;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-unlisted-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul>\r\n      <jse-common-create-edge\r\n        [schema]=\"true\"]\r\n        [required]=\"true\"]\r\n        *ngFor=\"let prop of unlistedProperties\"\r\n      >\r\n        <strong name>\r\n          {{ generatePropertyName(prop) }}\r\n        </strong>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateUnlistedPropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  get unlistedProperties() {\r\n    const required: string[] = (this.schema.required || []) as string[];\r\n    const listedProperties = Object.keys(this.schema.properties || {});\r\n    return required.filter((r) => !listedProperties.includes(r));\r\n  }\r\n\r\n  generatePropertyName(prop: string): string {\r\n    return `${prop}`;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -3088,7 +3088,7 @@
                         "name": "unlistedProperties",
                         "type": "",
                         "returnType": "",
-                        "line": 35
+                        "line": 34
                     }
                 }
             }
@@ -5686,7 +5686,7 @@
         },
         {
             "name": "PropertyNamesComponent",
-            "id": "component-PropertyNamesComponent-34395ff617e836e8f8f491b73b8c410edcd2873fcb13c756088a58a7aa0b17e7ab8e4c5415616cc3bb68e2026fd8f2bc3ff52aab5332ec5282e78c1044eaceb5",
+            "id": "component-PropertyNamesComponent-b4e48c0badd1ed1983eef292b7312f51719e914d571151c224c73e2771c062eea8eed9f1aa4c3d11ab1ebc3027fecdca80776679f0d1f9c3db0ce92a69d436b3",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/object/property-names.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5696,7 +5696,7 @@
             "selector": "jse-object-property-names",
             "styleUrls": [],
             "styles": [],
-            "template": "<ul *ngIf=\"isPropertyNamesValid()\">\n  <li>\n    <jse-common-create-edge [schema]=\"generateSchema()\" [required]=\"false\">\n      <code name>\n        {{ generatePropertyName() }}\n      </code>\n    </jse-common-create-edge>\n  </li>\n</ul>\n",
+            "template": "<ul *ngIf=\"isPropertyNamesValid()\">\n  <jse-common-create-edge [schema]=\"generateSchema()\" [required]=\"false\">\n    <code name>\n      {{ generatePropertyName() }}\n    </code>\n  </jse-common-create-edge>\n</ul>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -5707,7 +5707,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 30,
+                    "line": 28,
                     "type": "JSONSchemaNS.Object",
                     "decorators": []
                 }
@@ -5721,7 +5721,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 41,
+                    "line": 39,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -5731,7 +5731,7 @@
                     "optional": false,
                     "returnType": "JSONSchema",
                     "typeParameters": [],
-                    "line": 47,
+                    "line": 45,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -5741,7 +5741,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 32,
+                    "line": 30,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -5764,7 +5764,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-property-names',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul *ngIf=\"isPropertyNamesValid()\">\r\n      <li>\r\n        <jse-common-create-edge [schema]=\"generateSchema()\" [required]=\"false\">\r\n          <code name>\r\n            {{ generatePropertyName() }}\r\n          </code>\r\n        </jse-common-create-edge>\r\n      </li>\r\n    </ul>\r\n  `,\r\n})\r\nexport class PropertyNamesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  isPropertyNamesValid(): boolean {\r\n    const propertyNames = this.schema.propertyNames;\r\n    return (\r\n      propertyNames !== undefined &&\r\n      typeof propertyNames !== \"boolean\" &&\r\n      propertyNames.pattern !== undefined\r\n    );\r\n  }\r\n\r\n  generatePropertyName(): string {\r\n    const propertyNames = this.schema.propertyNames!;\r\n    const pattern = typeof propertyNames !== \"boolean\" ? propertyNames?.pattern : \"\";\r\n    return `${pattern}`;\r\n  }\r\n\r\n  generateSchema(): JSONSchema {\r\n    const propertyNames = this.schema.propertyNames;\r\n    if (propertyNames && typeof propertyNames !== \"boolean\") {\r\n      const { pattern, ...newSchema } = propertyNames;\r\n      return newSchema;\r\n    }\r\n    return {};\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-property-names',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul *ngIf=\"isPropertyNamesValid()\">\r\n      <jse-common-create-edge [schema]=\"generateSchema()\" [required]=\"false\">\r\n        <code name>\r\n          {{ generatePropertyName() }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class PropertyNamesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  isPropertyNamesValid(): boolean {\r\n    const propertyNames = this.schema.propertyNames;\r\n    return (\r\n      propertyNames !== undefined &&\r\n      typeof propertyNames !== \"boolean\" &&\r\n      propertyNames.pattern !== undefined\r\n    );\r\n  }\r\n\r\n  generatePropertyName(): string {\r\n    const propertyNames = this.schema.propertyNames!;\r\n    const pattern = typeof propertyNames !== \"boolean\" ? propertyNames?.pattern : \"\";\r\n    return `${pattern}`;\r\n  }\r\n\r\n  generateSchema(): JSONSchema {\r\n    const propertyNames = this.schema.propertyNames;\r\n    if (propertyNames && typeof propertyNames !== \"boolean\") {\r\n      const { pattern, ...newSchema } = propertyNames;\r\n      return newSchema;\r\n    }\r\n    return {};\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
