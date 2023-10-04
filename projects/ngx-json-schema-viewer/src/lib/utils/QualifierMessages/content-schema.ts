@@ -26,7 +26,9 @@ import type { JSONSchemaNS } from "../../types"
               {{ title }}
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <jse-common-create-nodes [schema]="schema.contentSchema!"/>
+          <ng-template matExpansionPanelContent>
+            <jse-common-create-nodes [schema]="schema.contentSchema!"/>
+          </ng-template>
         </mat-expansion-panel>
       </mat-accordion>
     </div>

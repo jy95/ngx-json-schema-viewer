@@ -15,14 +15,12 @@ import type { JSONSchemaNS } from '../../types';
     forwardRef(() => CreateEdgeComponent)
   ],
   template: `
-    <ul>
-      <li *ngIf="!isUndefined(item)">
-        <jse-common-create-edge [schema]="item!" [required]="isMinContainsValid()">
-          <code name>
-            {{ containsLabel }}
-          </code>
-        </jse-common-create-edge>
-      </li>
+    <ul *ngIf="!isUndefined(item)">
+      <jse-common-create-edge [schema]="item!" [required]="isMinContainsValid()">
+        <code name>
+          {{ containsLabel }}
+        </code>
+      </jse-common-create-edge>
     </ul>
   `,
 })

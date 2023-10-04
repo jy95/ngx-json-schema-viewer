@@ -16,13 +16,11 @@ import type { JSONSchemaNS } from '../../types';
   ],
   template: `
     <ul *ngIf="!isUndefinedOrBoolean(items)">
-      <li>
-        <jse-common-create-edge [schema]="items!" [required]="isMinItemsValid()">
-          <code name>
-            {{ additionalItemsLabel(startingIndex) }}
-          </code>
-        </jse-common-create-edge>
-      </li>
+      <jse-common-create-edge [schema]="items!" [required]="isMinItemsValid()">
+        <code name>
+          {{ additionalItemsLabel(startingIndex) }}
+        </code>
+      </jse-common-create-edge>
     </ul>
   `,
 })

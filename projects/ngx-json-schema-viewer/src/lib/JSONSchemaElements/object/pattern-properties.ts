@@ -16,13 +16,11 @@ import type { JSONSchemaNS } from "../../types";
   ],
   template: `
     <ul>
-      <li *ngFor="let entry of patternPropertiesEntries">
-        <jse-common-create-edge [schema]="entry[1]!" [required]="false">
-          <code name>
-            {{ generatePropertyName(entry[0]) }}
-          </code>
-        </jse-common-create-edge>
-      </li>
+      <jse-common-create-edge [schema]="entry[1]!" [required]="false" *ngFor="let entry of patternPropertiesEntries">
+        <code name>
+          {{ generatePropertyName(entry[0]) }}
+        </code>
+      </jse-common-create-edge>
     </ul>
   `,
 })

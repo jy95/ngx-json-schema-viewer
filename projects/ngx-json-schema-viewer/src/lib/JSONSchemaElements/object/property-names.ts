@@ -16,13 +16,11 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
   ],
   template: `
     <ul *ngIf="isPropertyNamesValid()">
-      <li>
-        <jse-common-create-edge [schema]="generateSchema()" [required]="false">
-          <code name>
-            {{ generatePropertyName() }}
-          </code>
-        </jse-common-create-edge>
-      </li>
+      <jse-common-create-edge [schema]="generateSchema()" [required]="false">
+        <code name>
+          {{ generatePropertyName() }}
+        </code>
+      </jse-common-create-edge>
     </ul>
   `,
 })

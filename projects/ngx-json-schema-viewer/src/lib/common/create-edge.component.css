@@ -5,19 +5,19 @@
     position: relative;
     margin: 0 !important;
     padding: 5px 0 5px 1rem;
-    border-left: thin solid var(--ifm-color-gray-500) !important;
+    border-left: thin solid #bec3c9 !important;
 }
 
 .schemaItem:hover {
-    background-color: var(--ifm-menu-color-background-active);
+    background-color: #ffffff0d;
 }
 
 .schemaItem:focus {
-    background-color: var(--ifm-menu-color-background-active);
+    background-color: #ffffff0d;
 }
   
 [class^="schemaItem"]::before {
-    border-bottom: thin solid var(--ifm-color-gray-500);
+    border-bottom: thin solid #bec3c9;
     content: "";
     display: inline-block;
     height: 0.5rem;

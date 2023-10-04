@@ -16,13 +16,11 @@ import type { JSONSchemaNS } from "../../types";
   ],
   template: `
     <ul *ngIf="!isUndefinedOrBoolean(additionalProperties)">
-      <li>
-        <jse-common-create-edge [schema]="additionalProperties!" [required]="false">
-          <code name>
-            {{ additionalPropertiesLabel() }}
-          </code>
-        </jse-common-create-edge>
-      </li>
+      <jse-common-create-edge [schema]="additionalProperties!" [required]="false">
+        <code name>
+          {{ additionalPropertiesLabel() }}
+        </code>
+      </jse-common-create-edge>
     </ul>
   `,
 })

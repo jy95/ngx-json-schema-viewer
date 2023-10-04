@@ -16,13 +16,11 @@ import type { JSONSchemaNS } from "../../types";
   ],
   template: `
     <ul>
-      <li *ngFor="let item of itemsAsArray; let idx = index">
-        <jse-common-create-edge [schema]="item!" [required]="isMinItemsValid()">
-          <code name>
-            {{ itemsLabel(startingIndex + idx, isArray) }}
-          </code>
-        </jse-common-create-edge>
-      </li>
+      <jse-common-create-edge [schema]="item!" [required]="isMinItemsValid()" *ngFor="let item of itemsAsArray; let idx = index">
+        <code name>
+          {{ itemsLabel(startingIndex + idx, isArray) }}
+        </code>
+      </jse-common-create-edge>
     </ul>
   `,
 })

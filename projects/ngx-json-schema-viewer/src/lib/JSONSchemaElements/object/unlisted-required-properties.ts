@@ -16,16 +16,15 @@ import type { JSONSchemaNS } from "../../types";
   ],
   template: `
     <ul>
-      <li *ngFor="let prop of unlistedProperties">
-        <jse-common-create-edge
-          [schema]="true"]
-          [required]="true"]
-        >
-          <strong name>
-            {{ generatePropertyName(prop) }}
-          </strong>
-        </jse-common-create-edge>
-      </li>
+      <jse-common-create-edge
+        [schema]="true"]
+        [required]="true"]
+        *ngFor="let prop of unlistedProperties"
+      >
+        <strong name>
+          {{ generatePropertyName(prop) }}
+        </strong>
+      </jse-common-create-edge>
     </ul>
   `,
 })

@@ -64,7 +64,9 @@ import type { JSVOptions } from "./services/jsv-options";
               </strong>
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <jse-common-create-nodes [schema]="resolvedSchema" />
+          <ng-template matExpansionPanelContent>
+            <jse-common-create-nodes [schema]="resolvedSchema" />
+          </ng-template>
         </mat-expansion-panel>
       </mat-accordion>
     </div>

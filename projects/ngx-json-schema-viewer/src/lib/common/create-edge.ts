@@ -58,7 +58,9 @@ import type { JSONSchema, JSONSchema_Draft_2019_09 } from '../types';
                         <labels-write-only *ngIf="isWriteOnly" />
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <jse-common-create-nodes [schema]="schema" />
+                <ng-template matExpansionPanelContent>
+                  <jse-common-create-nodes [schema]="schema" />
+                </ng-template>
             </mat-expansion-panel>
         </mat-accordion>
     </li>

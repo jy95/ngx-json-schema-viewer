@@ -35,14 +35,16 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
                     {{ schemaConditionalLabel }}
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <!-- Handles if-then-else case -->
-            <jse-schema-conditional-if-else-then [schema]="schema" *ngIf="isIfThenElse" />
-            <!-- Handles dependentRequired case -->
-            <jse-schema-conditional-dependent-required [schema]="schema" *ngIf="isDependentRequired" />
-            <!-- Handles dependentSchemas case -->
-            <jse-schema-conditional-dependent-schemas [schema]="schema" *ngIf="isDependentSchemas" />
-            <!-- Handles dependencies (deprecated) -->
-            <jse-schema-conditional-dependencies [schema]="schema" *ngIf="isDependencies" />
+            <ng-template matExpansionPanelContent>
+              <!-- Handles if-then-else case -->
+              <jse-schema-conditional-if-else-then [schema]="schema" *ngIf="isIfThenElse" />
+              <!-- Handles dependentRequired case -->
+              <jse-schema-conditional-dependent-required [schema]="schema" *ngIf="isDependentRequired" />
+              <!-- Handles dependentSchemas case -->
+              <jse-schema-conditional-dependent-schemas [schema]="schema" *ngIf="isDependentSchemas" />
+              <!-- Handles dependencies (deprecated) -->
+              <jse-schema-conditional-dependencies [schema]="schema" *ngIf="isDependencies" />
+            </ng-template>
         </mat-expansion-panel>
     </mat-accordion>
   `,
