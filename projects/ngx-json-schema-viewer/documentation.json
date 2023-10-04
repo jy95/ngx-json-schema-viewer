@@ -4695,7 +4695,7 @@
         },
         {
             "name": "NgxJsonSchemaViewerComponent",
-            "id": "component-NgxJsonSchemaViewerComponent-bcd72bb6a73eaf4f60e93c36dd4006dc41d545e979dbf7f48d62baa0cf585946c2f07c55b13b5e5410996be7661d0526a438fe4600be74ed8d42380dca4f83ac",
+            "id": "component-NgxJsonSchemaViewerComponent-0408545b34a8bbdb3e9df950e01fa7f2a99a22977f88ccfd3584fa95222744790f33e3b039f7fd2de843635f1f9d91c1bb3cc4fa2d5440c3b66548476fc88b31",
             "file": "projects/ngx-json-schema-viewer/src/lib/ngx-json-schema-viewer.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -4739,7 +4739,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "line": 76,
-                    "type": "JSVOptions",
+                    "type": "Partial<JSVOptions>",
                     "decorators": []
                 }
             ],
@@ -4840,7 +4840,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\nimport { JSVOptionsService } from \"./services/jsv-options\";\r\n\r\n// Labels\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// Types\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSVOptions } from \"./services/jsv-options\";\r\n\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  providers: [\r\n    JSVOptionsService\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <!-- Error ... -->\r\n    <ng-container *ngIf=\"error !== undefined; else loadingSchema\">\r\n      <div>\r\n        <labels-error-occurred [error]=\"error!\"/>\r\n      </div>\r\n    </ng-container>\r\n\r\n    <!-- Loading ... -->\r\n    <ng-template #loadingSchema>\r\n      <div *ngIf=\"resolvedSchema === undefined\">\r\n        <labels-loading />\r\n      </div>\r\n    </ng-template>\r\n\r\n    <!-- Schema -->\r\n    <div *ngIf=\"resolvedSchema !== undefined\">\r\n      <mat-accordion>\r\n        <mat-expansion-panel [expanded]=\"expanded\">\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <jse-common-create-nodes [schema]=\"resolvedSchema\" />\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </div>\r\n  `\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  @Input() vierwerOptions?: JSVOptions;\r\n  resolvedSchema: JSONSchema = false;\r\n  error: Error | undefined;\r\n\r\n  expanded : boolean = true;\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService,\r\n    private jsvOptionsService: JSVOptionsService,\r\n    private cdr: ChangeDetectorRef\r\n  ) {}\r\n\r\n  ngOnInit(): void {\r\n    // If asked, apply user options\r\n    if (this.vierwerOptions) {\r\n      this.jsvOptionsService.setOptions(this.vierwerOptions);\r\n    }\r\n    // Perform the asynchronous schema resolution\r\n    this.schemaResolution();\r\n  }\r\n\r\n  private schemaResolution() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .subscribe({\r\n        error: (err) => {\r\n          this.error = err;\r\n          this.resolvedSchema = false;\r\n          this.cdr.markForCheck();\r\n        },\r\n        next: (result) => {\r\n          this.resolvedSchema = result;\r\n          this.error = undefined;\r\n          this.cdr.markForCheck();\r\n        }\r\n      });\r\n  }\r\n\r\n  toggleExpended(): void {\r\n    this.expanded = !this.expanded;\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    if (typeof this.resolvedSchema !== \"boolean\" && this.resolvedSchema.title !== undefined) {\r\n      return this.resolvedSchema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\nimport { JSVOptionsService } from \"./services/jsv-options\";\r\n\r\n// Labels\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// Types\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSVOptions } from \"./services/jsv-options\";\r\n\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  providers: [\r\n    JSVOptionsService\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <!-- Error ... -->\r\n    <ng-container *ngIf=\"error !== undefined; else loadingSchema\">\r\n      <div>\r\n        <labels-error-occurred [error]=\"error!\"/>\r\n      </div>\r\n    </ng-container>\r\n\r\n    <!-- Loading ... -->\r\n    <ng-template #loadingSchema>\r\n      <div *ngIf=\"resolvedSchema === undefined\">\r\n        <labels-loading />\r\n      </div>\r\n    </ng-template>\r\n\r\n    <!-- Schema -->\r\n    <div *ngIf=\"resolvedSchema !== undefined\">\r\n      <mat-accordion>\r\n        <mat-expansion-panel [expanded]=\"expanded\">\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <jse-common-create-nodes [schema]=\"resolvedSchema\" />\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </div>\r\n  `\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  @Input() vierwerOptions?: Partial<JSVOptions>;\r\n  resolvedSchema: JSONSchema = false;\r\n  error: Error | undefined;\r\n\r\n  expanded : boolean = true;\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService,\r\n    private jsvOptionsService: JSVOptionsService,\r\n    private cdr: ChangeDetectorRef\r\n  ) {}\r\n\r\n  ngOnInit(): void {\r\n    // If asked, apply user options\r\n    if (this.vierwerOptions) {\r\n      this.jsvOptionsService.setOptions(this.vierwerOptions);\r\n    }\r\n    // Perform the asynchronous schema resolution\r\n    this.schemaResolution();\r\n  }\r\n\r\n  private schemaResolution() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .subscribe({\r\n        error: (err) => {\r\n          this.error = err;\r\n          this.resolvedSchema = false;\r\n          this.cdr.markForCheck();\r\n        },\r\n        next: (result) => {\r\n          this.resolvedSchema = result;\r\n          this.error = undefined;\r\n          this.cdr.markForCheck();\r\n        }\r\n      });\r\n  }\r\n\r\n  toggleExpended(): void {\r\n    this.expanded = !this.expanded;\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    if (typeof this.resolvedSchema !== \"boolean\" && this.resolvedSchema.title !== undefined) {\r\n      return this.resolvedSchema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -6971,6 +6971,96 @@
                 "defaultValue": "createStory({\r\n  \"storybook-name\": \"➕ AdditionalItems (2)\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"items\": [\r\n      {\r\n        \"type\": \"integer\"\r\n      },\r\n      {\r\n        \"type\": \"string\"\r\n      }\r\n    ],\r\n    \"additionalItems\": {\r\n      \"type\": \"boolean\"\r\n    }\r\n  }\r\n})"
             },
             {
+                "name": "AdditionalProperties1",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🗝️ AdditionalProperties (1)\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"number\": {\r\n            \"type\": \"number\"\r\n          },\r\n          \"street_name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"street_type\": {\r\n            \"enum\": [\r\n              \"Street\",\r\n              \"Avenue\",\r\n              \"Boulevard\"\r\n            ]\r\n          }\r\n        },\r\n        \"additionalProperties\": false\r\n    }\r\n})"
+            },
+            {
+                "name": "AdditionalProperties2",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🛠️ AdditionalProperties (2)\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"number\": {\r\n            \"type\": \"number\"\r\n          },\r\n          \"street_name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"street_type\": {\r\n            \"enum\": [\r\n              \"Street\",\r\n              \"Avenue\",\r\n              \"Boulevard\"\r\n            ]\r\n          }\r\n        },\r\n        \"additionalProperties\": {\r\n          \"type\": \"string\"\r\n        }\r\n      }\r\n})"
+            },
+            {
+                "name": "AdditionalPropertiesWithPatternProperties",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🌈 AdditionalProperties with patternProperties\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"builtin\": {\r\n            \"type\": \"number\"\r\n          }\r\n        },\r\n        \"patternProperties\": {\r\n          \"^S_\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"^I_\": {\r\n            \"type\": \"integer\"\r\n          }\r\n        },\r\n        \"additionalProperties\": {\r\n          \"type\": \"string\"\r\n        }\r\n      }\r\n})"
+            },
+            {
+                "name": "allOf",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/SchemaComposition.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🤝 allOf\",\r\n    schema: {\r\n        \"allOf\": [\r\n          {\r\n            \"title\": \"Option 1\",\r\n            \"type\": \"string\"\r\n          },\r\n          {\r\n            \"title\": \"Option 2\",\r\n            \"maxLength\": 5\r\n          }\r\n        ]\r\n      }\r\n})"
+            },
+            {
+                "name": "Annotations",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Generics.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"📌 Annotations\",\r\n    schema: {\r\n        \"title\": \"Match anything\",\r\n        \"description\": \"This is a *schema* that matches **anything.**\",\r\n        \"default\": \"Default value\",\r\n        \"examples\": [\r\n          \"Anything\",\r\n          4035\r\n        ],\r\n        \"deprecated\": true,\r\n        \"readOnly\": true,\r\n        \"writeOnly\": false\r\n    },\r\n    vierwerOptions: {\r\n        showExamples: true\r\n    }\r\n  })"
+            },
+            {
+                "name": "anyOf",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/SchemaComposition.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🌐 anyOf\",\r\n    schema: {\r\n        \"anyOf\": [\r\n          {\r\n            \"title\": \"Option 1\",\r\n            \"type\": \"string\",\r\n            \"maxLength\": 5\r\n          },\r\n          {\r\n            \"title\": \"Option 2\",\r\n            \"type\": \"number\",\r\n            \"minimum\": 0\r\n          }\r\n        ]\r\n      }\r\n})"
+            },
+            {
+                "name": "Basic",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🟦 Basic\",\r\n    schema: {\r\n        \"type\": \"string\"\r\n      }\r\n})"
+            },
+            {
+                "name": "Booleans",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Boolean.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"✅ Boolean\",\r\n    schema: {\r\n        \"type\": \"boolean\"\r\n    }\r\n})"
+            },
+            {
+                "name": "Const",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Generics.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🧊 Const\",\r\n    schema: {\r\n        \"properties\": {\r\n          \"country\": {\r\n            \"const\": \"United States of America\"\r\n          }\r\n        }\r\n    }\r\n})"
+            },
+            {
                 "name": "Contains",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -6981,6 +7071,46 @@
                 "defaultValue": "createStory({\r\n  \"storybook-name\": \"🍱 Contains\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"contains\": {\r\n      \"type\": \"number\"\r\n    }\r\n  }\r\n})"
             },
             {
+                "name": "ContentEncoding",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"📜 ContentEncoding\",\r\n    schema: {\r\n        \"type\": \"string\",\r\n        \"contentEncoding\": \"base64\"\r\n      }\r\n})"
+            },
+            {
+                "name": "ContentEncodingAndContentMediaType",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"📄 ContentEncoding & ContentMediaType\",\r\n    schema: {\r\n        \"type\": \"string\",\r\n        \"contentEncoding\": \"base64\",\r\n        \"contentMediaType\": \"application/json\"\r\n    }\r\n})"
+            },
+            {
+                "name": "ContentMediaType",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🔖 ContentMediaType\",\r\n    schema: {\r\n        \"type\": \"string\",\r\n        \"contentMediaType\": \"application/json\"\r\n      }\r\n})"
+            },
+            {
+                "name": "ContentSchema",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"📑 ContentSchema\",\r\n    schema: {\r\n        \"type\": \"string\",\r\n        \"contentSchema\": {\r\n          \"type\": \"object\",\r\n          \"required\": [\r\n            \"name\",\r\n            \"age\"\r\n          ]\r\n        }\r\n      }\r\n})"
+            },
+            {
                 "name": "defaultMeta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -6989,6 +7119,106 @@
                 "deprecationMessage": "",
                 "type": "Meta<NgxJsonSchemaViewerComponent>",
                 "defaultValue": "{\r\n    decorators: [\r\n        moduleMetadata({\r\n            imports: [NgxJsonSchemaViewerComponent],\r\n        }),\r\n        applicationConfig({\r\n            providers: [\r\n                //importProvidersFrom(BrowserAnimationsModule),\r\n                provideAnimations()\r\n            ],\r\n        })\r\n    ]\r\n}"
+            },
+            {
+                "name": "dependentRequired1",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🤞 dependencies (dependentRequired)\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"credit_card\": {\r\n            \"type\": \"number\"\r\n          },\r\n          \"billing_address\": {\r\n            \"type\": \"string\"\r\n          }\r\n        },\r\n        \"required\": [\r\n          \"name\"\r\n        ],\r\n        \"dependencies\": {\r\n          \"credit_card\": [\r\n            \"billing_address\"\r\n          ]\r\n        }\r\n      }\r\n})"
+            },
+            {
+                "name": "dependentRequired2",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🔑 dependentRequired\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"credit_card\": {\r\n            \"type\": \"number\"\r\n          },\r\n          \"billing_address\": {\r\n            \"type\": \"string\"\r\n          }\r\n        },\r\n        \"required\": [\r\n          \"name\"\r\n        ],\r\n        \"dependentRequired\": {\r\n          \"credit_card\": [\r\n            \"billing_address\"\r\n          ]\r\n        }\r\n      }\r\n})"
+            },
+            {
+                "name": "dependentRequired3",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🔁 dependentRequired (bidirectional)\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"credit_card\": {\r\n            \"type\": \"number\"\r\n          },\r\n          \"billing_address\": {\r\n            \"type\": \"string\"\r\n          }\r\n        },\r\n        \"required\": [\r\n          \"name\"\r\n        ],\r\n        \"dependentRequired\": {\r\n          \"credit_card\": [\r\n            \"billing_address\"\r\n          ],\r\n          \"billing_address\": [\r\n            \"credit_card\"\r\n          ]\r\n        }\r\n      }\r\n})"
+            },
+            {
+                "name": "dependentSchemas",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🏗️ dependentSchemas\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"credit_card\": {\r\n            \"type\": \"number\"\r\n          }\r\n        },\r\n        \"required\": [\r\n          \"name\"\r\n        ],\r\n        \"dependentSchemas\": {\r\n          \"credit_card\": {\r\n            \"properties\": {\r\n              \"billing_address\": {\r\n                \"type\": \"string\"\r\n              }\r\n            },\r\n            \"required\": [\r\n              \"billing_address\"\r\n            ]\r\n          }\r\n        }\r\n      }\r\n})"
+            },
+            {
+                "name": "dependentSchemas1",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🌳 dependencies (dependentSchemas)\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"credit_card\": {\r\n            \"type\": \"number\"\r\n          }\r\n        },\r\n        \"required\": [\r\n          \"name\"\r\n        ],\r\n        \"dependencies\": {\r\n          \"credit_card\": {\r\n            \"properties\": {\r\n              \"billing_address\": {\r\n                \"type\": \"string\"\r\n              }\r\n            },\r\n            \"required\": [\r\n              \"billing_address\"\r\n            ]\r\n          }\r\n        }\r\n      }\r\n})"
+            },
+            {
+                "name": "Enum",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Generics.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🔒 Enum\",\r\n    schema: {\r\n        \"enum\": [\r\n          \"red\",\r\n          \"amber\",\r\n          \"green\"\r\n        ]\r\n    }\r\n})"
+            },
+            {
+                "name": "Format",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"📅 Format\",\r\n    schema: {\r\n        \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"prop1\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"date-time\",\r\n            \"examples\": [\r\n              \"2018-11-13T20:20:39+00:00\"\r\n            ]\r\n          },\r\n          \"prop2\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"time\",\r\n            \"examples\": [\r\n              \"20:20:39+00:00\"\r\n            ]\r\n          },\r\n          \"prop3\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"date\",\r\n            \"examples\": [\r\n              \"2018-11-13\"\r\n            ]\r\n          },\r\n          \"prop4\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"duration\",\r\n            \"examples\": [\r\n              \"P3D\"\r\n            ]\r\n          },\r\n          \"prop5\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"email\",\r\n            \"examples\": [\r\n              \"test@gmail.com\"\r\n            ]\r\n          },\r\n          \"prop6\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"idn-email\",\r\n            \"examples\": [\r\n              \"test@gmail.com\"\r\n            ]\r\n          },\r\n          \"prop7\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"hostname\",\r\n            \"examples\": [\r\n              \"example\"\r\n            ]\r\n          },\r\n          \"prop8\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"idn-hostname\",\r\n            \"examples\": [\r\n              \"example\"\r\n            ]\r\n          },\r\n          \"prop9\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"ipv4\",\r\n            \"examples\": [\r\n              \"192.168.1.1\"\r\n            ]\r\n          },\r\n          \"prop10\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"ipv6\",\r\n            \"examples\": [\r\n              \"2001:db8:3333:4444:5555:6666:7777:8888\"\r\n            ]\r\n          },\r\n          \"prop11\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"uuid\",\r\n            \"examples\": [\r\n              \"3e4666bf-d5e5-4aa7-b8ce-cefe41c7568a\"\r\n            ]\r\n          },\r\n          \"prop12\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"uri\",\r\n            \"examples\": [\r\n              \"https://www.perdu.com/\"\r\n            ]\r\n          },\r\n          \"prop12B\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"uri-reference\"\r\n          },\r\n          \"prop13\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"iri\",\r\n            \"examples\": [\r\n              \"https://www.perdu.com/\"\r\n            ]\r\n          },\r\n          \"prop13B\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"iri-reference\"\r\n          },\r\n          \"prop14\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"uri-template\"\r\n          },\r\n          \"prop15\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"json-pointer\"\r\n          },\r\n          \"prop16\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"relative-json-pointer\"\r\n          },\r\n          \"prop17\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"regex\",\r\n            \"examples\": [\r\n              \"^(\\\\([0-9]{3}\\\\))?[0-9]{3}-[0-9]{4}$\"\r\n            ]\r\n          }\r\n        }\r\n      }\r\n})"
+            },
+            {
+                "name": "IfThenElse",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🎬 If-Then-Else\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"street_address\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"country\": {\r\n            \"default\": \"United States of America\",\r\n            \"enum\": [\r\n              \"United States of America\",\r\n              \"Canada\"\r\n            ]\r\n          }\r\n        },\r\n        \"if\": {\r\n          \"properties\": {\r\n            \"country\": {\r\n              \"const\": \"United States of America\"\r\n            }\r\n          }\r\n        },\r\n        \"then\": {\r\n          \"properties\": {\r\n            \"postal_code\": {\r\n              \"pattern\": \"[0-9]{5}(-[0-9]{4})?\"\r\n            }\r\n          }\r\n        },\r\n        \"else\": {\r\n          \"properties\": {\r\n            \"postal_code\": {\r\n              \"pattern\": \"[A-Z][0-9][A-Z] [0-9][A-Z][0-9]\"\r\n            }\r\n          }\r\n        }\r\n      }\r\n})"
+            },
+            {
+                "name": "IfThenElse2",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🔀 If-Then-Else (multiple)\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"street_address\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"country\": {\r\n            \"default\": \"United States of America\",\r\n            \"enum\": [\r\n              \"United States of America\",\r\n              \"Canada\",\r\n              \"Netherlands\"\r\n            ]\r\n          }\r\n        },\r\n        \"allOf\": [\r\n          {\r\n            \"title\": \"Rule 1\",\r\n            \"if\": {\r\n              \"properties\": {\r\n                \"country\": {\r\n                  \"const\": \"United States of America\"\r\n                }\r\n              }\r\n            },\r\n            \"then\": {\r\n              \"properties\": {\r\n                \"postal_code\": {\r\n                  \"pattern\": \"[0-9]{5}(-[0-9]{4})?\"\r\n                }\r\n              }\r\n            }\r\n          },\r\n          {\r\n            \"title\": \"Rule 2\",\r\n            \"if\": {\r\n              \"properties\": {\r\n                \"country\": {\r\n                  \"const\": \"Canada\"\r\n                }\r\n              },\r\n              \"required\": [\r\n                \"country\"\r\n              ]\r\n            },\r\n            \"then\": {\r\n              \"properties\": {\r\n                \"postal_code\": {\r\n                  \"pattern\": \"[A-Z][0-9][A-Z] [0-9][A-Z][0-9]\"\r\n                }\r\n              }\r\n            }\r\n          },\r\n          {\r\n            \"title\": \"Rule 3\",\r\n            \"if\": {\r\n              \"properties\": {\r\n                \"country\": {\r\n                  \"const\": \"Netherlands\"\r\n                }\r\n              },\r\n              \"required\": [\r\n                \"country\"\r\n              ]\r\n            },\r\n            \"then\": {\r\n              \"properties\": {\r\n                \"postal_code\": {\r\n                  \"pattern\": \"[0-9]{4} [A-Z]{2}\"\r\n                }\r\n              }\r\n            }\r\n          }\r\n        ]\r\n      }\r\n})"
+            },
+            {
+                "name": "Integer",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Numeric.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"1️⃣ Integer\",\r\n    schema: {\r\n        \"type\": \"integer\"\r\n    }\r\n})"
             },
             {
                 "name": "isArrayType",
@@ -7101,6 +7331,16 @@
                 "defaultValue": "createStory({\r\n  \"storybook-name\": \"📐 Length\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"minItems\": 2,\r\n    \"maxItems\": 3\r\n  }\r\n})"
             },
             {
+                "name": "Length",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"📏 Length\",\r\n    schema: {\r\n        \"type\": \"string\",\r\n        \"minLength\": 2,\r\n        \"maxLength\": 3\r\n      }\r\n})"
+            },
+            {
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -7109,6 +7349,96 @@
                 "deprecationMessage": "",
                 "type": "MetaViewer",
                 "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Array\"\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Boolean.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "MetaViewer",
+                "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Boolean\"\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Generics.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "MetaViewer",
+                "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Generic keywords\"\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Null.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "MetaViewer",
+                "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Null\"\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Numeric.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "MetaViewer",
+                "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Numeric \"\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "MetaViewer",
+                "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Object\"\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/SchemaComposition.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "MetaViewer",
+                "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Schema Composition\"\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "MetaViewer",
+                "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Schema Conditionally\"\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "MetaViewer",
+                "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/String\"\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Type.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "MetaViewer",
+                "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Type\"\r\n}"
             },
             {
                 "name": "minContainsAndmaxContains",
@@ -7121,6 +7451,86 @@
                 "defaultValue": "createStory({\r\n  \"storybook-name\": \"📊 minContains & maxContains\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"contains\": {\r\n      \"type\": \"number\"\r\n    },\r\n    \"minContains\": 2,\r\n    \"maxContains\": 3\r\n  }\r\n})"
             },
             {
+                "name": "MultipleOf",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Numeric.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"✖️ Multiple Of\",\r\n    schema: {\r\n        \"type\": \"number\",\r\n        \"multipleOf\": 10\r\n    }\r\n})"
+            },
+            {
+                "name": "MultipleTypes",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Type.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🐾 Multiple types\",\r\n    schema: {\r\n        \"type\": [\r\n          \"number\",\r\n          \"string\"\r\n        ]\r\n      }\r\n})"
+            },
+            {
+                "name": "not",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/SchemaComposition.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🚫 not\",\r\n    schema: {\r\n        \"title\": \"Not a string\",\r\n        \"not\": {\r\n            \"type\": \"string\"\r\n        }\r\n      }\r\n})"
+            },
+            {
+                "name": "Null",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Null.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🕳️ Null\",\r\n    schema: {\r\n        \"type\": \"null\"\r\n    }\r\n  })"
+            },
+            {
+                "name": "Number",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Numeric.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🔢 Number\",\r\n    schema: {\r\n        \"type\": \"number\"\r\n    }\r\n})"
+            },
+            {
+                "name": "oneOf",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/SchemaComposition.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🎯 oneOf\",\r\n    schema: {\r\n        \"oneOf\": [\r\n          {\r\n            \"title\": \"Option 1\",\r\n            \"type\": \"number\",\r\n            \"multipleOf\": 5\r\n          },\r\n          {\r\n            \"title\": \"Option 2\",\r\n            \"type\": \"number\",\r\n            \"multipleOf\": 3\r\n          }\r\n        ]\r\n      }\r\n})"
+            },
+            {
+                "name": "Pattern",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🔮 Pattern\",\r\n    schema: {\r\n        \"type\": \"string\",\r\n        \"pattern\": \"^(\\\\([0-9]{3}\\\\))?[0-9]{3}-[0-9]{4}$\"\r\n      }\r\n})"
+            },
+            {
+                "name": "PatternProperties",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🎨 PatternProperties\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"patternProperties\": {\r\n          \"^S_\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"^I_\": {\r\n            \"type\": \"integer\"\r\n          }\r\n        }\r\n      }\r\n})"
+            },
+            {
                 "name": "preview",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -7131,6 +7541,46 @@
                 "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    // https://material.angular.io/guide/theming#application-background-color\r\n    componentWrapperDecorator((story) => `<div class=\"mat-app-background\">${story}</div>`),\r\n  ]\r\n}"
             },
             {
+                "name": "Properties",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"📝 Properties\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"number\": {\r\n            \"type\": \"number\"\r\n          },\r\n          \"street_name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"street_type\": {\r\n            \"enum\": [\r\n              \"Street\",\r\n              \"Avenue\",\r\n              \"Boulevard\"\r\n            ]\r\n          }\r\n        }\r\n      }\r\n})"
+            },
+            {
+                "name": "PropertyNames",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🏷️ PropertyNames\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"propertyNames\": {\r\n          \"pattern\": \"^[A-Za-z_][A-Za-z0-9_]*$\"\r\n        }\r\n      }\r\n})"
+            },
+            {
+                "name": "Ranges",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Numeric.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🌡️ Ranges\",\r\n    schema: {\r\n        \"type\": \"number\",\r\n        \"minimum\": 0,\r\n        \"exclusiveMaximum\": 100\r\n    }\r\n})"
+            },
+            {
+                "name": "Required",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🔴 Required\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"id\": {\r\n            \"type\": \"number\",\r\n            \"readOnly\": true\r\n          },\r\n          \"name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"email\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"address\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"telephone\": {\r\n            \"type\": \"string\",\r\n            \"deprecated\": true\r\n          },\r\n          \"password\": {\r\n            \"type\": \"string\",\r\n            \"writeOnly\": true\r\n          }\r\n        },\r\n        \"required\": [\r\n          \"name\",\r\n          \"email\"\r\n        ]\r\n      }\r\n})"
+            },
+            {
                 "name": "Simple",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -7139,6 +7589,36 @@
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "createStory({\r\n  \"storybook-name\": \"🟦 Simple\",\r\n  schema: {\r\n    \"type\": \"array\"\r\n  }\r\n})"
+            },
+            {
+                "name": "Simple",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🟦 Simple\",\r\n    schema: {\r\n        \"type\": \"object\"\r\n      }\r\n})"
+            },
+            {
+                "name": "SingleTypes",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Type.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🌟 Single type\",\r\n    schema: {\r\n        \"type\": \"number\"\r\n      }\r\n})"
+            },
+            {
+                "name": "Size",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"📏 Size\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"minProperties\": 2,\r\n        \"maxProperties\": 3\r\n      }\r\n})"
             },
             {
                 "name": "Tuples",
@@ -7169,6 +7649,26 @@
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "createStory({\r\n  \"storybook-name\": \"📋 UnevaluatedItems (2)\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"prefixItems\": [\r\n      {\r\n        \"type\": \"integer\"\r\n      },\r\n      {\r\n        \"type\": \"string\"\r\n      }\r\n    ],\r\n    \"unevaluatedItems\": {\r\n      \"type\": \"boolean\"\r\n    }\r\n  }\r\n})"
+            },
+            {
+                "name": "UnevaluatedProperties1",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🧐 UnevaluatedProperties (1)\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"number\": {\r\n            \"type\": \"number\"\r\n          },\r\n          \"street_name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"street_type\": {\r\n            \"enum\": [\r\n              \"Street\",\r\n              \"Avenue\",\r\n              \"Boulevard\"\r\n            ]\r\n          }\r\n        },\r\n        \"unevaluatedProperties\": false\r\n      }\r\n})"
+            },
+            {
+                "name": "UnevaluatedProperties2",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"🕵️‍♀️ UnevaluatedProperties (2)\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"number\": {\r\n            \"type\": \"number\"\r\n          },\r\n          \"street_name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"street_type\": {\r\n            \"enum\": [\r\n              \"Street\",\r\n              \"Avenue\",\r\n              \"Boulevard\"\r\n            ]\r\n          }\r\n        },\r\n        \"unevaluatedProperties\": {\r\n          \"type\": \"boolean\"\r\n        }\r\n      }\r\n})"
             },
             {
                 "name": "UniqueItems",
@@ -7550,6 +8050,336 @@
                     "defaultValue": "createStory({\r\n  \"storybook-name\": \"🦄 Unique items\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"uniqueItems\": true\r\n  }\r\n})"
                 }
             ],
+            "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts": [
+                {
+                    "name": "AdditionalProperties1",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🗝️ AdditionalProperties (1)\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"number\": {\r\n            \"type\": \"number\"\r\n          },\r\n          \"street_name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"street_type\": {\r\n            \"enum\": [\r\n              \"Street\",\r\n              \"Avenue\",\r\n              \"Boulevard\"\r\n            ]\r\n          }\r\n        },\r\n        \"additionalProperties\": false\r\n    }\r\n})"
+                },
+                {
+                    "name": "AdditionalProperties2",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🛠️ AdditionalProperties (2)\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"number\": {\r\n            \"type\": \"number\"\r\n          },\r\n          \"street_name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"street_type\": {\r\n            \"enum\": [\r\n              \"Street\",\r\n              \"Avenue\",\r\n              \"Boulevard\"\r\n            ]\r\n          }\r\n        },\r\n        \"additionalProperties\": {\r\n          \"type\": \"string\"\r\n        }\r\n      }\r\n})"
+                },
+                {
+                    "name": "AdditionalPropertiesWithPatternProperties",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🌈 AdditionalProperties with patternProperties\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"builtin\": {\r\n            \"type\": \"number\"\r\n          }\r\n        },\r\n        \"patternProperties\": {\r\n          \"^S_\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"^I_\": {\r\n            \"type\": \"integer\"\r\n          }\r\n        },\r\n        \"additionalProperties\": {\r\n          \"type\": \"string\"\r\n        }\r\n      }\r\n})"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "MetaViewer",
+                    "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Object\"\r\n}"
+                },
+                {
+                    "name": "PatternProperties",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🎨 PatternProperties\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"patternProperties\": {\r\n          \"^S_\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"^I_\": {\r\n            \"type\": \"integer\"\r\n          }\r\n        }\r\n      }\r\n})"
+                },
+                {
+                    "name": "Properties",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"📝 Properties\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"number\": {\r\n            \"type\": \"number\"\r\n          },\r\n          \"street_name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"street_type\": {\r\n            \"enum\": [\r\n              \"Street\",\r\n              \"Avenue\",\r\n              \"Boulevard\"\r\n            ]\r\n          }\r\n        }\r\n      }\r\n})"
+                },
+                {
+                    "name": "PropertyNames",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🏷️ PropertyNames\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"propertyNames\": {\r\n          \"pattern\": \"^[A-Za-z_][A-Za-z0-9_]*$\"\r\n        }\r\n      }\r\n})"
+                },
+                {
+                    "name": "Required",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🔴 Required\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"id\": {\r\n            \"type\": \"number\",\r\n            \"readOnly\": true\r\n          },\r\n          \"name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"email\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"address\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"telephone\": {\r\n            \"type\": \"string\",\r\n            \"deprecated\": true\r\n          },\r\n          \"password\": {\r\n            \"type\": \"string\",\r\n            \"writeOnly\": true\r\n          }\r\n        },\r\n        \"required\": [\r\n          \"name\",\r\n          \"email\"\r\n        ]\r\n      }\r\n})"
+                },
+                {
+                    "name": "Simple",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🟦 Simple\",\r\n    schema: {\r\n        \"type\": \"object\"\r\n      }\r\n})"
+                },
+                {
+                    "name": "Size",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"📏 Size\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"minProperties\": 2,\r\n        \"maxProperties\": 3\r\n      }\r\n})"
+                },
+                {
+                    "name": "UnevaluatedProperties1",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🧐 UnevaluatedProperties (1)\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"number\": {\r\n            \"type\": \"number\"\r\n          },\r\n          \"street_name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"street_type\": {\r\n            \"enum\": [\r\n              \"Street\",\r\n              \"Avenue\",\r\n              \"Boulevard\"\r\n            ]\r\n          }\r\n        },\r\n        \"unevaluatedProperties\": false\r\n      }\r\n})"
+                },
+                {
+                    "name": "UnevaluatedProperties2",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🕵️‍♀️ UnevaluatedProperties (2)\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"number\": {\r\n            \"type\": \"number\"\r\n          },\r\n          \"street_name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"street_type\": {\r\n            \"enum\": [\r\n              \"Street\",\r\n              \"Avenue\",\r\n              \"Boulevard\"\r\n            ]\r\n          }\r\n        },\r\n        \"unevaluatedProperties\": {\r\n          \"type\": \"boolean\"\r\n        }\r\n      }\r\n})"
+                }
+            ],
+            "projects/ngx-json-schema-viewer/src/stories/SchemaComposition.stories.ts": [
+                {
+                    "name": "allOf",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/SchemaComposition.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🤝 allOf\",\r\n    schema: {\r\n        \"allOf\": [\r\n          {\r\n            \"title\": \"Option 1\",\r\n            \"type\": \"string\"\r\n          },\r\n          {\r\n            \"title\": \"Option 2\",\r\n            \"maxLength\": 5\r\n          }\r\n        ]\r\n      }\r\n})"
+                },
+                {
+                    "name": "anyOf",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/SchemaComposition.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🌐 anyOf\",\r\n    schema: {\r\n        \"anyOf\": [\r\n          {\r\n            \"title\": \"Option 1\",\r\n            \"type\": \"string\",\r\n            \"maxLength\": 5\r\n          },\r\n          {\r\n            \"title\": \"Option 2\",\r\n            \"type\": \"number\",\r\n            \"minimum\": 0\r\n          }\r\n        ]\r\n      }\r\n})"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/SchemaComposition.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "MetaViewer",
+                    "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Schema Composition\"\r\n}"
+                },
+                {
+                    "name": "not",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/SchemaComposition.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🚫 not\",\r\n    schema: {\r\n        \"title\": \"Not a string\",\r\n        \"not\": {\r\n            \"type\": \"string\"\r\n        }\r\n      }\r\n})"
+                },
+                {
+                    "name": "oneOf",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/SchemaComposition.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🎯 oneOf\",\r\n    schema: {\r\n        \"oneOf\": [\r\n          {\r\n            \"title\": \"Option 1\",\r\n            \"type\": \"number\",\r\n            \"multipleOf\": 5\r\n          },\r\n          {\r\n            \"title\": \"Option 2\",\r\n            \"type\": \"number\",\r\n            \"multipleOf\": 3\r\n          }\r\n        ]\r\n      }\r\n})"
+                }
+            ],
+            "projects/ngx-json-schema-viewer/src/stories/Generics.stories.ts": [
+                {
+                    "name": "Annotations",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Generics.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"📌 Annotations\",\r\n    schema: {\r\n        \"title\": \"Match anything\",\r\n        \"description\": \"This is a *schema* that matches **anything.**\",\r\n        \"default\": \"Default value\",\r\n        \"examples\": [\r\n          \"Anything\",\r\n          4035\r\n        ],\r\n        \"deprecated\": true,\r\n        \"readOnly\": true,\r\n        \"writeOnly\": false\r\n    },\r\n    vierwerOptions: {\r\n        showExamples: true\r\n    }\r\n  })"
+                },
+                {
+                    "name": "Const",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Generics.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🧊 Const\",\r\n    schema: {\r\n        \"properties\": {\r\n          \"country\": {\r\n            \"const\": \"United States of America\"\r\n          }\r\n        }\r\n    }\r\n})"
+                },
+                {
+                    "name": "Enum",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Generics.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🔒 Enum\",\r\n    schema: {\r\n        \"enum\": [\r\n          \"red\",\r\n          \"amber\",\r\n          \"green\"\r\n        ]\r\n    }\r\n})"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Generics.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "MetaViewer",
+                    "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Generic keywords\"\r\n}"
+                }
+            ],
+            "projects/ngx-json-schema-viewer/src/stories/String.stories.ts": [
+                {
+                    "name": "Basic",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🟦 Basic\",\r\n    schema: {\r\n        \"type\": \"string\"\r\n      }\r\n})"
+                },
+                {
+                    "name": "ContentEncoding",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"📜 ContentEncoding\",\r\n    schema: {\r\n        \"type\": \"string\",\r\n        \"contentEncoding\": \"base64\"\r\n      }\r\n})"
+                },
+                {
+                    "name": "ContentEncodingAndContentMediaType",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"📄 ContentEncoding & ContentMediaType\",\r\n    schema: {\r\n        \"type\": \"string\",\r\n        \"contentEncoding\": \"base64\",\r\n        \"contentMediaType\": \"application/json\"\r\n    }\r\n})"
+                },
+                {
+                    "name": "ContentMediaType",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🔖 ContentMediaType\",\r\n    schema: {\r\n        \"type\": \"string\",\r\n        \"contentMediaType\": \"application/json\"\r\n      }\r\n})"
+                },
+                {
+                    "name": "ContentSchema",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"📑 ContentSchema\",\r\n    schema: {\r\n        \"type\": \"string\",\r\n        \"contentSchema\": {\r\n          \"type\": \"object\",\r\n          \"required\": [\r\n            \"name\",\r\n            \"age\"\r\n          ]\r\n        }\r\n      }\r\n})"
+                },
+                {
+                    "name": "Format",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"📅 Format\",\r\n    schema: {\r\n        \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"prop1\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"date-time\",\r\n            \"examples\": [\r\n              \"2018-11-13T20:20:39+00:00\"\r\n            ]\r\n          },\r\n          \"prop2\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"time\",\r\n            \"examples\": [\r\n              \"20:20:39+00:00\"\r\n            ]\r\n          },\r\n          \"prop3\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"date\",\r\n            \"examples\": [\r\n              \"2018-11-13\"\r\n            ]\r\n          },\r\n          \"prop4\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"duration\",\r\n            \"examples\": [\r\n              \"P3D\"\r\n            ]\r\n          },\r\n          \"prop5\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"email\",\r\n            \"examples\": [\r\n              \"test@gmail.com\"\r\n            ]\r\n          },\r\n          \"prop6\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"idn-email\",\r\n            \"examples\": [\r\n              \"test@gmail.com\"\r\n            ]\r\n          },\r\n          \"prop7\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"hostname\",\r\n            \"examples\": [\r\n              \"example\"\r\n            ]\r\n          },\r\n          \"prop8\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"idn-hostname\",\r\n            \"examples\": [\r\n              \"example\"\r\n            ]\r\n          },\r\n          \"prop9\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"ipv4\",\r\n            \"examples\": [\r\n              \"192.168.1.1\"\r\n            ]\r\n          },\r\n          \"prop10\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"ipv6\",\r\n            \"examples\": [\r\n              \"2001:db8:3333:4444:5555:6666:7777:8888\"\r\n            ]\r\n          },\r\n          \"prop11\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"uuid\",\r\n            \"examples\": [\r\n              \"3e4666bf-d5e5-4aa7-b8ce-cefe41c7568a\"\r\n            ]\r\n          },\r\n          \"prop12\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"uri\",\r\n            \"examples\": [\r\n              \"https://www.perdu.com/\"\r\n            ]\r\n          },\r\n          \"prop12B\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"uri-reference\"\r\n          },\r\n          \"prop13\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"iri\",\r\n            \"examples\": [\r\n              \"https://www.perdu.com/\"\r\n            ]\r\n          },\r\n          \"prop13B\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"iri-reference\"\r\n          },\r\n          \"prop14\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"uri-template\"\r\n          },\r\n          \"prop15\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"json-pointer\"\r\n          },\r\n          \"prop16\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"relative-json-pointer\"\r\n          },\r\n          \"prop17\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"regex\",\r\n            \"examples\": [\r\n              \"^(\\\\([0-9]{3}\\\\))?[0-9]{3}-[0-9]{4}$\"\r\n            ]\r\n          }\r\n        }\r\n      }\r\n})"
+                },
+                {
+                    "name": "Length",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"📏 Length\",\r\n    schema: {\r\n        \"type\": \"string\",\r\n        \"minLength\": 2,\r\n        \"maxLength\": 3\r\n      }\r\n})"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "MetaViewer",
+                    "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/String\"\r\n}"
+                },
+                {
+                    "name": "Pattern",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🔮 Pattern\",\r\n    schema: {\r\n        \"type\": \"string\",\r\n        \"pattern\": \"^(\\\\([0-9]{3}\\\\))?[0-9]{3}-[0-9]{4}$\"\r\n      }\r\n})"
+                }
+            ],
+            "projects/ngx-json-schema-viewer/src/stories/Boolean.stories.ts": [
+                {
+                    "name": "Booleans",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Boolean.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"✅ Boolean\",\r\n    schema: {\r\n        \"type\": \"boolean\"\r\n    }\r\n})"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Boolean.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "MetaViewer",
+                    "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Boolean\"\r\n}"
+                }
+            ],
             "projects/ngx-json-schema-viewer/src/stories/setup.ts": [
                 {
                     "name": "defaultMeta",
@@ -7560,6 +8390,140 @@
                     "deprecationMessage": "",
                     "type": "Meta<NgxJsonSchemaViewerComponent>",
                     "defaultValue": "{\r\n    decorators: [\r\n        moduleMetadata({\r\n            imports: [NgxJsonSchemaViewerComponent],\r\n        }),\r\n        applicationConfig({\r\n            providers: [\r\n                //importProvidersFrom(BrowserAnimationsModule),\r\n                provideAnimations()\r\n            ],\r\n        })\r\n    ]\r\n}"
+                }
+            ],
+            "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts": [
+                {
+                    "name": "dependentRequired1",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🤞 dependencies (dependentRequired)\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"credit_card\": {\r\n            \"type\": \"number\"\r\n          },\r\n          \"billing_address\": {\r\n            \"type\": \"string\"\r\n          }\r\n        },\r\n        \"required\": [\r\n          \"name\"\r\n        ],\r\n        \"dependencies\": {\r\n          \"credit_card\": [\r\n            \"billing_address\"\r\n          ]\r\n        }\r\n      }\r\n})"
+                },
+                {
+                    "name": "dependentRequired2",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🔑 dependentRequired\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"credit_card\": {\r\n            \"type\": \"number\"\r\n          },\r\n          \"billing_address\": {\r\n            \"type\": \"string\"\r\n          }\r\n        },\r\n        \"required\": [\r\n          \"name\"\r\n        ],\r\n        \"dependentRequired\": {\r\n          \"credit_card\": [\r\n            \"billing_address\"\r\n          ]\r\n        }\r\n      }\r\n})"
+                },
+                {
+                    "name": "dependentRequired3",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🔁 dependentRequired (bidirectional)\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"credit_card\": {\r\n            \"type\": \"number\"\r\n          },\r\n          \"billing_address\": {\r\n            \"type\": \"string\"\r\n          }\r\n        },\r\n        \"required\": [\r\n          \"name\"\r\n        ],\r\n        \"dependentRequired\": {\r\n          \"credit_card\": [\r\n            \"billing_address\"\r\n          ],\r\n          \"billing_address\": [\r\n            \"credit_card\"\r\n          ]\r\n        }\r\n      }\r\n})"
+                },
+                {
+                    "name": "dependentSchemas",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🏗️ dependentSchemas\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"credit_card\": {\r\n            \"type\": \"number\"\r\n          }\r\n        },\r\n        \"required\": [\r\n          \"name\"\r\n        ],\r\n        \"dependentSchemas\": {\r\n          \"credit_card\": {\r\n            \"properties\": {\r\n              \"billing_address\": {\r\n                \"type\": \"string\"\r\n              }\r\n            },\r\n            \"required\": [\r\n              \"billing_address\"\r\n            ]\r\n          }\r\n        }\r\n      }\r\n})"
+                },
+                {
+                    "name": "dependentSchemas1",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🌳 dependencies (dependentSchemas)\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"credit_card\": {\r\n            \"type\": \"number\"\r\n          }\r\n        },\r\n        \"required\": [\r\n          \"name\"\r\n        ],\r\n        \"dependencies\": {\r\n          \"credit_card\": {\r\n            \"properties\": {\r\n              \"billing_address\": {\r\n                \"type\": \"string\"\r\n              }\r\n            },\r\n            \"required\": [\r\n              \"billing_address\"\r\n            ]\r\n          }\r\n        }\r\n      }\r\n})"
+                },
+                {
+                    "name": "IfThenElse",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🎬 If-Then-Else\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"street_address\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"country\": {\r\n            \"default\": \"United States of America\",\r\n            \"enum\": [\r\n              \"United States of America\",\r\n              \"Canada\"\r\n            ]\r\n          }\r\n        },\r\n        \"if\": {\r\n          \"properties\": {\r\n            \"country\": {\r\n              \"const\": \"United States of America\"\r\n            }\r\n          }\r\n        },\r\n        \"then\": {\r\n          \"properties\": {\r\n            \"postal_code\": {\r\n              \"pattern\": \"[0-9]{5}(-[0-9]{4})?\"\r\n            }\r\n          }\r\n        },\r\n        \"else\": {\r\n          \"properties\": {\r\n            \"postal_code\": {\r\n              \"pattern\": \"[A-Z][0-9][A-Z] [0-9][A-Z][0-9]\"\r\n            }\r\n          }\r\n        }\r\n      }\r\n})"
+                },
+                {
+                    "name": "IfThenElse2",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🔀 If-Then-Else (multiple)\",\r\n    schema: {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"street_address\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"country\": {\r\n            \"default\": \"United States of America\",\r\n            \"enum\": [\r\n              \"United States of America\",\r\n              \"Canada\",\r\n              \"Netherlands\"\r\n            ]\r\n          }\r\n        },\r\n        \"allOf\": [\r\n          {\r\n            \"title\": \"Rule 1\",\r\n            \"if\": {\r\n              \"properties\": {\r\n                \"country\": {\r\n                  \"const\": \"United States of America\"\r\n                }\r\n              }\r\n            },\r\n            \"then\": {\r\n              \"properties\": {\r\n                \"postal_code\": {\r\n                  \"pattern\": \"[0-9]{5}(-[0-9]{4})?\"\r\n                }\r\n              }\r\n            }\r\n          },\r\n          {\r\n            \"title\": \"Rule 2\",\r\n            \"if\": {\r\n              \"properties\": {\r\n                \"country\": {\r\n                  \"const\": \"Canada\"\r\n                }\r\n              },\r\n              \"required\": [\r\n                \"country\"\r\n              ]\r\n            },\r\n            \"then\": {\r\n              \"properties\": {\r\n                \"postal_code\": {\r\n                  \"pattern\": \"[A-Z][0-9][A-Z] [0-9][A-Z][0-9]\"\r\n                }\r\n              }\r\n            }\r\n          },\r\n          {\r\n            \"title\": \"Rule 3\",\r\n            \"if\": {\r\n              \"properties\": {\r\n                \"country\": {\r\n                  \"const\": \"Netherlands\"\r\n                }\r\n              },\r\n              \"required\": [\r\n                \"country\"\r\n              ]\r\n            },\r\n            \"then\": {\r\n              \"properties\": {\r\n                \"postal_code\": {\r\n                  \"pattern\": \"[0-9]{4} [A-Z]{2}\"\r\n                }\r\n              }\r\n            }\r\n          }\r\n        ]\r\n      }\r\n})"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "MetaViewer",
+                    "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Schema Conditionally\"\r\n}"
+                }
+            ],
+            "projects/ngx-json-schema-viewer/src/stories/Numeric.stories.ts": [
+                {
+                    "name": "Integer",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Numeric.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"1️⃣ Integer\",\r\n    schema: {\r\n        \"type\": \"integer\"\r\n    }\r\n})"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Numeric.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "MetaViewer",
+                    "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Numeric \"\r\n}"
+                },
+                {
+                    "name": "MultipleOf",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Numeric.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"✖️ Multiple Of\",\r\n    schema: {\r\n        \"type\": \"number\",\r\n        \"multipleOf\": 10\r\n    }\r\n})"
+                },
+                {
+                    "name": "Number",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Numeric.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🔢 Number\",\r\n    schema: {\r\n        \"type\": \"number\"\r\n    }\r\n})"
+                },
+                {
+                    "name": "Ranges",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Numeric.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🌡️ Ranges\",\r\n    schema: {\r\n        \"type\": \"number\",\r\n        \"minimum\": 0,\r\n        \"exclusiveMaximum\": 100\r\n    }\r\n})"
                 }
             ],
             "projects/ngx-json-schema-viewer/src/lib/utils/detectTypes.ts": [
@@ -7652,6 +8616,60 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "(schema: JSONSchema) =>\r\n    typeof schema !== \"boolean\" &&\r\n    (schema.type === \"string\" ||\r\n      schema.minLength !== undefined ||\r\n      schema.maxLength !== undefined ||\r\n      schema.pattern !== undefined ||\r\n      schema.enum?.some((val) => typeof val === \"string\") ||\r\n      typeof schema.const === \"string\")"
+                }
+            ],
+            "projects/ngx-json-schema-viewer/src/stories/Null.stories.ts": [
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Null.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "MetaViewer",
+                    "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Null\"\r\n}"
+                },
+                {
+                    "name": "Null",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Null.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🕳️ Null\",\r\n    schema: {\r\n        \"type\": \"null\"\r\n    }\r\n  })"
+                }
+            ],
+            "projects/ngx-json-schema-viewer/src/stories/Type.stories.ts": [
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Type.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "MetaViewer",
+                    "defaultValue": "{\r\n  ...defaultMeta,\r\n  title: \"Viewer/Type\"\r\n}"
+                },
+                {
+                    "name": "MultipleTypes",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Type.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🐾 Multiple types\",\r\n    schema: {\r\n        \"type\": [\r\n          \"number\",\r\n          \"string\"\r\n        ]\r\n      }\r\n})"
+                },
+                {
+                    "name": "SingleTypes",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/stories/Type.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"🌟 Single type\",\r\n    schema: {\r\n        \"type\": \"number\"\r\n      }\r\n})"
                 }
             ],
             "projects/ngx-json-schema-viewer/.storybook/preview.ts": [
@@ -8990,6 +10008,506 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "UniqueItems",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Boolean.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Booleans",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Boolean.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Generics.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Annotations",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Generics.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Const",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Generics.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Enum",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Generics.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Null.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Null.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Null",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Numeric.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Integer",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Numeric.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Numeric.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "MultipleOf",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Numeric.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Number",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Numeric.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Ranges",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "AdditionalProperties1",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "AdditionalProperties2",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "AdditionalPropertiesWithPatternProperties",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "PatternProperties",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Properties",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "PropertyNames",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Required",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Simple",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Size",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "UnevaluatedProperties1",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Object.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "UnevaluatedProperties2",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/SchemaComposition.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "allOf",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/SchemaComposition.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "anyOf",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/SchemaComposition.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/SchemaComposition.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "not",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/SchemaComposition.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "oneOf",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "dependentRequired1",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "dependentRequired2",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "dependentRequired3",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "dependentSchemas",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "dependentSchemas1",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "IfThenElse",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "IfThenElse2",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Basic",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ContentEncoding",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ContentEncodingAndContentMediaType",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ContentMediaType",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ContentSchema",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Format",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Length",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/String.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Pattern",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Type.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Type.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "MultipleTypes",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/stories/Type.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "SingleTypes",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

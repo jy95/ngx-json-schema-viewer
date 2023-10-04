@@ -13,4 +13,4 @@ export const Booleans = createStory({
     schema: {
         "type": "boolean"
     }
-  });
+});
