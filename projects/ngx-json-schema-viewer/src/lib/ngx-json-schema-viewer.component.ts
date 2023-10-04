@@ -73,7 +73,7 @@ import type { JSVOptions } from "./services/jsv-options";
 export class NgxJsonSchemaViewerComponent implements OnInit {
   @Input({ required: true }) schema: unknown;
   @Input() resolverOptions?: IResolveOpts;
-  @Input() vierwerOptions?: JSVOptions;
+  @Input() vierwerOptions?: Partial<JSVOptions>;
   resolvedSchema: JSONSchema = false;
   error: Error | undefined;
 
