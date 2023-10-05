@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, Input, forwardRef, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 
 import {
     SchemaConditionalComponent,
@@ -29,48 +29,53 @@ import type { JSONSchema } from '../types';
     forwardRef(() => CreateTypesComponent),
     forwardRef(() => CreateValidOrInvalidComponent)
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="isBooleanSchema">
+    <ng-container *ngIf="isBooleanSchema; else nonBooleanSchema">
       <jse-common-create-valid-or-invalid [schema]="schema" />
     </ng-container>
 
-    <ng-container *ngIf="!isBooleanSchema">
+    <ng-template #nonBooleanSchema>
 
-        <!-- Handle standard types -->
-        <jse-common-create-types [schema]="typedSchema" />
+      <!-- Handle standard types -->
+      <jse-common-create-types [schema]="typedSchema!" />
 
-        <!-- Handle Composition -->
-        <ng-container *ngIf="isCompositionSchema">
-            <jse-schema-composition [schema]="typedSchema" />
-        </ng-container>
+      <!-- Handle Composition -->
+      <ng-container *ngIf="isCompositionSchema">
+        <jse-schema-composition [schema]="typedSchema!" />
+      </ng-container>
 
-        <!-- Handle Conditional -->
-        <ng-container *ngIf="isConditionalSchema">
-            <jse-schema-conditional [schema]="typedSchema" />
-        </ng-container>
-
-    </ng-container>
+      <!-- Handle Conditional -->
+      <ng-container *ngIf="isConditionalSchema">
+        <jse-schema-conditional [schema]="typedSchema!" />
+      </ng-container>
+      
+    </ng-template>
   `,
 })
-export class CreateNodesComponent {
+export class CreateNodesComponent implements OnInit {
   @Input({ required: true }) schema!: JSONSchema;
 
-  // Define a method to check if the schema is a boolean
-  get isBooleanSchema(): boolean {
-    return typeof this.schema === 'boolean';
+  // Check if the schema is a composition
+  isCompositionSchema : boolean = false;
+  // Check if the schema is conditional
+  isConditionalSchema : boolean = false;
+  // Check if the schema is a boolean
+  isBooleanSchema : boolean = false;
+  // Typed schema, if not a boolean
+  typedSchema: Exclude<JSONSchema, false | true> | undefined = undefined;
+
+  constructor(private cdRef: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+      this.isCompositionSchema = isSchemaComposition(this.schema);
+      this.isConditionalSchema = isSchemaConditional(this.schema);
+      this.isBooleanSchema = typeof this.schema === 'boolean';
+      if (this.isBooleanSchema) {
+        this.typedSchema = this.schema as Exclude<JSONSchema, false | true>;
+      }
+
+      this.cdRef.markForCheck();
   }
 
-  get typedSchema(): Exclude<JSONSchema, false | true> {
-    return this.schema as Exclude<JSONSchema, false | true>;
-  }
-
-  // Define a method to check if the schema is a composition
-  get isCompositionSchema(): boolean {
-    return isSchemaComposition(this.schema);
-  }
-
-  // Define a method to check if the schema is conditional
-  get isConditionalSchema(): boolean {
-    return isSchemaConditional(this.schema);
-  }
 }

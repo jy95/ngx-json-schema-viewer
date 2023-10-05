@@ -56,7 +56,7 @@ import type { JSVOptions } from "./services/jsv-options";
     <!-- Schema -->
     <div *ngIf="resolvedSchema !== undefined">
       <mat-accordion>
-        <mat-expansion-panel [expanded]="expanded">
+        <mat-expansion-panel [(expanded)]="expanded">
           <mat-expansion-panel-header>
             <mat-panel-title>
               <strong>
@@ -111,10 +111,6 @@ export class NgxJsonSchemaViewerComponent implements OnInit {
           this.cdr.markForCheck();
         }
       });
-  }
-
-  toggleExpended(): void {
-    this.expanded = !this.expanded;
   }
 
   get getSchemaTitle() : string {

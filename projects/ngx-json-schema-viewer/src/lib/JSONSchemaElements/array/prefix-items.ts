@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, forwardRef } from '@angular/core';
 
 import {
   CreateEdgeComponent
@@ -14,6 +14,7 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
     CommonModule,
     forwardRef(() => CreateEdgeComponent)
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul>
       <jse-common-create-edge [schema]="val" [required]="isMinItemsValid()" *ngFor="let val of array; let idx = index">
@@ -29,8 +30,12 @@ export class CreatePrefixItemsComponent {
 
   array: JSONSchema[] = [];
 
+  constructor(private cdRef: ChangeDetectorRef) {}
+
   ngOnInit() {
     this.array = Array.isArray(this.schema.prefixItems) ? this.schema.prefixItems : [this.schema.prefixItems!] as JSONSchema[];
+
+    this.cdRef.markForCheck();
   }
 
   isMinItemsValid(): boolean {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, Input, forwardRef, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 
 import {
@@ -32,6 +32,7 @@ import type { JSONSchema, JSONSchema_Draft_2019_09 } from '../types';
     DeprecatedLabelComponent,
     forwardRef(() => CreateNodesComponent)
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <li class="schemaItem">
         <mat-accordion>
@@ -67,27 +68,25 @@ import type { JSONSchema, JSONSchema_Draft_2019_09 } from '../types';
   `,
   styleUrls: ['./create-edge.component.css']
 })
-export class CreateEdgeComponent {
+export class CreateEdgeComponent implements OnInit {
   @Input({ required: true }) schema!: JSONSchema;
   @Input({ required: true }) required!: boolean;
 
-  get typedSchema(): JSONSchema_Draft_2019_09 {
-    return this.schema as JSONSchema_Draft_2019_09;
-  }
+  // Props
+  isDeprecated : boolean = false;
+  isReadOnly : boolean = false;
+  isWriteOnly : boolean = false;
+  isRequired : boolean = false;
 
-  get isDeprecated(): boolean {
-    return typeof this.typedSchema !== "boolean" && this.typedSchema.deprecated === true
-  }
+  constructor(private cdRef: ChangeDetectorRef) {}
 
-  get isReadOnly(): boolean {
-    return typeof this.schema !== "boolean" && this.schema.readOnly === true;
-  }
+  ngOnInit(): void {
+      const typedSchema = this.schema as JSONSchema_Draft_2019_09;
+      this.isDeprecated = typeof typedSchema !== "boolean" && typedSchema.deprecated === true;
+      this.isReadOnly = typeof this.schema !== "boolean" && this.schema.readOnly === true;
+      this.isWriteOnly = typeof this.schema !== "boolean" && this.schema.writeOnly === true;
+      this.isRequired = !this.isDeprecated && this.required;
 
-  get isWriteOnly(): boolean {
-    return typeof this.schema !== "boolean" && this.schema.writeOnly === true;
-  }
-
-  get isRequired(): boolean {
-    return !this.isDeprecated && this.required;
+      this.cdRef.markForCheck();
   }
 }

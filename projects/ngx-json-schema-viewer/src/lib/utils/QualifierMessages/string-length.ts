@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
 
 import type { JSONSchema } from '../../types';
 
@@ -7,6 +7,7 @@ import type { JSONSchema } from '../../types';
   selector: 'qm-string-length',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <strong>{{ lengthLabel }}</strong>&nbsp;
@@ -26,12 +27,15 @@ export class StringLengthComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
   lengthLabel = 'Length :';
-
   minAndMaxLength: boolean = false;
+
+  constructor(private cdRef: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.minAndMaxLength =
       this.schema.minLength !== undefined &&
       this.schema.maxLength !== undefined;
+    
+    this.cdRef.markForCheck();
   }
 }

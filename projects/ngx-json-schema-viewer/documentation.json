@@ -917,8 +917,9 @@
         },
         {
             "name": "CreateAdditionalItemsComponent",
-            "id": "component-CreateAdditionalItemsComponent-310ef2aee25843d411e367ba01c97bfdd8b7f8becdee6f6c8087e3d4bed25b1b47dc5e20353a918a317caacb82ba5d68cd9abe2e56d742e2c385dabc36fc701c",
+            "id": "component-CreateAdditionalItemsComponent-d4913d8de2f864a8b53b66fbedb66934360ab8b29736216591d4bd3d8446aad7f91e46793c900bd99ddc76ff369f45c187fb7a92d19fe13f6acfc942eaab6899",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/array/additional-items.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -927,7 +928,7 @@
             "selector": "jse-array-additional-items",
             "styleUrls": [],
             "styles": [],
-            "template": "<ul *ngIf=\"!isUndefinedOrBoolean(items)\">\n  <jse-common-create-edge [schema]=\"items!\" [required]=\"isMinItemsValid()\">\n    <code name>\n      {{ additionalItemsLabel(startingIndex) }}\n    </code>\n  </jse-common-create-edge>\n</ul>\n",
+            "template": "<ul *ngIf=\"items !== undefined\">\n  <jse-common-create-edge [schema]=\"items\" [required]=\"isMinItemsValid()\">\n    <code name>\n      {{ additionalItemsLabel(startingIndex) }}\n    </code>\n  </jse-common-create-edge>\n</ul>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -938,13 +939,34 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 28,
+                    "line": 29,
                     "type": "JSONSchemaNS.Array",
                     "decorators": []
                 }
             ],
             "outputsClass": [],
-            "propertiesClass": [],
+            "propertiesClass": [
+                {
+                    "name": "items",
+                    "defaultValue": "undefined",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "JSONSchema | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 31
+                },
+                {
+                    "name": "startingIndex",
+                    "defaultValue": "0",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 32
+                }
+            ],
             "methodsClass": [
                 {
                     "name": "additionalItemsLabel",
@@ -959,7 +981,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 48,
+                    "line": 52,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -980,37 +1002,19 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 42,
+                    "line": 46,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
                 {
-                    "name": "isUndefinedOrBoolean",
-                    "args": [
-                        {
-                            "name": "value",
-                            "type": "any",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
+                    "name": "ngOnInit",
+                    "args": [],
                     "optional": false,
-                    "returnType": "boolean",
+                    "returnType": "void",
                     "typeParameters": [],
-                    "line": 38,
+                    "line": 36,
                     "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "value",
-                            "type": "any",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
+                    "deprecationMessage": ""
                 }
             ],
             "deprecated": false,
@@ -1031,30 +1035,39 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from '../../types';\r\n\r\n@Component({\r\n  selector: 'jse-array-additional-items',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul *ngIf=\"!isUndefinedOrBoolean(items)\">\r\n      <jse-common-create-edge [schema]=\"items!\" [required]=\"isMinItemsValid()\">\r\n        <code name>\r\n          {{ additionalItemsLabel(startingIndex) }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateAdditionalItemsComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  get items() {\r\n    return this.schema.additionalItems;\r\n  }\r\n\r\n  get startingIndex() {\r\n    return Array.isArray(this.schema.items) ? this.schema.items.length : 1;\r\n  }\r\n\r\n  isUndefinedOrBoolean(value: any): boolean {\r\n    return value === undefined || typeof value === 'boolean';\r\n  }\r\n\r\n  isMinItemsValid(): boolean {\r\n    return (\r\n      this.schema.minItems !== undefined && this.startingIndex >= this.schema.minItems - 1\r\n    );\r\n  }\r\n\r\n  additionalItemsLabel(count: number): string {\r\n    return `items[${count},...]`;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'jse-array-additional-items',\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul *ngIf=\"items !== undefined\">\r\n      <jse-common-create-edge [schema]=\"items\" [required]=\"isMinItemsValid()\">\r\n        <code name>\r\n          {{ additionalItemsLabel(startingIndex) }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateAdditionalItemsComponent implements OnInit {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  items : JSONSchema | undefined = undefined;\r\n  startingIndex : number = 0;\r\n\r\n  constructor(private cdRef: ChangeDetectorRef) {}\r\n\r\n  ngOnInit(): void {\r\n    let isUndefinedOrBoolean = this.schema === undefined || typeof this.schema === 'boolean';\r\n    if (!isUndefinedOrBoolean) {\r\n      this.items = this.schema.additionalItems;\r\n      this.startingIndex = Array.isArray(this.schema.items) ? this.schema.items.length : 1;\r\n      \r\n      this.cdRef.markForCheck();\r\n    }\r\n  }\r\n\r\n  isMinItemsValid(): boolean {\r\n    return (\r\n      this.schema.minItems !== undefined && this.startingIndex >= this.schema.minItems - 1\r\n    );\r\n  }\r\n\r\n  additionalItemsLabel(count: number): string {\r\n    return `items[${count},...]`;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
-            "accessors": {
-                "items": {
-                    "name": "items",
-                    "getSignature": {
-                        "name": "items",
-                        "type": "",
-                        "returnType": "",
-                        "line": 30
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
-                },
-                "startingIndex": {
-                    "name": "startingIndex",
-                    "getSignature": {
-                        "name": "startingIndex",
-                        "type": "",
-                        "returnType": "",
-                        "line": 34
+                ],
+                "line": 32,
+                "jsdoctags": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
                     }
-                }
-            }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ]
         },
         {
             "name": "CreateAdditionalPropertiesComponent",
@@ -1414,8 +1427,9 @@
         },
         {
             "name": "CreateContainsComponent",
-            "id": "component-CreateContainsComponent-cd3c54fe3b4132e752320aefd962913e7c5622f1e987d16a3dd4d6c7b4bab7ed630a7d00a57fb8ca91ed7f6b4b0b3784072f820b52c7a97844282bb7c7aeb84c",
+            "id": "component-CreateContainsComponent-9910b4cb49691847c0e60efc79af0e17990de4b0621a5ae157ac210e333a3a80d71667f7a7120775de54775aaf2369b9705d57213d1f7e18d2319600444e3c0a",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/array/contains.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -1424,7 +1438,7 @@
             "selector": "jse-array-contains",
             "styleUrls": [],
             "styles": [],
-            "template": "<ul *ngIf=\"!isUndefined(item)\">\n  <jse-common-create-edge [schema]=\"item!\" [required]=\"isMinContainsValid()\">\n    <code name>\n      {{ containsLabel }}\n    </code>\n  </jse-common-create-edge>\n</ul>\n",
+            "template": "<ul *ngIf=\"item !== undefined\">\n  <jse-common-create-edge [schema]=\"item\" [required]=\"isMinContainsValid()\">\n    <code name>\n      {{ containsLabel }}\n    </code>\n  </jse-common-create-edge>\n</ul>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -1435,13 +1449,24 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 28,
+                    "line": 29,
                     "type": "JSONSchemaNS.Array",
                     "decorators": []
                 }
             ],
             "outputsClass": [],
-            "propertiesClass": [],
+            "propertiesClass": [
+                {
+                    "name": "item",
+                    "defaultValue": "undefined",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "JSONSchema | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 31
+                }
+            ],
             "methodsClass": [
                 {
                     "name": "isMinContainsValid",
@@ -1449,37 +1474,19 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 42,
+                    "line": 44,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
                 {
-                    "name": "isUndefined",
-                    "args": [
-                        {
-                            "name": "value",
-                            "type": "any",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
+                    "name": "ngOnInit",
+                    "args": [],
                     "optional": false,
-                    "returnType": "boolean",
+                    "returnType": "void",
                     "typeParameters": [],
-                    "line": 38,
+                    "line": 35,
                     "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "value",
-                            "type": "any",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
+                    "deprecationMessage": ""
                 }
             ],
             "deprecated": false,
@@ -1500,27 +1507,47 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from '../../types';\r\n\r\n@Component({\r\n  selector: 'jse-array-contains',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul *ngIf=\"!isUndefined(item)\">\r\n      <jse-common-create-edge [schema]=\"item!\" [required]=\"isMinContainsValid()\">\r\n        <code name>\r\n          {{ containsLabel }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateContainsComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  get item() {\r\n    return this.schema.contains;\r\n  }\r\n\r\n  get containsLabel() {\r\n    return `items[..., x, ...]`;\r\n  }\r\n\r\n  isUndefined(value: any): boolean {\r\n    return value === undefined;\r\n  }\r\n\r\n  isMinContainsValid(): boolean {\r\n    return this.schema.minContains !== undefined && this.schema.minContains > 0;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectorRef, Component, Input, forwardRef, OnInit, ChangeDetectionStrategy } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'jse-array-contains',\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul *ngIf=\"item !== undefined\">\r\n      <jse-common-create-edge [schema]=\"item\" [required]=\"isMinContainsValid()\">\r\n        <code name>\r\n          {{ containsLabel }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateContainsComponent implements OnInit {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  item : JSONSchema | undefined = undefined;\r\n\r\n  constructor(private cdRef: ChangeDetectorRef) {}\r\n\r\n  ngOnInit(): void {\r\n    this.item = this.schema.contains;\r\n    this.cdRef.markForCheck();\r\n  }\r\n\r\n  get containsLabel() {\r\n    return `items[..., x, ...]`;\r\n  }\r\n\r\n  isMinContainsValid(): boolean {\r\n    return this.schema.minContains !== undefined && this.schema.minContains > 0;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
-            "accessors": {
-                "item": {
-                    "name": "item",
-                    "getSignature": {
-                        "name": "item",
-                        "type": "",
-                        "returnType": "",
-                        "line": 30
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
-                },
+                ],
+                "line": 31,
+                "jsdoctags": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "accessors": {
                 "containsLabel": {
                     "name": "containsLabel",
                     "getSignature": {
                         "name": "containsLabel",
                         "type": "",
                         "returnType": "",
-                        "line": 34
+                        "line": 40
                     }
                 }
             }
@@ -1570,8 +1597,9 @@
         },
         {
             "name": "CreateEdgeComponent",
-            "id": "component-CreateEdgeComponent-e0a020bef6410f4d74b5a5ad6d893f529b286128c7db91077b56032452ef3cdfa921269f6f09734f1c1eb267af663f389cc8e027768f763c9dc519901caed80b",
+            "id": "component-CreateEdgeComponent-4d370612d76a4cf771da2b6ac7d093397e45939e24aec86876b6509fb3bbfba066301be4d4c5201985fa73e8d35a7c51aedad5d3463b01740b13a98448c4ffbd",
             "file": "projects/ngx-json-schema-viewer/src/lib/common/create-edge.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -1593,7 +1621,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 72,
+                    "line": 73,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -1603,14 +1631,66 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 71,
+                    "line": 72,
                     "type": "JSONSchema",
                     "decorators": []
                 }
             ],
             "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "isDeprecated",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 76
+                },
+                {
+                    "name": "isReadOnly",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 77
+                },
+                {
+                    "name": "isRequired",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 79
+                },
+                {
+                    "name": "isWriteOnly",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 78
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 83,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -1653,7 +1733,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\nimport {MatExpansionModule} from '@angular/material/expansion';\r\n\r\nimport {\r\n    GenerateFriendlyNameComponent\r\n} from \"../utils/index\";\r\n\r\nimport {\r\n    RequiredLabelComponent,\r\n    ReadOnlyLabelComponent,\r\n    WriteOnlyLabelComponent,\r\n    DeprecatedLabelComponent\r\n} from \"../labels/index\";\r\n\r\nimport {\r\n    CreateNodesComponent\r\n} from \"./index\";\r\n\r\nimport type { JSONSchema, JSONSchema_Draft_2019_09 } from '../types';\r\n\r\n@Component({\r\n  selector: 'jse-common-create-edge',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    GenerateFriendlyNameComponent,\r\n    RequiredLabelComponent,\r\n    ReadOnlyLabelComponent,\r\n    WriteOnlyLabelComponent,\r\n    DeprecatedLabelComponent,\r\n    forwardRef(() => CreateNodesComponent)\r\n  ],\r\n  template: `\r\n    <li class=\"schemaItem\">\r\n        <mat-accordion>\r\n            <mat-expansion-panel>\r\n                <mat-expansion-panel-header>\r\n                    <mat-panel-title>\r\n                        <ng-content select=\"[name]\" />\r\n                        &nbsp;\r\n                        <jsv-friendly-name [schema]=\"schema\" />\r\n                    </mat-panel-title>\r\n                    <mat-panel-description>\r\n                        <labels-required *ngIf=\"isRequired\" />\r\n                        <ng-container *ngIf=\"isRequired\" >\r\n                            &nbsp;\r\n                        </ng-container>\r\n                        <labels-deprecated *ngIf=\"isDeprecated\" />\r\n                        <ng-container *ngIf=\"isDeprecated\" >\r\n                            &nbsp;\r\n                        </ng-container>\r\n                        <labels-read-only *ngIf=\"isReadOnly\" />\r\n                        <ng-container *ngIf=\"isReadOnly\" >\r\n                            &nbsp;\r\n                        </ng-container>\r\n                        <labels-write-only *ngIf=\"isWriteOnly\" />\r\n                    </mat-panel-description>\r\n                </mat-expansion-panel-header>\r\n                <ng-template matExpansionPanelContent>\r\n                  <jse-common-create-nodes [schema]=\"schema\" />\r\n                </ng-template>\r\n            </mat-expansion-panel>\r\n        </mat-accordion>\r\n    </li>\r\n  `,\r\n  styleUrls: ['./create-edge.component.css']\r\n})\r\nexport class CreateEdgeComponent {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n  @Input({ required: true }) required!: boolean;\r\n\r\n  get typedSchema(): JSONSchema_Draft_2019_09 {\r\n    return this.schema as JSONSchema_Draft_2019_09;\r\n  }\r\n\r\n  get isDeprecated(): boolean {\r\n    return typeof this.typedSchema !== \"boolean\" && this.typedSchema.deprecated === true\r\n  }\r\n\r\n  get isReadOnly(): boolean {\r\n    return typeof this.schema !== \"boolean\" && this.schema.readOnly === true;\r\n  }\r\n\r\n  get isWriteOnly(): boolean {\r\n    return typeof this.schema !== \"boolean\" && this.schema.writeOnly === true;\r\n  }\r\n\r\n  get isRequired(): boolean {\r\n    return !this.isDeprecated && this.required;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';\r\nimport {MatExpansionModule} from '@angular/material/expansion';\r\n\r\nimport {\r\n    GenerateFriendlyNameComponent\r\n} from \"../utils/index\";\r\n\r\nimport {\r\n    RequiredLabelComponent,\r\n    ReadOnlyLabelComponent,\r\n    WriteOnlyLabelComponent,\r\n    DeprecatedLabelComponent\r\n} from \"../labels/index\";\r\n\r\nimport {\r\n    CreateNodesComponent\r\n} from \"./index\";\r\n\r\nimport type { JSONSchema, JSONSchema_Draft_2019_09 } from '../types';\r\n\r\n@Component({\r\n  selector: 'jse-common-create-edge',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    GenerateFriendlyNameComponent,\r\n    RequiredLabelComponent,\r\n    ReadOnlyLabelComponent,\r\n    WriteOnlyLabelComponent,\r\n    DeprecatedLabelComponent,\r\n    forwardRef(() => CreateNodesComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <li class=\"schemaItem\">\r\n        <mat-accordion>\r\n            <mat-expansion-panel>\r\n                <mat-expansion-panel-header>\r\n                    <mat-panel-title>\r\n                        <ng-content select=\"[name]\" />\r\n                        &nbsp;\r\n                        <jsv-friendly-name [schema]=\"schema\" />\r\n                    </mat-panel-title>\r\n                    <mat-panel-description>\r\n                        <labels-required *ngIf=\"isRequired\" />\r\n                        <ng-container *ngIf=\"isRequired\" >\r\n                            &nbsp;\r\n                        </ng-container>\r\n                        <labels-deprecated *ngIf=\"isDeprecated\" />\r\n                        <ng-container *ngIf=\"isDeprecated\" >\r\n                            &nbsp;\r\n                        </ng-container>\r\n                        <labels-read-only *ngIf=\"isReadOnly\" />\r\n                        <ng-container *ngIf=\"isReadOnly\" >\r\n                            &nbsp;\r\n                        </ng-container>\r\n                        <labels-write-only *ngIf=\"isWriteOnly\" />\r\n                    </mat-panel-description>\r\n                </mat-expansion-panel-header>\r\n                <ng-template matExpansionPanelContent>\r\n                  <jse-common-create-nodes [schema]=\"schema\" />\r\n                </ng-template>\r\n            </mat-expansion-panel>\r\n        </mat-accordion>\r\n    </li>\r\n  `,\r\n  styleUrls: ['./create-edge.component.css']\r\n})\r\nexport class CreateEdgeComponent implements OnInit {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n  @Input({ required: true }) required!: boolean;\r\n\r\n  // Props\r\n  isDeprecated : boolean = false;\r\n  isReadOnly : boolean = false;\r\n  isWriteOnly : boolean = false;\r\n  isRequired : boolean = false;\r\n\r\n  constructor(private cdRef: ChangeDetectorRef) {}\r\n\r\n  ngOnInit(): void {\r\n      const typedSchema = this.schema as JSONSchema_Draft_2019_09;\r\n      this.isDeprecated = typeof typedSchema !== \"boolean\" && typedSchema.deprecated === true;\r\n      this.isReadOnly = typeof this.schema !== \"boolean\" && this.schema.readOnly === true;\r\n      this.isWriteOnly = typeof this.schema !== \"boolean\" && this.schema.writeOnly === true;\r\n      this.isRequired = !this.isDeprecated && this.required;\r\n\r\n      this.cdRef.markForCheck();\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1662,53 +1742,35 @@
                 }
             ],
             "stylesData": "",
-            "accessors": {
-                "typedSchema": {
-                    "name": "typedSchema",
-                    "getSignature": {
-                        "name": "typedSchema",
-                        "type": "",
-                        "returnType": "JSONSchema_Draft_2019_09",
-                        "line": 74
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
-                },
-                "isDeprecated": {
-                    "name": "isDeprecated",
-                    "getSignature": {
-                        "name": "isDeprecated",
-                        "type": "boolean",
-                        "returnType": "boolean",
-                        "line": 78
+                ],
+                "line": 79,
+                "jsdoctags": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
                     }
-                },
-                "isReadOnly": {
-                    "name": "isReadOnly",
-                    "getSignature": {
-                        "name": "isReadOnly",
-                        "type": "boolean",
-                        "returnType": "boolean",
-                        "line": 82
-                    }
-                },
-                "isWriteOnly": {
-                    "name": "isWriteOnly",
-                    "getSignature": {
-                        "name": "isWriteOnly",
-                        "type": "boolean",
-                        "returnType": "boolean",
-                        "line": 86
-                    }
-                },
-                "isRequired": {
-                    "name": "isRequired",
-                    "getSignature": {
-                        "name": "isRequired",
-                        "type": "boolean",
-                        "returnType": "boolean",
-                        "line": 90
-                    }
-                }
-            }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ]
         },
         {
             "name": "CreateIntegerComponent",
@@ -1785,8 +1847,9 @@
         },
         {
             "name": "CreateItemsComponent",
-            "id": "component-CreateItemsComponent-ec32570e14f8f883428b62b381fad4b99d0915097463c404bdd76e35f8059f1e0217a90ef38e96923f2fb20c103056880aef40d517e46454668d66c67fdc0b05",
+            "id": "component-CreateItemsComponent-e698ae757438448734233517bee881065c989db303f1ceee4949bda6f39826e4a45576307705109c37082cfaa097dc29018eef7792c143949c69d5abad443c81",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/array/items.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -1806,7 +1869,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 28,
+                    "line": 29,
                     "type": "JSONSchemaNS.Array",
                     "decorators": []
                 }
@@ -1821,7 +1884,7 @@
                     "type": "boolean",
                     "optional": false,
                     "description": "",
-                    "line": 32
+                    "line": 33
                 },
                 {
                     "name": "itemsAsArray",
@@ -1831,7 +1894,7 @@
                     "type": "JSONSchema[]",
                     "optional": false,
                     "description": "",
-                    "line": 30
+                    "line": 31
                 },
                 {
                     "name": "startingIndex",
@@ -1841,7 +1904,7 @@
                     "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 31
+                    "line": 32
                 }
             ],
             "methodsClass": [
@@ -1851,7 +1914,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 40,
+                    "line": 45,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -1874,7 +1937,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 44,
+                    "line": 49,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -1904,7 +1967,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 34,
+                    "line": 37,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -1927,15 +1990,42 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-array-items',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul>\r\n      <jse-common-create-edge [schema]=\"item\" [required]=\"isMinItemsValid()\" *ngFor=\"let item of itemsAsArray; let idx = index\">\r\n        <code name>\r\n          {{ itemsLabel(startingIndex + idx, isArray) }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateItemsComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  itemsAsArray: JSONSchema[] = [];\r\n  startingIndex: number = 0;\r\n  isArray: boolean = false;\r\n\r\n  ngOnInit() {\r\n    this.itemsAsArray = Array.isArray(this.schema.items) ? this.schema.items : [this.schema.items!];\r\n    this.startingIndex = Array.isArray(this.schema.prefixItems) ? this.schema.prefixItems.length : 0;\r\n    this.isArray = Array.isArray(this.schema.items);\r\n  }\r\n\r\n  isMinItemsValid(): boolean {\r\n    return this.schema.minItems !== undefined && this.schema.minItems >= this.itemsAsArray.length;\r\n  }\r\n\r\n  itemsLabel(index: number, isArray: boolean): string {\r\n    const finalIdx = isArray ? index.toString() : 'x';\r\n    return `items[${finalIdx}]`;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-array-items',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ul>\r\n      <jse-common-create-edge [schema]=\"item\" [required]=\"isMinItemsValid()\" *ngFor=\"let item of itemsAsArray; let idx = index\">\r\n        <code name>\r\n          {{ itemsLabel(startingIndex + idx, isArray) }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateItemsComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  itemsAsArray: JSONSchema[] = [];\r\n  startingIndex: number = 0;\r\n  isArray: boolean = false;\r\n\r\n  constructor(private cdRef: ChangeDetectorRef) {}\r\n\r\n  ngOnInit() {\r\n    this.itemsAsArray = Array.isArray(this.schema.items) ? this.schema.items : [this.schema.items!];\r\n    this.startingIndex = Array.isArray(this.schema.prefixItems) ? this.schema.prefixItems.length : 0;\r\n    this.isArray = Array.isArray(this.schema.items);\r\n\r\n    this.cdRef.markForCheck();\r\n  }\r\n\r\n  isMinItemsValid(): boolean {\r\n    return this.schema.minItems !== undefined && this.schema.minItems >= this.itemsAsArray.length;\r\n  }\r\n\r\n  itemsLabel(index: number, isArray: boolean): string {\r\n    const finalIdx = isArray ? index.toString() : 'x';\r\n    return `items[${finalIdx}]`;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 33,
+                "jsdoctags": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            }
         },
         {
             "name": "CreateNodesComponent",
-            "id": "component-CreateNodesComponent-2f970804c9c8f5f090d5626c2ae8f89453bc1fa947007415e9720c2552626021a86db1b4526fd7fd603683fc9b32fe0531102d52aa1be776beadf1daadeeda9a",
+            "id": "component-CreateNodesComponent-33fbc67c0d1b567ecabc5c20986b9a728f3f125ba3d9139541461230f22f9c64e1ce1d3aecb2672fc713faa5a4ea98ff896e234e35bd108e45c18aa368a3a25b",
             "file": "projects/ngx-json-schema-viewer/src/lib/common/create-nodes.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -1944,7 +2034,7 @@
             "selector": "jse-common-create-nodes",
             "styleUrls": [],
             "styles": [],
-            "template": "<ng-container *ngIf=\"isBooleanSchema\">\n  <jse-common-create-valid-or-invalid [schema]=\"schema\" />\n</ng-container>\n\n<ng-container *ngIf=\"!isBooleanSchema\">\n\n    <!-- Handle standard types -->\n    <jse-common-create-types [schema]=\"typedSchema\" />\n\n    <!-- Handle Composition -->\n    <ng-container *ngIf=\"isCompositionSchema\">\n        <jse-schema-composition [schema]=\"typedSchema\" />\n    </ng-container>\n\n    <!-- Handle Conditional -->\n    <ng-container *ngIf=\"isConditionalSchema\">\n        <jse-schema-conditional [schema]=\"typedSchema\" />\n    </ng-container>\n\n</ng-container>\n",
+            "template": "<ng-container *ngIf=\"isBooleanSchema; else nonBooleanSchema\">\n  <jse-common-create-valid-or-invalid [schema]=\"schema\" />\n</ng-container>\n\n<ng-template #nonBooleanSchema>\n\n  <!-- Handle standard types -->\n  <jse-common-create-types [schema]=\"typedSchema!\" />\n\n  <!-- Handle Composition -->\n  <ng-container *ngIf=\"isCompositionSchema\">\n    <jse-schema-composition [schema]=\"typedSchema!\" />\n  </ng-container>\n\n  <!-- Handle Conditional -->\n  <ng-container *ngIf=\"isConditionalSchema\">\n    <jse-schema-conditional [schema]=\"typedSchema!\" />\n  </ng-container>\n\n</ng-template>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -1955,14 +2045,66 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 56,
+                    "line": 57,
                     "type": "JSONSchema",
                     "decorators": []
                 }
             ],
             "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "isBooleanSchema",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 64
+                },
+                {
+                    "name": "isCompositionSchema",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 60
+                },
+                {
+                    "name": "isConditionalSchema",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 62
+                },
+                {
+                    "name": "typedSchema",
+                    "defaultValue": "undefined",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Exclude<JSONSchema |  | > | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 66
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 70,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -1993,48 +2135,39 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n    SchemaConditionalComponent,\r\n    SchemaCompositionComponent,\r\n} from \"../JSONSchemaElements/index\";\r\n\r\nimport {\r\n  isSchemaComposition,\r\n  isSchemaConditional,\r\n} from '../utils/index';\r\n\r\nimport {\r\n    CreateTypesComponent,\r\n    CreateValidOrInvalidComponent\r\n} from \"./index\";\r\n\r\nimport type { JSONSchema } from '../types';\r\n\r\n\r\n@Component({\r\n  selector: 'jse-common-create-nodes',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => SchemaConditionalComponent),\r\n    forwardRef(() => SchemaCompositionComponent),\r\n    forwardRef(() => CreateTypesComponent),\r\n    forwardRef(() => CreateValidOrInvalidComponent)\r\n  ],\r\n  template: `\r\n    <ng-container *ngIf=\"isBooleanSchema\">\r\n      <jse-common-create-valid-or-invalid [schema]=\"schema\" />\r\n    </ng-container>\r\n\r\n    <ng-container *ngIf=\"!isBooleanSchema\">\r\n\r\n        <!-- Handle standard types -->\r\n        <jse-common-create-types [schema]=\"typedSchema\" />\r\n\r\n        <!-- Handle Composition -->\r\n        <ng-container *ngIf=\"isCompositionSchema\">\r\n            <jse-schema-composition [schema]=\"typedSchema\" />\r\n        </ng-container>\r\n\r\n        <!-- Handle Conditional -->\r\n        <ng-container *ngIf=\"isConditionalSchema\">\r\n            <jse-schema-conditional [schema]=\"typedSchema\" />\r\n        </ng-container>\r\n\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class CreateNodesComponent {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n\r\n  // Define a method to check if the schema is a boolean\r\n  get isBooleanSchema(): boolean {\r\n    return typeof this.schema === 'boolean';\r\n  }\r\n\r\n  get typedSchema(): Exclude<JSONSchema, false | true> {\r\n    return this.schema as Exclude<JSONSchema, false | true>;\r\n  }\r\n\r\n  // Define a method to check if the schema is a composition\r\n  get isCompositionSchema(): boolean {\r\n    return isSchemaComposition(this.schema);\r\n  }\r\n\r\n  // Define a method to check if the schema is conditional\r\n  get isConditionalSchema(): boolean {\r\n    return isSchemaConditional(this.schema);\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';\r\n\r\nimport {\r\n    SchemaConditionalComponent,\r\n    SchemaCompositionComponent,\r\n} from \"../JSONSchemaElements/index\";\r\n\r\nimport {\r\n  isSchemaComposition,\r\n  isSchemaConditional,\r\n} from '../utils/index';\r\n\r\nimport {\r\n    CreateTypesComponent,\r\n    CreateValidOrInvalidComponent\r\n} from \"./index\";\r\n\r\nimport type { JSONSchema } from '../types';\r\n\r\n\r\n@Component({\r\n  selector: 'jse-common-create-nodes',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => SchemaConditionalComponent),\r\n    forwardRef(() => SchemaCompositionComponent),\r\n    forwardRef(() => CreateTypesComponent),\r\n    forwardRef(() => CreateValidOrInvalidComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ng-container *ngIf=\"isBooleanSchema; else nonBooleanSchema\">\r\n      <jse-common-create-valid-or-invalid [schema]=\"schema\" />\r\n    </ng-container>\r\n\r\n    <ng-template #nonBooleanSchema>\r\n\r\n      <!-- Handle standard types -->\r\n      <jse-common-create-types [schema]=\"typedSchema!\" />\r\n\r\n      <!-- Handle Composition -->\r\n      <ng-container *ngIf=\"isCompositionSchema\">\r\n        <jse-schema-composition [schema]=\"typedSchema!\" />\r\n      </ng-container>\r\n\r\n      <!-- Handle Conditional -->\r\n      <ng-container *ngIf=\"isConditionalSchema\">\r\n        <jse-schema-conditional [schema]=\"typedSchema!\" />\r\n      </ng-container>\r\n      \r\n    </ng-template>\r\n  `,\r\n})\r\nexport class CreateNodesComponent implements OnInit {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n\r\n  // Check if the schema is a composition\r\n  isCompositionSchema : boolean = false;\r\n  // Check if the schema is conditional\r\n  isConditionalSchema : boolean = false;\r\n  // Check if the schema is a boolean\r\n  isBooleanSchema : boolean = false;\r\n  // Typed schema, if not a boolean\r\n  typedSchema: Exclude<JSONSchema, false | true> | undefined = undefined;\r\n\r\n  constructor(private cdRef: ChangeDetectorRef) {}\r\n\r\n  ngOnInit(): void {\r\n      this.isCompositionSchema = isSchemaComposition(this.schema);\r\n      this.isConditionalSchema = isSchemaConditional(this.schema);\r\n      this.isBooleanSchema = typeof this.schema === 'boolean';\r\n      if (this.isBooleanSchema) {\r\n        this.typedSchema = this.schema as Exclude<JSONSchema, false | true>;\r\n      }\r\n\r\n      this.cdRef.markForCheck();\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
-            "accessors": {
-                "isBooleanSchema": {
-                    "name": "isBooleanSchema",
-                    "getSignature": {
-                        "name": "isBooleanSchema",
-                        "type": "boolean",
-                        "returnType": "boolean",
-                        "line": 59
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
-                },
-                "typedSchema": {
-                    "name": "typedSchema",
-                    "getSignature": {
-                        "name": "typedSchema",
-                        "type": "",
-                        "returnType": "Exclude<JSONSchema,  | >",
-                        "line": 63
+                ],
+                "line": 66,
+                "jsdoctags": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
                     }
-                },
-                "isCompositionSchema": {
-                    "name": "isCompositionSchema",
-                    "getSignature": {
-                        "name": "isCompositionSchema",
-                        "type": "boolean",
-                        "returnType": "boolean",
-                        "line": 68
-                    }
-                },
-                "isConditionalSchema": {
-                    "name": "isConditionalSchema",
-                    "getSignature": {
-                        "name": "isConditionalSchema",
-                        "type": "boolean",
-                        "returnType": "boolean",
-                        "line": 73
-                    }
-                }
-            }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ]
         },
         {
             "name": "CreateNullComponent",
@@ -2375,8 +2508,9 @@
         },
         {
             "name": "CreatePrefixItemsComponent",
-            "id": "component-CreatePrefixItemsComponent-a8416e52a004e831cd81cd07b345fa03ee7e555ee2a0662946a4cf166ed9083b6de7a4e7a762d664022ef9c8e52db920d64dd201234ca56899eb121a207d1498",
+            "id": "component-CreatePrefixItemsComponent-b0396b95c71101a624fdf9d0bb1499cb12b0e34ad869f0d96bff015f13e533158659ec2fe0b9ab8ef1030ba38484edd6f7704a773e27198bb41e248d555356a1",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/array/prefix-items.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -2396,7 +2530,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 28,
+                    "line": 29,
                     "type": "JSONSchemaNS.Array",
                     "decorators": []
                 }
@@ -2411,7 +2545,7 @@
                     "type": "JSONSchema[]",
                     "optional": false,
                     "description": "",
-                    "line": 30
+                    "line": 31
                 }
             ],
             "methodsClass": [
@@ -2421,7 +2555,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 36,
+                    "line": 41,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -2431,7 +2565,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 32,
+                    "line": 35,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -2448,7 +2582,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 40,
+                    "line": 45,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2482,10 +2616,36 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchema, JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-array-prefix-items',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul>\r\n      <jse-common-create-edge [schema]=\"val\" [required]=\"isMinItemsValid()\" *ngFor=\"let val of array; let idx = index\">\r\n        <code name>\r\n          {{ prefixItemsLabel(idx) }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreatePrefixItemsComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  array: JSONSchema[] = [];\r\n\r\n  ngOnInit() {\r\n    this.array = Array.isArray(this.schema.prefixItems) ? this.schema.prefixItems : [this.schema.prefixItems!] as JSONSchema[];\r\n  }\r\n\r\n  isMinItemsValid(): boolean {\r\n    return this.schema.minItems !== undefined && this.schema.minItems >= this.array.length;\r\n  }\r\n\r\n  prefixItemsLabel(index: number): string {\r\n    return `items[${index}]`;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchema, JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-array-prefix-items',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ul>\r\n      <jse-common-create-edge [schema]=\"val\" [required]=\"isMinItemsValid()\" *ngFor=\"let val of array; let idx = index\">\r\n        <code name>\r\n          {{ prefixItemsLabel(idx) }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreatePrefixItemsComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  array: JSONSchema[] = [];\r\n\r\n  constructor(private cdRef: ChangeDetectorRef) {}\r\n\r\n  ngOnInit() {\r\n    this.array = Array.isArray(this.schema.prefixItems) ? this.schema.prefixItems : [this.schema.prefixItems!] as JSONSchema[];\r\n\r\n    this.cdRef.markForCheck();\r\n  }\r\n\r\n  isMinItemsValid(): boolean {\r\n    return this.schema.minItems !== undefined && this.schema.minItems >= this.array.length;\r\n  }\r\n\r\n  prefixItemsLabel(index: number): string {\r\n    return `items[${index}]`;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 31,
+                "jsdoctags": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            }
         },
         {
             "name": "CreatePropertiesComponent",
@@ -2684,8 +2844,9 @@
         },
         {
             "name": "CreateTypesComponent",
-            "id": "component-CreateTypesComponent-30e78de755116eae4eda335b0327b98ac65e67139e982e48af4ea865b5d97ceeb026627b76141fa61c45ad268784aeb45bf63a5032878b9185ff4c403290e86b",
+            "id": "component-CreateTypesComponent-08dbe566bdeff4610f726517ffd4b77b3a18d12ac342ee301ef0ae152d5d387ab082529e1bb632eb818e388ee9a38aa08bf93850560555f202e2d0951b7551b4",
             "file": "projects/ngx-json-schema-viewer/src/lib/common/create-types.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -2705,14 +2866,56 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 53,
+                    "line": 54,
                     "type": "Exclude<JSONSchema |  | >",
                     "decorators": []
                 }
             ],
             "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "foundTypes",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "TypeValues[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 57
+                },
+                {
+                    "name": "hasNull",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 58
+                },
+                {
+                    "name": "hasSchemaComposition",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 59
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 64,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -2739,45 +2942,47 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input } from '@angular/core';\r\n\r\nimport {\r\n    CreateValidOrInvalidComponent,\r\n    RenderProvidedTypeComponent,\r\n    RenderMultipleTypesComponent\r\n} from \"./index\";\r\n\r\nimport {\r\n    detectedTypes,\r\n    isSchemaComposition\r\n} from \"../utils/index\"\r\n\r\nimport type {\r\n    TypeValues,\r\n    JSONSchema\r\n} from \"../types\";\r\n\r\n@Component({\r\n  selector: 'jse-common-create-types',\r\n  standalone: true,\r\n  imports: [CommonModule, CreateValidOrInvalidComponent, RenderProvidedTypeComponent,RenderMultipleTypesComponent],\r\n  template: `\r\n    <ng-container>\r\n\r\n      <ng-container *ngIf=\"foundTypes; else defaultCase\">\r\n        <!-- Case 1: Single type or type with null -->\r\n        <ng-container *ngIf=\"foundTypes.length === 1 || (hasNull && foundTypes.length === 2); else case2\">\r\n          <jse-common-render-provided-type [schema]=\"schema\" [type]=\"firstType\" [nullable]=\"hasNull\" />\r\n        </ng-container>\r\n\r\n        <!-- Case 2: Multiple types -->\r\n        <ng-template #case2>\r\n          <jse-common-multiple-types [schema]=\"schema\" [types]=\"notNullTypeValues\" [nullable]=\"hasNull\" />\r\n        </ng-template>\r\n      </ng-container>\r\n\r\n      <!-- Default Case: Handle cases like { \"allOf\": ... } or { \"if\": ... } -->\r\n      <ng-template #defaultCase>\r\n        <ng-container *ngIf=\"!hasSchemaComposition; else compositionCase\">\r\n          <jse-common-create-valid-or-invalid [schema]=\"schema\" />\r\n        </ng-container>\r\n\r\n        <ng-template #compositionCase>\r\n          <!--  Otherwise, we have a SchemaComposition, which will be handled by CreateNodes -->\r\n        </ng-template>\r\n      </ng-template>\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class CreateTypesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  get foundTypes(): TypeValues[] {\r\n    return detectedTypes(this.schema);\r\n  }\r\n\r\n  get hasNull(): boolean {\r\n    return this.foundTypes.includes(\"null\");\r\n  }\r\n\r\n  get firstType(): TypeValues {\r\n    return this.foundTypes.find((s) => s !== \"null\") || this.foundTypes[0];\r\n  }\r\n\r\n  get hasSchemaComposition() : boolean {\r\n    return isSchemaComposition(this.schema);\r\n  }\r\n\r\n  get notNullTypeValues(): TypeValues[] {\r\n    return this.foundTypes.filter((s) => s !== \"null\");\r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';\r\n\r\nimport {\r\n    CreateValidOrInvalidComponent,\r\n    RenderProvidedTypeComponent,\r\n    RenderMultipleTypesComponent\r\n} from \"./index\";\r\n\r\nimport {\r\n    detectedTypes,\r\n    isSchemaComposition\r\n} from \"../utils/index\"\r\n\r\nimport type {\r\n    TypeValues,\r\n    JSONSchema\r\n} from \"../types\";\r\n\r\n@Component({\r\n  selector: 'jse-common-create-types',\r\n  standalone: true,\r\n  imports: [CommonModule, CreateValidOrInvalidComponent, RenderProvidedTypeComponent,RenderMultipleTypesComponent],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ng-container>\r\n\r\n      <ng-container *ngIf=\"foundTypes; else defaultCase\">\r\n        <!-- Case 1: Single type or type with null -->\r\n        <ng-container *ngIf=\"foundTypes.length === 1 || (hasNull && foundTypes.length === 2); else case2\">\r\n          <jse-common-render-provided-type [schema]=\"schema\" [type]=\"firstType\" [nullable]=\"hasNull\" />\r\n        </ng-container>\r\n\r\n        <!-- Case 2: Multiple types -->\r\n        <ng-template #case2>\r\n          <jse-common-multiple-types [schema]=\"schema\" [types]=\"notNullTypeValues\" [nullable]=\"hasNull\" />\r\n        </ng-template>\r\n      </ng-container>\r\n\r\n      <!-- Default Case: Handle cases like { \"allOf\": ... } or { \"if\": ... } -->\r\n      <ng-template #defaultCase>\r\n        <ng-container *ngIf=\"!hasSchemaComposition; else compositionCase\">\r\n          <jse-common-create-valid-or-invalid [schema]=\"schema\" />\r\n        </ng-container>\r\n\r\n        <ng-template #compositionCase>\r\n          <!--  Otherwise, we have a SchemaComposition, which will be handled by CreateNodes -->\r\n        </ng-template>\r\n      </ng-template>\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class CreateTypesComponent implements OnInit {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  // Props\r\n  foundTypes : TypeValues[] = [];\r\n  hasNull : boolean = false;\r\n  hasSchemaComposition : boolean = false;\r\n\r\n  constructor(private cdRef: ChangeDetectorRef) {}\r\n\r\n  // Inits\r\n  ngOnInit(): void {\r\n    this.foundTypes = detectedTypes(this.schema);\r\n    this.hasNull = this.foundTypes.includes(\"null\");\r\n    this.hasSchemaComposition = isSchemaComposition(this.schema);\r\n\r\n    this.cdRef.markForCheck();\r\n  }\r\n\r\n  get firstType(): TypeValues {\r\n    return this.foundTypes.find((s) => s !== \"null\") || this.foundTypes[0];\r\n  }\r\n\r\n  get notNullTypeValues(): TypeValues[] {\r\n    return this.foundTypes.filter((s) => s !== \"null\");\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 59,
+                "jsdoctags": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
             "accessors": {
-                "foundTypes": {
-                    "name": "foundTypes",
-                    "getSignature": {
-                        "name": "foundTypes",
-                        "type": "[]",
-                        "returnType": "TypeValues[]",
-                        "line": 55
-                    }
-                },
-                "hasNull": {
-                    "name": "hasNull",
-                    "getSignature": {
-                        "name": "hasNull",
-                        "type": "boolean",
-                        "returnType": "boolean",
-                        "line": 59
-                    }
-                },
                 "firstType": {
                     "name": "firstType",
                     "getSignature": {
                         "name": "firstType",
                         "type": "",
                         "returnType": "TypeValues",
-                        "line": 63
-                    }
-                },
-                "hasSchemaComposition": {
-                    "name": "hasSchemaComposition",
-                    "getSignature": {
-                        "name": "hasSchemaComposition",
-                        "type": "boolean",
-                        "returnType": "boolean",
-                        "line": 67
+                        "line": 72
                     }
                 },
                 "notNullTypeValues": {
@@ -2786,15 +2991,16 @@
                         "name": "notNullTypeValues",
                         "type": "[]",
                         "returnType": "TypeValues[]",
-                        "line": 71
+                        "line": 76
                     }
                 }
             }
         },
         {
             "name": "CreateUnevaluatedItemsComponent",
-            "id": "component-CreateUnevaluatedItemsComponent-0821f35c194bef40130bfa49745209870d11d4cb79b55ef848847401f6a9ff7e494e4b7f05af6ee3760b698fcb9afa86bf49175c21e3bbd528eed1cde03858ea",
+            "id": "component-CreateUnevaluatedItemsComponent-1746433483f2e95c25c73db1f84bed85b58c2caa2193e67247c4848ba41d1fb470d3c030671f18e77676dcd61601cc540f284e821f876680188593e58cdeeec1",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/array/unevaluated-items.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -2803,7 +3009,7 @@
             "selector": "jse-array-unevaluated-items",
             "styleUrls": [],
             "styles": [],
-            "template": "<ul *ngIf=\"!isUndefinedOrBoolean(items)\">\n  <jse-common-create-edge [schema]=\"items!\" [required]=\"false\">\n    <code name>\n      {{ unevaluatedItemsLabel() }}\n    </code>\n  </jse-common-create-edge>\n</ul>\n",
+            "template": "<ul *ngIf=\"items !== undefined\">\n  <jse-common-create-edge [schema]=\"items\" [required]=\"false\">\n    <code name>\n      {{ unevaluatedItemsLabel() }}\n    </code>\n  </jse-common-create-edge>\n</ul>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -2814,41 +3020,34 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 28,
+                    "line": 29,
                     "type": "JSONSchemaNS.Array",
                     "decorators": []
                 }
             ],
             "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [
+            "propertiesClass": [
                 {
-                    "name": "isUndefinedOrBoolean",
-                    "args": [
-                        {
-                            "name": "value",
-                            "type": "any",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "boolean",
-                    "typeParameters": [],
-                    "line": 34,
+                    "name": "items",
+                    "defaultValue": "undefined",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "value",
-                            "type": "any",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
+                    "type": "JSONSchema | undefined",
+                    "optional": false,
+                    "description": "",
+                    "line": 31
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 35,
+                    "deprecated": false,
+                    "deprecationMessage": ""
                 },
                 {
                     "name": "unevaluatedItemsLabel",
@@ -2856,7 +3055,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 38,
+                    "line": 41,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -2879,21 +3078,39 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-array-unevaluated-items',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul *ngIf=\"!isUndefinedOrBoolean(items)\">\r\n      <jse-common-create-edge [schema]=\"items!\" [required]=\"false\">\r\n        <code name>\r\n          {{ unevaluatedItemsLabel() }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateUnevaluatedItemsComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  get items() {\r\n    return this.schema.unevaluatedItems;\r\n  }\r\n\r\n  isUndefinedOrBoolean(value: any): boolean {\r\n    return value === undefined || typeof value === 'boolean';\r\n  }\r\n\r\n  unevaluatedItemsLabel(): string {\r\n    return `items[y]`;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, forwardRef, OnInit, ChangeDetectorRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-array-unevaluated-items',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ul *ngIf=\"items !== undefined\">\r\n      <jse-common-create-edge [schema]=\"items\" [required]=\"false\">\r\n        <code name>\r\n          {{ unevaluatedItemsLabel() }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreateUnevaluatedItemsComponent implements OnInit {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n  items : JSONSchema | undefined = undefined;\r\n\r\n  constructor(private cdRef: ChangeDetectorRef) {}\r\n\r\n  ngOnInit(): void {\r\n      this.items = this.schema.unevaluatedItems;\r\n\r\n      this.cdRef.markForCheck();\r\n  }\r\n\r\n  unevaluatedItemsLabel(): string {\r\n    return `items[y]`;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
-            "accessors": {
-                "items": {
-                    "name": "items",
-                    "getSignature": {
-                        "name": "items",
-                        "type": "",
-                        "returnType": "",
-                        "line": 30
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
-                }
-            }
+                ],
+                "line": 31,
+                "jsdoctags": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ]
         },
         {
             "name": "CreateUnevaluatedPropertiesComponent",
@@ -3678,8 +3895,9 @@
         },
         {
             "name": "ExamplesComponent",
-            "id": "component-ExamplesComponent-2e636e712a24fab4ad47b1c605f9a40ac02c01535fafaf1afea098d2eda456cc96c4fe3837d1bbf01b9a226c46fafd2acb1ade53e6a570461ba4f6efaf473097",
+            "id": "component-ExamplesComponent-e2b5f78ea6565f8eea26478b1bfe67dcab899accc2bf4de15a5baff7dd803ce144c24389ee67c509ec196ba16fe669ae5a012f7523f7e5efee68c991b00254e7",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/examples.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -3699,7 +3917,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 23,
+                    "line": 24,
                     "type": "Exclude<JSONSchema |  | >",
                     "decorators": []
                 }
@@ -3714,7 +3932,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 25
+                    "line": 26
                 },
                 {
                     "name": "items",
@@ -3724,7 +3942,7 @@
                     "type": "literal type[]",
                     "optional": false,
                     "description": "",
-                    "line": 27
+                    "line": 28
                 }
             ],
             "methodsClass": [
@@ -3734,7 +3952,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 29,
+                    "line": 32,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -3757,10 +3975,36 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport {MatTabsModule} from '@angular/material/tabs';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-examples',\r\n  standalone: true,\r\n  imports: [MatTabsModule, PrintSchemaTypeComponent],\r\n  template: `\r\n    <div>\r\n      <strong>{{ examplesLabel }}</strong>&nbsp;\r\n      <mat-tab-group>\r\n        <mat-tab *ngFor=\"let item of items\" [label]=\"item.label\">\r\n            <lib-print-schema-type [obj]=\"item.value\"></lib-print-schema-type>\r\n        </mat-tab>\r\n      </mat-tab-group>\r\n    </div>\r\n  `,\r\n})\r\nexport class ExamplesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  examplesLabel = 'Example values :';\r\n\r\n  items: { id: number; value: any; label: string }[] = [];\r\n\r\n  ngOnInit() {\r\n    if (this.schema.examples) {\r\n      this.items = this.schema.examples.map((val, idx) => ({\r\n        id: idx,\r\n        value: val,\r\n        label: `Example ${idx}`,\r\n      }));\r\n    }\r\n  }\r\n}\r\n",
+            "sourceCode": "import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';\r\nimport {MatTabsModule} from '@angular/material/tabs';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-examples',\r\n  standalone: true,\r\n  imports: [MatTabsModule, PrintSchemaTypeComponent],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <strong>{{ examplesLabel }}</strong>&nbsp;\r\n      <mat-tab-group>\r\n        <mat-tab *ngFor=\"let item of items\" [label]=\"item.label\">\r\n            <lib-print-schema-type [obj]=\"item.value\"></lib-print-schema-type>\r\n        </mat-tab>\r\n      </mat-tab-group>\r\n    </div>\r\n  `,\r\n})\r\nexport class ExamplesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  examplesLabel = 'Example values :';\r\n\r\n  items: { id: number; value: any; label: string }[] = [];\r\n\r\n  constructor(private cdRef: ChangeDetectorRef) {}\r\n\r\n  ngOnInit() {\r\n    if (this.schema.examples) {\r\n      this.items = this.schema.examples.map((val, idx) => ({\r\n        id: idx,\r\n        value: val,\r\n        label: `Example ${idx}`,\r\n      }));\r\n\r\n      this.cdRef.markForCheck();\r\n    }\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 28,
+                "jsdoctags": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            }
         },
         {
             "name": "FalseLabelComponent",
@@ -4695,7 +4939,7 @@
         },
         {
             "name": "NgxJsonSchemaViewerComponent",
-            "id": "component-NgxJsonSchemaViewerComponent-f9c7fd9b4b842ee82e05435dcd1d5bca70f8e3f26417357cac1664e715f12fb6f2ddd1273ceb6dd29eb7f15bfe51ee1819d18fc876b66c864a1b75f6ec5e3a8e",
+            "id": "component-NgxJsonSchemaViewerComponent-a0af88b2c0300a8ecc32761c10d586ba7cf95fa977226dfd3010d4a27997e4d968d70900dbf2c9ad766cc45a8e97975a355e88626be88cf3f62aaa758fb573b8",
             "file": "projects/ngx-json-schema-viewer/src/lib/ngx-json-schema-viewer.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -4711,7 +4955,7 @@
             "selector": "ngx-json-schema-viewer",
             "styleUrls": [],
             "styles": [],
-            "template": "<!-- Error ... -->\n<ng-container *ngIf=\"error !== undefined; else loadingSchema\">\n  <div>\n    <labels-error-occurred [error]=\"error!\"/>\n  </div>\n</ng-container>\n\n<!-- Loading ... -->\n<ng-template #loadingSchema>\n  <div *ngIf=\"resolvedSchema === undefined\">\n    <labels-loading />\n  </div>\n</ng-template>\n\n<!-- Schema -->\n<div *ngIf=\"resolvedSchema !== undefined\">\n  <mat-accordion>\n    <mat-expansion-panel [expanded]=\"expanded\">\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>\n            {{ getSchemaTitle }}\n          </strong>\n        </mat-panel-title>\n      </mat-expansion-panel-header>\n      <ng-template matExpansionPanelContent>\n        <jse-common-create-nodes [schema]=\"resolvedSchema\" />\n      </ng-template>\n    </mat-expansion-panel>\n  </mat-accordion>\n</div>\n",
+            "template": "<!-- Error ... -->\n<ng-container *ngIf=\"error !== undefined; else loadingSchema\">\n  <div>\n    <labels-error-occurred [error]=\"error!\"/>\n  </div>\n</ng-container>\n\n<!-- Loading ... -->\n<ng-template #loadingSchema>\n  <div *ngIf=\"resolvedSchema === undefined\">\n    <labels-loading />\n  </div>\n</ng-template>\n\n<!-- Schema -->\n<div *ngIf=\"resolvedSchema !== undefined\">\n  <mat-accordion>\n    <mat-expansion-panel [(expanded)]=\"expanded\">\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>\n            {{ getSchemaTitle }}\n          </strong>\n        </mat-panel-title>\n      </mat-expansion-panel-header>\n      <ng-template matExpansionPanelContent>\n        <jse-common-create-nodes [schema]=\"resolvedSchema\" />\n      </ng-template>\n    </mat-expansion-panel>\n  </mat-accordion>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -4798,16 +5042,6 @@
                     "modifierKind": [
                         121
                     ]
-                },
-                {
-                    "name": "toggleExpended",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 116,
-                    "deprecated": false,
-                    "deprecationMessage": ""
                 }
             ],
             "deprecated": false,
@@ -4840,7 +5074,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\nimport { JSVOptionsService } from \"./services/jsv-options\";\r\n\r\n// Labels\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// Types\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSVOptions } from \"./services/jsv-options\";\r\n\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  providers: [\r\n    JSVOptionsService\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <!-- Error ... -->\r\n    <ng-container *ngIf=\"error !== undefined; else loadingSchema\">\r\n      <div>\r\n        <labels-error-occurred [error]=\"error!\"/>\r\n      </div>\r\n    </ng-container>\r\n\r\n    <!-- Loading ... -->\r\n    <ng-template #loadingSchema>\r\n      <div *ngIf=\"resolvedSchema === undefined\">\r\n        <labels-loading />\r\n      </div>\r\n    </ng-template>\r\n\r\n    <!-- Schema -->\r\n    <div *ngIf=\"resolvedSchema !== undefined\">\r\n      <mat-accordion>\r\n        <mat-expansion-panel [expanded]=\"expanded\">\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <ng-template matExpansionPanelContent>\r\n            <jse-common-create-nodes [schema]=\"resolvedSchema\" />\r\n          </ng-template>\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </div>\r\n  `\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  @Input() vierwerOptions?: Partial<JSVOptions>;\r\n  resolvedSchema: JSONSchema = false;\r\n  error: Error | undefined;\r\n\r\n  expanded : boolean = true;\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService,\r\n    private jsvOptionsService: JSVOptionsService,\r\n    private cdr: ChangeDetectorRef\r\n  ) {}\r\n\r\n  ngOnInit(): void {\r\n    // If asked, apply user options\r\n    if (this.vierwerOptions) {\r\n      this.jsvOptionsService.setOptions(this.vierwerOptions);\r\n    }\r\n    // Perform the asynchronous schema resolution\r\n    this.schemaResolution();\r\n  }\r\n\r\n  private schemaResolution() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .subscribe({\r\n        error: (err) => {\r\n          this.error = err;\r\n          this.resolvedSchema = false;\r\n          this.cdr.markForCheck();\r\n        },\r\n        next: (result) => {\r\n          this.resolvedSchema = result;\r\n          this.error = undefined;\r\n          this.cdr.markForCheck();\r\n        }\r\n      });\r\n  }\r\n\r\n  toggleExpended(): void {\r\n    this.expanded = !this.expanded;\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    if (typeof this.resolvedSchema !== \"boolean\" && this.resolvedSchema.title !== undefined) {\r\n      return this.resolvedSchema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\nimport { JSVOptionsService } from \"./services/jsv-options\";\r\n\r\n// Labels\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// Types\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSVOptions } from \"./services/jsv-options\";\r\n\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  providers: [\r\n    JSVOptionsService\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <!-- Error ... -->\r\n    <ng-container *ngIf=\"error !== undefined; else loadingSchema\">\r\n      <div>\r\n        <labels-error-occurred [error]=\"error!\"/>\r\n      </div>\r\n    </ng-container>\r\n\r\n    <!-- Loading ... -->\r\n    <ng-template #loadingSchema>\r\n      <div *ngIf=\"resolvedSchema === undefined\">\r\n        <labels-loading />\r\n      </div>\r\n    </ng-template>\r\n\r\n    <!-- Schema -->\r\n    <div *ngIf=\"resolvedSchema !== undefined\">\r\n      <mat-accordion>\r\n        <mat-expansion-panel [(expanded)]=\"expanded\">\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <ng-template matExpansionPanelContent>\r\n            <jse-common-create-nodes [schema]=\"resolvedSchema\" />\r\n          </ng-template>\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </div>\r\n  `\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  @Input() vierwerOptions?: Partial<JSVOptions>;\r\n  resolvedSchema: JSONSchema = false;\r\n  error: Error | undefined;\r\n\r\n  expanded : boolean = true;\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService,\r\n    private jsvOptionsService: JSVOptionsService,\r\n    private cdr: ChangeDetectorRef\r\n  ) {}\r\n\r\n  ngOnInit(): void {\r\n    // If asked, apply user options\r\n    if (this.vierwerOptions) {\r\n      this.jsvOptionsService.setOptions(this.vierwerOptions);\r\n    }\r\n    // Perform the asynchronous schema resolution\r\n    this.schemaResolution();\r\n  }\r\n\r\n  private schemaResolution() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .subscribe({\r\n        error: (err) => {\r\n          this.error = err;\r\n          this.resolvedSchema = false;\r\n          this.cdr.markForCheck();\r\n        },\r\n        next: (result) => {\r\n          this.resolvedSchema = result;\r\n          this.error = undefined;\r\n          this.cdr.markForCheck();\r\n        }\r\n      });\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    if (typeof this.resolvedSchema !== \"boolean\" && this.resolvedSchema.title !== undefined) {\r\n      return this.resolvedSchema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -4910,7 +5144,7 @@
                         "name": "getSchemaTitle",
                         "type": "string",
                         "returnType": "string",
-                        "line": 120
+                        "line": 116
                     }
                 }
             }
@@ -5157,8 +5391,9 @@
         },
         {
             "name": "NumberBoundsComponent",
-            "id": "component-NumberBoundsComponent-d5af7e473e59b20b3cde87fdb02fd56337577c1e7f4b3ac7e7b0766d31fa6042300ef4c81276f292d2ae9dac6131a82465bcbae79d71b01cdb984be83fe1caca",
+            "id": "component-NumberBoundsComponent-930a93b3749626bb78af2f6acec61d64ac0f9460eb82268dbdb484a00fd21e411504484bd482e07b80acbbfa403cebd4df651aae3a13398d62eb2ea8304ba877",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/number-bounds.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -5178,7 +5413,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 38,
+                    "line": 39,
                     "type": "Exclude<JSONSchema |  | >",
                     "decorators": []
                 }
@@ -5193,7 +5428,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 40
+                    "line": 42
                 },
                 {
                     "name": "isExclusiveMaximum",
@@ -5203,7 +5438,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 45
+                    "line": 46
                 },
                 {
                     "name": "isExclusiveMinimum",
@@ -5213,7 +5448,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 43
+                    "line": 44
                 },
                 {
                     "name": "maximum",
@@ -5222,7 +5457,7 @@
                     "type": "number | undefined",
                     "optional": false,
                     "description": "",
-                    "line": 44
+                    "line": 45
                 },
                 {
                     "name": "minAndMax",
@@ -5232,7 +5467,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 46
+                    "line": 47
                 },
                 {
                     "name": "minimum",
@@ -5241,7 +5476,7 @@
                     "type": "number | undefined",
                     "optional": false,
                     "description": "",
-                    "line": 42
+                    "line": 43
                 }
             ],
             "methodsClass": [
@@ -5251,7 +5486,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 48,
+                    "line": 51,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -5274,10 +5509,36 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input } from '@angular/core';\r\n\r\nimport {\r\n  AndLabelComponent\r\n} from \"../../labels/index\";\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-number-bounds',\r\n  standalone: true,\r\n  imports: [CommonModule, AndLabelComponent],\r\n  template: `\r\n    <div>\r\n      <strong>{{ boundsLabel }}</strong>&nbsp;\r\n      <ng-container *ngIf=\"minimum !== undefined\">\r\n        <code>\r\n          <span *ngIf=\"isExclusiveMinimum\">&gt;</span>\r\n          <span *ngIf=\"!isExclusiveMinimum\">&ge;</span>\r\n          {{ minimum }}\r\n        </code>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"minAndMax\">\r\n        <labels-and />\r\n      </ng-container>\r\n      <ng-container *ngIf=\"maximum !== undefined\">\r\n        <code>\r\n          <span *ngIf=\"isExclusiveMaximum\">&lt;</span>\r\n          <span *ngIf=\"!isExclusiveMaximum\">&le;</span>\r\n          {{ maximum }}\r\n        </code>\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class NumberBoundsComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  boundsLabel = 'Possible values :';\r\n\r\n  minimum: number | undefined;\r\n  isExclusiveMinimum = false;\r\n  maximum: number | undefined;\r\n  isExclusiveMaximum = false;\r\n  minAndMax = false;\r\n\r\n  ngOnInit() {\r\n    this.minimum = this.schema.exclusiveMinimum || this.schema.minimum;\r\n    this.isExclusiveMinimum = this.schema.exclusiveMinimum !== undefined;\r\n    this.maximum = this.schema.exclusiveMaximum || this.schema.maximum;\r\n    this.isExclusiveMaximum = this.schema.exclusiveMaximum !== undefined;\r\n    this.minAndMax = this.minimum !== undefined && this.maximum !== undefined;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';\r\n\r\nimport {\r\n  AndLabelComponent\r\n} from \"../../labels/index\";\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-number-bounds',\r\n  standalone: true,\r\n  imports: [CommonModule, AndLabelComponent],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <strong>{{ boundsLabel }}</strong>&nbsp;\r\n      <ng-container *ngIf=\"minimum !== undefined\">\r\n        <code>\r\n          <span *ngIf=\"isExclusiveMinimum\">&gt;</span>\r\n          <span *ngIf=\"!isExclusiveMinimum\">&ge;</span>\r\n          {{ minimum }}\r\n        </code>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"minAndMax\">\r\n        <labels-and />\r\n      </ng-container>\r\n      <ng-container *ngIf=\"maximum !== undefined\">\r\n        <code>\r\n          <span *ngIf=\"isExclusiveMaximum\">&lt;</span>\r\n          <span *ngIf=\"!isExclusiveMaximum\">&le;</span>\r\n          {{ maximum }}\r\n        </code>\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class NumberBoundsComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  // Props\r\n  boundsLabel = 'Possible values :';\r\n  minimum: number | undefined;\r\n  isExclusiveMinimum = false;\r\n  maximum: number | undefined;\r\n  isExclusiveMaximum = false;\r\n  minAndMax = false;\r\n\r\n  constructor(private cdRef: ChangeDetectorRef) {}\r\n\r\n  ngOnInit() {\r\n    this.minimum = this.schema.exclusiveMinimum || this.schema.minimum;\r\n    this.isExclusiveMinimum = this.schema.exclusiveMinimum !== undefined;\r\n    this.maximum = this.schema.exclusiveMaximum || this.schema.maximum;\r\n    this.isExclusiveMaximum = this.schema.exclusiveMaximum !== undefined;\r\n    this.minAndMax = this.minimum !== undefined && this.maximum !== undefined;\r\n\r\n    this.cdRef.markForCheck();\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 47,
+                "jsdoctags": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            }
         },
         {
             "name": "NumberLabelComponent",
@@ -5349,8 +5610,9 @@
         },
         {
             "name": "ObjectPropertiesComponent",
-            "id": "component-ObjectPropertiesComponent-34328d53766c4d941cf27af84e57b058e89dd69874d5e90cd7c51e4caccb3f3115e8c28e08c942a842d330119880d053168fef33b550c8245ebe25ba5cc08425",
+            "id": "component-ObjectPropertiesComponent-3bac0de63f7a64b01d9b077bf7e1f2175d41bb2d547233de8bd980bbabdca7ea0926b0e08607ea8e1ee66d523bed87e6237ec98444fd7e3ed29b1b8a87aaf457",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/object-properties.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -5370,7 +5632,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 30,
+                    "line": 31,
                     "type": "Exclude<JSONSchema |  | >",
                     "decorators": []
                 }
@@ -5385,7 +5647,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 31
+                    "line": 32
                 },
                 {
                     "name": "minAndMax",
@@ -5395,7 +5657,7 @@
                     "type": "boolean",
                     "optional": false,
                     "description": "",
-                    "line": 33
+                    "line": 34
                 }
             ],
             "methodsClass": [
@@ -5405,7 +5667,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 35,
+                    "line": 38,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -5424,10 +5686,36 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-object-properties',\r\n  standalone: true,\r\n  imports: [CommonModule],\r\n  template: `\r\n    <div>\r\n      <strong>{{ lengthLabel }}</strong>&nbsp;\r\n      <ng-container *ngIf=\"schema.minProperties !== undefined\">\r\n        <code>\r\n            {{ '>= ' + schema.minProperties + ' propertie(s)' }}\r\n        </code>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"minAndMax\">\r\n        <span>&nbsp;&&nbsp;</span>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"schema.maxProperties !== undefined\">\r\n        <code>\r\n            {{ '<= ' + schema.maxProperties + ' propertie(s)' }}\r\n        </code>\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class ObjectPropertiesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n  lengthLabel = 'Length :';\r\n\r\n  minAndMax: boolean = false;\r\n\r\n  ngOnInit() {\r\n    this.minAndMax =\r\n      this.schema.minProperties !== undefined &&\r\n      this.schema.maxProperties !== undefined;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-object-properties',\r\n  standalone: true,\r\n  imports: [CommonModule],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <strong>{{ lengthLabel }}</strong>&nbsp;\r\n      <ng-container *ngIf=\"schema.minProperties !== undefined\">\r\n        <code>\r\n            {{ '>= ' + schema.minProperties + ' propertie(s)' }}\r\n        </code>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"minAndMax\">\r\n        <span>&nbsp;&&nbsp;</span>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"schema.maxProperties !== undefined\">\r\n        <code>\r\n            {{ '<= ' + schema.maxProperties + ' propertie(s)' }}\r\n        </code>\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class ObjectPropertiesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n  lengthLabel = 'Length :';\r\n\r\n  minAndMax: boolean = false;\r\n\r\n  constructor(private cdRef: ChangeDetectorRef) {}\r\n\r\n  ngOnInit() {\r\n    this.minAndMax =\r\n      this.schema.minProperties !== undefined &&\r\n      this.schema.maxProperties !== undefined;\r\n\r\n    this.cdRef.markForCheck();\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 34,
+                "jsdoctags": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            }
         },
         {
             "name": "OneOfSchemaComponent",
@@ -6558,8 +6846,9 @@
         },
         {
             "name": "StringLengthComponent",
-            "id": "component-StringLengthComponent-4bb6c6b56a224a4fe2d75e18fba8a1a683cdc728a3e8fbf0b13808a56eecdf43b9ffe0b8e0bc4381b5febe0d2f02d7359359153f05c99570bdc355a0b6d9d3c1",
+            "id": "component-StringLengthComponent-c399048945db101bfec6e8d3c3a7d850a9fccb5b31779916e6f6074dce7f08e6f1357d3c590de6f7bdf3c5d4a3763af68c0aff9ebec3bb3b8262b9720ce0c37b",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/string-length.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -6579,7 +6868,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 26,
+                    "line": 27,
                     "type": "Exclude<JSONSchema |  | >",
                     "decorators": []
                 }
@@ -6594,7 +6883,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 28
+                    "line": 29
                 },
                 {
                     "name": "minAndMaxLength",
@@ -6614,7 +6903,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 32,
+                    "line": 34,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -6633,10 +6922,36 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input } from '@angular/core';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-string-length',\r\n  standalone: true,\r\n  imports: [CommonModule],\r\n  template: `\r\n    <div>\r\n      <strong>{{ lengthLabel }}</strong>&nbsp;\r\n      <ng-container *ngIf=\"schema.minLength !== undefined\">\r\n        <code>{{ '>= ' + schema.minLength + ' character(s)' }}</code>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"minAndMaxLength\">\r\n        <span>&nbsp;&&nbsp;</span>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"schema.maxLength !== undefined\">\r\n        <code>{{ '<= ' + schema.maxLength + ' character(s)' }}</code>\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class StringLengthComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  lengthLabel = 'Length :';\r\n\r\n  minAndMaxLength: boolean = false;\r\n\r\n  ngOnInit() {\r\n    this.minAndMaxLength =\r\n      this.schema.minLength !== undefined &&\r\n      this.schema.maxLength !== undefined;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-string-length',\r\n  standalone: true,\r\n  imports: [CommonModule],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <strong>{{ lengthLabel }}</strong>&nbsp;\r\n      <ng-container *ngIf=\"schema.minLength !== undefined\">\r\n        <code>{{ '>= ' + schema.minLength + ' character(s)' }}</code>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"minAndMaxLength\">\r\n        <span>&nbsp;&&nbsp;</span>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"schema.maxLength !== undefined\">\r\n        <code>{{ '<= ' + schema.maxLength + ' character(s)' }}</code>\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class StringLengthComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  lengthLabel = 'Length :';\r\n  minAndMaxLength: boolean = false;\r\n\r\n  constructor(private cdRef: ChangeDetectorRef) {}\r\n\r\n  ngOnInit() {\r\n    this.minAndMaxLength =\r\n      this.schema.minLength !== undefined &&\r\n      this.schema.maxLength !== undefined;\r\n    \r\n    this.cdRef.markForCheck();\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 30,
+                "jsdoctags": [
+                    {
+                        "name": "cdRef",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            }
         },
         {
             "name": "ThenLabelComponent",
@@ -8969,7 +9284,7 @@
                 "linktype": "component",
                 "name": "CreateAdditionalItemsComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/8",
                 "status": "low"
             },
             {
@@ -8978,7 +9293,7 @@
                 "linktype": "component",
                 "name": "CreateContainsComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
@@ -8996,7 +9311,7 @@
                 "linktype": "component",
                 "name": "CreateItemsComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/8",
+                "coverageCount": "0/9",
                 "status": "low"
             },
             {
@@ -9005,7 +9320,7 @@
                 "linktype": "component",
                 "name": "CreatePrefixItemsComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {
@@ -9014,7 +9329,7 @@
                 "linktype": "component",
                 "name": "CreateUnevaluatedItemsComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
@@ -9248,7 +9563,7 @@
                 "linktype": "component",
                 "name": "CreateEdgeComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/3",
+                "coverageCount": "0/9",
                 "status": "low"
             },
             {
@@ -9257,7 +9572,7 @@
                 "linktype": "component",
                 "name": "CreateNodesComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/2",
+                "coverageCount": "0/8",
                 "status": "low"
             },
             {
@@ -9266,7 +9581,7 @@
                 "linktype": "component",
                 "name": "CreateTypesComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/2",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {
@@ -9509,7 +9824,7 @@
                 "linktype": "component",
                 "name": "NgxJsonSchemaViewerComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/11",
+                "coverageCount": "0/10",
                 "status": "low"
             },
             {
@@ -9662,7 +9977,7 @@
                 "linktype": "component",
                 "name": "ExamplesComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
@@ -9698,7 +10013,7 @@
                 "linktype": "component",
                 "name": "NumberBoundsComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/9",
+                "coverageCount": "0/10",
                 "status": "low"
             },
             {
@@ -9716,7 +10031,7 @@
                 "linktype": "component",
                 "name": "ObjectPropertiesComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
@@ -9752,7 +10067,7 @@
                 "linktype": "component",
                 "name": "StringLengthComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {

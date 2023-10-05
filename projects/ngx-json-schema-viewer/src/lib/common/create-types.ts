@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 
 import {
     CreateValidOrInvalidComponent,
@@ -21,6 +21,7 @@ import type {
   selector: 'jse-common-create-types',
   standalone: true,
   imports: [CommonModule, CreateValidOrInvalidComponent, RenderProvidedTypeComponent,RenderMultipleTypesComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container>
 
@@ -49,23 +50,27 @@ import type {
     </ng-container>
   `,
 })
-export class CreateTypesComponent {
+export class CreateTypesComponent implements OnInit {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
-  get foundTypes(): TypeValues[] {
-    return detectedTypes(this.schema);
-  }
+  // Props
+  foundTypes : TypeValues[] = [];
+  hasNull : boolean = false;
+  hasSchemaComposition : boolean = false;
 
-  get hasNull(): boolean {
-    return this.foundTypes.includes("null");
+  constructor(private cdRef: ChangeDetectorRef) {}
+
+  // Inits
+  ngOnInit(): void {
+    this.foundTypes = detectedTypes(this.schema);
+    this.hasNull = this.foundTypes.includes("null");
+    this.hasSchemaComposition = isSchemaComposition(this.schema);
+
+    this.cdRef.markForCheck();
   }
 
   get firstType(): TypeValues {
     return this.foundTypes.find((s) => s !== "null") || this.foundTypes[0];
-  }
-
-  get hasSchemaComposition() : boolean {
-    return isSchemaComposition(this.schema);
   }
 
   get notNullTypeValues(): TypeValues[] {

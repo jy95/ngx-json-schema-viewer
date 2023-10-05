@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
 import {MatTabsModule} from '@angular/material/tabs';
 import { PrintSchemaTypeComponent } from './print-schema-type';
 
@@ -8,6 +8,7 @@ import type { JSONSchema } from '../../types';
   selector: 'qm-examples',
   standalone: true,
   imports: [MatTabsModule, PrintSchemaTypeComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <strong>{{ examplesLabel }}</strong>&nbsp;
@@ -26,6 +27,8 @@ export class ExamplesComponent {
 
   items: { id: number; value: any; label: string }[] = [];
 
+  constructor(private cdRef: ChangeDetectorRef) {}
+
   ngOnInit() {
     if (this.schema.examples) {
       this.items = this.schema.examples.map((val, idx) => ({
@@ -33,6 +36,8 @@ export class ExamplesComponent {
         value: val,
         label: `Example ${idx}`,
       }));
+
+      this.cdRef.markForCheck();
     }
   }
 }

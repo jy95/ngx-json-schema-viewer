@@ -41,7 +41,7 @@ export function createStory(params : Params): Story {
             props: args,
             template: `
               <ngx-json-schema-viewer [schema]="schema" [resolverOptions]="resolverOptions" [vierwerOptions]="vierwerOptions"></ngx-json-schema-viewer>
-            `
+            `,
         }),
         args: {
             schema: params.schema,

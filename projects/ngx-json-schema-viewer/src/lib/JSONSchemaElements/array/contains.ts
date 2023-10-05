@@ -1,22 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, forwardRef, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import {
   CreateEdgeComponent
 } from "../../common/index";
 
-import type { JSONSchemaNS } from '../../types';
+import type { JSONSchemaNS, JSONSchema } from '../../types';
 
 @Component({
   selector: 'jse-array-contains',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     forwardRef(() => CreateEdgeComponent)
   ],
   template: `
-    <ul *ngIf="!isUndefined(item)">
-      <jse-common-create-edge [schema]="item!" [required]="isMinContainsValid()">
+    <ul *ngIf="item !== undefined">
+      <jse-common-create-edge [schema]="item" [required]="isMinContainsValid()">
         <code name>
           {{ containsLabel }}
         </code>
@@ -24,19 +25,21 @@ import type { JSONSchemaNS } from '../../types';
     </ul>
   `,
 })
-export class CreateContainsComponent {
+export class CreateContainsComponent implements OnInit {
   @Input({ required: true }) schema!: JSONSchemaNS.Array;
 
-  get item() {
-    return this.schema.contains;
+  item : JSONSchema | undefined = undefined;
+
+  constructor(private cdRef: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+    this.item = this.schema.contains;
+    
+    this.cdRef.markForCheck();
   }
 
   get containsLabel() {
     return `items[..., x, ...]`;
-  }
-
-  isUndefined(value: any): boolean {
-    return value === undefined;
   }
 
   isMinContainsValid(): boolean {

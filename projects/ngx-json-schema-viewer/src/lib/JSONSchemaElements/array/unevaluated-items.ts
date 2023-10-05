@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef, OnInit, ChangeDetectorRef } from '@angular/core';
 
 import {
   CreateEdgeComponent
 } from "../../common/index";
 
-import type { JSONSchemaNS } from "../../types";
+import type { JSONSchemaNS, JSONSchema } from "../../types";
 
 @Component({
   selector: 'jse-array-unevaluated-items',
@@ -14,9 +14,10 @@ import type { JSONSchemaNS } from "../../types";
     CommonModule,
     forwardRef(() => CreateEdgeComponent)
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul *ngIf="!isUndefinedOrBoolean(items)">
-      <jse-common-create-edge [schema]="items!" [required]="false">
+    <ul *ngIf="items !== undefined">
+      <jse-common-create-edge [schema]="items" [required]="false">
         <code name>
           {{ unevaluatedItemsLabel() }}
         </code>
@@ -24,15 +25,17 @@ import type { JSONSchemaNS } from "../../types";
     </ul>
   `,
 })
-export class CreateUnevaluatedItemsComponent {
+export class CreateUnevaluatedItemsComponent implements OnInit {
   @Input({ required: true }) schema!: JSONSchemaNS.Array;
 
-  get items() {
-    return this.schema.unevaluatedItems;
-  }
+  items : JSONSchema | undefined = undefined;
 
-  isUndefinedOrBoolean(value: any): boolean {
-    return value === undefined || typeof value === 'boolean';
+  constructor(private cdRef: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+      this.items = this.schema.unevaluatedItems;
+
+      this.cdRef.markForCheck();
   }
 
   unevaluatedItemsLabel(): string {
