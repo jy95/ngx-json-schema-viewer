@@ -67,11 +67,11 @@ export class CreateNodesComponent {
   // Typed schema, if not a boolean
   get typedSchema(): Exclude<JSONSchema, false | true> | undefined {
     let isBooleanSchema = typeof this.schema === 'boolean';
-      if (isBooleanSchema) {
-        return this.schema as Exclude<JSONSchema, false | true>;
-      } else {
-        return undefined;
-      }
+    if (!isBooleanSchema) {
+      return this.schema as Exclude<JSONSchema, false | true>;
+    } else {
+      return undefined;
+    }
   };
 
 }

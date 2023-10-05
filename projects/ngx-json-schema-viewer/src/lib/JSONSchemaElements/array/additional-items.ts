@@ -27,8 +27,13 @@ import type { JSONSchemaNS, JSONSchema } from '../../types';
 export class CreateAdditionalItemsComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Array;
 
-  items : JSONSchema | undefined = this.schema.additionalItems;
-  startingIndex : number = Array.isArray(this.schema.items) ? this.schema.items.length : 1;
+  get items() : JSONSchema | undefined {
+    return this.schema.additionalItems;
+  }
+  
+  get startingIndex() : number {
+    return Array.isArray(this.schema.items) ? this.schema.items.length : 1;
+  }
 
   isMinItemsValid(): boolean {
     return (

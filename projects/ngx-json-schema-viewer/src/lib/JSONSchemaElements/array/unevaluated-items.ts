@@ -27,7 +27,9 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
 export class CreateUnevaluatedItemsComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Array;
 
-  items : JSONSchema | undefined = this.schema.unevaluatedItems;
+  get items() : JSONSchema | undefined {
+    return this.schema.unevaluatedItems;
+  }
 
   unevaluatedItemsLabel(): string {
     return `items[y]`;

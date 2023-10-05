@@ -16,7 +16,7 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
   ],
   template: `
     <ul>
-      <jse-common-create-edge [schema]="val" [required]="isMinItemsValid()" *ngFor="let val of array; let idx = index">
+      <jse-common-create-edge [schema]="val" [required]="isMinItemsValid()" *ngFor="let val of arrayItems; let idx = index">
         <code name>
           {{ prefixItemsLabel(idx) }}
         </code>
@@ -27,12 +27,15 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
 export class CreatePrefixItemsComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Array;
 
-  array: JSONSchema[] = (this.schema.prefixItems === undefined) 
-    ? [] 
-    : Array.isArray(this.schema.prefixItems) ? this.schema.prefixItems : [this.schema.prefixItems] as JSONSchema[];
+  get arrayItems() : JSONSchema[] {
+    if (this.schema.prefixItems === undefined) {
+      return [];
+    }
+    return Array.isArray(this.schema.prefixItems) ? this.schema.prefixItems : [this.schema.prefixItems] as JSONSchema[];
+  } 
 
   isMinItemsValid(): boolean {
-    return this.schema.minItems !== undefined && this.schema.minItems >= this.array.length;
+    return this.schema.minItems !== undefined && this.schema.minItems >= this.arrayItems.length;
   }
 
   prefixItemsLabel(index: number): string {

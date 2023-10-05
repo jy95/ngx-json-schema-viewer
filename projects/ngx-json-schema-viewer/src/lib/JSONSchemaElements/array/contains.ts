@@ -27,7 +27,9 @@ import type { JSONSchemaNS, JSONSchema } from '../../types';
 export class CreateContainsComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Array;
 
-  item : JSONSchema | undefined = this.schema.contains;
+  get item() : JSONSchema | undefined {
+    return this.schema.contains;
+  }
 
   get containsLabel() {
     return `items[..., x, ...]`;
