@@ -1,9 +1,9 @@
-import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { NgxJsonSchemaViewerComponent } from "ngx-json-schema-viewer";
 import { moduleMetadata, applicationConfig } from '@storybook/angular';
+import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import type { Meta, StoryObj } from '@storybook/angular';
-import { importProvidersFrom } from '@angular/core';
 
 // Return a pre-configured meta object to be export
 export type MetaViewer = Meta<NgxJsonSchemaViewerComponent>;
@@ -14,8 +14,18 @@ export const defaultMeta : Meta<NgxJsonSchemaViewerComponent> = {
         }),
         applicationConfig({
             providers: [
-                //importProvidersFrom(BrowserAnimationsModule),
-                provideAnimations()
+                // BrowserAnimationsModule
+                provideAnimations(),
+                // HighlightModule 
+                {
+                    provide: HIGHLIGHT_OPTIONS,
+                    useValue: {
+                        coreLibraryLoader: () => import('highlight.js/lib/core'),
+                        languages: {
+                            json: () => import('highlight.js/lib/languages/json'),
+                        }
+                    }
+                }
             ],
         })
     ]

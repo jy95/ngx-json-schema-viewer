@@ -6929,7 +6929,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<NgxJsonSchemaViewerComponent>",
-                "defaultValue": "{\r\n    decorators: [\r\n        moduleMetadata({\r\n            imports: [NgxJsonSchemaViewerComponent],\r\n        }),\r\n        applicationConfig({\r\n            providers: [\r\n                //importProvidersFrom(BrowserAnimationsModule),\r\n                provideAnimations()\r\n            ],\r\n        })\r\n    ]\r\n}"
+                "defaultValue": "{\r\n    decorators: [\r\n        moduleMetadata({\r\n            imports: [NgxJsonSchemaViewerComponent],\r\n        }),\r\n        applicationConfig({\r\n            providers: [\r\n                // BrowserAnimationsModule\r\n                provideAnimations(),\r\n                // HighlightModule \r\n                {\r\n                    provide: HIGHLIGHT_OPTIONS,\r\n                    useValue: {\r\n                        coreLibraryLoader: () => import('highlight.js/lib/core'),\r\n                        languages: {\r\n                            json: () => import('highlight.js/lib/languages/json'),\r\n                        }\r\n                    }\r\n                }\r\n            ],\r\n        })\r\n    ]\r\n}"
             },
             {
                 "name": "dependentRequired1",
@@ -8222,7 +8222,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<NgxJsonSchemaViewerComponent>",
-                    "defaultValue": "{\r\n    decorators: [\r\n        moduleMetadata({\r\n            imports: [NgxJsonSchemaViewerComponent],\r\n        }),\r\n        applicationConfig({\r\n            providers: [\r\n                //importProvidersFrom(BrowserAnimationsModule),\r\n                provideAnimations()\r\n            ],\r\n        })\r\n    ]\r\n}"
+                    "defaultValue": "{\r\n    decorators: [\r\n        moduleMetadata({\r\n            imports: [NgxJsonSchemaViewerComponent],\r\n        }),\r\n        applicationConfig({\r\n            providers: [\r\n                // BrowserAnimationsModule\r\n                provideAnimations(),\r\n                // HighlightModule \r\n                {\r\n                    provide: HIGHLIGHT_OPTIONS,\r\n                    useValue: {\r\n                        coreLibraryLoader: () => import('highlight.js/lib/core'),\r\n                        languages: {\r\n                            json: () => import('highlight.js/lib/languages/json'),\r\n                        }\r\n                    }\r\n                }\r\n            ],\r\n        })\r\n    ]\r\n}"
                 }
             ],
             "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts": [
