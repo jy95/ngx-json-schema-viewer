@@ -1517,9 +1517,8 @@
         },
         {
             "name": "CreateEdgeComponent",
-            "id": "component-CreateEdgeComponent-ca8a5ab49b2952151a198e70c0b673cc8504cbab416aedca583d57599efb55dee5e1d638702d1e072935173c994f2f3a1958b1f21c1421f3fca2d2db8c46261a",
+            "id": "component-CreateEdgeComponent-9bbadc326a8000ccf90528fd66702cce8921399cd7076dc1873554259f7e475de13b62650ece822f4f82c5f29dc52162e3a839d9ff11ab998d73d3e1480af746",
             "file": "projects/ngx-json-schema-viewer/src/lib/common/create-edge.ts",
-            "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -1541,7 +1540,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 73,
+                    "line": 72,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -1551,7 +1550,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 72,
+                    "line": 71,
                     "type": "JSONSchema",
                     "decorators": []
                 }
@@ -1601,7 +1600,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef, ChangeDetectionStrategy } from '@angular/core';\r\nimport {MatExpansionModule} from '@angular/material/expansion';\r\n\r\nimport {\r\n    GenerateFriendlyNameComponent\r\n} from \"../utils/index\";\r\n\r\nimport {\r\n    RequiredLabelComponent,\r\n    ReadOnlyLabelComponent,\r\n    WriteOnlyLabelComponent,\r\n    DeprecatedLabelComponent\r\n} from \"../labels/index\";\r\n\r\nimport {\r\n    CreateNodesComponent\r\n} from \"./index\";\r\n\r\nimport type { JSONSchema, JSONSchema_Draft_2019_09 } from '../types';\r\n\r\n@Component({\r\n  selector: 'jse-common-create-edge',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    GenerateFriendlyNameComponent,\r\n    RequiredLabelComponent,\r\n    ReadOnlyLabelComponent,\r\n    WriteOnlyLabelComponent,\r\n    DeprecatedLabelComponent,\r\n    forwardRef(() => CreateNodesComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <li class=\"schemaItem\">\r\n        <mat-accordion>\r\n            <mat-expansion-panel>\r\n                <mat-expansion-panel-header>\r\n                    <mat-panel-title>\r\n                        <ng-content select=\"[name]\" />\r\n                        &nbsp;\r\n                        <jsv-friendly-name [schema]=\"schema\" />\r\n                    </mat-panel-title>\r\n                    <mat-panel-description>\r\n                        <labels-required *ngIf=\"isRequired\" />\r\n                        <ng-container *ngIf=\"isRequired\" >\r\n                            &nbsp;\r\n                        </ng-container>\r\n                        <labels-deprecated *ngIf=\"isDeprecated\" />\r\n                        <ng-container *ngIf=\"isDeprecated\" >\r\n                            &nbsp;\r\n                        </ng-container>\r\n                        <labels-read-only *ngIf=\"isReadOnly\" />\r\n                        <ng-container *ngIf=\"isReadOnly\" >\r\n                            &nbsp;\r\n                        </ng-container>\r\n                        <labels-write-only *ngIf=\"isWriteOnly\" />\r\n                    </mat-panel-description>\r\n                </mat-expansion-panel-header>\r\n                <ng-template matExpansionPanelContent>\r\n                  <jse-common-create-nodes [schema]=\"schema\" />\r\n                </ng-template>\r\n            </mat-expansion-panel>\r\n        </mat-accordion>\r\n    </li>\r\n  `,\r\n  styleUrls: ['./create-edge.component.css']\r\n})\r\nexport class CreateEdgeComponent {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n  @Input({ required: true }) required!: boolean;\r\n\r\n  get isDeprecated(): boolean {\r\n    const typedSchema = this.schema as JSONSchema_Draft_2019_09;\r\n    return typeof typedSchema !== \"boolean\" && typedSchema.deprecated === true;\r\n  }\r\n\r\n  get isReadOnly(): boolean {\r\n    return typeof this.schema !== \"boolean\" && this.schema.readOnly === true;\r\n  }\r\n\r\n  get isWriteOnly(): boolean {\r\n    return typeof this.schema !== \"boolean\" && this.schema.writeOnly === true;\r\n  }\r\n\r\n  get isRequired(): boolean {\r\n    return !this.isDeprecated && this.required;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\nimport {MatExpansionModule} from '@angular/material/expansion';\r\n\r\nimport {\r\n    GenerateFriendlyNameComponent\r\n} from \"../utils/index\";\r\n\r\nimport {\r\n    RequiredLabelComponent,\r\n    ReadOnlyLabelComponent,\r\n    WriteOnlyLabelComponent,\r\n    DeprecatedLabelComponent\r\n} from \"../labels/index\";\r\n\r\nimport {\r\n    CreateNodesComponent\r\n} from \"./index\";\r\n\r\nimport type { JSONSchema, JSONSchema_Draft_2019_09 } from '../types';\r\n\r\n@Component({\r\n  selector: 'jse-common-create-edge',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    GenerateFriendlyNameComponent,\r\n    RequiredLabelComponent,\r\n    ReadOnlyLabelComponent,\r\n    WriteOnlyLabelComponent,\r\n    DeprecatedLabelComponent,\r\n    forwardRef(() => CreateNodesComponent)\r\n  ],\r\n  template: `\r\n    <li class=\"schemaItem\">\r\n        <mat-accordion>\r\n            <mat-expansion-panel>\r\n                <mat-expansion-panel-header>\r\n                    <mat-panel-title>\r\n                        <ng-content select=\"[name]\" />\r\n                        &nbsp;\r\n                        <jsv-friendly-name [schema]=\"schema\" />\r\n                    </mat-panel-title>\r\n                    <mat-panel-description>\r\n                        <labels-required *ngIf=\"isRequired\" />\r\n                        <ng-container *ngIf=\"isRequired\" >\r\n                            &nbsp;\r\n                        </ng-container>\r\n                        <labels-deprecated *ngIf=\"isDeprecated\" />\r\n                        <ng-container *ngIf=\"isDeprecated\" >\r\n                            &nbsp;\r\n                        </ng-container>\r\n                        <labels-read-only *ngIf=\"isReadOnly\" />\r\n                        <ng-container *ngIf=\"isReadOnly\" >\r\n                            &nbsp;\r\n                        </ng-container>\r\n                        <labels-write-only *ngIf=\"isWriteOnly\" />\r\n                    </mat-panel-description>\r\n                </mat-expansion-panel-header>\r\n                <ng-template matExpansionPanelContent>\r\n                  <jse-common-create-nodes [schema]=\"schema\" />\r\n                </ng-template>\r\n            </mat-expansion-panel>\r\n        </mat-accordion>\r\n    </li>\r\n  `,\r\n  styleUrls: ['./create-edge.component.css']\r\n})\r\nexport class CreateEdgeComponent {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n  @Input({ required: true }) required!: boolean;\r\n\r\n  get isDeprecated(): boolean {\r\n    const typedSchema = this.schema as JSONSchema_Draft_2019_09;\r\n    return typeof typedSchema !== \"boolean\" && typedSchema.deprecated === true;\r\n  }\r\n\r\n  get isReadOnly(): boolean {\r\n    return typeof this.schema !== \"boolean\" && this.schema.readOnly === true;\r\n  }\r\n\r\n  get isWriteOnly(): boolean {\r\n    return typeof this.schema !== \"boolean\" && this.schema.writeOnly === true;\r\n  }\r\n\r\n  get isRequired(): boolean {\r\n    return !this.isDeprecated && this.required;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1617,7 +1616,7 @@
                         "name": "isDeprecated",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 75
+                        "line": 74
                     }
                 },
                 "isReadOnly": {
@@ -1626,7 +1625,7 @@
                         "name": "isReadOnly",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 80
+                        "line": 79
                     }
                 },
                 "isWriteOnly": {
@@ -1635,7 +1634,7 @@
                         "name": "isWriteOnly",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 84
+                        "line": 83
                     }
                 },
                 "isRequired": {
@@ -1644,7 +1643,7 @@
                         "name": "isRequired",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 88
+                        "line": 87
                     }
                 }
             }
@@ -2594,7 +2593,7 @@
         },
         {
             "name": "CreateTypesComponent",
-            "id": "component-CreateTypesComponent-29e02d2d26e2cd55e49c659bc1116b5484e6a1d30d13a552eb2adbbcdca4e1cb1ddfe51f140310a73ba16438b692b0bfa141b096d68ed399cac11d719365cb48",
+            "id": "component-CreateTypesComponent-794d8904fab50170275d175b9fcf4df0192756deba607a243fe401fbbc35d85dfb8dcee368e464cc0eee864e873a56efcf93229d925ba205de1006c77c2df28f",
             "file": "projects/ngx-json-schema-viewer/src/lib/common/create-types.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2649,7 +2648,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input } from '@angular/core';\r\n\r\nimport {\r\n    CreateValidOrInvalidComponent,\r\n    RenderProvidedTypeComponent,\r\n    RenderMultipleTypesComponent\r\n} from \"./index\";\r\n\r\nimport {\r\n    detectedTypes,\r\n    isSchemaComposition\r\n} from \"../utils/index\"\r\n\r\nimport type {\r\n    TypeValues,\r\n    JSONSchema\r\n} from \"../types\";\r\n\r\n@Component({\r\n  selector: 'jse-common-create-types',\r\n  standalone: true,\r\n  imports: [CommonModule, CreateValidOrInvalidComponent, RenderProvidedTypeComponent,RenderMultipleTypesComponent],\r\n  template: `\r\n    <ng-container>\r\n\r\n      <ng-container *ngIf=\"foundTypes; else defaultCase\">\r\n        <!-- Case 1: Single type or type with null -->\r\n        <ng-container *ngIf=\"foundTypes.length === 1 || (hasNull && foundTypes.length === 2); else case2\">\r\n          <jse-common-render-provided-type [schema]=\"schema\" [type]=\"firstType\" [nullable]=\"hasNull\" />\r\n        </ng-container>\r\n\r\n        <!-- Case 2: Multiple types -->\r\n        <ng-template #case2>\r\n          <jse-common-multiple-types [schema]=\"schema\" [types]=\"notNullTypeValues\" [nullable]=\"hasNull\" />\r\n        </ng-template>\r\n      </ng-container>\r\n\r\n      <!-- Default Case: Handle cases like { \"allOf\": ... } or { \"if\": ... } -->\r\n      <ng-template #defaultCase>\r\n        <ng-container *ngIf=\"!hasSchemaComposition; else compositionCase\">\r\n          <jse-common-create-valid-or-invalid [schema]=\"schema\" />\r\n        </ng-container>\r\n\r\n        <ng-template #compositionCase>\r\n          <!--  Otherwise, we have a SchemaComposition, which will be handled by CreateNodes -->\r\n        </ng-template>\r\n      </ng-template>\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class CreateTypesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  // Props\r\n  get foundTypes() : TypeValues[] {\r\n    return detectedTypes(this.schema);\r\n  }\r\n\r\n  get hasNull() : boolean {\r\n    return this.foundTypes.includes(\"null\");\r\n  }\r\n\r\n  get hasSchemaComposition() : boolean {\r\n    return isSchemaComposition(this.schema);\r\n  }\r\n\r\n  get firstType(): TypeValues {\r\n    return this.foundTypes.find((s) => s !== \"null\") || this.foundTypes[0];\r\n  }\r\n\r\n  get notNullTypeValues(): TypeValues[] {\r\n    return this.foundTypes.filter((s) => s !== \"null\");\r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input } from '@angular/core';\r\n\r\nimport {\r\n    CreateValidOrInvalidComponent,\r\n    RenderProvidedTypeComponent,\r\n    RenderMultipleTypesComponent\r\n} from \"./index\";\r\n\r\nimport {\r\n    detectedTypes,\r\n    isSchemaComposition\r\n} from \"../utils/index\"\r\n\r\nimport type {\r\n    TypeValues,\r\n    JSONSchema\r\n} from \"../types\";\r\n\r\n@Component({\r\n  selector: 'jse-common-create-types',\r\n  standalone: true,\r\n  imports: [CommonModule, CreateValidOrInvalidComponent, RenderProvidedTypeComponent,RenderMultipleTypesComponent],\r\n  template: `\r\n    <ng-container>\r\n\r\n      <ng-container *ngIf=\"foundTypes; else defaultCase\">\r\n        <!-- Case 1: Single type or type with null -->\r\n        <ng-container *ngIf=\"foundTypes.length === 1 || (hasNull && foundTypes.length === 2); else case2\">\r\n          <jse-common-render-provided-type [schema]=\"schema\" [type]=\"firstType\" [nullable]=\"hasNull\" />\r\n        </ng-container>\r\n\r\n        <!-- Case 2: Multiple types -->\r\n        <ng-template #case2>\r\n          <jse-common-multiple-types [schema]=\"schema\" [types]=\"notNullTypeValues\" [nullable]=\"hasNull\" />\r\n        </ng-template>\r\n      </ng-container>\r\n\r\n      <!-- Default Case: Handle cases like { \"allOf\": ... } or { \"if\": ... } -->\r\n      <ng-template #defaultCase>\r\n        <ng-container *ngIf=\"!hasSchemaComposition; else compositionCase\">\r\n          <jse-common-create-valid-or-invalid [schema]=\"schema\" />\r\n        </ng-container>\r\n\r\n        <ng-template #compositionCase>\r\n          <!--  Otherwise, we have a SchemaComposition, which will be handled by CreateNodes -->\r\n        </ng-template>\r\n      </ng-template>\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class CreateTypesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  get foundTypes() : TypeValues[] {\r\n    return detectedTypes(this.schema);\r\n  }\r\n\r\n  get hasNull() : boolean {\r\n    return this.foundTypes.includes(\"null\");\r\n  }\r\n\r\n  get hasSchemaComposition() : boolean {\r\n    return isSchemaComposition(this.schema);\r\n  }\r\n\r\n  get firstType(): TypeValues {\r\n    return this.foundTypes.find((s) => s !== \"null\") || this.foundTypes[0];\r\n  }\r\n\r\n  get notNullTypeValues(): TypeValues[] {\r\n    return this.foundTypes.filter((s) => s !== \"null\");\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -2660,7 +2659,7 @@
                         "name": "foundTypes",
                         "type": "[]",
                         "returnType": "TypeValues[]",
-                        "line": 56
+                        "line": 55
                     }
                 },
                 "hasNull": {
@@ -2669,7 +2668,7 @@
                         "name": "hasNull",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 60
+                        "line": 59
                     }
                 },
                 "hasSchemaComposition": {
@@ -2678,7 +2677,7 @@
                         "name": "hasSchemaComposition",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 64
+                        "line": 63
                     }
                 },
                 "firstType": {
@@ -2687,7 +2686,7 @@
                         "name": "firstType",
                         "type": "",
                         "returnType": "TypeValues",
-                        "line": 68
+                        "line": 67
                     }
                 },
                 "notNullTypeValues": {
@@ -2696,7 +2695,7 @@
                         "name": "notNullTypeValues",
                         "type": "[]",
                         "returnType": "TypeValues[]",
-                        "line": 72
+                        "line": 71
                     }
                 }
             }
@@ -5017,7 +5016,7 @@
         },
         {
             "name": "NumberBoundsComponent",
-            "id": "component-NumberBoundsComponent-997fccb1d5df8da4bd4999ec3296a1b17a9fef443d253e3f76f73e3079ab82958988f3b50c6de61121cc831380408bc912313be5fad73438d74a0e2809e9f0ea",
+            "id": "component-NumberBoundsComponent-2c6faba026f54dc40971352bcc62a1af23bc161ac4a9f833296efc39e0b89f4275c4047a39af781ff397e74d8f794908c28ab5177601652a308c89bf55636331",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/number-bounds.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5053,57 +5052,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 41
-                },
-                {
-                    "name": "isExclusiveMaximum",
-                    "defaultValue": "this.minimum !== undefined && this.maximum !== undefined",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 45
-                },
-                {
-                    "name": "isExclusiveMinimum",
-                    "defaultValue": "this.schema.exclusiveMinimum !== undefined",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 43
-                },
-                {
-                    "name": "maximum",
-                    "defaultValue": "this.schema.exclusiveMaximum || this.schema.maximum",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "number | undefined",
-                    "optional": false,
-                    "description": "",
-                    "line": 44
-                },
-                {
-                    "name": "minAndMax",
-                    "defaultValue": "this.minimum !== undefined && this.maximum !== undefined",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 46
-                },
-                {
-                    "name": "minimum",
-                    "defaultValue": "this.schema.exclusiveMinimum || this.schema.minimum",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "number | undefined",
-                    "optional": false,
-                    "description": "",
-                    "line": 42
+                    "line": 40
                 }
             ],
             "methodsClass": [],
@@ -5125,10 +5074,57 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input } from '@angular/core';\r\n\r\nimport {\r\n  AndLabelComponent\r\n} from \"../../labels/index\";\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-number-bounds',\r\n  standalone: true,\r\n  imports: [CommonModule, AndLabelComponent],\r\n  template: `\r\n    <div>\r\n      <strong>{{ boundsLabel }}</strong>&nbsp;\r\n      <ng-container *ngIf=\"minimum !== undefined\">\r\n        <code>\r\n          <span *ngIf=\"isExclusiveMinimum\">&gt;</span>\r\n          <span *ngIf=\"!isExclusiveMinimum\">&ge;</span>\r\n          {{ minimum }}\r\n        </code>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"minAndMax\">\r\n        <labels-and />\r\n      </ng-container>\r\n      <ng-container *ngIf=\"maximum !== undefined\">\r\n        <code>\r\n          <span *ngIf=\"isExclusiveMaximum\">&lt;</span>\r\n          <span *ngIf=\"!isExclusiveMaximum\">&le;</span>\r\n          {{ maximum }}\r\n        </code>\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class NumberBoundsComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  // Props\r\n  boundsLabel = 'Possible values :';\r\n  minimum: number | undefined = this.schema.exclusiveMinimum || this.schema.minimum;\r\n  isExclusiveMinimum = this.schema.exclusiveMinimum !== undefined;\r\n  maximum: number | undefined = this.schema.exclusiveMaximum || this.schema.maximum;\r\n  isExclusiveMaximum = this.minimum !== undefined && this.maximum !== undefined;\r\n  minAndMax = this.minimum !== undefined && this.maximum !== undefined;\r\n\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input } from '@angular/core';\r\n\r\nimport {\r\n  AndLabelComponent\r\n} from \"../../labels/index\";\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-number-bounds',\r\n  standalone: true,\r\n  imports: [CommonModule, AndLabelComponent],\r\n  template: `\r\n    <div>\r\n      <strong>{{ boundsLabel }}</strong>&nbsp;\r\n      <ng-container *ngIf=\"minimum !== undefined\">\r\n        <code>\r\n          <span *ngIf=\"isExclusiveMinimum\">&gt;</span>\r\n          <span *ngIf=\"!isExclusiveMinimum\">&ge;</span>\r\n          {{ minimum }}\r\n        </code>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"minAndMax\">\r\n        <labels-and />\r\n      </ng-container>\r\n      <ng-container *ngIf=\"maximum !== undefined\">\r\n        <code>\r\n          <span *ngIf=\"isExclusiveMaximum\">&lt;</span>\r\n          <span *ngIf=\"!isExclusiveMaximum\">&le;</span>\r\n          {{ maximum }}\r\n        </code>\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class NumberBoundsComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  boundsLabel = 'Possible values :';\r\n  \r\n  get minimum() : number | undefined { \r\n    return this.schema.exclusiveMinimum || this.schema.minimum; \r\n  }\r\n\r\n  get isExclusiveMinimum(): boolean {\r\n    return this.schema.exclusiveMinimum !== undefined;\r\n  }\r\n\r\n  get maximum(): number | undefined {\r\n    return this.schema.exclusiveMaximum || this.schema.maximum;\r\n  }\r\n\r\n  get isExclusiveMaximum() : boolean {\r\n    return this.minimum !== undefined && this.maximum !== undefined;\r\n  }\r\n\r\n  get minAndMax() : boolean {\r\n    return this.minimum !== undefined && this.maximum !== undefined;\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "accessors": {
+                "minimum": {
+                    "name": "minimum",
+                    "getSignature": {
+                        "name": "minimum",
+                        "type": "",
+                        "returnType": "number | undefined",
+                        "line": 42
+                    }
+                },
+                "isExclusiveMinimum": {
+                    "name": "isExclusiveMinimum",
+                    "getSignature": {
+                        "name": "isExclusiveMinimum",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 46
+                    }
+                },
+                "maximum": {
+                    "name": "maximum",
+                    "getSignature": {
+                        "name": "maximum",
+                        "type": "",
+                        "returnType": "number | undefined",
+                        "line": 50
+                    }
+                },
+                "isExclusiveMaximum": {
+                    "name": "isExclusiveMaximum",
+                    "getSignature": {
+                        "name": "isExclusiveMaximum",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 54
+                    }
+                },
+                "minAndMax": {
+                    "name": "minAndMax",
+                    "getSignature": {
+                        "name": "minAndMax",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 58
+                    }
+                }
+            }
         },
         {
             "name": "NumberLabelComponent",
@@ -9575,7 +9571,7 @@
                 "linktype": "component",
                 "name": "NumberBoundsComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/8",
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {

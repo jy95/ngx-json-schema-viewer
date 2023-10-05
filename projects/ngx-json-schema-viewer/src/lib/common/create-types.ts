@@ -52,7 +52,6 @@ import type {
 export class CreateTypesComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
-  // Props
   get foundTypes() : TypeValues[] {
     return detectedTypes(this.schema);
   }

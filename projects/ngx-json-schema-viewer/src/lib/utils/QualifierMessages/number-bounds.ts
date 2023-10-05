@@ -37,12 +37,26 @@ import type { JSONSchema } from '../../types';
 export class NumberBoundsComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
-  // Props
   boundsLabel = 'Possible values :';
-  minimum: number | undefined = this.schema.exclusiveMinimum || this.schema.minimum;
-  isExclusiveMinimum = this.schema.exclusiveMinimum !== undefined;
-  maximum: number | undefined = this.schema.exclusiveMaximum || this.schema.maximum;
-  isExclusiveMaximum = this.minimum !== undefined && this.maximum !== undefined;
-  minAndMax = this.minimum !== undefined && this.maximum !== undefined;
+  
+  get minimum() : number | undefined { 
+    return this.schema.exclusiveMinimum || this.schema.minimum; 
+  }
+
+  get isExclusiveMinimum(): boolean {
+    return this.schema.exclusiveMinimum !== undefined;
+  }
+
+  get maximum(): number | undefined {
+    return this.schema.exclusiveMaximum || this.schema.maximum;
+  }
+
+  get isExclusiveMaximum() : boolean {
+    return this.minimum !== undefined && this.maximum !== undefined;
+  }
+
+  get minAndMax() : boolean {
+    return this.minimum !== undefined && this.maximum !== undefined;
+  }
 
 }
