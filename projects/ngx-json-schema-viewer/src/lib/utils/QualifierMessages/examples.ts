@@ -26,11 +26,13 @@ export class ExamplesComponent {
 
   examplesLabel = 'Example values :';
 
-  items: itemsType = (this.schema.examples || [])
-    .map((val, idx) => ({
-      id: idx,
-      value: val,
-      label: `Example ${idx}`,
-  }));
+  get items(): itemsType {
+    return (this.schema.examples || [])
+      .map((val, idx) => ({
+        id: idx,
+        value: val,
+        label: `Example ${idx}`,
+    }));
+  }
 
 }

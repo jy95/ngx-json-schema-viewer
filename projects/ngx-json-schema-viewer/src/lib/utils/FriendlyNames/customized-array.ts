@@ -94,11 +94,25 @@ export class GenerateFriendlyNameCustomArrayComponent {
     @Input({ required: true }) schema!: JSONSchemaNS.Array;
 
     // For separators
-    firstSeparator : boolean = this.isPrefixItemsArray && this.hasItems;
-    secondSeparator : boolean = this.hasItems && this.hasAdditionalItems;
-    thirdSeparator : boolean = this.hasAdditionalItems && this.hasUnevaluatedItems;
-    fourSeparator : boolean = this.hasUnevaluatedItems && this.hasContains;
-    fithSeparator : boolean = this.hasContains && this.isOpenTuple;
+    get firstSeparator() : boolean {
+        return this.isPrefixItemsArray && this.hasItems;
+    }
+
+    get secondSeparator() : boolean {
+        return this.hasItems && this.hasAdditionalItems;
+    }
+
+    get thirdSeparator() : boolean {
+        return this.hasAdditionalItems && this.hasUnevaluatedItems;
+    }
+
+    get fourSeparator() : boolean {
+        return this.hasUnevaluatedItems && this.hasContains;
+    }
+
+    get fithSeparator() : boolean {
+        return this.hasContains && this.isOpenTuple;
+    }
 
     // No clear specifications about the contents of the array ?
     get noClearSpecs(): boolean {

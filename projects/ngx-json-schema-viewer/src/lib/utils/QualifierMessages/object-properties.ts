@@ -30,6 +30,8 @@ export class ObjectPropertiesComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
   lengthLabel = 'Length :';
 
-  minAndMax: boolean = this.schema.minProperties !== undefined && this.schema.maxProperties !== undefined;;
+  get minAndMax(): boolean {
+    return this.schema.minProperties !== undefined && this.schema.maxProperties !== undefined; 
+  }
 
 }

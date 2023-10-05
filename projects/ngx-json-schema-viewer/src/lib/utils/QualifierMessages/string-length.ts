@@ -26,6 +26,9 @@ export class StringLengthComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
   lengthLabel = 'Length :';
-  minAndMaxLength: boolean = this.schema.minLength !== undefined && this.schema.maxLength !== undefined;
+  
+  get minAndMaxLength(): boolean {
+    return this.schema.minLength !== undefined && this.schema.maxLength !== undefined;
+  }
 
 }

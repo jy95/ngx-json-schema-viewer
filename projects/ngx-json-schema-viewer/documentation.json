@@ -3561,7 +3561,7 @@
         },
         {
             "name": "ExamplesComponent",
-            "id": "component-ExamplesComponent-eece580ceda973f166ea4e89356f7192c199c49ac8dc1ef0e37aeba0aaf17d8b819dca59d51e19b24610a37d3f7a048557f6a1cbc00849234fc9182db98b246d",
+            "id": "component-ExamplesComponent-ca66ac3fb89e6e8385f73b5f196b18b2820f7615c9503bc7c1642dee8b105bbaa519a767dc2ac8f8d259e56777a6b311bd16cbd9ab6fba87f5618e65a07f4d2b",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/examples.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3598,16 +3598,6 @@
                     "optional": false,
                     "description": "",
                     "line": 27
-                },
-                {
-                    "name": "items",
-                    "defaultValue": "(this.schema.examples || [])\r\n    .map((val, idx) => ({\r\n      id: idx,\r\n      value: val,\r\n      label: `Example ${idx}`,\r\n  }))",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "itemsType",
-                    "optional": false,
-                    "description": "",
-                    "line": 29
                 }
             ],
             "methodsClass": [],
@@ -3629,10 +3619,21 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport {MatTabsModule} from '@angular/material/tabs';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\ntype itemsType = { id: number; value: any; label: string }[]\r\n\r\n@Component({\r\n  selector: 'qm-examples',\r\n  standalone: true,\r\n  imports: [MatTabsModule, PrintSchemaTypeComponent],\r\n  template: `\r\n    <div>\r\n      <strong>{{ examplesLabel }}</strong>&nbsp;\r\n      <mat-tab-group>\r\n        <mat-tab *ngFor=\"let item of items\" [label]=\"item.label\">\r\n            <lib-print-schema-type [obj]=\"item.value\"></lib-print-schema-type>\r\n        </mat-tab>\r\n      </mat-tab-group>\r\n    </div>\r\n  `,\r\n})\r\nexport class ExamplesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  examplesLabel = 'Example values :';\r\n\r\n  items: itemsType = (this.schema.examples || [])\r\n    .map((val, idx) => ({\r\n      id: idx,\r\n      value: val,\r\n      label: `Example ${idx}`,\r\n  }));\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport {MatTabsModule} from '@angular/material/tabs';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\ntype itemsType = { id: number; value: any; label: string }[]\r\n\r\n@Component({\r\n  selector: 'qm-examples',\r\n  standalone: true,\r\n  imports: [MatTabsModule, PrintSchemaTypeComponent],\r\n  template: `\r\n    <div>\r\n      <strong>{{ examplesLabel }}</strong>&nbsp;\r\n      <mat-tab-group>\r\n        <mat-tab *ngFor=\"let item of items\" [label]=\"item.label\">\r\n            <lib-print-schema-type [obj]=\"item.value\"></lib-print-schema-type>\r\n        </mat-tab>\r\n      </mat-tab-group>\r\n    </div>\r\n  `,\r\n})\r\nexport class ExamplesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  examplesLabel = 'Example values :';\r\n\r\n  get items(): itemsType {\r\n    return (this.schema.examples || [])\r\n      .map((val, idx) => ({\r\n        id: idx,\r\n        value: val,\r\n        label: `Example ${idx}`,\r\n    }));\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "accessors": {
+                "items": {
+                    "name": "items",
+                    "getSignature": {
+                        "name": "items",
+                        "type": "",
+                        "returnType": "itemsType",
+                        "line": 29
+                    }
+                }
+            }
         },
         {
             "name": "FalseLabelComponent",
@@ -3839,7 +3840,7 @@
         },
         {
             "name": "GenerateFriendlyNameCustomArrayComponent",
-            "id": "component-GenerateFriendlyNameCustomArrayComponent-891a3cc38a9c5e14b3aeea6606b48c465f3f309d3c7df4680d3dc11c4a720dda3612262a1b272fad4027ef9d1b8b6179aa7d4b7550f16b483b921ad9960b7028",
+            "id": "component-GenerateFriendlyNameCustomArrayComponent-b858600c956d712ef82968f6ddae4bd0dd530e8bf90698853ebda9847276e512d6ae57968d8631777a006f94e84a4ce66752ece9f001c9947f268d2fe469afc0",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/FriendlyNames/customized-array.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3866,58 +3867,7 @@
                 }
             ],
             "outputsClass": [],
-            "propertiesClass": [
-                {
-                    "name": "firstSeparator",
-                    "defaultValue": "this.isPrefixItemsArray && this.hasItems",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "boolean",
-                    "optional": false,
-                    "description": "",
-                    "line": 97
-                },
-                {
-                    "name": "fithSeparator",
-                    "defaultValue": "this.hasContains && this.isOpenTuple",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "boolean",
-                    "optional": false,
-                    "description": "",
-                    "line": 101
-                },
-                {
-                    "name": "fourSeparator",
-                    "defaultValue": "this.hasUnevaluatedItems && this.hasContains",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "boolean",
-                    "optional": false,
-                    "description": "",
-                    "line": 100
-                },
-                {
-                    "name": "secondSeparator",
-                    "defaultValue": "this.hasItems && this.hasAdditionalItems",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "boolean",
-                    "optional": false,
-                    "description": "",
-                    "line": 98
-                },
-                {
-                    "name": "thirdSeparator",
-                    "defaultValue": "this.hasAdditionalItems && this.hasUnevaluatedItems",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "boolean",
-                    "optional": false,
-                    "description": "",
-                    "line": 99
-                }
-            ],
+            "propertiesClass": [],
             "methodsClass": [
                 {
                     "name": "shouldAddSeparator",
@@ -3938,7 +3888,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 118,
+                    "line": 132,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -3985,18 +3935,63 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    TypeLabelSwitchComponent,\r\n    GenerateFriendlyNameComponent\r\n} from \"../index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n    selector: 'jsv-friendly-name-custom-array',\r\n    standalone: true,\r\n    imports: [\r\n      CommonModule,\r\n      TypeLabelSwitchComponent,\r\n      forwardRef(() => GenerateFriendlyNameComponent)\r\n    ],\r\n    template: `\r\n        <!-- KISS return the generic type when specs are messy -->\r\n        <ng-template *ngIf=\"noClearSpecs; else clearSpecs\">\r\n            <jsv-type-label-switch [type]=\"'array'\"] />\r\n        </ng-template>\r\n\r\n        <ng-template #clearSpecs>\r\n\r\n            <!-- 1) \"prefixItems\" -->\r\n            <ng-container *ngIf=\"isPrefixItemsArray\">\r\n                <ng-container *ngFor=\"let subSchema of typedPrefixItemsArray; let idx = index\">\r\n                    <jsv-friendly-name [schema]=\"subSchema\" />\r\n                    {{ shouldAddSeparator(idx, typedPrefixItemsArray.length) ? ',' : '' }}\r\n                </ng-container>\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"firstSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 2A) \"items\" -->\r\n            <ng-container *ngIf=\"hasItems\">\r\n                <ng-container *ngFor=\"let subSchema of itemsAsArray; let idx = index\">\r\n                    <jsv-friendly-name [schema]=\"subSchema\" />\r\n                    {{ shouldAddSeparator(idx, typedPrefixItemsArray.length) ? ',' : '' }}\r\n                </ng-container>\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"secondSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 2B) \"additionalItems\" (to cover cases for specs below the draft-2020-12 version) -->\r\n            <ng-container *ngIf=\"hasAdditionalItems\">\r\n                <jsv-friendly-name [schema]=\"schema.additionalItems!\" />\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"thirdSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 2C) \"unevaluatedItems\" (to cover cases specs >= draft-2020-12 version) -->\r\n            <ng-container *ngIf=\"hasUnevaluatedItems\">\r\n                <jsv-friendly-name [schema]=\"schema.unevaluatedItems!\" />\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"fourSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 3) \"contains\" -->\r\n            <ng-container *ngIf=\"hasContains\">\r\n                {{ '...' }}\r\n                {{ ',' }}\r\n                <jsv-friendly-name [schema]=\"schema.contains!\" />\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"fithSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 4) Is it a open tuple ? -->\r\n            <ng-container *ngIf=\"isOpenTuple\">\r\n                {{ '...' }}\r\n            </ng-container>\r\n\r\n        </ng-template>\r\n    `\r\n})\r\nexport class GenerateFriendlyNameCustomArrayComponent {\r\n    @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n    // For separators\r\n    firstSeparator : boolean = this.isPrefixItemsArray && this.hasItems;\r\n    secondSeparator : boolean = this.hasItems && this.hasAdditionalItems;\r\n    thirdSeparator : boolean = this.hasAdditionalItems && this.hasUnevaluatedItems;\r\n    fourSeparator : boolean = this.hasUnevaluatedItems && this.hasContains;\r\n    fithSeparator : boolean = this.hasContains && this.isOpenTuple;\r\n\r\n    // No clear specifications about the contents of the array ?\r\n    get noClearSpecs(): boolean {\r\n        return [undefined, false].includes(this.schema.items as any) &&\r\n            [undefined, false].includes(this.schema.prefixItems as any) &&\r\n            this.schema.contains === undefined;\r\n    }\r\n\r\n    get isPrefixItemsArray(): boolean {\r\n        return Array.isArray(this.schema.prefixItems);\r\n    }\r\n\r\n    get typedPrefixItemsArray() {\r\n        return this.schema.prefixItems as JSONSchema[];\r\n    }\r\n\r\n    shouldAddSeparator(idx: number, length: number): boolean {\r\n        return length <= 1 ? false : idx !== length - 1;\r\n    }\r\n\r\n    get hasItems() : boolean {\r\n        return this.schema.items !== undefined && typeof this.schema.items !== \"boolean\";\r\n    }\r\n\r\n    get itemsAsArray() : JSONSchema[] {\r\n        return (Array.isArray(this.schema.items) ? this.schema.items : [this.schema.items]) as JSONSchema[];\r\n    }\r\n\r\n    get hasAdditionalItems(): boolean {\r\n        return this.schema.additionalItems !== undefined && typeof this.schema.additionalItems !== \"boolean\";\r\n    }\r\n\r\n    get hasUnevaluatedItems(): boolean {\r\n        return this.schema.unevaluatedItems !== undefined && typeof this.schema.unevaluatedItems !== \"boolean\";\r\n    }\r\n\r\n    get hasContains(): boolean {\r\n        return this.schema.contains !== undefined;\r\n    }\r\n\r\n    get isOpenTuple(): boolean {\r\n        return !(\r\n            (this.schema as JSONSchemaNS.Array).unevaluatedItems === false ||\r\n            this.schema.items === false ||\r\n            this.schema.additionalItems === false\r\n        );\r\n    }\r\n}",
+            "sourceCode": "import { Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    TypeLabelSwitchComponent,\r\n    GenerateFriendlyNameComponent\r\n} from \"../index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n    selector: 'jsv-friendly-name-custom-array',\r\n    standalone: true,\r\n    imports: [\r\n      CommonModule,\r\n      TypeLabelSwitchComponent,\r\n      forwardRef(() => GenerateFriendlyNameComponent)\r\n    ],\r\n    template: `\r\n        <!-- KISS return the generic type when specs are messy -->\r\n        <ng-template *ngIf=\"noClearSpecs; else clearSpecs\">\r\n            <jsv-type-label-switch [type]=\"'array'\"] />\r\n        </ng-template>\r\n\r\n        <ng-template #clearSpecs>\r\n\r\n            <!-- 1) \"prefixItems\" -->\r\n            <ng-container *ngIf=\"isPrefixItemsArray\">\r\n                <ng-container *ngFor=\"let subSchema of typedPrefixItemsArray; let idx = index\">\r\n                    <jsv-friendly-name [schema]=\"subSchema\" />\r\n                    {{ shouldAddSeparator(idx, typedPrefixItemsArray.length) ? ',' : '' }}\r\n                </ng-container>\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"firstSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 2A) \"items\" -->\r\n            <ng-container *ngIf=\"hasItems\">\r\n                <ng-container *ngFor=\"let subSchema of itemsAsArray; let idx = index\">\r\n                    <jsv-friendly-name [schema]=\"subSchema\" />\r\n                    {{ shouldAddSeparator(idx, typedPrefixItemsArray.length) ? ',' : '' }}\r\n                </ng-container>\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"secondSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 2B) \"additionalItems\" (to cover cases for specs below the draft-2020-12 version) -->\r\n            <ng-container *ngIf=\"hasAdditionalItems\">\r\n                <jsv-friendly-name [schema]=\"schema.additionalItems!\" />\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"thirdSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 2C) \"unevaluatedItems\" (to cover cases specs >= draft-2020-12 version) -->\r\n            <ng-container *ngIf=\"hasUnevaluatedItems\">\r\n                <jsv-friendly-name [schema]=\"schema.unevaluatedItems!\" />\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"fourSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 3) \"contains\" -->\r\n            <ng-container *ngIf=\"hasContains\">\r\n                {{ '...' }}\r\n                {{ ',' }}\r\n                <jsv-friendly-name [schema]=\"schema.contains!\" />\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"fithSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 4) Is it a open tuple ? -->\r\n            <ng-container *ngIf=\"isOpenTuple\">\r\n                {{ '...' }}\r\n            </ng-container>\r\n\r\n        </ng-template>\r\n    `\r\n})\r\nexport class GenerateFriendlyNameCustomArrayComponent {\r\n    @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n    // For separators\r\n    get firstSeparator() : boolean {\r\n        return this.isPrefixItemsArray && this.hasItems;\r\n    }\r\n\r\n    get secondSeparator() : boolean {\r\n        return this.hasItems && this.hasAdditionalItems;\r\n    }\r\n\r\n    get thirdSeparator() : boolean {\r\n        return this.hasAdditionalItems && this.hasUnevaluatedItems;\r\n    }\r\n\r\n    get fourSeparator() : boolean {\r\n        return this.hasUnevaluatedItems && this.hasContains;\r\n    }\r\n\r\n    get fithSeparator() : boolean {\r\n        return this.hasContains && this.isOpenTuple;\r\n    }\r\n\r\n    // No clear specifications about the contents of the array ?\r\n    get noClearSpecs(): boolean {\r\n        return [undefined, false].includes(this.schema.items as any) &&\r\n            [undefined, false].includes(this.schema.prefixItems as any) &&\r\n            this.schema.contains === undefined;\r\n    }\r\n\r\n    get isPrefixItemsArray(): boolean {\r\n        return Array.isArray(this.schema.prefixItems);\r\n    }\r\n\r\n    get typedPrefixItemsArray() {\r\n        return this.schema.prefixItems as JSONSchema[];\r\n    }\r\n\r\n    shouldAddSeparator(idx: number, length: number): boolean {\r\n        return length <= 1 ? false : idx !== length - 1;\r\n    }\r\n\r\n    get hasItems() : boolean {\r\n        return this.schema.items !== undefined && typeof this.schema.items !== \"boolean\";\r\n    }\r\n\r\n    get itemsAsArray() : JSONSchema[] {\r\n        return (Array.isArray(this.schema.items) ? this.schema.items : [this.schema.items]) as JSONSchema[];\r\n    }\r\n\r\n    get hasAdditionalItems(): boolean {\r\n        return this.schema.additionalItems !== undefined && typeof this.schema.additionalItems !== \"boolean\";\r\n    }\r\n\r\n    get hasUnevaluatedItems(): boolean {\r\n        return this.schema.unevaluatedItems !== undefined && typeof this.schema.unevaluatedItems !== \"boolean\";\r\n    }\r\n\r\n    get hasContains(): boolean {\r\n        return this.schema.contains !== undefined;\r\n    }\r\n\r\n    get isOpenTuple(): boolean {\r\n        return !(\r\n            (this.schema as JSONSchemaNS.Array).unevaluatedItems === false ||\r\n            this.schema.items === false ||\r\n            this.schema.additionalItems === false\r\n        );\r\n    }\r\n}",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "accessors": {
+                "firstSeparator": {
+                    "name": "firstSeparator",
+                    "getSignature": {
+                        "name": "firstSeparator",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 97
+                    }
+                },
+                "secondSeparator": {
+                    "name": "secondSeparator",
+                    "getSignature": {
+                        "name": "secondSeparator",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 101
+                    }
+                },
+                "thirdSeparator": {
+                    "name": "thirdSeparator",
+                    "getSignature": {
+                        "name": "thirdSeparator",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 105
+                    }
+                },
+                "fourSeparator": {
+                    "name": "fourSeparator",
+                    "getSignature": {
+                        "name": "fourSeparator",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 109
+                    }
+                },
+                "fithSeparator": {
+                    "name": "fithSeparator",
+                    "getSignature": {
+                        "name": "fithSeparator",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 113
+                    }
+                },
                 "noClearSpecs": {
                     "name": "noClearSpecs",
                     "getSignature": {
                         "name": "noClearSpecs",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 104
+                        "line": 118
                     }
                 },
                 "isPrefixItemsArray": {
@@ -4005,7 +4000,7 @@
                         "name": "isPrefixItemsArray",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 110
+                        "line": 124
                     }
                 },
                 "typedPrefixItemsArray": {
@@ -4014,7 +4009,7 @@
                         "name": "typedPrefixItemsArray",
                         "type": "",
                         "returnType": "",
-                        "line": 114
+                        "line": 128
                     }
                 },
                 "hasItems": {
@@ -4023,7 +4018,7 @@
                         "name": "hasItems",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 122
+                        "line": 136
                     }
                 },
                 "itemsAsArray": {
@@ -4032,7 +4027,7 @@
                         "name": "itemsAsArray",
                         "type": "[]",
                         "returnType": "JSONSchema[]",
-                        "line": 126
+                        "line": 140
                     }
                 },
                 "hasAdditionalItems": {
@@ -4041,7 +4036,7 @@
                         "name": "hasAdditionalItems",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 130
+                        "line": 144
                     }
                 },
                 "hasUnevaluatedItems": {
@@ -4050,7 +4045,7 @@
                         "name": "hasUnevaluatedItems",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 134
+                        "line": 148
                     }
                 },
                 "hasContains": {
@@ -4059,7 +4054,7 @@
                         "name": "hasContains",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 138
+                        "line": 152
                     }
                 },
                 "isOpenTuple": {
@@ -4068,7 +4063,7 @@
                         "name": "isOpenTuple",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 142
+                        "line": 156
                     }
                 }
             }
@@ -5196,7 +5191,7 @@
         },
         {
             "name": "ObjectPropertiesComponent",
-            "id": "component-ObjectPropertiesComponent-1c31ac7b0f0c525819a4f3452ad827d44760b01e7e233a757a4d62d0a08e697762ba70806374871f9b4ec5191286516343e5d20c2939a4dd5c3bd31e4311e5e3",
+            "id": "component-ObjectPropertiesComponent-d53e3af321bb7fbd5478fda48f179b4d5d54e10b29df7e10143e9346d1a6b967b5b0a5111cace46f12980873e5eb1e4b51e4d4a1c0bae3c2f66ead8449073d7f",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/object-properties.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5233,16 +5228,6 @@
                     "optional": false,
                     "description": "",
                     "line": 31
-                },
-                {
-                    "name": "minAndMax",
-                    "defaultValue": "this.schema.minProperties !== undefined && this.schema.maxProperties !== undefined",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "boolean",
-                    "optional": false,
-                    "description": "",
-                    "line": 33
                 }
             ],
             "methodsClass": [],
@@ -5260,10 +5245,21 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-object-properties',\r\n  standalone: true,\r\n  imports: [CommonModule],\r\n  template: `\r\n    <div>\r\n      <strong>{{ lengthLabel }}</strong>&nbsp;\r\n      <ng-container *ngIf=\"schema.minProperties !== undefined\">\r\n        <code>\r\n            {{ '>= ' + schema.minProperties + ' propertie(s)' }}\r\n        </code>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"minAndMax\">\r\n        <span>&nbsp;&&nbsp;</span>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"schema.maxProperties !== undefined\">\r\n        <code>\r\n            {{ '<= ' + schema.maxProperties + ' propertie(s)' }}\r\n        </code>\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class ObjectPropertiesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n  lengthLabel = 'Length :';\r\n\r\n  minAndMax: boolean = this.schema.minProperties !== undefined && this.schema.maxProperties !== undefined;;\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-object-properties',\r\n  standalone: true,\r\n  imports: [CommonModule],\r\n  template: `\r\n    <div>\r\n      <strong>{{ lengthLabel }}</strong>&nbsp;\r\n      <ng-container *ngIf=\"schema.minProperties !== undefined\">\r\n        <code>\r\n            {{ '>= ' + schema.minProperties + ' propertie(s)' }}\r\n        </code>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"minAndMax\">\r\n        <span>&nbsp;&&nbsp;</span>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"schema.maxProperties !== undefined\">\r\n        <code>\r\n            {{ '<= ' + schema.maxProperties + ' propertie(s)' }}\r\n        </code>\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class ObjectPropertiesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n  lengthLabel = 'Length :';\r\n\r\n  get minAndMax(): boolean {\r\n    return this.schema.minProperties !== undefined && this.schema.maxProperties !== undefined; \r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "accessors": {
+                "minAndMax": {
+                    "name": "minAndMax",
+                    "getSignature": {
+                        "name": "minAndMax",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 33
+                    }
+                }
+            }
         },
         {
             "name": "OneOfSchemaComponent",
@@ -6394,7 +6390,7 @@
         },
         {
             "name": "StringLengthComponent",
-            "id": "component-StringLengthComponent-ec9f43eca82bcda756cba824bf7c498f79b445f108d13f352ca903b83e8304ea5c4af698901a5c14aba0b2d1c6608831d4bd36336909b4c1b56eda1f8a878c85",
+            "id": "component-StringLengthComponent-2b867449d5b2f10539ae1b218e3bafa90673708382eeca8aaa4b2b824bd6f78a701c3e848cea47b29feabab58d7ef8e73fe8e3b422966fc4cd0652b75c82cb42",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/string-length.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6431,16 +6427,6 @@
                     "optional": false,
                     "description": "",
                     "line": 28
-                },
-                {
-                    "name": "minAndMaxLength",
-                    "defaultValue": "this.schema.minLength !== undefined && this.schema.maxLength !== undefined",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "boolean",
-                    "optional": false,
-                    "description": "",
-                    "line": 29
                 }
             ],
             "methodsClass": [],
@@ -6458,10 +6444,21 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input } from '@angular/core';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-string-length',\r\n  standalone: true,\r\n  imports: [CommonModule],\r\n  template: `\r\n    <div>\r\n      <strong>{{ lengthLabel }}</strong>&nbsp;\r\n      <ng-container *ngIf=\"schema.minLength !== undefined\">\r\n        <code>{{ '>= ' + schema.minLength + ' character(s)' }}</code>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"minAndMaxLength\">\r\n        <span>&nbsp;&&nbsp;</span>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"schema.maxLength !== undefined\">\r\n        <code>{{ '<= ' + schema.maxLength + ' character(s)' }}</code>\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class StringLengthComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  lengthLabel = 'Length :';\r\n  minAndMaxLength: boolean = this.schema.minLength !== undefined && this.schema.maxLength !== undefined;\r\n\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input } from '@angular/core';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-string-length',\r\n  standalone: true,\r\n  imports: [CommonModule],\r\n  template: `\r\n    <div>\r\n      <strong>{{ lengthLabel }}</strong>&nbsp;\r\n      <ng-container *ngIf=\"schema.minLength !== undefined\">\r\n        <code>{{ '>= ' + schema.minLength + ' character(s)' }}</code>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"minAndMaxLength\">\r\n        <span>&nbsp;&&nbsp;</span>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"schema.maxLength !== undefined\">\r\n        <code>{{ '<= ' + schema.maxLength + ' character(s)' }}</code>\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class StringLengthComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  lengthLabel = 'Length :';\r\n  \r\n  get minAndMaxLength(): boolean {\r\n    return this.schema.minLength !== undefined && this.schema.maxLength !== undefined;\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "accessors": {
+                "minAndMaxLength": {
+                    "name": "minAndMaxLength",
+                    "getSignature": {
+                        "name": "minAndMaxLength",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 30
+                    }
+                }
+            }
         },
         {
             "name": "ThenLabelComponent",
@@ -9409,7 +9406,7 @@
                 "linktype": "component",
                 "name": "GenerateFriendlyNameCustomArrayComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/8",
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {
@@ -9535,7 +9532,7 @@
                 "linktype": "component",
                 "name": "ExamplesComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {
@@ -9589,7 +9586,7 @@
                 "linktype": "component",
                 "name": "ObjectPropertiesComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {
@@ -9625,7 +9622,7 @@
                 "linktype": "component",
                 "name": "StringLengthComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {
