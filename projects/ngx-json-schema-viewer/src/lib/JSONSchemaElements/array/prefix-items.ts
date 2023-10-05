@@ -16,7 +16,7 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
   ],
   template: `
     <ul>
-      <jse-common-create-edge [schema]="val!" [required]="isMinItemsValid()" *ngFor="let val of array; let idx = index">
+      <jse-common-create-edge [schema]="val" [required]="isMinItemsValid()" *ngFor="let val of array; let idx = index">
         <code name>
           {{ prefixItemsLabel(idx) }}
         </code>

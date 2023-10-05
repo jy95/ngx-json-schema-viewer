@@ -5,7 +5,7 @@ import {
   CreateEdgeComponent
 } from "../../common/index";
 
-import type { JSONSchemaNS } from "../../types";
+import type { JSONSchemaNS, JSONSchema } from "../../types";
 
 @Component({
   selector: 'jse-array-items',
@@ -16,7 +16,7 @@ import type { JSONSchemaNS } from "../../types";
   ],
   template: `
     <ul>
-      <jse-common-create-edge [schema]="item!" [required]="isMinItemsValid()" *ngFor="let item of itemsAsArray; let idx = index">
+      <jse-common-create-edge [schema]="item" [required]="isMinItemsValid()" *ngFor="let item of itemsAsArray; let idx = index">
         <code name>
           {{ itemsLabel(startingIndex + idx, isArray) }}
         </code>
@@ -27,12 +27,12 @@ import type { JSONSchemaNS } from "../../types";
 export class CreateItemsComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Array;
 
-  itemsAsArray: any[] = [];
+  itemsAsArray: JSONSchema[] = [];
   startingIndex: number = 0;
   isArray: boolean = false;
 
   ngOnInit() {
-    this.itemsAsArray = Array.isArray(this.schema.items) ? this.schema.items : [this.schema.items];
+    this.itemsAsArray = Array.isArray(this.schema.items) ? this.schema.items : [this.schema.items!];
     this.startingIndex = Array.isArray(this.schema.prefixItems) ? this.schema.prefixItems.length : 0;
     this.isArray = Array.isArray(this.schema.items);
   }
