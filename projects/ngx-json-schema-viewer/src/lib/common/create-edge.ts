@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, forwardRef, ChangeDetectionStrategy } from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 
 import {
@@ -68,23 +68,24 @@ import type { JSONSchema, JSONSchema_Draft_2019_09 } from '../types';
   `,
   styleUrls: ['./create-edge.component.css']
 })
-export class CreateEdgeComponent implements OnInit {
+export class CreateEdgeComponent {
   @Input({ required: true }) schema!: JSONSchema;
   @Input({ required: true }) required!: boolean;
 
-  // Props
-  isDeprecated : boolean = false;
-  isReadOnly : boolean = typeof this.schema !== "boolean" && this.schema.readOnly === true;
-  isWriteOnly : boolean = typeof this.schema !== "boolean" && this.schema.writeOnly === true;
-  isRequired : boolean = false;
+  get isDeprecated(): boolean {
+    const typedSchema = this.schema as JSONSchema_Draft_2019_09;
+    return typeof typedSchema !== "boolean" && typedSchema.deprecated === true;
+  }
 
-  constructor(private cdRef: ChangeDetectorRef) {}
+  get isReadOnly(): boolean {
+    return typeof this.schema !== "boolean" && this.schema.readOnly === true;
+  }
 
-  ngOnInit(): void {
-      const typedSchema = this.schema as JSONSchema_Draft_2019_09;
-      this.isDeprecated = typeof typedSchema !== "boolean" && typedSchema.deprecated === true;
-      this.isRequired = !this.isDeprecated && this.required;
+  get isWriteOnly(): boolean {
+    return typeof this.schema !== "boolean" && this.schema.writeOnly === true;
+  }
 
-      this.cdRef.markForCheck();
+  get isRequired(): boolean {
+    return !this.isDeprecated && this.required;
   }
 }

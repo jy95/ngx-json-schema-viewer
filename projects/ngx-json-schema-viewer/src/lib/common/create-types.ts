@@ -53,9 +53,17 @@ export class CreateTypesComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
   // Props
-  foundTypes : TypeValues[] = detectedTypes(this.schema);
-  hasNull : boolean = this.foundTypes.includes("null");
-  hasSchemaComposition : boolean = isSchemaComposition(this.schema);
+  get foundTypes() : TypeValues[] {
+    return detectedTypes(this.schema);
+  }
+
+  get hasNull() : boolean {
+    return this.foundTypes.includes("null");
+  }
+
+  get hasSchemaComposition() : boolean {
+    return isSchemaComposition(this.schema);
+  }
 
   get firstType(): TypeValues {
     return this.foundTypes.find((s) => s !== "null") || this.foundTypes[0];

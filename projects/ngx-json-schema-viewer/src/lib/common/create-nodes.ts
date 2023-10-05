@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 
 import {
     SchemaConditionalComponent,
@@ -29,7 +29,6 @@ import type { JSONSchema } from '../types';
     forwardRef(() => CreateTypesComponent),
     forwardRef(() => CreateValidOrInvalidComponent)
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container *ngIf="typedSchema !== undefined; else BooleanSchema">
 
@@ -53,29 +52,26 @@ import type { JSONSchema } from '../types';
     </ng-template>
   `,
 })
-export class CreateNodesComponent implements OnInit {
+export class CreateNodesComponent {
   @Input({ required: true }) schema!: JSONSchema;
 
   // Check if the schema is a composition
-  isCompositionSchema : boolean = false;
+  get isCompositionSchema() : boolean {
+    return isSchemaComposition(this.schema);
+  };
+
   // Check if the schema is conditional
-  isConditionalSchema : boolean = false;
+  get isConditionalSchema() : boolean {
+    return isSchemaConditional(this.schema);
+  };
   // Typed schema, if not a boolean
-  typedSchema: Exclude<JSONSchema, false | true> | undefined = undefined;
-
-  constructor(private cdRef: ChangeDetectorRef) {}
-
-  ngOnInit(): void {
-      this.isCompositionSchema = isSchemaComposition(this.schema);
-      this.isConditionalSchema = isSchemaConditional(this.schema);
-      let isBooleanSchema = typeof this.schema === 'boolean';
+  get typedSchema(): Exclude<JSONSchema, false | true> | undefined {
+    let isBooleanSchema = typeof this.schema === 'boolean';
       if (isBooleanSchema) {
-        this.typedSchema = this.schema as Exclude<JSONSchema, false | true>;
+        return this.schema as Exclude<JSONSchema, false | true>;
       } else {
-        this.typedSchema = undefined;
+        return undefined;
       }
-
-      this.cdRef.markForCheck();
-  }
+  };
 
 }
