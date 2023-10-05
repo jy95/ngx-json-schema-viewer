@@ -12,5 +12,5 @@ import { Component, Input } from '@angular/core';
   `,
 })
 export class ErrorOccurredLabelComponent {
-  @Input() error!: Error;
+  @Input({ required: true }) error!: Error;
 }

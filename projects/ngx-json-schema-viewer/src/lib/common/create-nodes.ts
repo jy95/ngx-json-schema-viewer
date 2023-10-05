@@ -31,25 +31,25 @@ import type { JSONSchema } from '../types';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="typedSchema === undefined; else nonBooleanSchema">
-      <jse-common-create-valid-or-invalid [schema]="schema" />
-    </ng-container>
-
-    <ng-template #nonBooleanSchema>
+    <ng-container *ngIf="typedSchema !== undefined; else BooleanSchema">
 
       <!-- Handle standard types -->
-      <jse-common-create-types [schema]="typedSchema!" />
+      <jse-common-create-types [schema]="typedSchema" />
 
       <!-- Handle Composition -->
       <ng-container *ngIf="isCompositionSchema">
-        <jse-schema-composition [schema]="typedSchema!" />
+        <jse-schema-composition [schema]="typedSchema" />
       </ng-container>
 
       <!-- Handle Conditional -->
       <ng-container *ngIf="isConditionalSchema">
-        <jse-schema-conditional [schema]="typedSchema!" />
+        <jse-schema-conditional [schema]="typedSchema" />
       </ng-container>
       
+    </ng-container>
+
+    <ng-template #BooleanSchema>
+      <jse-common-create-valid-or-invalid [schema]="schema" />
     </ng-template>
   `,
 })

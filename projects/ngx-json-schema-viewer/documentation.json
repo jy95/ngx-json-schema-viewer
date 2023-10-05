@@ -1906,7 +1906,7 @@
         },
         {
             "name": "CreateNodesComponent",
-            "id": "component-CreateNodesComponent-02915993b71c3d65d3aec001fba3fb9dee87f4ccad61d65c29c3c0d3cf277fa4260b1282de15179145e5b7487709153a0a9d0b85ddba07326fa29c8d505ef258",
+            "id": "component-CreateNodesComponent-a03f19bf8363d7071dbc95789fbb156409fc1bb963de3909c9b08d73c238e248a8b30bb094b4b64bf1c9d9c5c3618619ee412efd00324b0dc37f3555372dfdd6",
             "file": "projects/ngx-json-schema-viewer/src/lib/common/create-nodes.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -1917,7 +1917,7 @@
             "selector": "jse-common-create-nodes",
             "styleUrls": [],
             "styles": [],
-            "template": "<ng-container *ngIf=\"typedSchema === undefined; else nonBooleanSchema\">\n  <jse-common-create-valid-or-invalid [schema]=\"schema\" />\n</ng-container>\n\n<ng-template #nonBooleanSchema>\n\n  <!-- Handle standard types -->\n  <jse-common-create-types [schema]=\"typedSchema!\" />\n\n  <!-- Handle Composition -->\n  <ng-container *ngIf=\"isCompositionSchema\">\n    <jse-schema-composition [schema]=\"typedSchema!\" />\n  </ng-container>\n\n  <!-- Handle Conditional -->\n  <ng-container *ngIf=\"isConditionalSchema\">\n    <jse-schema-conditional [schema]=\"typedSchema!\" />\n  </ng-container>\n\n</ng-template>\n",
+            "template": "<ng-container *ngIf=\"typedSchema !== undefined; else BooleanSchema\">\n\n  <!-- Handle standard types -->\n  <jse-common-create-types [schema]=\"typedSchema\" />\n\n  <!-- Handle Composition -->\n  <ng-container *ngIf=\"isCompositionSchema\">\n    <jse-schema-composition [schema]=\"typedSchema\" />\n  </ng-container>\n\n  <!-- Handle Conditional -->\n  <ng-container *ngIf=\"isConditionalSchema\">\n    <jse-schema-conditional [schema]=\"typedSchema\" />\n  </ng-container>\n\n</ng-container>\n\n<ng-template #BooleanSchema>\n  <jse-common-create-valid-or-invalid [schema]=\"schema\" />\n</ng-template>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -2008,7 +2008,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';\r\n\r\nimport {\r\n    SchemaConditionalComponent,\r\n    SchemaCompositionComponent,\r\n} from \"../JSONSchemaElements/index\";\r\n\r\nimport {\r\n  isSchemaComposition,\r\n  isSchemaConditional,\r\n} from '../utils/index';\r\n\r\nimport {\r\n    CreateTypesComponent,\r\n    CreateValidOrInvalidComponent\r\n} from \"./index\";\r\n\r\nimport type { JSONSchema } from '../types';\r\n\r\n\r\n@Component({\r\n  selector: 'jse-common-create-nodes',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => SchemaConditionalComponent),\r\n    forwardRef(() => SchemaCompositionComponent),\r\n    forwardRef(() => CreateTypesComponent),\r\n    forwardRef(() => CreateValidOrInvalidComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ng-container *ngIf=\"typedSchema === undefined; else nonBooleanSchema\">\r\n      <jse-common-create-valid-or-invalid [schema]=\"schema\" />\r\n    </ng-container>\r\n\r\n    <ng-template #nonBooleanSchema>\r\n\r\n      <!-- Handle standard types -->\r\n      <jse-common-create-types [schema]=\"typedSchema!\" />\r\n\r\n      <!-- Handle Composition -->\r\n      <ng-container *ngIf=\"isCompositionSchema\">\r\n        <jse-schema-composition [schema]=\"typedSchema!\" />\r\n      </ng-container>\r\n\r\n      <!-- Handle Conditional -->\r\n      <ng-container *ngIf=\"isConditionalSchema\">\r\n        <jse-schema-conditional [schema]=\"typedSchema!\" />\r\n      </ng-container>\r\n      \r\n    </ng-template>\r\n  `,\r\n})\r\nexport class CreateNodesComponent implements OnInit {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n\r\n  // Check if the schema is a composition\r\n  isCompositionSchema : boolean = false;\r\n  // Check if the schema is conditional\r\n  isConditionalSchema : boolean = false;\r\n  // Typed schema, if not a boolean\r\n  typedSchema: Exclude<JSONSchema, false | true> | undefined = undefined;\r\n\r\n  constructor(private cdRef: ChangeDetectorRef) {}\r\n\r\n  ngOnInit(): void {\r\n      this.isCompositionSchema = isSchemaComposition(this.schema);\r\n      this.isConditionalSchema = isSchemaConditional(this.schema);\r\n      let isBooleanSchema = typeof this.schema === 'boolean';\r\n      if (isBooleanSchema) {\r\n        this.typedSchema = this.schema as Exclude<JSONSchema, false | true>;\r\n      } else {\r\n        this.typedSchema = undefined;\r\n      }\r\n\r\n      this.cdRef.markForCheck();\r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';\r\n\r\nimport {\r\n    SchemaConditionalComponent,\r\n    SchemaCompositionComponent,\r\n} from \"../JSONSchemaElements/index\";\r\n\r\nimport {\r\n  isSchemaComposition,\r\n  isSchemaConditional,\r\n} from '../utils/index';\r\n\r\nimport {\r\n    CreateTypesComponent,\r\n    CreateValidOrInvalidComponent\r\n} from \"./index\";\r\n\r\nimport type { JSONSchema } from '../types';\r\n\r\n\r\n@Component({\r\n  selector: 'jse-common-create-nodes',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => SchemaConditionalComponent),\r\n    forwardRef(() => SchemaCompositionComponent),\r\n    forwardRef(() => CreateTypesComponent),\r\n    forwardRef(() => CreateValidOrInvalidComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ng-container *ngIf=\"typedSchema !== undefined; else BooleanSchema\">\r\n\r\n      <!-- Handle standard types -->\r\n      <jse-common-create-types [schema]=\"typedSchema\" />\r\n\r\n      <!-- Handle Composition -->\r\n      <ng-container *ngIf=\"isCompositionSchema\">\r\n        <jse-schema-composition [schema]=\"typedSchema\" />\r\n      </ng-container>\r\n\r\n      <!-- Handle Conditional -->\r\n      <ng-container *ngIf=\"isConditionalSchema\">\r\n        <jse-schema-conditional [schema]=\"typedSchema\" />\r\n      </ng-container>\r\n      \r\n    </ng-container>\r\n\r\n    <ng-template #BooleanSchema>\r\n      <jse-common-create-valid-or-invalid [schema]=\"schema\" />\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class CreateNodesComponent implements OnInit {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n\r\n  // Check if the schema is a composition\r\n  isCompositionSchema : boolean = false;\r\n  // Check if the schema is conditional\r\n  isConditionalSchema : boolean = false;\r\n  // Typed schema, if not a boolean\r\n  typedSchema: Exclude<JSONSchema, false | true> | undefined = undefined;\r\n\r\n  constructor(private cdRef: ChangeDetectorRef) {}\r\n\r\n  ngOnInit(): void {\r\n      this.isCompositionSchema = isSchemaComposition(this.schema);\r\n      this.isConditionalSchema = isSchemaConditional(this.schema);\r\n      let isBooleanSchema = typeof this.schema === 'boolean';\r\n      if (isBooleanSchema) {\r\n        this.typedSchema = this.schema as Exclude<JSONSchema, false | true>;\r\n      } else {\r\n        this.typedSchema = undefined;\r\n      }\r\n\r\n      this.cdRef.markForCheck();\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -3602,7 +3602,7 @@
         },
         {
             "name": "ErrorOccurredLabelComponent",
-            "id": "component-ErrorOccurredLabelComponent-e73b25836d17bbbd7a1343ee590801bfef741f882e683cd95fa1c822440e53837bc71f5ab5e590944967cced35c2cc83bede8038ddbb74c2280c1e851e70f7e2",
+            "id": "component-ErrorOccurredLabelComponent-a6faee219a033c566e67f02357f22146e90fc42161f98c64a1b66d2b21767b08bac7366f5b09687ae4f059e7fa57f95788a1a35c58daf97da13a69644c55d804",
             "file": "projects/ngx-json-schema-viewer/src/lib/labels/error-occurred.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3618,9 +3618,11 @@
             "hostDirectives": [],
             "inputsClass": [
                 {
+                    "required": true,
                     "name": "error",
                     "deprecated": false,
                     "deprecationMessage": "",
+                    "optional": false,
                     "line": 15,
                     "type": "Error",
                     "decorators": []
@@ -3643,7 +3645,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-error-occurred',\r\n  standalone: true,\r\n  imports: [CommonModule],\r\n  template: `\r\n    <ng-container *ngIf=\"error\">\r\n      <strong>Something bad happens : </strong> {{ error.message }}\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class ErrorOccurredLabelComponent {\r\n  @Input() error!: Error;\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-error-occurred',\r\n  standalone: true,\r\n  imports: [CommonModule],\r\n  template: `\r\n    <ng-container *ngIf=\"error\">\r\n      <strong>Something bad happens : </strong> {{ error.message }}\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class ErrorOccurredLabelComponent {\r\n  @Input({ required: true }) error!: Error;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -4658,7 +4660,7 @@
         },
         {
             "name": "NgxJsonSchemaViewerComponent",
-            "id": "component-NgxJsonSchemaViewerComponent-4d2400a0bbdef183e555e8dd500ff8999aefb8ff2e95a55643b0e9ebd1a97c0f28048dc9079f73fb720f886d1b83cde1609ce63bf5c9d894031ba63ae7082e6a",
+            "id": "component-NgxJsonSchemaViewerComponent-cdf322b8ee32cc1b85dbe804bb74b9d951f6e69c22dec84011b2169a2a9b8db82a119be7b71342202cd6771c782e0005437aa2e02476a91506da1d910838743b",
             "file": "projects/ngx-json-schema-viewer/src/lib/ngx-json-schema-viewer.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -4673,7 +4675,7 @@
             "selector": "ngx-json-schema-viewer",
             "styleUrls": [],
             "styles": [],
-            "template": "<!-- Error ... -->\n<ng-container *ngIf=\"error() !== undefined; else loadingSchema\">\n  <div>\n    <labels-error-occurred [error]=\"error()!\"/>\n  </div>\n</ng-container>\n\n<!-- Loading ... -->\n<ng-template #loadingSchema>\n  <div *ngIf=\"resolvedSchema() === undefined\">\n    <labels-loading />\n  </div>\n</ng-template>\n\n<!-- Schema -->\n<div *ngIf=\"resolvedSchema() !== undefined\">\n  <mat-accordion>\n    <mat-expansion-panel [(expanded)]=\"expanded\">\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>\n            {{ getSchemaTitle }}\n          </strong>\n        </mat-panel-title>\n      </mat-expansion-panel-header>\n      <ng-template matExpansionPanelContent>\n        <jse-common-create-nodes [schema]=\"resolvedSchema()\" />\n      </ng-template>\n    </mat-expansion-panel>\n  </mat-accordion>\n</div>\n",
+            "template": "<!-- Error ... -->\n<ng-container *ngIf=\"status() === 'ERROR'\">\n  <div>\n    <labels-error-occurred [error]=\"error()!\"/>\n  </div>\n</ng-container>\n\n<!-- Loading ... -->\n<div *ngIf=\"status() === 'LOADING'\">\n    <labels-loading />\n</div>\n\n<!-- Schema -->\n<div *ngIf=\"status() === 'DONE'\">\n  <mat-accordion>\n    <mat-expansion-panel [(expanded)]=\"expanded\">\n      <mat-expansion-panel-header>\n        <mat-panel-title>\n          <strong>\n            {{ getSchemaTitle }}\n          </strong>\n        </mat-panel-title>\n      </mat-expansion-panel-header>\n      <ng-template matExpansionPanelContent>\n        <jse-common-create-nodes [schema]=\"resolvedSchema()!\" />\n      </ng-template>\n    </mat-expansion-panel>\n  </mat-accordion>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -4682,7 +4684,7 @@
                     "name": "resolverOptions",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 76,
+                    "line": 74,
                     "type": "IResolveOpts",
                     "decorators": []
                 },
@@ -4692,7 +4694,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 75,
+                    "line": 73,
                     "type": "",
                     "decorators": []
                 },
@@ -4700,7 +4702,7 @@
                     "name": "vierwerOptions",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 77,
+                    "line": 75,
                     "type": "Partial<JSVOptions>",
                     "decorators": []
                 }
@@ -4725,17 +4727,27 @@
                     "type": "boolean",
                     "optional": false,
                     "description": "",
-                    "line": 81
+                    "line": 77
                 },
                 {
                     "name": "resolvedSchema",
-                    "defaultValue": "signal<JSONSchema>(false)",
+                    "defaultValue": "signal<JSONSchema | undefined>(undefined)",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
                     "optional": false,
                     "description": "",
                     "line": 78
+                },
+                {
+                    "name": "status",
+                    "defaultValue": "computed<StatusType>(() => {\r\n    if (this.error() !== undefined) {\r\n      return \"ERROR\";\r\n    } else if (this.resolvedSchema() === undefined) {\r\n      return \"LOADING\";\r\n    } else {\r\n      return \"DONE\";\r\n    }\r\n  })",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 81
                 }
             ],
             "methodsClass": [
@@ -4745,7 +4757,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 88,
+                    "line": 96,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4755,7 +4767,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 97,
+                    "line": 105,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -4793,7 +4805,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input, signal } from '@angular/core';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\nimport { JSVOptionsService } from \"./services/jsv-options\";\r\n\r\n// Labels\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// Types\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSVOptions } from \"./services/jsv-options\";\r\n\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  providers: [\r\n    JSVOptionsService\r\n  ],\r\n  template: `\r\n    <!-- Error ... -->\r\n    <ng-container *ngIf=\"error() !== undefined; else loadingSchema\">\r\n      <div>\r\n        <labels-error-occurred [error]=\"error()!\"/>\r\n      </div>\r\n    </ng-container>\r\n\r\n    <!-- Loading ... -->\r\n    <ng-template #loadingSchema>\r\n      <div *ngIf=\"resolvedSchema() === undefined\">\r\n        <labels-loading />\r\n      </div>\r\n    </ng-template>\r\n\r\n    <!-- Schema -->\r\n    <div *ngIf=\"resolvedSchema() !== undefined\">\r\n      <mat-accordion>\r\n        <mat-expansion-panel [(expanded)]=\"expanded\">\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <ng-template matExpansionPanelContent>\r\n            <jse-common-create-nodes [schema]=\"resolvedSchema()\" />\r\n          </ng-template>\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </div>\r\n  `\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  @Input() vierwerOptions?: Partial<JSVOptions>;\r\n  resolvedSchema = signal<JSONSchema>(false);\r\n  error = signal<Error | undefined>(undefined);\r\n\r\n  expanded : boolean = true;\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService,\r\n    private jsvOptionsService: JSVOptionsService,\r\n  ) {}\r\n\r\n  ngOnInit(): void {\r\n    // If asked, apply user options\r\n    if (this.vierwerOptions) {\r\n      this.jsvOptionsService.setOptions(this.vierwerOptions);\r\n    }\r\n    // Perform the asynchronous schema resolution\r\n    this.schemaResolution();\r\n  }\r\n\r\n  private schemaResolution() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .subscribe({\r\n        error: (err) => {\r\n          this.error.set(err);\r\n          this.resolvedSchema.set(false);\r\n        },\r\n        next: (result) => {\r\n          this.resolvedSchema.set(result);\r\n          this.error.set(undefined);\r\n        }\r\n      });\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    let schema = this.resolvedSchema();\r\n    if (typeof schema !== \"boolean\" && schema.title !== undefined) {\r\n      return schema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit, Input, signal, computed } from '@angular/core';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\nimport { JSVOptionsService } from \"./services/jsv-options\";\r\n\r\n// Labels\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// Types\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSVOptions } from \"./services/jsv-options\";\r\ntype StatusType = \"LOADING\" | \"ERROR\" | \"DONE\";\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  providers: [\r\n    JSVOptionsService\r\n  ],\r\n  template: `\r\n    <!-- Error ... -->\r\n    <ng-container *ngIf=\"status() === 'ERROR'\">\r\n      <div>\r\n        <labels-error-occurred [error]=\"error()!\"/>\r\n      </div>\r\n    </ng-container>\r\n\r\n    <!-- Loading ... -->\r\n    <div *ngIf=\"status() === 'LOADING'\">\r\n        <labels-loading />\r\n    </div>\r\n\r\n    <!-- Schema -->\r\n    <div *ngIf=\"status() === 'DONE'\">\r\n      <mat-accordion>\r\n        <mat-expansion-panel [(expanded)]=\"expanded\">\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <ng-template matExpansionPanelContent>\r\n            <jse-common-create-nodes [schema]=\"resolvedSchema()!\" />\r\n          </ng-template>\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </div>\r\n  `\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  @Input() vierwerOptions?: Partial<JSVOptions>;\r\n\r\n  expanded : boolean = true;\r\n  resolvedSchema = signal<JSONSchema | undefined>(undefined);\r\n  error = signal<Error | undefined>(undefined);\r\n\r\n  status = computed<StatusType>(() => {\r\n    if (this.error() !== undefined) {\r\n      return \"ERROR\";\r\n    } else if (this.resolvedSchema() === undefined) {\r\n      return \"LOADING\";\r\n    } else {\r\n      return \"DONE\";\r\n    }\r\n  });\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService,\r\n    private jsvOptionsService: JSVOptionsService,\r\n  ) {}\r\n\r\n  ngOnInit(): void {\r\n    // If asked, apply user options\r\n    if (this.vierwerOptions) {\r\n      this.jsvOptionsService.setOptions(this.vierwerOptions);\r\n    }\r\n    // Perform the asynchronous schema resolution\r\n    this.schemaResolution();\r\n  }\r\n\r\n  private schemaResolution() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .subscribe({\r\n        error: (err) => {\r\n          this.error.set(err);\r\n          this.resolvedSchema.set(undefined);\r\n        },\r\n        next: (result) => {\r\n          this.resolvedSchema.set(result);\r\n          this.error.set(undefined);\r\n        }\r\n      });\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    let schema = this.resolvedSchema()!;\r\n    if (typeof schema !== \"boolean\" && schema.title !== undefined) {\r\n      return schema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -4816,7 +4828,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 81,
+                "line": 89,
                 "jsdoctags": [
                     {
                         "name": "schemaResolutionService",
@@ -4848,7 +4860,7 @@
                         "name": "getSchemaTitle",
                         "type": "string",
                         "returnType": "string",
-                        "line": 112
+                        "line": 120
                     }
                 }
             }
@@ -7445,7 +7457,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Preview",
-                "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    // https://material.angular.io/guide/theming#application-background-color\r\n    componentWrapperDecorator((story) => `<div class=\"mat-app-background\">${story}</div>`),\r\n  ]\r\n}"
+                "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/,\r\n      },\r\n    },\r\n    docs: {\r\n      theme: themes.dark,\r\n    }\r\n  },\r\n  decorators: [\r\n    // https://material.angular.io/guide/theming#application-background-color\r\n    componentWrapperDecorator((story) => `<div class=\"mat-app-background\">${story}</div>`),\r\n  ]\r\n}"
             },
             {
                 "name": "Properties",
@@ -7798,6 +7810,17 @@
                 "deprecationMessage": "",
                 "description": "",
                 "kind": 190
+            },
+            {
+                "name": "StatusType",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "\"LOADING\" | \"ERROR\" | \"DONE\"",
+                "file": "projects/ngx-json-schema-viewer/src/lib/ngx-json-schema-viewer.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 189
             },
             {
                 "name": "Story",
@@ -8599,7 +8622,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Preview",
-                    "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    // https://material.angular.io/guide/theming#application-background-color\r\n    componentWrapperDecorator((story) => `<div class=\"mat-app-background\">${story}</div>`),\r\n  ]\r\n}"
+                    "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/,\r\n      },\r\n    },\r\n    docs: {\r\n      theme: themes.dark,\r\n    }\r\n  },\r\n  decorators: [\r\n    // https://material.angular.io/guide/theming#application-background-color\r\n    componentWrapperDecorator((story) => `<div class=\"mat-app-background\">${story}</div>`),\r\n  ]\r\n}"
                 }
             ]
         },
@@ -8845,6 +8868,19 @@
                     "subtype": "typealias",
                     "rawtype": "\"AND\" | \"OR\" | \"XOR\"",
                     "file": "projects/ngx-json-schema-viewer/src/lib/utils/FriendlyNames/friendly-name-fallback.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 189
+                }
+            ],
+            "projects/ngx-json-schema-viewer/src/lib/ngx-json-schema-viewer.component.ts": [
+                {
+                    "name": "StatusType",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "\"LOADING\" | \"ERROR\" | \"DONE\"",
+                    "file": "projects/ngx-json-schema-viewer/src/lib/ngx-json-schema-viewer.component.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -9440,7 +9476,7 @@
                 "linktype": "component",
                 "name": "NgxJsonSchemaViewerComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/10",
+                "coverageCount": "0/11",
                 "status": "low"
             },
             {

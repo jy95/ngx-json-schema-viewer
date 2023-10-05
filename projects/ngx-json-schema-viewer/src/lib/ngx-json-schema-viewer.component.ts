@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, signal } from '@angular/core';
+import { Component, OnInit, Input, signal, computed } from '@angular/core';
 
 // imports
 import { CommonModule } from '@angular/common';
@@ -22,7 +22,7 @@ import {
 import type { JSONSchema } from './types';
 import type { IResolveOpts } from "@stoplight/json-ref-resolver/types"
 import type { JSVOptions } from "./services/jsv-options";
-
+type StatusType = "LOADING" | "ERROR" | "DONE";
 
 @Component({
   selector: 'ngx-json-schema-viewer',
@@ -39,21 +39,19 @@ import type { JSVOptions } from "./services/jsv-options";
   ],
   template: `
     <!-- Error ... -->
-    <ng-container *ngIf="error() !== undefined; else loadingSchema">
+    <ng-container *ngIf="status() === 'ERROR'">
       <div>
         <labels-error-occurred [error]="error()!"/>
       </div>
     </ng-container>
 
     <!-- Loading ... -->
-    <ng-template #loadingSchema>
-      <div *ngIf="resolvedSchema() === undefined">
+    <div *ngIf="status() === 'LOADING'">
         <labels-loading />
-      </div>
-    </ng-template>
+    </div>
 
     <!-- Schema -->
-    <div *ngIf="resolvedSchema() !== undefined">
+    <div *ngIf="status() === 'DONE'">
       <mat-accordion>
         <mat-expansion-panel [(expanded)]="expanded">
           <mat-expansion-panel-header>
@@ -64,7 +62,7 @@ import type { JSVOptions } from "./services/jsv-options";
             </mat-panel-title>
           </mat-expansion-panel-header>
           <ng-template matExpansionPanelContent>
-            <jse-common-create-nodes [schema]="resolvedSchema()" />
+            <jse-common-create-nodes [schema]="resolvedSchema()!" />
           </ng-template>
         </mat-expansion-panel>
       </mat-accordion>
@@ -75,10 +73,20 @@ export class NgxJsonSchemaViewerComponent implements OnInit {
   @Input({ required: true }) schema: unknown;
   @Input() resolverOptions?: IResolveOpts;
   @Input() vierwerOptions?: Partial<JSVOptions>;
-  resolvedSchema = signal<JSONSchema>(false);
-  error = signal<Error | undefined>(undefined);
 
   expanded : boolean = true;
+  resolvedSchema = signal<JSONSchema | undefined>(undefined);
+  error = signal<Error | undefined>(undefined);
+
+  status = computed<StatusType>(() => {
+    if (this.error() !== undefined) {
+      return "ERROR";
+    } else if (this.resolvedSchema() === undefined) {
+      return "LOADING";
+    } else {
+      return "DONE";
+    }
+  });
   
   constructor(
     private schemaResolutionService: SchemaResolutionService,
@@ -100,7 +108,7 @@ export class NgxJsonSchemaViewerComponent implements OnInit {
       .subscribe({
         error: (err) => {
           this.error.set(err);
-          this.resolvedSchema.set(false);
+          this.resolvedSchema.set(undefined);
         },
         next: (result) => {
           this.resolvedSchema.set(result);
@@ -110,7 +118,7 @@ export class NgxJsonSchemaViewerComponent implements OnInit {
   }
 
   get getSchemaTitle() : string {
-    let schema = this.resolvedSchema();
+    let schema = this.resolvedSchema()!;
     if (typeof schema !== "boolean" && schema.title !== undefined) {
       return schema.title;
     }
