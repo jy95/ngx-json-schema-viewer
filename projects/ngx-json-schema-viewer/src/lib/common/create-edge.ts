@@ -74,8 +74,8 @@ export class CreateEdgeComponent implements OnInit {
 
   // Props
   isDeprecated : boolean = false;
-  isReadOnly : boolean = false;
-  isWriteOnly : boolean = false;
+  isReadOnly : boolean = typeof this.schema !== "boolean" && this.schema.readOnly === true;
+  isWriteOnly : boolean = typeof this.schema !== "boolean" && this.schema.writeOnly === true;
   isRequired : boolean = false;
 
   constructor(private cdRef: ChangeDetectorRef) {}
@@ -83,8 +83,6 @@ export class CreateEdgeComponent implements OnInit {
   ngOnInit(): void {
       const typedSchema = this.schema as JSONSchema_Draft_2019_09;
       this.isDeprecated = typeof typedSchema !== "boolean" && typedSchema.deprecated === true;
-      this.isReadOnly = typeof this.schema !== "boolean" && this.schema.readOnly === true;
-      this.isWriteOnly = typeof this.schema !== "boolean" && this.schema.writeOnly === true;
       this.isRequired = !this.isDeprecated && this.required;
 
       this.cdRef.markForCheck();

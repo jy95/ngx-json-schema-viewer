@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import {
   AndLabelComponent
@@ -11,7 +11,6 @@ import type { JSONSchema } from '../../types';
   selector: 'qm-number-bounds',
   standalone: true,
   imports: [CommonModule, AndLabelComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <strong>{{ boundsLabel }}</strong>&nbsp;
@@ -40,21 +39,10 @@ export class NumberBoundsComponent {
 
   // Props
   boundsLabel = 'Possible values :';
-  minimum: number | undefined;
-  isExclusiveMinimum = false;
-  maximum: number | undefined;
-  isExclusiveMaximum = false;
-  minAndMax = false;
+  minimum: number | undefined = this.schema.exclusiveMinimum || this.schema.minimum;
+  isExclusiveMinimum = this.schema.exclusiveMinimum !== undefined;
+  maximum: number | undefined = this.schema.exclusiveMaximum || this.schema.maximum;
+  isExclusiveMaximum = this.minimum !== undefined && this.maximum !== undefined;
+  minAndMax = this.minimum !== undefined && this.maximum !== undefined;
 
-  constructor(private cdRef: ChangeDetectorRef) {}
-
-  ngOnInit() {
-    this.minimum = this.schema.exclusiveMinimum || this.schema.minimum;
-    this.isExclusiveMinimum = this.schema.exclusiveMinimum !== undefined;
-    this.maximum = this.schema.exclusiveMaximum || this.schema.maximum;
-    this.isExclusiveMaximum = this.schema.exclusiveMaximum !== undefined;
-    this.minAndMax = this.minimum !== undefined && this.maximum !== undefined;
-
-    this.cdRef.markForCheck();
-  }
 }

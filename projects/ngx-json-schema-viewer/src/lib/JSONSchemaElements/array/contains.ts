@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, Input, forwardRef, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 
 import {
   CreateEdgeComponent
@@ -10,7 +10,6 @@ import type { JSONSchemaNS, JSONSchema } from '../../types';
 @Component({
   selector: 'jse-array-contains',
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     forwardRef(() => CreateEdgeComponent)
@@ -25,18 +24,10 @@ import type { JSONSchemaNS, JSONSchema } from '../../types';
     </ul>
   `,
 })
-export class CreateContainsComponent implements OnInit {
+export class CreateContainsComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Array;
 
-  item : JSONSchema | undefined = undefined;
-
-  constructor(private cdRef: ChangeDetectorRef) {}
-
-  ngOnInit(): void {
-    this.item = this.schema.contains;
-    
-    this.cdRef.markForCheck();
-  }
+  item : JSONSchema | undefined = this.schema.contains;
 
   get containsLabel() {
     return `items[..., x, ...]`;

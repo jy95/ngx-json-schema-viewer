@@ -31,7 +31,7 @@ import type { JSONSchema } from '../types';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="isBooleanSchema; else nonBooleanSchema">
+    <ng-container *ngIf="typedSchema === undefined; else nonBooleanSchema">
       <jse-common-create-valid-or-invalid [schema]="schema" />
     </ng-container>
 
@@ -60,8 +60,6 @@ export class CreateNodesComponent implements OnInit {
   isCompositionSchema : boolean = false;
   // Check if the schema is conditional
   isConditionalSchema : boolean = false;
-  // Check if the schema is a boolean
-  isBooleanSchema : boolean = false;
   // Typed schema, if not a boolean
   typedSchema: Exclude<JSONSchema, false | true> | undefined = undefined;
 
@@ -70,9 +68,11 @@ export class CreateNodesComponent implements OnInit {
   ngOnInit(): void {
       this.isCompositionSchema = isSchemaComposition(this.schema);
       this.isConditionalSchema = isSchemaConditional(this.schema);
-      this.isBooleanSchema = typeof this.schema === 'boolean';
-      if (this.isBooleanSchema) {
+      let isBooleanSchema = typeof this.schema === 'boolean';
+      if (isBooleanSchema) {
         this.typedSchema = this.schema as Exclude<JSONSchema, false | true>;
+      } else {
+        this.typedSchema = undefined;
       }
 
       this.cdRef.markForCheck();

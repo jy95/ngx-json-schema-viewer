@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import type { JSONSchema } from '../../types';
@@ -7,7 +7,6 @@ import type { JSONSchema } from '../../types';
   selector: 'qm-object-properties',
   standalone: true,
   imports: [CommonModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <strong>{{ lengthLabel }}</strong>&nbsp;
@@ -31,15 +30,6 @@ export class ObjectPropertiesComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
   lengthLabel = 'Length :';
 
-  minAndMax: boolean = false;
+  minAndMax: boolean = this.schema.minProperties !== undefined && this.schema.maxProperties !== undefined;;
 
-  constructor(private cdRef: ChangeDetectorRef) {}
-
-  ngOnInit() {
-    this.minAndMax =
-      this.schema.minProperties !== undefined &&
-      this.schema.maxProperties !== undefined;
-
-    this.cdRef.markForCheck();
-  }
 }

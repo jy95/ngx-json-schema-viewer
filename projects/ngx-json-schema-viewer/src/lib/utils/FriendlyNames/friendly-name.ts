@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, forwardRef, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -30,7 +30,6 @@ import type { JSONSchema, TypeValues } from "../../types";
     forwardRef( () => GenerateFriendlyNameFallbackComponent),
     forwardRef( () => GenerateFriendlyNameCustomComponent)
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!--  In case the schema is always valid or not -->
     <ng-container *ngIf="isBoolean(schema)" else titleOrCustomBlock>
@@ -61,20 +60,10 @@ import type { JSONSchema, TypeValues } from "../../types";
     </ng-template>
   `,
 })
-export class GenerateFriendlyNameComponent implements OnInit {
+export class GenerateFriendlyNameComponent {
   @Input({ required: true }) schema!: JSONSchema;
 
-  foundTypes : TypeValues[] = [];
-
-  constructor(private cdRef: ChangeDetectorRef) {}
-
-  ngOnInit(): void {
-    if (typeof this.schema !== "boolean") {
-      this.foundTypes = detectedTypes(this.schema);
-      
-      this.cdRef.markForCheck();
-    }
-  }
+  foundTypes : TypeValues[] = (typeof this.schema !== "boolean") ? detectedTypes(this.schema) : [];
 
   isBoolean(value: JSONSchema): boolean {
     return typeof value === 'boolean';

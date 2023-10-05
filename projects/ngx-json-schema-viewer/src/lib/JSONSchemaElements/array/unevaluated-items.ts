@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, forwardRef, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 
 import {
   CreateEdgeComponent
@@ -14,7 +14,6 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
     CommonModule,
     forwardRef(() => CreateEdgeComponent)
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul *ngIf="items !== undefined">
       <jse-common-create-edge [schema]="items" [required]="false">
@@ -25,18 +24,10 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
     </ul>
   `,
 })
-export class CreateUnevaluatedItemsComponent implements OnInit {
+export class CreateUnevaluatedItemsComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Array;
 
-  items : JSONSchema | undefined = undefined;
-
-  constructor(private cdRef: ChangeDetectorRef) {}
-
-  ngOnInit(): void {
-      this.items = this.schema.unevaluatedItems;
-
-      this.cdRef.markForCheck();
-  }
+  items : JSONSchema | undefined = this.schema.unevaluatedItems;
 
   unevaluatedItemsLabel(): string {
     return `items[y]`;

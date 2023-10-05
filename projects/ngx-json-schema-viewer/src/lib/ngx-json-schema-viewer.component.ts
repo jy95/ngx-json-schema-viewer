@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, signal } from '@angular/core';
 
 // imports
 import { CommonModule } from '@angular/common';
@@ -37,24 +37,23 @@ import type { JSVOptions } from "./services/jsv-options";
   providers: [
     JSVOptionsService
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- Error ... -->
-    <ng-container *ngIf="error !== undefined; else loadingSchema">
+    <ng-container *ngIf="error() !== undefined; else loadingSchema">
       <div>
-        <labels-error-occurred [error]="error!"/>
+        <labels-error-occurred [error]="error()!"/>
       </div>
     </ng-container>
 
     <!-- Loading ... -->
     <ng-template #loadingSchema>
-      <div *ngIf="resolvedSchema === undefined">
+      <div *ngIf="resolvedSchema() === undefined">
         <labels-loading />
       </div>
     </ng-template>
 
     <!-- Schema -->
-    <div *ngIf="resolvedSchema !== undefined">
+    <div *ngIf="resolvedSchema() !== undefined">
       <mat-accordion>
         <mat-expansion-panel [(expanded)]="expanded">
           <mat-expansion-panel-header>
@@ -65,7 +64,7 @@ import type { JSVOptions } from "./services/jsv-options";
             </mat-panel-title>
           </mat-expansion-panel-header>
           <ng-template matExpansionPanelContent>
-            <jse-common-create-nodes [schema]="resolvedSchema" />
+            <jse-common-create-nodes [schema]="resolvedSchema()" />
           </ng-template>
         </mat-expansion-panel>
       </mat-accordion>
@@ -76,15 +75,14 @@ export class NgxJsonSchemaViewerComponent implements OnInit {
   @Input({ required: true }) schema: unknown;
   @Input() resolverOptions?: IResolveOpts;
   @Input() vierwerOptions?: Partial<JSVOptions>;
-  resolvedSchema: JSONSchema = false;
-  error: Error | undefined;
+  resolvedSchema = signal<JSONSchema>(false);
+  error = signal<Error | undefined>(undefined);
 
   expanded : boolean = true;
   
   constructor(
     private schemaResolutionService: SchemaResolutionService,
     private jsvOptionsService: JSVOptionsService,
-    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -101,21 +99,20 @@ export class NgxJsonSchemaViewerComponent implements OnInit {
       .resolveSchema(this.schema, this.resolverOptions)
       .subscribe({
         error: (err) => {
-          this.error = err;
-          this.resolvedSchema = false;
-          this.cdr.markForCheck();
+          this.error.set(err);
+          this.resolvedSchema.set(false);
         },
         next: (result) => {
-          this.resolvedSchema = result;
-          this.error = undefined;
-          this.cdr.markForCheck();
+          this.resolvedSchema.set(result);
+          this.error.set(undefined);
         }
       });
   }
 
   get getSchemaTitle() : string {
-    if (typeof this.resolvedSchema !== "boolean" && this.resolvedSchema.title !== undefined) {
-      return this.resolvedSchema.title;
+    let schema = this.resolvedSchema();
+    if (typeof schema !== "boolean" && schema.title !== undefined) {
+      return schema.title;
     }
     return "Schema";
   }

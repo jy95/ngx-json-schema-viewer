@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import {
     CreateValidOrInvalidComponent,
@@ -21,7 +21,6 @@ import type {
   selector: 'jse-common-create-types',
   standalone: true,
   imports: [CommonModule, CreateValidOrInvalidComponent, RenderProvidedTypeComponent,RenderMultipleTypesComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container>
 
@@ -50,24 +49,13 @@ import type {
     </ng-container>
   `,
 })
-export class CreateTypesComponent implements OnInit {
+export class CreateTypesComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
   // Props
-  foundTypes : TypeValues[] = [];
-  hasNull : boolean = false;
-  hasSchemaComposition : boolean = false;
-
-  constructor(private cdRef: ChangeDetectorRef) {}
-
-  // Inits
-  ngOnInit(): void {
-    this.foundTypes = detectedTypes(this.schema);
-    this.hasNull = this.foundTypes.includes("null");
-    this.hasSchemaComposition = isSchemaComposition(this.schema);
-
-    this.cdRef.markForCheck();
-  }
+  foundTypes : TypeValues[] = detectedTypes(this.schema);
+  hasNull : boolean = this.foundTypes.includes("null");
+  hasSchemaComposition : boolean = isSchemaComposition(this.schema);
 
   get firstType(): TypeValues {
     return this.foundTypes.find((s) => s !== "null") || this.foundTypes[0];
