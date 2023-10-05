@@ -63,7 +63,9 @@ import type { JSONSchema, TypeValues } from "../../types";
 export class GenerateFriendlyNameComponent {
   @Input({ required: true }) schema!: JSONSchema;
 
-  foundTypes : TypeValues[] = (typeof this.schema !== "boolean") ? detectedTypes(this.schema) : [];
+  get foundTypes(): TypeValues[] {
+    return (typeof this.schema !== "boolean") ? detectedTypes(this.schema) : [];
+  }
 
   isBoolean(value: JSONSchema): boolean {
     return typeof value === 'boolean';

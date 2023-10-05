@@ -67,13 +67,19 @@ export class GenerateFriendlyNameFallbackComponent {
     @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>
 
     // has a "...Of" keyword ?
-    hasOfKeyword : boolean = this.schema.allOf !== undefined || this.schema.anyOf !== undefined || this.schema.oneOf !== undefined;
+    get hasOfKeyword(): boolean {
+        return this.schema.allOf !== undefined || this.schema.anyOf !== undefined || this.schema.oneOf !== undefined;
+    }
 
     // has a "not" keyword ?
-    hasNotKeyword : boolean = this.schema.not !== undefined;
+    get hasNotKeyword(): boolean {
+        return this.schema.not !== undefined;
+    }
 
     // Kind of operators to use ?
-    linkword : LinkType = this.schema.anyOf ? "OR" : this.schema.oneOf ? "XOR" : "AND";
+    get linkword(): LinkType {
+        return this.schema.anyOf ? "OR" : this.schema.oneOf ? "XOR" : "AND";
+    }
 
     shouldAddSeparator(idx: number, length: number): boolean {
         return length <= 1 ? false : idx !== length - 1;

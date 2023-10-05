@@ -3666,7 +3666,7 @@
         },
         {
             "name": "GenerateFriendlyNameComponent",
-            "id": "component-GenerateFriendlyNameComponent-e87a30aba9ce3b6fc8f020eb7f2de6fe5564e063f2e44ec450aa5ddb051c35c8d7e4c86e4175451281b61ab65ab66e29faf1a5df80ddd7314a2f4e230acb866c",
+            "id": "component-GenerateFriendlyNameComponent-1e804841ec72e514435d2654e8259f612ab35f4587a17afda94185063fb0f326ddbb00033459d7c27f5839a4e6b5886af7fca7dde203a5d192ce003ef2772067",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/FriendlyNames/friendly-name.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3693,18 +3693,7 @@
                 }
             ],
             "outputsClass": [],
-            "propertiesClass": [
-                {
-                    "name": "foundTypes",
-                    "defaultValue": "(typeof this.schema !== \"boolean\") ? detectedTypes(this.schema) : []",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "TypeValues[]",
-                    "optional": false,
-                    "description": "",
-                    "line": 66
-                }
-            ],
+            "propertiesClass": [],
             "methodsClass": [
                 {
                     "name": "isBoolean",
@@ -3719,7 +3708,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 68,
+                    "line": 70,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -3753,7 +3742,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 80,
+                    "line": 82,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -3808,18 +3797,27 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    OrLabelComponent,\r\n} from \"../../labels/index\"\r\n\r\nimport {\r\n    detectedTypes\r\n} from \"../detectTypes\";\r\n\r\nimport {\r\n  TypeLabelSwitchComponent\r\n} from \"../type-label-switch\";\r\n\r\nimport {\r\n    GenerateFriendlyNameFallbackComponent,\r\n    GenerateFriendlyNameCustomComponent\r\n} from \"./index\";\r\n\r\nimport type { JSONSchema, TypeValues } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jsv-friendly-name',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    OrLabelComponent,\r\n    TypeLabelSwitchComponent,\r\n    forwardRef( () => GenerateFriendlyNameFallbackComponent),\r\n    forwardRef( () => GenerateFriendlyNameCustomComponent)\r\n  ],\r\n  template: `\r\n    <!--  In case the schema is always valid or not -->\r\n    <ng-container *ngIf=\"isBoolean(schema)\" else titleOrCustomBlock>\r\n      <jsv-type-label-switch [type]=\"typedBoolean\" />\r\n    </ng-container>\r\n\r\n    <ng-template #titleOrCustomBlock>\r\n\r\n      <!-- Some people maintaining schemas provide a friendly name by themself -->\r\n      <ng-container *ngIf=\"typedSchema.title; else customTypeBlock\">\r\n        {{ typedSchema.title }}\r\n      </ng-container>\r\n\r\n      <!-- -->\r\n      <ng-template #customTypeBlock>\r\n        <ng-container *ngIf=\"foundTypes.length === 0; else customTypeLoopBlock\">\r\n          <jsv-friendly-name-fallback [schema]=\"typedSchema\" />\r\n        </ng-container>\r\n        <ng-template #customTypeLoopBlock>\r\n          <ng-container *ngFor=\"let type of foundTypes; let idx = index\">\r\n            <jsv-friendly-name-custom [schema]=\"typedSchema\" [type]=\"type\"/>\r\n            <ng-container *ngIf=\"shouldAddSeparator(idx, foundTypes.length)\">\r\n              <labels-or />\r\n            </ng-container>\r\n          </ng-container>\r\n        </ng-template>\r\n\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class GenerateFriendlyNameComponent {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n\r\n  foundTypes : TypeValues[] = (typeof this.schema !== \"boolean\") ? detectedTypes(this.schema) : [];\r\n\r\n  isBoolean(value: JSONSchema): boolean {\r\n    return typeof value === 'boolean';\r\n  }\r\n\r\n  get typedBoolean(): boolean {\r\n    return this.schema as boolean;\r\n  }\r\n\r\n  get typedSchema(): Exclude<JSONSchema, true | false> {\r\n    return this.schema as Exclude<JSONSchema, true | false>;\r\n  }\r\n\r\n  shouldAddSeparator(idx: number, length: number): boolean {\r\n    return length <= 1 ? false : idx !== length - 1;\r\n  }\r\n}\r\n\r\n",
+            "sourceCode": "import { Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    OrLabelComponent,\r\n} from \"../../labels/index\"\r\n\r\nimport {\r\n    detectedTypes\r\n} from \"../detectTypes\";\r\n\r\nimport {\r\n  TypeLabelSwitchComponent\r\n} from \"../type-label-switch\";\r\n\r\nimport {\r\n    GenerateFriendlyNameFallbackComponent,\r\n    GenerateFriendlyNameCustomComponent\r\n} from \"./index\";\r\n\r\nimport type { JSONSchema, TypeValues } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jsv-friendly-name',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    OrLabelComponent,\r\n    TypeLabelSwitchComponent,\r\n    forwardRef( () => GenerateFriendlyNameFallbackComponent),\r\n    forwardRef( () => GenerateFriendlyNameCustomComponent)\r\n  ],\r\n  template: `\r\n    <!--  In case the schema is always valid or not -->\r\n    <ng-container *ngIf=\"isBoolean(schema)\" else titleOrCustomBlock>\r\n      <jsv-type-label-switch [type]=\"typedBoolean\" />\r\n    </ng-container>\r\n\r\n    <ng-template #titleOrCustomBlock>\r\n\r\n      <!-- Some people maintaining schemas provide a friendly name by themself -->\r\n      <ng-container *ngIf=\"typedSchema.title; else customTypeBlock\">\r\n        {{ typedSchema.title }}\r\n      </ng-container>\r\n\r\n      <!-- -->\r\n      <ng-template #customTypeBlock>\r\n        <ng-container *ngIf=\"foundTypes.length === 0; else customTypeLoopBlock\">\r\n          <jsv-friendly-name-fallback [schema]=\"typedSchema\" />\r\n        </ng-container>\r\n        <ng-template #customTypeLoopBlock>\r\n          <ng-container *ngFor=\"let type of foundTypes; let idx = index\">\r\n            <jsv-friendly-name-custom [schema]=\"typedSchema\" [type]=\"type\"/>\r\n            <ng-container *ngIf=\"shouldAddSeparator(idx, foundTypes.length)\">\r\n              <labels-or />\r\n            </ng-container>\r\n          </ng-container>\r\n        </ng-template>\r\n\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class GenerateFriendlyNameComponent {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n\r\n  get foundTypes(): TypeValues[] {\r\n    return (typeof this.schema !== \"boolean\") ? detectedTypes(this.schema) : [];\r\n  }\r\n\r\n  isBoolean(value: JSONSchema): boolean {\r\n    return typeof value === 'boolean';\r\n  }\r\n\r\n  get typedBoolean(): boolean {\r\n    return this.schema as boolean;\r\n  }\r\n\r\n  get typedSchema(): Exclude<JSONSchema, true | false> {\r\n    return this.schema as Exclude<JSONSchema, true | false>;\r\n  }\r\n\r\n  shouldAddSeparator(idx: number, length: number): boolean {\r\n    return length <= 1 ? false : idx !== length - 1;\r\n  }\r\n}\r\n\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "accessors": {
+                "foundTypes": {
+                    "name": "foundTypes",
+                    "getSignature": {
+                        "name": "foundTypes",
+                        "type": "[]",
+                        "returnType": "TypeValues[]",
+                        "line": 66
+                    }
+                },
                 "typedBoolean": {
                     "name": "typedBoolean",
                     "getSignature": {
                         "name": "typedBoolean",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 72
+                        "line": 74
                     }
                 },
                 "typedSchema": {
@@ -3828,7 +3826,7 @@
                         "name": "typedSchema",
                         "type": "",
                         "returnType": "Exclude<JSONSchema,  | >",
-                        "line": 76
+                        "line": 78
                     }
                 }
             }
@@ -4142,7 +4140,7 @@
         },
         {
             "name": "GenerateFriendlyNameFallbackComponent",
-            "id": "component-GenerateFriendlyNameFallbackComponent-066ead3d7662093ef480f583078590dc1b2ab5cd346ba8dbf537fb014f39186f2c21d66d0748e29778b21da4aae2fb010381d09b269b046bb82255113985600d",
+            "id": "component-GenerateFriendlyNameFallbackComponent-bf300e882875a66f03ce96a6dff8b8af15e248a245930374b24d0776eb6d373ac82968a03a4c9f30dafb7ee37307f279b530029262859d39282db8e5eb4d7f68",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/FriendlyNames/friendly-name-fallback.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -4169,38 +4167,7 @@
                 }
             ],
             "outputsClass": [],
-            "propertiesClass": [
-                {
-                    "name": "hasNotKeyword",
-                    "defaultValue": "this.schema.not !== undefined",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "boolean",
-                    "optional": false,
-                    "description": "",
-                    "line": 73
-                },
-                {
-                    "name": "hasOfKeyword",
-                    "defaultValue": "this.schema.allOf !== undefined || this.schema.anyOf !== undefined || this.schema.oneOf !== undefined",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "boolean",
-                    "optional": false,
-                    "description": "",
-                    "line": 70
-                },
-                {
-                    "name": "linkword",
-                    "defaultValue": "this.schema.anyOf ? \"OR\" : this.schema.oneOf ? \"XOR\" : \"AND\"",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "LinkType",
-                    "optional": false,
-                    "description": "",
-                    "line": 76
-                }
-            ],
+            "propertiesClass": [],
             "methodsClass": [
                 {
                     "name": "shouldAddSeparator",
@@ -4221,7 +4188,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 78,
+                    "line": 84,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4284,18 +4251,45 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    AndLabelComponent,\r\n    NotLabelComponent,\r\n    OrLabelComponent,\r\n    XorLabelComponent\r\n} from \"../../labels/index\";\r\n\r\nimport {\r\n    GenerateFriendlyNameComponent\r\n} from \"./index\";\r\n\r\nimport {\r\n    TypeLabelSwitchComponent\r\n} from \"../index\";\r\n\r\nimport type { JSONSchema } from \"../../types\";\r\n\r\ntype LinkType = \"AND\" | \"OR\" | \"XOR\";\r\n\r\n@Component({\r\n    selector: 'jsv-friendly-name-fallback',\r\n    standalone: true,\r\n    imports: [\r\n      CommonModule,\r\n      NotLabelComponent,\r\n      AndLabelComponent,\r\n      XorLabelComponent,\r\n      OrLabelComponent,\r\n      forwardRef(() => GenerateFriendlyNameComponent),\r\n      TypeLabelSwitchComponent\r\n    ],\r\n    template: `\r\n        <!--  1. we have a Schema Composition case (not, allOf, ...) -->\r\n\r\n        <!--  1A) the \"not\" case -->\r\n        <ng-container *ngIf=\"hasNotKeyword\">\r\n            <labels-not />\r\n            {{ ' (' }}\r\n            <jsv-friendly-name [schema]=\"schema.not!\" />\r\n            {{ ' ) ' }}\r\n        </ng-container>\r\n\r\n        <!--  1B) the \"allOf\" / \"oneOf\" / \"anyOf\" -->\r\n        <ng-template *ngIf=\"hasOfKeyword; else defaultStrategy\">\r\n            <ng-container *ngFor=\"let elem of elementsOf; let idx = index\">\r\n                <jsv-friendly-name [schema]=\"elem\" />\r\n                <ng-container *ngIf=\"shouldAddSeparator(idx, elementsOf.length)\">\r\n                    <ng-container [ngSwitch]=\"linkword\">\r\n                        <labels-or *ngSwitchCase=\"'OR'\" />\r\n                        <labels-xor *ngSwitchCase=\"'XOR'\" />\r\n                        <labels-and *ngSwitchCase=\"'AND'\" />\r\n                    </ng-container>\r\n                </ng-container>\r\n            </ng-container>\r\n        </ng-template>\r\n\r\n        <!--  2. Assume it is \"any\" by default -->\r\n        <ng-template #defaultStrategy>\r\n            <jsv-type-label-switch [type]=\"true\"] />\r\n        </ng-template>\r\n    `\r\n})\r\nexport class GenerateFriendlyNameFallbackComponent {\r\n    @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>\r\n\r\n    // has a \"...Of\" keyword ?\r\n    hasOfKeyword : boolean = this.schema.allOf !== undefined || this.schema.anyOf !== undefined || this.schema.oneOf !== undefined;\r\n\r\n    // has a \"not\" keyword ?\r\n    hasNotKeyword : boolean = this.schema.not !== undefined;\r\n\r\n    // Kind of operators to use ?\r\n    linkword : LinkType = this.schema.anyOf ? \"OR\" : this.schema.oneOf ? \"XOR\" : \"AND\";\r\n\r\n    shouldAddSeparator(idx: number, length: number): boolean {\r\n        return length <= 1 ? false : idx !== length - 1;\r\n    }\r\n\r\n    // allOf / anyOf / oneOf\r\n    get elementsOf() : JSONSchema[] {\r\n        return (this.schema.allOf || this.schema.anyOf || this.schema.oneOf || []) as JSONSchema[];\r\n    }\r\n}",
+            "sourceCode": "import { Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    AndLabelComponent,\r\n    NotLabelComponent,\r\n    OrLabelComponent,\r\n    XorLabelComponent\r\n} from \"../../labels/index\";\r\n\r\nimport {\r\n    GenerateFriendlyNameComponent\r\n} from \"./index\";\r\n\r\nimport {\r\n    TypeLabelSwitchComponent\r\n} from \"../index\";\r\n\r\nimport type { JSONSchema } from \"../../types\";\r\n\r\ntype LinkType = \"AND\" | \"OR\" | \"XOR\";\r\n\r\n@Component({\r\n    selector: 'jsv-friendly-name-fallback',\r\n    standalone: true,\r\n    imports: [\r\n      CommonModule,\r\n      NotLabelComponent,\r\n      AndLabelComponent,\r\n      XorLabelComponent,\r\n      OrLabelComponent,\r\n      forwardRef(() => GenerateFriendlyNameComponent),\r\n      TypeLabelSwitchComponent\r\n    ],\r\n    template: `\r\n        <!--  1. we have a Schema Composition case (not, allOf, ...) -->\r\n\r\n        <!--  1A) the \"not\" case -->\r\n        <ng-container *ngIf=\"hasNotKeyword\">\r\n            <labels-not />\r\n            {{ ' (' }}\r\n            <jsv-friendly-name [schema]=\"schema.not!\" />\r\n            {{ ' ) ' }}\r\n        </ng-container>\r\n\r\n        <!--  1B) the \"allOf\" / \"oneOf\" / \"anyOf\" -->\r\n        <ng-template *ngIf=\"hasOfKeyword; else defaultStrategy\">\r\n            <ng-container *ngFor=\"let elem of elementsOf; let idx = index\">\r\n                <jsv-friendly-name [schema]=\"elem\" />\r\n                <ng-container *ngIf=\"shouldAddSeparator(idx, elementsOf.length)\">\r\n                    <ng-container [ngSwitch]=\"linkword\">\r\n                        <labels-or *ngSwitchCase=\"'OR'\" />\r\n                        <labels-xor *ngSwitchCase=\"'XOR'\" />\r\n                        <labels-and *ngSwitchCase=\"'AND'\" />\r\n                    </ng-container>\r\n                </ng-container>\r\n            </ng-container>\r\n        </ng-template>\r\n\r\n        <!--  2. Assume it is \"any\" by default -->\r\n        <ng-template #defaultStrategy>\r\n            <jsv-type-label-switch [type]=\"true\"] />\r\n        </ng-template>\r\n    `\r\n})\r\nexport class GenerateFriendlyNameFallbackComponent {\r\n    @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>\r\n\r\n    // has a \"...Of\" keyword ?\r\n    get hasOfKeyword(): boolean {\r\n        return this.schema.allOf !== undefined || this.schema.anyOf !== undefined || this.schema.oneOf !== undefined;\r\n    }\r\n\r\n    // has a \"not\" keyword ?\r\n    get hasNotKeyword(): boolean {\r\n        return this.schema.not !== undefined;\r\n    }\r\n\r\n    // Kind of operators to use ?\r\n    get linkword(): LinkType {\r\n        return this.schema.anyOf ? \"OR\" : this.schema.oneOf ? \"XOR\" : \"AND\";\r\n    }\r\n\r\n    shouldAddSeparator(idx: number, length: number): boolean {\r\n        return length <= 1 ? false : idx !== length - 1;\r\n    }\r\n\r\n    // allOf / anyOf / oneOf\r\n    get elementsOf() : JSONSchema[] {\r\n        return (this.schema.allOf || this.schema.anyOf || this.schema.oneOf || []) as JSONSchema[];\r\n    }\r\n}",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "accessors": {
+                "hasOfKeyword": {
+                    "name": "hasOfKeyword",
+                    "getSignature": {
+                        "name": "hasOfKeyword",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 70
+                    }
+                },
+                "hasNotKeyword": {
+                    "name": "hasNotKeyword",
+                    "getSignature": {
+                        "name": "hasNotKeyword",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 75
+                    }
+                },
+                "linkword": {
+                    "name": "linkword",
+                    "getSignature": {
+                        "name": "linkword",
+                        "type": "",
+                        "returnType": "LinkType",
+                        "line": 80
+                    }
+                },
                 "elementsOf": {
                     "name": "elementsOf",
                     "getSignature": {
                         "name": "elementsOf",
                         "type": "[]",
                         "returnType": "JSONSchema[]",
-                        "line": 83
+                        "line": 89
                     }
                 }
             }
@@ -9419,7 +9413,7 @@
                 "linktype": "component",
                 "name": "GenerateFriendlyNameFallbackComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {
@@ -9428,7 +9422,7 @@
                 "linktype": "component",
                 "name": "GenerateFriendlyNameComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/4",
                 "status": "low"
             },
             {
