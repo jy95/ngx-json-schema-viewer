@@ -24,9 +24,9 @@ import type {
   template: `
     <ng-container>
 
-      <ng-container *ngIf="foundTypes; else defaultCase">
+      <ng-container *ngIf="foundTypes.length > 0; else defaultCase">
         <!-- Case 1: Single type or type with null -->
-        <ng-container *ngIf="foundTypes.length === 1 || (hasNull && foundTypes.length === 2); else case2">
+        <ng-container *ngIf="hasSingleType; else case2">
           <jse-common-render-provided-type [schema]="schema" [type]="firstType" [nullable]="hasNull" />
         </ng-container>
 
@@ -54,6 +54,11 @@ export class CreateTypesComponent {
 
   get foundTypes() : TypeValues[] {
     return detectedTypes(this.schema);
+  }
+
+  // Single type or type with null
+  get hasSingleType(): boolean {
+    return this.foundTypes.length === 1 || (this.hasNull && this.foundTypes.length === 2);
   }
 
   get hasNull() : boolean {

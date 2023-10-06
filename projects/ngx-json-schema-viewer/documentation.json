@@ -226,7 +226,7 @@
         },
         {
             "name": "AndLabelComponent",
-            "id": "component-AndLabelComponent-0222b37bdb5b12e7009ce3a6201f860ffb25e08ed3a915001656ca0db81f6454166bb8eaed5d2f01f34eceddfe7a31accd4475f12623be2612f4a0c5126c3120",
+            "id": "component-AndLabelComponent-59fa189852eac292acb1d556d701eed4997358d8255be747cc7d393adecffc8a89b99a4486ded736eee156c4b63376ec00c25c83bda50fed33c18bcac21bd4f2",
             "file": "projects/ngx-json-schema-viewer/src/lib/labels/and-label.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -249,11 +249,15 @@
             "hostBindings": [],
             "hostListeners": [],
             "standalone": true,
-            "imports": [],
+            "imports": [
+                {
+                    "name": "NgTemplateOutlet"
+                }
+            ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-and',\r\n  standalone: true,\r\n  imports: [],\r\n  template: `\r\n    <ng-container *ngTemplateOutlet=\"spaceTemplate\"></ng-container>\r\n    <strong>AND</strong>\r\n    <ng-container *ngTemplateOutlet=\"spaceTemplate\"></ng-container>\r\n\r\n    <ng-template #spaceTemplate>\r\n      &nbsp;\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class AndLabelComponent {}\r\n",
+            "sourceCode": "import { NgTemplateOutlet } from '@angular/common';\r\nimport { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-and',\r\n  standalone: true,\r\n  imports: [NgTemplateOutlet],\r\n  template: `\r\n    <ng-container *ngTemplateOutlet=\"spaceTemplate\"></ng-container>\r\n    <strong>AND</strong>\r\n    <ng-container *ngTemplateOutlet=\"spaceTemplate\"></ng-container>\r\n\r\n    <ng-template #spaceTemplate>\r\n      &nbsp;\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class AndLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -2668,7 +2672,7 @@
         },
         {
             "name": "CreateTypesComponent",
-            "id": "component-CreateTypesComponent-794d8904fab50170275d175b9fcf4df0192756deba607a243fe401fbbc35d85dfb8dcee368e464cc0eee864e873a56efcf93229d925ba205de1006c77c2df28f",
+            "id": "component-CreateTypesComponent-cbeca9c59af097c32dc247b7153ba3ef40f94b4166f9a8f7281db2659394336ab6bb90e28feef3541645c99ce40ce6d3a53e1bfbe5bec21038cab01330f98e23",
             "file": "projects/ngx-json-schema-viewer/src/lib/common/create-types.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2678,7 +2682,7 @@
             "selector": "jse-common-create-types",
             "styleUrls": [],
             "styles": [],
-            "template": "<ng-container>\n\n  <ng-container *ngIf=\"foundTypes; else defaultCase\">\n    <!-- Case 1: Single type or type with null -->\n    <ng-container *ngIf=\"foundTypes.length === 1 || (hasNull && foundTypes.length === 2); else case2\">\n      <jse-common-render-provided-type [schema]=\"schema\" [type]=\"firstType\" [nullable]=\"hasNull\" />\n    </ng-container>\n\n    <!-- Case 2: Multiple types -->\n    <ng-template #case2>\n      <jse-common-multiple-types [schema]=\"schema\" [types]=\"notNullTypeValues\" [nullable]=\"hasNull\" />\n    </ng-template>\n  </ng-container>\n\n  <!-- Default Case: Handle cases like { \"allOf\": ... } or { \"if\": ... } -->\n  <ng-template #defaultCase>\n    <ng-container *ngIf=\"!hasSchemaComposition; else compositionCase\">\n      <jse-common-create-valid-or-invalid [schema]=\"schema\" />\n    </ng-container>\n\n    <ng-template #compositionCase>\n      <!--  Otherwise, we have a SchemaComposition, which will be handled by CreateNodes -->\n    </ng-template>\n  </ng-template>\n</ng-container>\n",
+            "template": "<ng-container>\n\n  <ng-container *ngIf=\"foundTypes.length > 0; else defaultCase\">\n    <!-- Case 1: Single type or type with null -->\n    <ng-container *ngIf=\"hasSingleType; else case2\">\n      <jse-common-render-provided-type [schema]=\"schema\" [type]=\"firstType\" [nullable]=\"hasNull\" />\n    </ng-container>\n\n    <!-- Case 2: Multiple types -->\n    <ng-template #case2>\n      <jse-common-multiple-types [schema]=\"schema\" [types]=\"notNullTypeValues\" [nullable]=\"hasNull\" />\n    </ng-template>\n  </ng-container>\n\n  <!-- Default Case: Handle cases like { \"allOf\": ... } or { \"if\": ... } -->\n  <ng-template #defaultCase>\n    <ng-container *ngIf=\"!hasSchemaComposition; else compositionCase\">\n      <jse-common-create-valid-or-invalid [schema]=\"schema\" />\n    </ng-container>\n\n    <ng-template #compositionCase>\n      <!--  Otherwise, we have a SchemaComposition, which will be handled by CreateNodes -->\n    </ng-template>\n  </ng-template>\n</ng-container>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -2723,7 +2727,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input } from '@angular/core';\r\n\r\nimport {\r\n    CreateValidOrInvalidComponent,\r\n    RenderProvidedTypeComponent,\r\n    RenderMultipleTypesComponent\r\n} from \"./index\";\r\n\r\nimport {\r\n    detectedTypes,\r\n    isSchemaComposition\r\n} from \"../utils/index\"\r\n\r\nimport type {\r\n    TypeValues,\r\n    JSONSchema\r\n} from \"../types\";\r\n\r\n@Component({\r\n  selector: 'jse-common-create-types',\r\n  standalone: true,\r\n  imports: [CommonModule, CreateValidOrInvalidComponent, RenderProvidedTypeComponent,RenderMultipleTypesComponent],\r\n  template: `\r\n    <ng-container>\r\n\r\n      <ng-container *ngIf=\"foundTypes; else defaultCase\">\r\n        <!-- Case 1: Single type or type with null -->\r\n        <ng-container *ngIf=\"foundTypes.length === 1 || (hasNull && foundTypes.length === 2); else case2\">\r\n          <jse-common-render-provided-type [schema]=\"schema\" [type]=\"firstType\" [nullable]=\"hasNull\" />\r\n        </ng-container>\r\n\r\n        <!-- Case 2: Multiple types -->\r\n        <ng-template #case2>\r\n          <jse-common-multiple-types [schema]=\"schema\" [types]=\"notNullTypeValues\" [nullable]=\"hasNull\" />\r\n        </ng-template>\r\n      </ng-container>\r\n\r\n      <!-- Default Case: Handle cases like { \"allOf\": ... } or { \"if\": ... } -->\r\n      <ng-template #defaultCase>\r\n        <ng-container *ngIf=\"!hasSchemaComposition; else compositionCase\">\r\n          <jse-common-create-valid-or-invalid [schema]=\"schema\" />\r\n        </ng-container>\r\n\r\n        <ng-template #compositionCase>\r\n          <!--  Otherwise, we have a SchemaComposition, which will be handled by CreateNodes -->\r\n        </ng-template>\r\n      </ng-template>\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class CreateTypesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  get foundTypes() : TypeValues[] {\r\n    return detectedTypes(this.schema);\r\n  }\r\n\r\n  get hasNull() : boolean {\r\n    return this.foundTypes.includes(\"null\");\r\n  }\r\n\r\n  get hasSchemaComposition() : boolean {\r\n    return isSchemaComposition(this.schema);\r\n  }\r\n\r\n  get firstType(): TypeValues {\r\n    return this.foundTypes.find((s) => s !== \"null\") || this.foundTypes[0];\r\n  }\r\n\r\n  get notNullTypeValues(): TypeValues[] {\r\n    return this.foundTypes.filter((s) => s !== \"null\");\r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input } from '@angular/core';\r\n\r\nimport {\r\n    CreateValidOrInvalidComponent,\r\n    RenderProvidedTypeComponent,\r\n    RenderMultipleTypesComponent\r\n} from \"./index\";\r\n\r\nimport {\r\n    detectedTypes,\r\n    isSchemaComposition\r\n} from \"../utils/index\"\r\n\r\nimport type {\r\n    TypeValues,\r\n    JSONSchema\r\n} from \"../types\";\r\n\r\n@Component({\r\n  selector: 'jse-common-create-types',\r\n  standalone: true,\r\n  imports: [CommonModule, CreateValidOrInvalidComponent, RenderProvidedTypeComponent,RenderMultipleTypesComponent],\r\n  template: `\r\n    <ng-container>\r\n\r\n      <ng-container *ngIf=\"foundTypes.length > 0; else defaultCase\">\r\n        <!-- Case 1: Single type or type with null -->\r\n        <ng-container *ngIf=\"hasSingleType; else case2\">\r\n          <jse-common-render-provided-type [schema]=\"schema\" [type]=\"firstType\" [nullable]=\"hasNull\" />\r\n        </ng-container>\r\n\r\n        <!-- Case 2: Multiple types -->\r\n        <ng-template #case2>\r\n          <jse-common-multiple-types [schema]=\"schema\" [types]=\"notNullTypeValues\" [nullable]=\"hasNull\" />\r\n        </ng-template>\r\n      </ng-container>\r\n\r\n      <!-- Default Case: Handle cases like { \"allOf\": ... } or { \"if\": ... } -->\r\n      <ng-template #defaultCase>\r\n        <ng-container *ngIf=\"!hasSchemaComposition; else compositionCase\">\r\n          <jse-common-create-valid-or-invalid [schema]=\"schema\" />\r\n        </ng-container>\r\n\r\n        <ng-template #compositionCase>\r\n          <!--  Otherwise, we have a SchemaComposition, which will be handled by CreateNodes -->\r\n        </ng-template>\r\n      </ng-template>\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class CreateTypesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  get foundTypes() : TypeValues[] {\r\n    return detectedTypes(this.schema);\r\n  }\r\n\r\n  // Single type or type with null\r\n  get hasSingleType(): boolean {\r\n    return this.foundTypes.length === 1 || (this.hasNull && this.foundTypes.length === 2);\r\n  }\r\n\r\n  get hasNull() : boolean {\r\n    return this.foundTypes.includes(\"null\");\r\n  }\r\n\r\n  get hasSchemaComposition() : boolean {\r\n    return isSchemaComposition(this.schema);\r\n  }\r\n\r\n  get firstType(): TypeValues {\r\n    return this.foundTypes.find((s) => s !== \"null\") || this.foundTypes[0];\r\n  }\r\n\r\n  get notNullTypeValues(): TypeValues[] {\r\n    return this.foundTypes.filter((s) => s !== \"null\");\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -2737,13 +2741,22 @@
                         "line": 55
                     }
                 },
+                "hasSingleType": {
+                    "name": "hasSingleType",
+                    "getSignature": {
+                        "name": "hasSingleType",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 60
+                    }
+                },
                 "hasNull": {
                     "name": "hasNull",
                     "getSignature": {
                         "name": "hasNull",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 59
+                        "line": 64
                     }
                 },
                 "hasSchemaComposition": {
@@ -2752,7 +2765,7 @@
                         "name": "hasSchemaComposition",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 63
+                        "line": 68
                     }
                 },
                 "firstType": {
@@ -2761,7 +2774,7 @@
                         "name": "firstType",
                         "type": "",
                         "returnType": "TypeValues",
-                        "line": 67
+                        "line": 72
                     }
                 },
                 "notNullTypeValues": {
@@ -2770,7 +2783,7 @@
                         "name": "notNullTypeValues",
                         "type": "[]",
                         "returnType": "TypeValues[]",
-                        "line": 71
+                        "line": 76
                     }
                 }
             }
@@ -3636,7 +3649,7 @@
         },
         {
             "name": "ExamplesComponent",
-            "id": "component-ExamplesComponent-ca66ac3fb89e6e8385f73b5f196b18b2820f7615c9503bc7c1642dee8b105bbaa519a767dc2ac8f8d259e56777a6b311bd16cbd9ab6fba87f5618e65a07f4d2b",
+            "id": "component-ExamplesComponent-4798d17eea320ea4b14c679ba9bc28faa5555ce1d9627ed9fd0c57185310ace973af29e9e86884553c5c906e5fa1c5c1f7431c9e90f0dabd7103be4787648fa8",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/examples.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3657,7 +3670,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 25,
+                    "line": 30,
                     "type": "Exclude<JSONSchema |  | >",
                     "decorators": []
                 }
@@ -3672,7 +3685,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 27
+                    "line": 32
                 }
             ],
             "methodsClass": [],
@@ -3682,6 +3695,10 @@
             "hostListeners": [],
             "standalone": true,
             "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                },
                 {
                     "name": "MatTabsModule",
                     "type": "module"
@@ -3694,7 +3711,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport {MatTabsModule} from '@angular/material/tabs';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\ntype itemsType = { id: number; value: any; label: string }[]\r\n\r\n@Component({\r\n  selector: 'qm-examples',\r\n  standalone: true,\r\n  imports: [MatTabsModule, PrintSchemaTypeComponent],\r\n  template: `\r\n    <div>\r\n      <strong>{{ examplesLabel }}</strong>&nbsp;\r\n      <mat-tab-group>\r\n        <mat-tab *ngFor=\"let item of items\" [label]=\"item.label\">\r\n            <lib-print-schema-type [obj]=\"item.value\"></lib-print-schema-type>\r\n        </mat-tab>\r\n      </mat-tab-group>\r\n    </div>\r\n  `,\r\n})\r\nexport class ExamplesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  examplesLabel = 'Example values :';\r\n\r\n  get items(): itemsType {\r\n    return (this.schema.examples || [])\r\n      .map((val, idx) => ({\r\n        id: idx,\r\n        value: val,\r\n        label: `Example ${idx}`,\r\n    }));\r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport {MatTabsModule} from '@angular/material/tabs';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\ntype itemsType = { id: number; value: any; label: string }[]\r\n\r\n@Component({\r\n  selector: 'qm-examples',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatTabsModule, \r\n    PrintSchemaTypeComponent\r\n  ],\r\n  template: `\r\n    <div>\r\n      <strong>{{ examplesLabel }}</strong>&nbsp;\r\n      <mat-tab-group>\r\n        <mat-tab *ngFor=\"let item of items\" [label]=\"item.label\">\r\n            <lib-print-schema-type [obj]=\"item.value\"></lib-print-schema-type>\r\n        </mat-tab>\r\n      </mat-tab-group>\r\n    </div>\r\n  `,\r\n})\r\nexport class ExamplesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  examplesLabel = 'Example values :';\r\n\r\n  get items(): itemsType {\r\n    return (this.schema.examples || [])\r\n      .map((val, idx) => ({\r\n        id: idx,\r\n        value: val,\r\n        label: `Example ${idx}`,\r\n    }));\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -3705,7 +3722,7 @@
                         "name": "items",
                         "type": "",
                         "returnType": "itemsType",
-                        "line": 29
+                        "line": 34
                     }
                 }
             }
@@ -5414,7 +5431,7 @@
         },
         {
             "name": "OrLabelComponent",
-            "id": "component-OrLabelComponent-086af1365fa93b1b9382463a76122e768e5b0770a75aab4ead4cdcb296132e5fe9253de46c9d5f829967f1e1fcb179c1f80cbd5bd7923e824ca9488d5cd186ec",
+            "id": "component-OrLabelComponent-9b391c478e34d9fe1cd16d56bb9b131469b6fac2fd32a4bfd95d6ea2994a84243ab9bb08edf341a98f3b24f439ec2bb5c1d8035c6761773f3c0cea45f835574d",
             "file": "projects/ngx-json-schema-viewer/src/lib/labels/or-label.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5437,11 +5454,15 @@
             "hostBindings": [],
             "hostListeners": [],
             "standalone": true,
-            "imports": [],
+            "imports": [
+                {
+                    "name": "NgTemplateOutlet"
+                }
+            ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-or',\r\n  standalone: true,\r\n  imports: [],\r\n  template: `\r\n    <ng-container *ngTemplateOutlet=\"spaceTemplate\"></ng-container>\r\n    <strong>OR</strong>\r\n    <ng-container *ngTemplateOutlet=\"spaceTemplate\"></ng-container>\r\n\r\n    <ng-template #spaceTemplate>\r\n      &nbsp;\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class OrLabelComponent {}\r\n",
+            "sourceCode": "import { NgTemplateOutlet } from '@angular/common';\r\nimport { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-or',\r\n  standalone: true,\r\n  imports: [NgTemplateOutlet],\r\n  template: `\r\n    <ng-container *ngTemplateOutlet=\"spaceTemplate\"></ng-container>\r\n    <strong>OR</strong>\r\n    <ng-container *ngTemplateOutlet=\"spaceTemplate\"></ng-container>\r\n\r\n    <ng-template #spaceTemplate>\r\n      &nbsp;\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class OrLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -5515,7 +5536,7 @@
         },
         {
             "name": "PrintSchemaTypeComponent",
-            "id": "component-PrintSchemaTypeComponent-0b56a959d4154341153f3eb0a42d90145b4685f290521f4407eaf4af0d2b8b5a9567fd9a60d14448e0f2cbd9c7eb5ee2abbea03efa331bad71041fcab4cc59a4",
+            "id": "component-PrintSchemaTypeComponent-5d432b16b561931f181e5d670817e38c39e2711de884d99ea64f46629de3eadfe42aa64acc13c1a5d7db78bb0d196215f3605e311a8130042e81aa5518ffa51a",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/print-schema-type.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5527,7 +5548,7 @@
             "styles": [
                 "\n    .json-block {\n      background-color: #f5f5f5;\n      padding: 10px;\n      border: 1px solid #ddd;\n    }\n  "
             ],
-            "template": "<ng-container *ngIf=\"isSimpleType; else complexType\">\n  <code>{{ value }}</code>\n</ng-container>\n<ng-template #complexType>\n    <pre><code [highlight]=\"jsonCode\" [languages]=\"['json']\"></code></pre>\n</ng-template>\n",
+            "template": "<ng-container *ngIf=\"isSimpleType; else complexType\">\n  <code>{{ value }}</code>\n</ng-container>\n<ng-template #complexType>\n    <pre><code [highlight]=\"jsonCode\" [languages]=\"languages\"></code></pre>\n</ng-template>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -5564,7 +5585,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input } from '@angular/core';\r\nimport { HighlightModule } from 'ngx-highlightjs';\r\n\r\n@Component({\r\n  selector: 'lib-print-schema-type',\r\n  template: `\r\n    <ng-container *ngIf=\"isSimpleType; else complexType\">\r\n      <code>{{ value }}</code>\r\n    </ng-container>\r\n    <ng-template #complexType>\r\n        <pre><code [highlight]=\"jsonCode\" [languages]=\"['json']\"></code></pre>\r\n    </ng-template>\r\n  `,\r\n  styles: [`\r\n    .json-block {\r\n      background-color: #f5f5f5;\r\n      padding: 10px;\r\n      border: 1px solid #ddd;\r\n    }\r\n  `],\r\n  standalone: true,\r\n  imports: [HighlightModule, CommonModule]\r\n})\r\nexport class PrintSchemaTypeComponent {\r\n  @Input({ required: true }) obj!: unknown;\r\n\r\n  get isSimpleType(): boolean {\r\n    return ['string', 'number', 'bigint', 'boolean'].includes(typeof this.obj);\r\n  }\r\n\r\n  get jsonCode(): string {\r\n    return JSON.stringify(this.obj, null, \"\\t\");\r\n  }\r\n\r\n  get value(): string {\r\n    return this.obj!.toString();\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input } from '@angular/core';\r\nimport { HighlightModule } from 'ngx-highlightjs';\r\n\r\n@Component({\r\n  selector: 'lib-print-schema-type',\r\n  template: `\r\n    <ng-container *ngIf=\"isSimpleType; else complexType\">\r\n      <code>{{ value }}</code>\r\n    </ng-container>\r\n    <ng-template #complexType>\r\n        <pre><code [highlight]=\"jsonCode\" [languages]=\"languages\"></code></pre>\r\n    </ng-template>\r\n  `,\r\n  styles: [`\r\n    .json-block {\r\n      background-color: #f5f5f5;\r\n      padding: 10px;\r\n      border: 1px solid #ddd;\r\n    }\r\n  `],\r\n  standalone: true,\r\n  imports: [HighlightModule, CommonModule]\r\n})\r\nexport class PrintSchemaTypeComponent {\r\n  @Input({ required: true }) obj!: unknown;\r\n\r\n  get isSimpleType(): boolean {\r\n    return ['string', 'number', 'bigint', 'boolean'].includes(typeof this.obj);\r\n  }\r\n\r\n  get jsonCode(): string {\r\n    return JSON.stringify(this.obj, null, \"\\t\");\r\n  }\r\n\r\n  get value(): string {\r\n    return this.obj!.toString();\r\n  }\r\n\r\n  get languages(): string[] {\r\n    return [\"json\"];\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "\n    .json-block {\n      background-color: #f5f5f5;\n      padding: 10px;\n      border: 1px solid #ddd;\n    }\n  \n",
@@ -5594,6 +5615,15 @@
                         "type": "string",
                         "returnType": "string",
                         "line": 36
+                    }
+                },
+                "languages": {
+                    "name": "languages",
+                    "getSignature": {
+                        "name": "languages",
+                        "type": "[]",
+                        "returnType": "string[]",
+                        "line": 40
                     }
                 }
             }
@@ -6820,7 +6850,7 @@
         },
         {
             "name": "XorLabelComponent",
-            "id": "component-XorLabelComponent-7f98e013f8165fa5dc7ea8c4d23a6ee13f82340054feba6e747089e4bf2f8a04d58981d65862cc8f9047d8df29c15a204363873ee149b39f685e5403f391ef72",
+            "id": "component-XorLabelComponent-fec3f89a7fabaf19fcfd8123d08076038c2dc466702616cd65ad5f61099f8ab79469dd813e2f1da79a0b901b497ae36f25cb9a7e672f6a2870006e0bc5724117",
             "file": "projects/ngx-json-schema-viewer/src/lib/labels/xor-label.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6843,11 +6873,15 @@
             "hostBindings": [],
             "hostListeners": [],
             "standalone": true,
-            "imports": [],
+            "imports": [
+                {
+                    "name": "NgTemplateOutlet"
+                }
+            ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-xor',\r\n  standalone: true,\r\n  imports: [],\r\n  template: `\r\n    <ng-container *ngTemplateOutlet=\"spaceTemplate\"></ng-container>\r\n    <strong>XOR</strong>\r\n    <ng-container *ngTemplateOutlet=\"spaceTemplate\"></ng-container>\r\n\r\n    <ng-template #spaceTemplate>\r\n      &nbsp;\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class XorLabelComponent {}\r\n",
+            "sourceCode": "import { NgTemplateOutlet } from '@angular/common';\r\nimport { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-xor',\r\n  standalone: true,\r\n  imports: [NgTemplateOutlet],\r\n  template: `\r\n    <ng-container *ngTemplateOutlet=\"spaceTemplate\"></ng-container>\r\n    <strong>XOR</strong>\r\n    <ng-container *ngTemplateOutlet=\"spaceTemplate\"></ng-container>\r\n\r\n    <ng-template #spaceTemplate>\r\n      &nbsp;\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class XorLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""

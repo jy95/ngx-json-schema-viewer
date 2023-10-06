@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {MatTabsModule} from '@angular/material/tabs';
 import { PrintSchemaTypeComponent } from './print-schema-type';
 
@@ -9,7 +10,11 @@ type itemsType = { id: number; value: any; label: string }[]
 @Component({
   selector: 'qm-examples',
   standalone: true,
-  imports: [MatTabsModule, PrintSchemaTypeComponent],
+  imports: [
+    CommonModule,
+    MatTabsModule, 
+    PrintSchemaTypeComponent
+  ],
   template: `
     <div>
       <strong>{{ examplesLabel }}</strong>&nbsp;

@@ -9,7 +9,7 @@ import { HighlightModule } from 'ngx-highlightjs';
       <code>{{ value }}</code>
     </ng-container>
     <ng-template #complexType>
-        <pre><code [highlight]="jsonCode" [languages]="['json']"></code></pre>
+        <pre><code [highlight]="jsonCode" [languages]="languages"></code></pre>
     </ng-template>
   `,
   styles: [`
@@ -35,5 +35,9 @@ export class PrintSchemaTypeComponent {
 
   get value(): string {
     return this.obj!.toString();
+  }
+
+  get languages(): string[] {
+    return ["json"];
   }
 }
