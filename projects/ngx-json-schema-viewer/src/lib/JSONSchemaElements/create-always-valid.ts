@@ -1,14 +1,32 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input, forwardRef } from '@angular/core';
 
 import {
     TypeLabelComponent,
     TrueLabelComponent
 } from "../labels/index";
 
+import {
+  CreateDescriptionComponent
+} from "./index";
+
+import {
+  QualifierMessages
+} from "../utils/index";
+
+import type { JSONSchema } from '../types';
+
+
 @Component({
   selector: 'jse-always-valid',
   standalone: true,
-  imports: [TypeLabelComponent, TrueLabelComponent],
+  imports: [
+    TypeLabelComponent, 
+    TrueLabelComponent, 
+    QualifierMessages, 
+    CommonModule,
+    forwardRef(() => CreateDescriptionComponent)
+  ],
   template: `
     <div>
       <labels-type></labels-type>
@@ -17,8 +35,27 @@ import {
       <div style="margin-top: 0.75rem;">
         {{ "Always valid" }}
       </div>
+      <div style="margin-top: 0.75rem;" *ngIf="notBoolean" >
+        <qm-messages [schema]="typedSchema" />
+      </div>
+      <ng-container *ngIf="description">
+        <jse-description [description]="description"></jse-description>
+      </ng-container>
     </div>
   `,
 })
 export class CreateAlwaysValidComponent {
+  @Input({ required: true }) schema!: JSONSchema;
+
+  get notBoolean(): boolean {
+    return typeof this.schema !== "boolean";
+  }
+
+  get typedSchema(): Exclude<JSONSchema, true | false> {
+    return this.schema as Exclude<JSONSchema, true | false>;
+  }
+
+  get description(): string | undefined {
+    return typeof this.schema !== "boolean" ? this.schema.description : undefined;
+  }
 }

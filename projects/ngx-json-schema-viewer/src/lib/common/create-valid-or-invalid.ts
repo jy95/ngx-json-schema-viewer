@@ -18,7 +18,7 @@ import type { JSONSchema } from '../types';
   ],
   template: `
     <ng-container *ngIf="schema; else alwaysInvalid">
-      <jse-always-valid />
+      <jse-always-valid [schema]="schema" />
     </ng-container>
     <ng-template #alwaysInvalid>
       <jse-always-invalid />

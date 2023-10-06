@@ -1177,7 +1177,7 @@
         },
         {
             "name": "CreateAlwaysValidComponent",
-            "id": "component-CreateAlwaysValidComponent-4000bf26bd09be64cfc744e87b15ca45f4f1fc84a5c18ac7cfc337c35025f9a1110a197374bc67082897515fcd8df072cf3823a900df014cbd2827d66f97231b",
+            "id": "component-CreateAlwaysValidComponent-c77dbf7d1f6685764c9d68881a65720495ae8414a18cf0b86f4248b7f76c9c3a7eeb497589cbfaa4e28f4e50e32c5d7903a5a72057f99a1b7b1949e2be0a6d3e",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/create-always-valid.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1187,11 +1187,22 @@
             "selector": "jse-always-valid",
             "styleUrls": [],
             "styles": [],
-            "template": "<div>\n  <labels-type></labels-type>\n  &nbsp;&#58;&nbsp;\n  <labels-true></labels-true>\n  <div style=\"margin-top: 0.75rem;\">\n    {{ \"Always valid\" }}\n  </div>\n</div>\n",
+            "template": "<div>\n  <labels-type></labels-type>\n  &nbsp;&#58;&nbsp;\n  <labels-true></labels-true>\n  <div style=\"margin-top: 0.75rem;\">\n    {{ \"Always valid\" }}\n  </div>\n  <div style=\"margin-top: 0.75rem;\" *ngIf=\"notBoolean\" >\n    <qm-messages [schema]=\"typedSchema\" />\n  </div>\n  <ng-container *ngIf=\"description\">\n    <jse-description [description]=\"description\"></jse-description>\n  </ng-container>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
-            "inputsClass": [],
+            "inputsClass": [
+                {
+                    "required": true,
+                    "name": "schema",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "optional": false,
+                    "line": 48,
+                    "type": "JSONSchema",
+                    "decorators": []
+                }
+            ],
             "outputsClass": [],
             "propertiesClass": [],
             "methodsClass": [],
@@ -1208,15 +1219,55 @@
                 {
                     "name": "TrueLabelComponent",
                     "type": "component"
+                },
+                {
+                    "name": "QualifierMessages"
+                },
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                },
+                {
+                    "name": "forwardRef(() => CreateDescriptionComponent)",
+                    "type": "component"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\nimport {\r\n    TypeLabelComponent,\r\n    TrueLabelComponent\r\n} from \"../labels/index\";\r\n\r\n@Component({\r\n  selector: 'jse-always-valid',\r\n  standalone: true,\r\n  imports: [TypeLabelComponent, TrueLabelComponent],\r\n  template: `\r\n    <div>\r\n      <labels-type></labels-type>\r\n      &nbsp;&#58;&nbsp;\r\n      <labels-true></labels-true>\r\n      <div style=\"margin-top: 0.75rem;\">\r\n        {{ \"Always valid\" }}\r\n      </div>\r\n    </div>\r\n  `,\r\n})\r\nexport class CreateAlwaysValidComponent {\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n    TypeLabelComponent,\r\n    TrueLabelComponent\r\n} from \"../labels/index\";\r\n\r\nimport {\r\n  CreateDescriptionComponent\r\n} from \"./index\";\r\n\r\nimport {\r\n  QualifierMessages\r\n} from \"../utils/index\";\r\n\r\nimport type { JSONSchema } from '../types';\r\n\r\n\r\n@Component({\r\n  selector: 'jse-always-valid',\r\n  standalone: true,\r\n  imports: [\r\n    TypeLabelComponent, \r\n    TrueLabelComponent, \r\n    QualifierMessages, \r\n    CommonModule,\r\n    forwardRef(() => CreateDescriptionComponent)\r\n  ],\r\n  template: `\r\n    <div>\r\n      <labels-type></labels-type>\r\n      &nbsp;&#58;&nbsp;\r\n      <labels-true></labels-true>\r\n      <div style=\"margin-top: 0.75rem;\">\r\n        {{ \"Always valid\" }}\r\n      </div>\r\n      <div style=\"margin-top: 0.75rem;\" *ngIf=\"notBoolean\" >\r\n        <qm-messages [schema]=\"typedSchema\" />\r\n      </div>\r\n      <ng-container *ngIf=\"description\">\r\n        <jse-description [description]=\"description\"></jse-description>\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class CreateAlwaysValidComponent {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n\r\n  get notBoolean(): boolean {\r\n    return typeof this.schema !== \"boolean\";\r\n  }\r\n\r\n  get typedSchema(): Exclude<JSONSchema, true | false> {\r\n    return this.schema as Exclude<JSONSchema, true | false>;\r\n  }\r\n\r\n  get description(): string | undefined {\r\n    return typeof this.schema !== \"boolean\" ? this.schema.description : undefined;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "accessors": {
+                "notBoolean": {
+                    "name": "notBoolean",
+                    "getSignature": {
+                        "name": "notBoolean",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 50
+                    }
+                },
+                "typedSchema": {
+                    "name": "typedSchema",
+                    "getSignature": {
+                        "name": "typedSchema",
+                        "type": "",
+                        "returnType": "Exclude<JSONSchema,  | >",
+                        "line": 54
+                    }
+                },
+                "description": {
+                    "name": "description",
+                    "getSignature": {
+                        "name": "description",
+                        "type": "",
+                        "returnType": "string | undefined",
+                        "line": 58
+                    }
+                }
+            }
         },
         {
             "name": "CreateArrayComponent",
@@ -2971,7 +3022,7 @@
         },
         {
             "name": "CreateValidOrInvalidComponent",
-            "id": "component-CreateValidOrInvalidComponent-5582230409dfa843512f2fbcda46cbce16c92bdd7c6c6ff2f417285423e4bb3a580e74883b2c2374d91f021f83ce86ea5ec3f64519ad657f5301f85b6ed63be2",
+            "id": "component-CreateValidOrInvalidComponent-8d52e79876c9e821ada6c02742bd49734cf1f126d2aa55455d1e1c2e3a39ce36def8bf2d323fe2d5745b503164756352b4a919a9d23d394628bc47a56a190be4",
             "file": "projects/ngx-json-schema-viewer/src/lib/common/create-valid-or-invalid.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2981,7 +3032,7 @@
             "selector": "jse-common-create-valid-or-invalid",
             "styleUrls": [],
             "styles": [],
-            "template": "<ng-container *ngIf=\"schema; else alwaysInvalid\">\n  <jse-always-valid />\n</ng-container>\n<ng-template #alwaysInvalid>\n  <jse-always-invalid />\n</ng-template>\n",
+            "template": "<ng-container *ngIf=\"schema; else alwaysInvalid\">\n  <jse-always-valid [schema]=\"schema\" />\n</ng-container>\n<ng-template #alwaysInvalid>\n  <jse-always-invalid />\n</ng-template>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -3022,7 +3073,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n    CreateAlwaysInvalidComponent,\r\n    CreateAlwaysValidComponent\r\n} from \"../JSONSchemaElements/index\";\r\n\r\nimport type { JSONSchema } from '../types';\r\n\r\n@Component({\r\n  selector: 'jse-common-create-valid-or-invalid',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateAlwaysInvalidComponent),\r\n    forwardRef(() => CreateAlwaysValidComponent),\r\n  ],\r\n  template: `\r\n    <ng-container *ngIf=\"schema; else alwaysInvalid\">\r\n      <jse-always-valid />\r\n    </ng-container>\r\n    <ng-template #alwaysInvalid>\r\n      <jse-always-invalid />\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class CreateValidOrInvalidComponent {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n    CreateAlwaysInvalidComponent,\r\n    CreateAlwaysValidComponent\r\n} from \"../JSONSchemaElements/index\";\r\n\r\nimport type { JSONSchema } from '../types';\r\n\r\n@Component({\r\n  selector: 'jse-common-create-valid-or-invalid',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateAlwaysInvalidComponent),\r\n    forwardRef(() => CreateAlwaysValidComponent),\r\n  ],\r\n  template: `\r\n    <ng-container *ngIf=\"schema; else alwaysInvalid\">\r\n      <jse-always-valid [schema]=\"schema\" />\r\n    </ng-container>\r\n    <ng-template #alwaysInvalid>\r\n      <jse-always-invalid />\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class CreateValidOrInvalidComponent {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -8891,7 +8942,7 @@
                 "linktype": "component",
                 "name": "CreateAlwaysValidComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/1",
+                "coverageCount": "0/2",
                 "status": "low"
             },
             {
