@@ -23,7 +23,7 @@ import { HighlightModule } from 'ngx-highlightjs';
   imports: [HighlightModule, CommonModule]
 })
 export class PrintSchemaTypeComponent {
-  @Input() obj: unknown;
+  @Input({ required: true }) obj!: unknown;
 
   get isSimpleType(): boolean {
     return ['string', 'number', 'bigint', 'boolean'].includes(typeof this.obj);

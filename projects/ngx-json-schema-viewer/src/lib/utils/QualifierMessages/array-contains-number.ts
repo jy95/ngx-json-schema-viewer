@@ -18,7 +18,7 @@ type typedJSONArraySchema = JSONSchemaNS.Array;
           {{ getMinContainsLabel(typedSchema.minContains) }}
         </code>
       </ng-container>
-      <ng-container *ngIf="typedSchema.minContains !== undefined && typedSchema.maxContains !== undefined">
+      <ng-container *ngIf="hasMinAndMax">
         <labels-and></labels-and>
       </ng-container>
       <ng-container *ngIf="typedSchema.maxContains !== undefined">
@@ -45,5 +45,9 @@ export class ArrayContainsNumberComponent {
   // maxContains
   getMaxContainsLabel(value: number): string {
     return `at most ${value} valid item(s)`;
+  }
+
+  get hasMinAndMax() : boolean {
+    return this.typedSchema.minContains !== undefined && this.typedSchema.maxContains !== undefined;
   }
 }

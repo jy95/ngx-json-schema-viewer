@@ -11,7 +11,7 @@ import type { JSONSchema } from '../../types';
     <div key="contentMediaType">
       <strong>Media type :</strong>
       &nbsp;
-      <lib-print-schema-type [obj]="schema.contentMediaType"] />
+      <lib-print-schema-type [obj]="schema.contentMediaType" />
     </div>
   `,
 })

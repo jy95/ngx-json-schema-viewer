@@ -19,7 +19,7 @@ type typedJSONArraySchema = JSONSchemaNS.Array;
             {{ getMinItemsLabel(typedSchema.minItems!) }}
           </code>
         </ng-container>
-        <ng-container *ngIf="typedSchema.minItems !== undefined && typedSchema.maxItems !== undefined">
+        <ng-container *ngIf="hasMinAndMax">
           <labels-and></labels-and>
         </ng-container>
         <ng-container *ngIf="typedSchema.maxItems !== undefined">
@@ -45,5 +45,9 @@ export class ArrayNumberOfItemsComponent {
   // maxItems
   getMaxItemsLabel(value: number): string {
     return `<= ${value}`;
+  }
+
+  get hasMinAndMax(): boolean {
+    return this.typedSchema.minItems !== undefined && this.typedSchema.maxItems !== undefined;
   }
 }

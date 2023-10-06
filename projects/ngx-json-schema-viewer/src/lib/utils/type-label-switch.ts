@@ -66,5 +66,5 @@ import type { TypeValues } from "../types"
   `,
 })
 export class TypeLabelSwitchComponent {
-  @Input() type!: TypeValues | true | false | string;
+  @Input({ required: true }) type!: TypeValues | true | false | string;
 }

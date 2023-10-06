@@ -12,7 +12,7 @@ import { PrintSchemaTypeComponent } from './print-schema-type';
     <div *ngIf="schema" key="contentEncoding">
       <strong>Encoding :</strong>
       &nbsp;
-      <lib-print-schema-type [obj]="schema.contentEncoding"] />
+      <lib-print-schema-type [obj]="schema.contentEncoding" />
     </div>
   `,
 })

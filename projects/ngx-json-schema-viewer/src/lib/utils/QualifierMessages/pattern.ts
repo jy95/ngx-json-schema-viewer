@@ -9,11 +9,15 @@ import type { JSONSchema } from '../../types';
     template: `
       <div>
         <strong>{{ patternLabel }}</strong>&nbsp;
-        <code>{{ schema.pattern }}</code>
+        <code>{{ pattern }}</code>
       </div>
     `,
   })
   export class PatternComponent {
     @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
     patternLabel = 'Pattern :';
+
+    get pattern(): string {
+      return this.schema.pattern!;
+    }
   }

@@ -11,10 +11,14 @@ import type { JSONSchema } from '../../types';
   <div>
       <strong>Constant value :</strong>
       &nbsp;
-      <lib-print-schema-type [obj]="schema.const" />
+      <lib-print-schema-type [obj]="constValue()" />
   </div>
   `
 })
 export class ConstantComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
+
+  get constValue(): any {
+    return this.schema.const;
+  }
 }

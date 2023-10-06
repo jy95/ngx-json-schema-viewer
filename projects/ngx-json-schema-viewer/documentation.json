@@ -342,7 +342,7 @@
         },
         {
             "name": "ArrayContainsNumberComponent",
-            "id": "component-ArrayContainsNumberComponent-f8ea10fc5e285780b4399bd9166d8adb94af830c893940097c2762c3c892d998944e591f5df79e88ae600561ca57588714ad36adb4d9efa756c8d8f2d3be2b03",
+            "id": "component-ArrayContainsNumberComponent-8466e9ab91d15a234dc55602e9bd69125a7f72aac229c31ad90ddd39e59ff504e7b26e868cb4d836a9e15388f866b31db7af219986b73e70f97106bec03cb533",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/array-contains-number.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -352,7 +352,7 @@
             "selector": "qm-array-contains",
             "styleUrls": [],
             "styles": [],
-            "template": "<div>\n    <strong>Must contain : </strong>\n    <ng-container *ngIf=\"typedSchema.minContains\">\n      <code>\n        {{ getMinContainsLabel(typedSchema.minContains) }}\n      </code>\n    </ng-container>\n    <ng-container *ngIf=\"typedSchema.minContains !== undefined && typedSchema.maxContains !== undefined\">\n      <labels-and></labels-and>\n    </ng-container>\n    <ng-container *ngIf=\"typedSchema.maxContains !== undefined\">\n      <code>\n        {{ getMaxContainsLabel(typedSchema.maxContains) }}\n      </code>\n    </ng-container>\n</div>\n",
+            "template": "<div>\n    <strong>Must contain : </strong>\n    <ng-container *ngIf=\"typedSchema.minContains\">\n      <code>\n        {{ getMinContainsLabel(typedSchema.minContains) }}\n      </code>\n    </ng-container>\n    <ng-container *ngIf=\"hasMinAndMax\">\n      <labels-and></labels-and>\n    </ng-container>\n    <ng-container *ngIf=\"typedSchema.maxContains !== undefined\">\n      <code>\n        {{ getMaxContainsLabel(typedSchema.maxContains) }}\n      </code>\n    </ng-container>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -446,7 +446,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport { AndLabelComponent } from \"../../labels/and-label\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from '../../types';\r\n\r\ntype typedJSONArraySchema = JSONSchemaNS.Array;\r\n\r\n@Component({\r\n    selector: 'qm-array-contains',\r\n    standalone: true,\r\n    template: `\r\n  <div>\r\n      <strong>Must contain : </strong>\r\n      <ng-container *ngIf=\"typedSchema.minContains\">\r\n        <code>\r\n          {{ getMinContainsLabel(typedSchema.minContains) }}\r\n        </code>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"typedSchema.minContains !== undefined && typedSchema.maxContains !== undefined\">\r\n        <labels-and></labels-and>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"typedSchema.maxContains !== undefined\">\r\n        <code>\r\n          {{ getMaxContainsLabel(typedSchema.maxContains) }}\r\n        </code>\r\n      </ng-container>\r\n  </div>\r\n  `,\r\n    imports: [CommonModule, AndLabelComponent]\r\n})\r\nexport class ArrayContainsNumberComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  get typedSchema(): typedJSONArraySchema {\r\n    return this.schema as typedJSONArraySchema;\r\n  }\r\n\r\n  // minContains\r\n  getMinContainsLabel(value: number): string {\r\n    return `at least ${value} valid item(s)`;\r\n  }\r\n\r\n  // maxContains\r\n  getMaxContainsLabel(value: number): string {\r\n    return `at most ${value} valid item(s)`;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport { AndLabelComponent } from \"../../labels/and-label\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from '../../types';\r\n\r\ntype typedJSONArraySchema = JSONSchemaNS.Array;\r\n\r\n@Component({\r\n    selector: 'qm-array-contains',\r\n    standalone: true,\r\n    template: `\r\n  <div>\r\n      <strong>Must contain : </strong>\r\n      <ng-container *ngIf=\"typedSchema.minContains\">\r\n        <code>\r\n          {{ getMinContainsLabel(typedSchema.minContains) }}\r\n        </code>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"hasMinAndMax\">\r\n        <labels-and></labels-and>\r\n      </ng-container>\r\n      <ng-container *ngIf=\"typedSchema.maxContains !== undefined\">\r\n        <code>\r\n          {{ getMaxContainsLabel(typedSchema.maxContains) }}\r\n        </code>\r\n      </ng-container>\r\n  </div>\r\n  `,\r\n    imports: [CommonModule, AndLabelComponent]\r\n})\r\nexport class ArrayContainsNumberComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  get typedSchema(): typedJSONArraySchema {\r\n    return this.schema as typedJSONArraySchema;\r\n  }\r\n\r\n  // minContains\r\n  getMinContainsLabel(value: number): string {\r\n    return `at least ${value} valid item(s)`;\r\n  }\r\n\r\n  // maxContains\r\n  getMaxContainsLabel(value: number): string {\r\n    return `at most ${value} valid item(s)`;\r\n  }\r\n\r\n  get hasMinAndMax() : boolean {\r\n    return this.typedSchema.minContains !== undefined && this.typedSchema.maxContains !== undefined;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -458,6 +458,15 @@
                         "type": "",
                         "returnType": "typedJSONArraySchema",
                         "line": 36
+                    }
+                },
+                "hasMinAndMax": {
+                    "name": "hasMinAndMax",
+                    "getSignature": {
+                        "name": "hasMinAndMax",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 50
                     }
                 }
             }
@@ -498,7 +507,7 @@
         },
         {
             "name": "ArrayNumberOfItemsComponent",
-            "id": "component-ArrayNumberOfItemsComponent-16749fb79ea33e425ad58290ca72003a0ecf22607af7ac1e3ce0f2c9ca6a4ccadfd3a4d448b9a16db0d2888e67cf27920c66a6ea3119392480718329fbda0ddb",
+            "id": "component-ArrayNumberOfItemsComponent-f6b7a9f16faf59f94b519ba94529afcdc7f6ca806261e8c06420f6d43e95f424d54662af751604c2e8f9227afda5451747081bb913c691743e72f44ef36af2a7",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/array-number-of-items.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -508,7 +517,7 @@
             "selector": "qm-array-number-of-items",
             "styleUrls": [],
             "styles": [],
-            "template": "<div>\n    <strong>Length :</strong>\n    &nbsp;\n    <ng-container *ngIf=\"typedSchema.minItems !== undefined\">\n      <code>\n        {{ getMinItemsLabel(typedSchema.minItems!) }}\n      </code>\n    </ng-container>\n    <ng-container *ngIf=\"typedSchema.minItems !== undefined && typedSchema.maxItems !== undefined\">\n      <labels-and></labels-and>\n    </ng-container>\n    <ng-container *ngIf=\"typedSchema.maxItems !== undefined\">\n      <code>\n        {{ getMaxItemsLabel(typedSchema.maxItems!) }}\n      </code>\n    </ng-container>\n</div>\n",
+            "template": "<div>\n    <strong>Length :</strong>\n    &nbsp;\n    <ng-container *ngIf=\"typedSchema.minItems !== undefined\">\n      <code>\n        {{ getMinItemsLabel(typedSchema.minItems!) }}\n      </code>\n    </ng-container>\n    <ng-container *ngIf=\"hasMinAndMax\">\n      <labels-and></labels-and>\n    </ng-container>\n    <ng-container *ngIf=\"typedSchema.maxItems !== undefined\">\n      <code>\n        {{ getMaxItemsLabel(typedSchema.maxItems!) }}\n      </code>\n    </ng-container>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -602,7 +611,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport { AndLabelComponent } from \"../../labels/and-label\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from '../../types';\r\ntype typedJSONArraySchema = JSONSchemaNS.Array;\r\n\r\n@Component({\r\n  selector: 'qm-array-number-of-items',\r\n  standalone: true,\r\n  imports: [CommonModule,AndLabelComponent],\r\n  template: `\r\n    <div>\r\n        <strong>Length :</strong>\r\n        &nbsp;\r\n        <ng-container *ngIf=\"typedSchema.minItems !== undefined\">\r\n          <code>\r\n            {{ getMinItemsLabel(typedSchema.minItems!) }}\r\n          </code>\r\n        </ng-container>\r\n        <ng-container *ngIf=\"typedSchema.minItems !== undefined && typedSchema.maxItems !== undefined\">\r\n          <labels-and></labels-and>\r\n        </ng-container>\r\n        <ng-container *ngIf=\"typedSchema.maxItems !== undefined\">\r\n          <code>\r\n            {{ getMaxItemsLabel(typedSchema.maxItems!) }}\r\n          </code>\r\n        </ng-container>\r\n    </div>\r\n  `\r\n})\r\nexport class ArrayNumberOfItemsComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  get typedSchema(): typedJSONArraySchema {\r\n    return this.schema as typedJSONArraySchema;\r\n  }\r\n\r\n  // minItems\r\n  getMinItemsLabel(value: number): string {\r\n    return `>= ${value}`;\r\n  }\r\n\r\n  // maxItems\r\n  getMaxItemsLabel(value: number): string {\r\n    return `<= ${value}`;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport { AndLabelComponent } from \"../../labels/and-label\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from '../../types';\r\ntype typedJSONArraySchema = JSONSchemaNS.Array;\r\n\r\n@Component({\r\n  selector: 'qm-array-number-of-items',\r\n  standalone: true,\r\n  imports: [CommonModule,AndLabelComponent],\r\n  template: `\r\n    <div>\r\n        <strong>Length :</strong>\r\n        &nbsp;\r\n        <ng-container *ngIf=\"typedSchema.minItems !== undefined\">\r\n          <code>\r\n            {{ getMinItemsLabel(typedSchema.minItems!) }}\r\n          </code>\r\n        </ng-container>\r\n        <ng-container *ngIf=\"hasMinAndMax\">\r\n          <labels-and></labels-and>\r\n        </ng-container>\r\n        <ng-container *ngIf=\"typedSchema.maxItems !== undefined\">\r\n          <code>\r\n            {{ getMaxItemsLabel(typedSchema.maxItems!) }}\r\n          </code>\r\n        </ng-container>\r\n    </div>\r\n  `\r\n})\r\nexport class ArrayNumberOfItemsComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  get typedSchema(): typedJSONArraySchema {\r\n    return this.schema as typedJSONArraySchema;\r\n  }\r\n\r\n  // minItems\r\n  getMinItemsLabel(value: number): string {\r\n    return `>= ${value}`;\r\n  }\r\n\r\n  // maxItems\r\n  getMaxItemsLabel(value: number): string {\r\n    return `<= ${value}`;\r\n  }\r\n\r\n  get hasMinAndMax(): boolean {\r\n    return this.typedSchema.minItems !== undefined && this.typedSchema.maxItems !== undefined;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -614,6 +623,15 @@
                         "type": "",
                         "returnType": "typedJSONArraySchema",
                         "line": 36
+                    }
+                },
+                "hasMinAndMax": {
+                    "name": "hasMinAndMax",
+                    "getSignature": {
+                        "name": "hasMinAndMax",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 50
                     }
                 }
             }
@@ -688,7 +706,7 @@
         },
         {
             "name": "ConstantComponent",
-            "id": "component-ConstantComponent-64437c168f9204b8bff3fbdce31ded848ab1df1fea091cbd9d81e6bd9f9a048cad67a1de51149b05456e58b06ec66aa4b3b611b03a531fc9920defe25482f331",
+            "id": "component-ConstantComponent-4816735e9c57d881dbc1031a0125318ebe008049f86ee139be46c8732302b8cecea264ee50f825033b6bd2219e6d295c85e44bd7b0b44705692a9fe487db7d45",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/constant.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -698,7 +716,7 @@
             "selector": "qm-constant",
             "styleUrls": [],
             "styles": [],
-            "template": "<div>\n    <strong>Constant value :</strong>\n    &nbsp;\n    <lib-print-schema-type [obj]=\"schema.const\" />\n</div>\n",
+            "template": "<div>\n    <strong>Constant value :</strong>\n    &nbsp;\n    <lib-print-schema-type [obj]=\"constValue()\" />\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -731,14 +749,25 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-constant',\r\n  standalone: true,\r\n  imports: [PrintSchemaTypeComponent],\r\n  template: `\r\n  <div>\r\n      <strong>Constant value :</strong>\r\n      &nbsp;\r\n      <lib-print-schema-type [obj]=\"schema.const\" />\r\n  </div>\r\n  `\r\n})\r\nexport class ConstantComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-constant',\r\n  standalone: true,\r\n  imports: [PrintSchemaTypeComponent],\r\n  template: `\r\n  <div>\r\n      <strong>Constant value :</strong>\r\n      &nbsp;\r\n      <lib-print-schema-type [obj]=\"constValue()\" />\r\n  </div>\r\n  `\r\n})\r\nexport class ConstantComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  get constValue(): any {\r\n    return this.schema.const;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "accessors": {
+                "constValue": {
+                    "name": "constValue",
+                    "getSignature": {
+                        "name": "constValue",
+                        "type": "any",
+                        "returnType": "any",
+                        "line": 21
+                    }
+                }
+            }
         },
         {
             "name": "ContentEncodingComponent",
-            "id": "component-ContentEncodingComponent-30a1b9fbc09d13369aa5979d6870426a4f8c3a788e911b774eb2e004d20cc69b5b77bbbf5a8e5aaba1f56d91fe3d2dc496508f7d05c9b2f2a3851b8d7cf80783",
+            "id": "component-ContentEncodingComponent-8dee6b50d4a674f6070996770ae0cd8e325aefcefbc6b4ee70c4afee79a8a6996e97c45b86d61ded9c4dc7f07edec5a8e8fa42c70f69585f69ab67f79ec2a063",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/content-encoding.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -748,7 +777,7 @@
             "selector": "qm-content-encoding",
             "styleUrls": [],
             "styles": [],
-            "template": "<div *ngIf=\"schema\" key=\"contentEncoding\">\n  <strong>Encoding :</strong>\n  &nbsp;\n  <lib-print-schema-type [obj]=\"schema.contentEncoding\"] />\n</div>\n",
+            "template": "<div *ngIf=\"schema\" key=\"contentEncoding\">\n  <strong>Encoding :</strong>\n  &nbsp;\n  <lib-print-schema-type [obj]=\"schema.contentEncoding\" />\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -785,14 +814,14 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport type { JSONSchema } from '../../types';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\n@Component({\r\n  selector: 'qm-content-encoding',\r\n  standalone: true,\r\n  imports: [CommonModule,PrintSchemaTypeComponent],\r\n  template: `\r\n    <div *ngIf=\"schema\" key=\"contentEncoding\">\r\n      <strong>Encoding :</strong>\r\n      &nbsp;\r\n      <lib-print-schema-type [obj]=\"schema.contentEncoding\"] />\r\n    </div>\r\n  `,\r\n})\r\nexport class ContentEncodingComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport type { JSONSchema } from '../../types';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\n@Component({\r\n  selector: 'qm-content-encoding',\r\n  standalone: true,\r\n  imports: [CommonModule,PrintSchemaTypeComponent],\r\n  template: `\r\n    <div *ngIf=\"schema\" key=\"contentEncoding\">\r\n      <strong>Encoding :</strong>\r\n      &nbsp;\r\n      <lib-print-schema-type [obj]=\"schema.contentEncoding\" />\r\n    </div>\r\n  `,\r\n})\r\nexport class ContentEncodingComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
         },
         {
             "name": "ContentMediaTypeComponent",
-            "id": "component-ContentMediaTypeComponent-377a37634ec4306f10e4a420dd3ebd7c4fdbfc2fd8a5dd1664f73a316fda55e60d737712448fa521da472c9ece455b2e731916fdf5db42c487f0d0e6b45272d0",
+            "id": "component-ContentMediaTypeComponent-ab755b1b94168d7d29d95a15488cd7fa0a2c61b442a8ac3261f60db57c223ce4148d4c513c65b992d40323c7e8a4a596e55c006d50e1f2425f7d224dca59b503",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/content-media.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -802,7 +831,7 @@
             "selector": "qm-content-media-type",
             "styleUrls": [],
             "styles": [],
-            "template": "<div key=\"contentMediaType\">\n  <strong>Media type :</strong>\n  &nbsp;\n  <lib-print-schema-type [obj]=\"schema.contentMediaType\"] />\n</div>\n",
+            "template": "<div key=\"contentMediaType\">\n  <strong>Media type :</strong>\n  &nbsp;\n  <lib-print-schema-type [obj]=\"schema.contentMediaType\" />\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -835,7 +864,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-content-media-type',\r\n  standalone: true,\r\n  imports: [PrintSchemaTypeComponent],\r\n  template: `\r\n    <div key=\"contentMediaType\">\r\n      <strong>Media type :</strong>\r\n      &nbsp;\r\n      <lib-print-schema-type [obj]=\"schema.contentMediaType\"] />\r\n    </div>\r\n  `,\r\n})\r\nexport class ContentMediaTypeComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-content-media-type',\r\n  standalone: true,\r\n  imports: [PrintSchemaTypeComponent],\r\n  template: `\r\n    <div key=\"contentMediaType\">\r\n      <strong>Media type :</strong>\r\n      &nbsp;\r\n      <lib-print-schema-type [obj]=\"schema.contentMediaType\" />\r\n    </div>\r\n  `,\r\n})\r\nexport class ContentMediaTypeComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -5419,7 +5448,7 @@
         },
         {
             "name": "PatternComponent",
-            "id": "component-PatternComponent-5169ccb51450d844ccd12890b15e003fff7d20af1125aaeb658799cda8e5195133da3eba527a0b88da58067a95f0a3f6b0d64f529ef44fd90d4a0e5538c6247b",
+            "id": "component-PatternComponent-8c522bba8b62cf6089736c3c84a743a7d87c08051aa94d293353e8489de4f1aee6439bc563c5b6edebae0d9032d2e5e9de8389791e3edc403ed1581f32cc70e6",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/pattern.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5429,7 +5458,7 @@
             "selector": "qm-pattern",
             "styleUrls": [],
             "styles": [],
-            "template": "<div>\n  <strong>{{ patternLabel }}</strong>&nbsp;\n  <code>{{ schema.pattern }}</code>\n</div>\n",
+            "template": "<div>\n  <strong>{{ patternLabel }}</strong>&nbsp;\n  <code>{{ pattern }}</code>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -5468,14 +5497,25 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n    selector: 'qm-pattern',\r\n    standalone: true,\r\n    imports: [],\r\n    template: `\r\n      <div>\r\n        <strong>{{ patternLabel }}</strong>&nbsp;\r\n        <code>{{ schema.pattern }}</code>\r\n      </div>\r\n    `,\r\n  })\r\n  export class PatternComponent {\r\n    @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n    patternLabel = 'Pattern :';\r\n  }\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n    selector: 'qm-pattern',\r\n    standalone: true,\r\n    imports: [],\r\n    template: `\r\n      <div>\r\n        <strong>{{ patternLabel }}</strong>&nbsp;\r\n        <code>{{ pattern }}</code>\r\n      </div>\r\n    `,\r\n  })\r\n  export class PatternComponent {\r\n    @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n    patternLabel = 'Pattern :';\r\n\r\n    get pattern(): string {\r\n      return this.schema.pattern!;\r\n    }\r\n  }\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "accessors": {
+                "pattern": {
+                    "name": "pattern",
+                    "getSignature": {
+                        "name": "pattern",
+                        "type": "string",
+                        "returnType": "string",
+                        "line": 20
+                    }
+                }
+            }
         },
         {
             "name": "PrintSchemaTypeComponent",
-            "id": "component-PrintSchemaTypeComponent-4df5448cd00ae96d86de82e9d614e91b78d378a0d4c5253f504bfcb82ba33e190201bcaacfa8eaa87ea78f871cf059437cb826714795d7ac7c0bf6a114f057f4",
+            "id": "component-PrintSchemaTypeComponent-0b56a959d4154341153f3eb0a42d90145b4685f290521f4407eaf4af0d2b8b5a9567fd9a60d14448e0f2cbd9c7eb5ee2abbea03efa331bad71041fcab4cc59a4",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/print-schema-type.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5493,9 +5533,11 @@
             "hostDirectives": [],
             "inputsClass": [
                 {
+                    "required": true,
                     "name": "obj",
                     "deprecated": false,
                     "deprecationMessage": "",
+                    "optional": false,
                     "line": 26,
                     "type": "",
                     "decorators": []
@@ -5522,7 +5564,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input } from '@angular/core';\r\nimport { HighlightModule } from 'ngx-highlightjs';\r\n\r\n@Component({\r\n  selector: 'lib-print-schema-type',\r\n  template: `\r\n    <ng-container *ngIf=\"isSimpleType; else complexType\">\r\n      <code>{{ value }}</code>\r\n    </ng-container>\r\n    <ng-template #complexType>\r\n        <pre><code [highlight]=\"jsonCode\" [languages]=\"['json']\"></code></pre>\r\n    </ng-template>\r\n  `,\r\n  styles: [`\r\n    .json-block {\r\n      background-color: #f5f5f5;\r\n      padding: 10px;\r\n      border: 1px solid #ddd;\r\n    }\r\n  `],\r\n  standalone: true,\r\n  imports: [HighlightModule, CommonModule]\r\n})\r\nexport class PrintSchemaTypeComponent {\r\n  @Input() obj: unknown;\r\n\r\n  get isSimpleType(): boolean {\r\n    return ['string', 'number', 'bigint', 'boolean'].includes(typeof this.obj);\r\n  }\r\n\r\n  get jsonCode(): string {\r\n    return JSON.stringify(this.obj, null, \"\\t\");\r\n  }\r\n\r\n  get value(): string {\r\n    return this.obj!.toString();\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input } from '@angular/core';\r\nimport { HighlightModule } from 'ngx-highlightjs';\r\n\r\n@Component({\r\n  selector: 'lib-print-schema-type',\r\n  template: `\r\n    <ng-container *ngIf=\"isSimpleType; else complexType\">\r\n      <code>{{ value }}</code>\r\n    </ng-container>\r\n    <ng-template #complexType>\r\n        <pre><code [highlight]=\"jsonCode\" [languages]=\"['json']\"></code></pre>\r\n    </ng-template>\r\n  `,\r\n  styles: [`\r\n    .json-block {\r\n      background-color: #f5f5f5;\r\n      padding: 10px;\r\n      border: 1px solid #ddd;\r\n    }\r\n  `],\r\n  standalone: true,\r\n  imports: [HighlightModule, CommonModule]\r\n})\r\nexport class PrintSchemaTypeComponent {\r\n  @Input({ required: true }) obj!: unknown;\r\n\r\n  get isSimpleType(): boolean {\r\n    return ['string', 'number', 'bigint', 'boolean'].includes(typeof this.obj);\r\n  }\r\n\r\n  get jsonCode(): string {\r\n    return JSON.stringify(this.obj, null, \"\\t\");\r\n  }\r\n\r\n  get value(): string {\r\n    return this.obj!.toString();\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "\n    .json-block {\n      background-color: #f5f5f5;\n      padding: 10px;\n      border: 1px solid #ddd;\n    }\n  \n",
@@ -6604,7 +6646,7 @@
         },
         {
             "name": "TypeLabelSwitchComponent",
-            "id": "component-TypeLabelSwitchComponent-b8b319df86d7994f2ed2c49c855ceff3fbfddf1cda1ef315dfb5f6b1fd9e97788b436ce9edb23d276f503f38e60f6024300a7688db56ca8fc6d56dd1c8950882",
+            "id": "component-TypeLabelSwitchComponent-9061b0d202ad893965ce56245bf0e0352a310274915e9ae8ccd2665a74c3e3928f35bc67963e56f6934b026f1897e95f9076e9fa463885e88ca50e682004685c",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/type-label-switch.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6620,9 +6662,11 @@
             "hostDirectives": [],
             "inputsClass": [
                 {
+                    "required": true,
                     "name": "type",
                     "deprecated": false,
                     "deprecationMessage": "",
+                    "optional": false,
                     "line": 69,
                     "type": "TypeValues |  |  | string",
                     "decorators": []
@@ -6681,7 +6725,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    StringLabelComponent,\r\n    NumberLabelComponent,\r\n    BooleanLabelComponent,\r\n    ObjectLabelComponent,\r\n    ArrayLabelComponent,\r\n    IntegerLabelComponent,\r\n    NullLabelComponent,\r\n    TrueLabelComponent,\r\n    FalseLabelComponent\r\n} from \"../labels/index\";\r\n\r\nimport type { TypeValues } from \"../types\"\r\n\r\n@Component({\r\n  selector: 'jsv-type-label-switch',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    StringLabelComponent,\r\n    NumberLabelComponent,\r\n    BooleanLabelComponent,\r\n    ObjectLabelComponent,\r\n    ArrayLabelComponent,\r\n    IntegerLabelComponent,\r\n    NullLabelComponent,\r\n    TrueLabelComponent,\r\n    FalseLabelComponent\r\n  ],\r\n  template: `\r\n    <ng-container [ngSwitch]=\"type\">\r\n      <ng-container *ngSwitchCase=\"'string'\">\r\n        <labels-string />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"'number'\">\r\n        <labels-number />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"'boolean'\">\r\n        <labels-boolean />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"'object'\">\r\n        <labels-object />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"'array'\">\r\n        <labels-array />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"'integer'\">\r\n        <labels-integer />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"'null'\">\r\n        <labels-null />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"true\">\r\n        <labels-true />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"false\">\r\n        <labels-false />\r\n      </ng-container>\r\n      <ng-container *ngSwitchDefault>\r\n        <span style=\"opacity: 0.6\">{{ type }}</span>\r\n      </ng-container>\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class TypeLabelSwitchComponent {\r\n  @Input() type!: TypeValues | true | false | string;\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    StringLabelComponent,\r\n    NumberLabelComponent,\r\n    BooleanLabelComponent,\r\n    ObjectLabelComponent,\r\n    ArrayLabelComponent,\r\n    IntegerLabelComponent,\r\n    NullLabelComponent,\r\n    TrueLabelComponent,\r\n    FalseLabelComponent\r\n} from \"../labels/index\";\r\n\r\nimport type { TypeValues } from \"../types\"\r\n\r\n@Component({\r\n  selector: 'jsv-type-label-switch',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    StringLabelComponent,\r\n    NumberLabelComponent,\r\n    BooleanLabelComponent,\r\n    ObjectLabelComponent,\r\n    ArrayLabelComponent,\r\n    IntegerLabelComponent,\r\n    NullLabelComponent,\r\n    TrueLabelComponent,\r\n    FalseLabelComponent\r\n  ],\r\n  template: `\r\n    <ng-container [ngSwitch]=\"type\">\r\n      <ng-container *ngSwitchCase=\"'string'\">\r\n        <labels-string />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"'number'\">\r\n        <labels-number />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"'boolean'\">\r\n        <labels-boolean />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"'object'\">\r\n        <labels-object />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"'array'\">\r\n        <labels-array />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"'integer'\">\r\n        <labels-integer />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"'null'\">\r\n        <labels-null />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"true\">\r\n        <labels-true />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"false\">\r\n        <labels-false />\r\n      </ng-container>\r\n      <ng-container *ngSwitchDefault>\r\n        <span style=\"opacity: 0.6\">{{ type }}</span>\r\n      </ng-container>\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class TypeLabelSwitchComponent {\r\n  @Input({ required: true }) type!: TypeValues | true | false | string;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
