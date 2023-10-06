@@ -3763,7 +3763,7 @@
         },
         {
             "name": "GenerateFriendlyNameComponent",
-            "id": "component-GenerateFriendlyNameComponent-1e804841ec72e514435d2654e8259f612ab35f4587a17afda94185063fb0f326ddbb00033459d7c27f5839a4e6b5886af7fca7dde203a5d192ce003ef2772067",
+            "id": "component-GenerateFriendlyNameComponent-96fb35c8e342c13ac576a516cbecc0dc62833823f352918fa71b5676b10e3349bb326ee221c291a49e52f1bca8bf33232353bb9ded745d19513d6c516c840544",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/FriendlyNames/friendly-name.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3773,7 +3773,7 @@
             "selector": "jsv-friendly-name",
             "styleUrls": [],
             "styles": [],
-            "template": "<!--  In case the schema is always valid or not -->\n<ng-container *ngIf=\"isBoolean(schema)\" else titleOrCustomBlock>\n  <jsv-type-label-switch [type]=\"typedBoolean\" />\n</ng-container>\n\n<ng-template #titleOrCustomBlock>\n\n  <!-- Some people maintaining schemas provide a friendly name by themself -->\n  <ng-container *ngIf=\"typedSchema.title; else customTypeBlock\">\n    {{ typedSchema.title }}\n  </ng-container>\n\n  <!-- -->\n  <ng-template #customTypeBlock>\n    <ng-container *ngIf=\"foundTypes.length === 0; else customTypeLoopBlock\">\n      <jsv-friendly-name-fallback [schema]=\"typedSchema\" />\n    </ng-container>\n    <ng-template #customTypeLoopBlock>\n      <ng-container *ngFor=\"let type of foundTypes; let idx = index\">\n        <jsv-friendly-name-custom [schema]=\"typedSchema\" [type]=\"type\"/>\n        <ng-container *ngIf=\"shouldAddSeparator(idx, foundTypes.length)\">\n          <labels-or />\n        </ng-container>\n      </ng-container>\n    </ng-template>\n\n</ng-template>\n",
+            "template": "<!--  In case the schema is always valid or not -->\n<ng-container *ngIf=\"isBoolean\" else titleOrCustomBlock>\n  <jsv-type-label-switch [type]=\"typedBoolean\" />\n</ng-container>\n\n<ng-template #titleOrCustomBlock>\n\n  <!-- Some people maintaining schemas provide a friendly name by themself -->\n  <ng-container *ngIf=\"typedSchema.title; else customTypeBlock\">\n    {{ typedSchema.title }}\n  </ng-container>\n\n  <!-- -->\n  <ng-template #customTypeBlock>\n    <ng-container *ngIf=\"foundTypes.length === 0; else customTypeLoopBlock\">\n      <jsv-friendly-name-fallback [schema]=\"typedSchema\" />\n    </ng-container>\n    <ng-template #customTypeLoopBlock>\n      <ng-container *ngFor=\"let type of foundTypes; let idx = index\">\n        <jsv-friendly-name-custom [schema]=\"typedSchema\" [type]=\"type\"/>\n        <ng-container *ngIf=\"shouldAddSeparator(idx, foundTypes.length)\">\n          <labels-or />\n        </ng-container>\n      </ng-container>\n    </ng-template>\n\n</ng-template>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -3792,34 +3792,6 @@
             "outputsClass": [],
             "propertiesClass": [],
             "methodsClass": [
-                {
-                    "name": "isBoolean",
-                    "args": [
-                        {
-                            "name": "value",
-                            "type": "JSONSchema",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "boolean",
-                    "typeParameters": [],
-                    "line": 70,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "value",
-                            "type": "JSONSchema",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                },
                 {
                     "name": "shouldAddSeparator",
                     "args": [
@@ -3894,7 +3866,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    OrLabelComponent,\r\n} from \"../../labels/index\"\r\n\r\nimport {\r\n    detectedTypes\r\n} from \"../detectTypes\";\r\n\r\nimport {\r\n  TypeLabelSwitchComponent\r\n} from \"../type-label-switch\";\r\n\r\nimport {\r\n    GenerateFriendlyNameFallbackComponent,\r\n    GenerateFriendlyNameCustomComponent\r\n} from \"./index\";\r\n\r\nimport type { JSONSchema, TypeValues } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jsv-friendly-name',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    OrLabelComponent,\r\n    TypeLabelSwitchComponent,\r\n    forwardRef( () => GenerateFriendlyNameFallbackComponent),\r\n    forwardRef( () => GenerateFriendlyNameCustomComponent)\r\n  ],\r\n  template: `\r\n    <!--  In case the schema is always valid or not -->\r\n    <ng-container *ngIf=\"isBoolean(schema)\" else titleOrCustomBlock>\r\n      <jsv-type-label-switch [type]=\"typedBoolean\" />\r\n    </ng-container>\r\n\r\n    <ng-template #titleOrCustomBlock>\r\n\r\n      <!-- Some people maintaining schemas provide a friendly name by themself -->\r\n      <ng-container *ngIf=\"typedSchema.title; else customTypeBlock\">\r\n        {{ typedSchema.title }}\r\n      </ng-container>\r\n\r\n      <!-- -->\r\n      <ng-template #customTypeBlock>\r\n        <ng-container *ngIf=\"foundTypes.length === 0; else customTypeLoopBlock\">\r\n          <jsv-friendly-name-fallback [schema]=\"typedSchema\" />\r\n        </ng-container>\r\n        <ng-template #customTypeLoopBlock>\r\n          <ng-container *ngFor=\"let type of foundTypes; let idx = index\">\r\n            <jsv-friendly-name-custom [schema]=\"typedSchema\" [type]=\"type\"/>\r\n            <ng-container *ngIf=\"shouldAddSeparator(idx, foundTypes.length)\">\r\n              <labels-or />\r\n            </ng-container>\r\n          </ng-container>\r\n        </ng-template>\r\n\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class GenerateFriendlyNameComponent {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n\r\n  get foundTypes(): TypeValues[] {\r\n    return (typeof this.schema !== \"boolean\") ? detectedTypes(this.schema) : [];\r\n  }\r\n\r\n  isBoolean(value: JSONSchema): boolean {\r\n    return typeof value === 'boolean';\r\n  }\r\n\r\n  get typedBoolean(): boolean {\r\n    return this.schema as boolean;\r\n  }\r\n\r\n  get typedSchema(): Exclude<JSONSchema, true | false> {\r\n    return this.schema as Exclude<JSONSchema, true | false>;\r\n  }\r\n\r\n  shouldAddSeparator(idx: number, length: number): boolean {\r\n    return length <= 1 ? false : idx !== length - 1;\r\n  }\r\n}\r\n\r\n",
+            "sourceCode": "import { Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    OrLabelComponent,\r\n} from \"../../labels/index\"\r\n\r\nimport {\r\n    detectedTypes\r\n} from \"../detectTypes\";\r\n\r\nimport {\r\n  TypeLabelSwitchComponent\r\n} from \"../type-label-switch\";\r\n\r\nimport {\r\n    GenerateFriendlyNameFallbackComponent,\r\n    GenerateFriendlyNameCustomComponent\r\n} from \"./index\";\r\n\r\nimport type { JSONSchema, TypeValues } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jsv-friendly-name',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    OrLabelComponent,\r\n    TypeLabelSwitchComponent,\r\n    forwardRef( () => GenerateFriendlyNameFallbackComponent),\r\n    forwardRef( () => GenerateFriendlyNameCustomComponent)\r\n  ],\r\n  template: `\r\n    <!--  In case the schema is always valid or not -->\r\n    <ng-container *ngIf=\"isBoolean\" else titleOrCustomBlock>\r\n      <jsv-type-label-switch [type]=\"typedBoolean\" />\r\n    </ng-container>\r\n\r\n    <ng-template #titleOrCustomBlock>\r\n\r\n      <!-- Some people maintaining schemas provide a friendly name by themself -->\r\n      <ng-container *ngIf=\"typedSchema.title; else customTypeBlock\">\r\n        {{ typedSchema.title }}\r\n      </ng-container>\r\n\r\n      <!-- -->\r\n      <ng-template #customTypeBlock>\r\n        <ng-container *ngIf=\"foundTypes.length === 0; else customTypeLoopBlock\">\r\n          <jsv-friendly-name-fallback [schema]=\"typedSchema\" />\r\n        </ng-container>\r\n        <ng-template #customTypeLoopBlock>\r\n          <ng-container *ngFor=\"let type of foundTypes; let idx = index\">\r\n            <jsv-friendly-name-custom [schema]=\"typedSchema\" [type]=\"type\"/>\r\n            <ng-container *ngIf=\"shouldAddSeparator(idx, foundTypes.length)\">\r\n              <labels-or />\r\n            </ng-container>\r\n          </ng-container>\r\n        </ng-template>\r\n\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class GenerateFriendlyNameComponent {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n\r\n  get foundTypes(): TypeValues[] {\r\n    return (typeof this.schema !== \"boolean\") ? detectedTypes(this.schema) : [];\r\n  }\r\n\r\n  get isBoolean(): boolean {\r\n    return typeof this.schema === 'boolean';\r\n  }\r\n\r\n  get typedBoolean(): boolean {\r\n    return this.schema as boolean;\r\n  }\r\n\r\n  get typedSchema(): Exclude<JSONSchema, true | false> {\r\n    return this.schema as Exclude<JSONSchema, true | false>;\r\n  }\r\n\r\n  shouldAddSeparator(idx: number, length: number): boolean {\r\n    return length <= 1 ? false : idx !== length - 1;\r\n  }\r\n}\r\n\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -3906,6 +3878,15 @@
                         "type": "[]",
                         "returnType": "TypeValues[]",
                         "line": 66
+                    }
+                },
+                "isBoolean": {
+                    "name": "isBoolean",
+                    "getSignature": {
+                        "name": "isBoolean",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 70
                     }
                 },
                 "typedBoolean": {
@@ -4650,7 +4631,7 @@
         },
         {
             "name": "NgxJsonSchemaViewerComponent",
-            "id": "component-NgxJsonSchemaViewerComponent-cdf322b8ee32cc1b85dbe804bb74b9d951f6e69c22dec84011b2169a2a9b8db82a119be7b71342202cd6771c782e0005437aa2e02476a91506da1d910838743b",
+            "id": "component-NgxJsonSchemaViewerComponent-0cf6fa0688fa2035516d4f7a42407167ca3fe21a5d698a71168cba280674a8ebc6c224a9f51f5891ca2297b717d93b3056446bc55038efd83bdc496aca0bd552",
             "file": "projects/ngx-json-schema-viewer/src/lib/ngx-json-schema-viewer.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -4689,7 +4670,7 @@
                     "decorators": []
                 },
                 {
-                    "name": "vierwerOptions",
+                    "name": "viewerOptions",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "line": 75,
@@ -4795,7 +4776,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input, signal, computed } from '@angular/core';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\nimport { JSVOptionsService } from \"./services/jsv-options\";\r\n\r\n// Labels\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// Types\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSVOptions } from \"./services/jsv-options\";\r\ntype StatusType = \"LOADING\" | \"ERROR\" | \"DONE\";\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  providers: [\r\n    JSVOptionsService\r\n  ],\r\n  template: `\r\n    <!-- Error ... -->\r\n    <ng-container *ngIf=\"status() === 'ERROR'\">\r\n      <div>\r\n        <labels-error-occurred [error]=\"error()!\"/>\r\n      </div>\r\n    </ng-container>\r\n\r\n    <!-- Loading ... -->\r\n    <div *ngIf=\"status() === 'LOADING'\">\r\n        <labels-loading />\r\n    </div>\r\n\r\n    <!-- Schema -->\r\n    <div *ngIf=\"status() === 'DONE'\">\r\n      <mat-accordion>\r\n        <mat-expansion-panel [(expanded)]=\"expanded\">\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <ng-template matExpansionPanelContent>\r\n            <jse-common-create-nodes [schema]=\"resolvedSchema()!\" />\r\n          </ng-template>\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </div>\r\n  `\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  @Input() vierwerOptions?: Partial<JSVOptions>;\r\n\r\n  expanded : boolean = true;\r\n  resolvedSchema = signal<JSONSchema | undefined>(undefined);\r\n  error = signal<Error | undefined>(undefined);\r\n\r\n  status = computed<StatusType>(() => {\r\n    if (this.error() !== undefined) {\r\n      return \"ERROR\";\r\n    } else if (this.resolvedSchema() === undefined) {\r\n      return \"LOADING\";\r\n    } else {\r\n      return \"DONE\";\r\n    }\r\n  });\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService,\r\n    private jsvOptionsService: JSVOptionsService,\r\n  ) {}\r\n\r\n  ngOnInit(): void {\r\n    // If asked, apply user options\r\n    if (this.vierwerOptions) {\r\n      this.jsvOptionsService.setOptions(this.vierwerOptions);\r\n    }\r\n    // Perform the asynchronous schema resolution\r\n    this.schemaResolution();\r\n  }\r\n\r\n  private schemaResolution() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .subscribe({\r\n        error: (err) => {\r\n          this.error.set(err);\r\n          this.resolvedSchema.set(undefined);\r\n        },\r\n        next: (result) => {\r\n          this.resolvedSchema.set(result);\r\n          this.error.set(undefined);\r\n        }\r\n      });\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    let schema = this.resolvedSchema()!;\r\n    if (typeof schema !== \"boolean\" && schema.title !== undefined) {\r\n      return schema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit, Input, signal, computed } from '@angular/core';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\nimport { JSVOptionsService } from \"./services/jsv-options\";\r\n\r\n// Labels\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// Types\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSVOptions } from \"./services/jsv-options\";\r\ntype StatusType = \"LOADING\" | \"ERROR\" | \"DONE\";\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  providers: [\r\n    JSVOptionsService\r\n  ],\r\n  template: `\r\n    <!-- Error ... -->\r\n    <ng-container *ngIf=\"status() === 'ERROR'\">\r\n      <div>\r\n        <labels-error-occurred [error]=\"error()!\"/>\r\n      </div>\r\n    </ng-container>\r\n\r\n    <!-- Loading ... -->\r\n    <div *ngIf=\"status() === 'LOADING'\">\r\n        <labels-loading />\r\n    </div>\r\n\r\n    <!-- Schema -->\r\n    <div *ngIf=\"status() === 'DONE'\">\r\n      <mat-accordion>\r\n        <mat-expansion-panel [(expanded)]=\"expanded\">\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <ng-template matExpansionPanelContent>\r\n            <jse-common-create-nodes [schema]=\"resolvedSchema()!\" />\r\n          </ng-template>\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </div>\r\n  `\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  @Input() viewerOptions?: Partial<JSVOptions>;\r\n\r\n  expanded : boolean = true;\r\n  resolvedSchema = signal<JSONSchema | undefined>(undefined);\r\n  error = signal<Error | undefined>(undefined);\r\n\r\n  status = computed<StatusType>(() => {\r\n    if (this.error() !== undefined) {\r\n      return \"ERROR\";\r\n    } else if (this.resolvedSchema() === undefined) {\r\n      return \"LOADING\";\r\n    } else {\r\n      return \"DONE\";\r\n    }\r\n  });\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService,\r\n    private jsvOptionsService: JSVOptionsService,\r\n  ) {}\r\n\r\n  ngOnInit(): void {\r\n    // If asked, apply user options\r\n    if (this.viewerOptions) {\r\n      this.jsvOptionsService.setOptions(this.viewerOptions);\r\n    }\r\n    // Perform the asynchronous schema resolution\r\n    this.schemaResolution();\r\n  }\r\n\r\n  private schemaResolution() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .subscribe({\r\n        error: (err) => {\r\n          this.error.set(err);\r\n          this.resolvedSchema.set(undefined);\r\n        },\r\n        next: (result) => {\r\n          this.resolvedSchema.set(result);\r\n          this.error.set(undefined);\r\n        }\r\n      });\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    let schema = this.resolvedSchema()!;\r\n    if (typeof schema !== \"boolean\" && schema.title !== undefined) {\r\n      return schema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -6468,7 +6449,7 @@
         },
         {
             "name": "StringLabelComponent",
-            "id": "component-StringLabelComponent-f33d15f5c30c56cb68c5f27514d07e14f3d07be29130962d4122d4d49398a7257dc65f6536383bfab52e14a4089baf85966b4702821d886a49ea6c36b0b66bb3",
+            "id": "component-StringLabelComponent-587732267f9159bd13c39c10fe866e1a2151640da028ebbbf39fbf052ac6e24fc7b23a2f15d34f595e5a4894bfe1c5e3489a509dad758ec0d2b666b59dd0734d",
             "file": "projects/ngx-json-schema-viewer/src/lib/labels/string-label.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -6478,7 +6459,7 @@
             "selector": "labels-string",
             "styleUrls": [],
             "styles": [],
-            "template": "<span style=\"opacity: 0.6\">\n  number\n</span>\n",
+            "template": "<span style=\"opacity: 0.6\">\n  string\n</span>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -6495,7 +6476,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-string',\r\n  standalone: true,\r\n  imports: [],\r\n  template: `\r\n    <span style=\"opacity: 0.6\">\r\n      number\r\n    </span>\r\n  `,\r\n})\r\nexport class StringLabelComponent {}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-string',\r\n  standalone: true,\r\n  imports: [],\r\n  template: `\r\n    <span style=\"opacity: 0.6\">\r\n      string\r\n    </span>\r\n  `,\r\n})\r\nexport class StringLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -6958,7 +6939,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "createStory({\r\n    \"storybook-name\": \"📌 Annotations\",\r\n    schema: {\r\n        \"title\": \"Match anything\",\r\n        \"description\": \"This is a *schema* that matches **anything.**\",\r\n        \"default\": \"Default value\",\r\n        \"examples\": [\r\n          \"Anything\",\r\n          4035\r\n        ],\r\n        \"deprecated\": true,\r\n        \"readOnly\": true,\r\n        \"writeOnly\": false\r\n    },\r\n    vierwerOptions: {\r\n        showExamples: true\r\n    }\r\n  })"
+                "defaultValue": "createStory({\r\n    \"storybook-name\": \"📌 Annotations\",\r\n    schema: {\r\n        \"title\": \"Match anything\",\r\n        \"description\": \"This is a *schema* that matches **anything.**\",\r\n        \"default\": \"Default value\",\r\n        \"examples\": [\r\n          \"Anything\",\r\n          4035\r\n        ],\r\n        \"deprecated\": true,\r\n        \"readOnly\": true,\r\n        \"writeOnly\": false\r\n    },\r\n    viewerOptions: {\r\n        showExamples: true\r\n    }\r\n  })"
             },
             {
                 "name": "anyOf",
@@ -8195,7 +8176,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"📌 Annotations\",\r\n    schema: {\r\n        \"title\": \"Match anything\",\r\n        \"description\": \"This is a *schema* that matches **anything.**\",\r\n        \"default\": \"Default value\",\r\n        \"examples\": [\r\n          \"Anything\",\r\n          4035\r\n        ],\r\n        \"deprecated\": true,\r\n        \"readOnly\": true,\r\n        \"writeOnly\": false\r\n    },\r\n    vierwerOptions: {\r\n        showExamples: true\r\n    }\r\n  })"
+                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"📌 Annotations\",\r\n    schema: {\r\n        \"title\": \"Match anything\",\r\n        \"description\": \"This is a *schema* that matches **anything.**\",\r\n        \"default\": \"Default value\",\r\n        \"examples\": [\r\n          \"Anything\",\r\n          4035\r\n        ],\r\n        \"deprecated\": true,\r\n        \"readOnly\": true,\r\n        \"writeOnly\": false\r\n    },\r\n    viewerOptions: {\r\n        showExamples: true\r\n    }\r\n  })"
                 },
                 {
                     "name": "Const",
@@ -9551,7 +9532,7 @@
                 "linktype": "component",
                 "name": "GenerateFriendlyNameComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {

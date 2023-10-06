@@ -22,7 +22,7 @@ export const Annotations = createStory({
         "readOnly": true,
         "writeOnly": false
     },
-    vierwerOptions: {
+    viewerOptions: {
         showExamples: true
     }
   });

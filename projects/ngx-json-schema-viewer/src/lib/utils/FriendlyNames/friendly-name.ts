@@ -32,7 +32,7 @@ import type { JSONSchema, TypeValues } from "../../types";
   ],
   template: `
     <!--  In case the schema is always valid or not -->
-    <ng-container *ngIf="isBoolean(schema)" else titleOrCustomBlock>
+    <ng-container *ngIf="isBoolean" else titleOrCustomBlock>
       <jsv-type-label-switch [type]="typedBoolean" />
     </ng-container>
 
@@ -67,8 +67,8 @@ export class GenerateFriendlyNameComponent {
     return (typeof this.schema !== "boolean") ? detectedTypes(this.schema) : [];
   }
 
-  isBoolean(value: JSONSchema): boolean {
-    return typeof value === 'boolean';
+  get isBoolean(): boolean {
+    return typeof this.schema === 'boolean';
   }
 
   get typedBoolean(): boolean {

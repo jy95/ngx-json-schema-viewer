@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   imports: [],
   template: `
     <span style="opacity: 0.6">
-      number
+      string
     </span>
   `,
 })

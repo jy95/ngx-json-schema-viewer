@@ -72,7 +72,7 @@ type StatusType = "LOADING" | "ERROR" | "DONE";
 export class NgxJsonSchemaViewerComponent implements OnInit {
   @Input({ required: true }) schema: unknown;
   @Input() resolverOptions?: IResolveOpts;
-  @Input() vierwerOptions?: Partial<JSVOptions>;
+  @Input() viewerOptions?: Partial<JSVOptions>;
 
   expanded : boolean = true;
   resolvedSchema = signal<JSONSchema | undefined>(undefined);
@@ -95,8 +95,8 @@ export class NgxJsonSchemaViewerComponent implements OnInit {
 
   ngOnInit(): void {
     // If asked, apply user options
-    if (this.vierwerOptions) {
-      this.jsvOptionsService.setOptions(this.vierwerOptions);
+    if (this.viewerOptions) {
+      this.jsvOptionsService.setOptions(this.viewerOptions);
     }
     // Perform the asynchronous schema resolution
     this.schemaResolution();
