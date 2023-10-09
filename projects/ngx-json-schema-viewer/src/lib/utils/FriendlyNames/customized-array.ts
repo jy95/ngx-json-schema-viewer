@@ -19,7 +19,7 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
     template: `
         <!-- KISS return the generic type when specs are messy -->
         <ng-template *ngIf="noClearSpecs; else clearSpecs">
-            <jsv-type-label-switch [type]="'array'"] />
+            <jsv-type-label-switch [type]="'array'" />
         </ng-template>
 
         <ng-template #clearSpecs>

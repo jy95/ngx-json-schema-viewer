@@ -17,8 +17,8 @@ import type { JSONSchemaNS } from "../../types";
   template: `
     <ul>
       <jse-common-create-edge
-        [schema]="true"]
-        [required]="true"]
+        [schema]="true"
+        [required]="true"
         *ngFor="let prop of unlistedProperties"
       >
         <strong name>

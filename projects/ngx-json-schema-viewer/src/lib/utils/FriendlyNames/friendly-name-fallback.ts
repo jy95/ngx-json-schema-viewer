@@ -59,7 +59,7 @@ type LinkType = "AND" | "OR" | "XOR";
 
         <!--  2. Assume it is "any" by default -->
         <ng-template #defaultStrategy>
-            <jsv-type-label-switch [type]="true"] />
+            <jsv-type-label-switch [type]="true" />
         </ng-template>
     `
 })

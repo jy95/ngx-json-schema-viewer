@@ -11,9 +11,6 @@ import type { JSONSchema } from '../../types';
       <strong>{{ possibleValuesLabel }}</strong>&nbsp;
       <code>
         <ng-container>
-          Possible values :
-        </ng-container>
-        <ng-container>
           multiple of {{ schema.multipleOf }}
         </ng-container>
       </code>
