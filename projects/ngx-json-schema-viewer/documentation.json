@@ -3763,7 +3763,7 @@
         },
         {
             "name": "GenerateFriendlyNameComponent",
-            "id": "component-GenerateFriendlyNameComponent-96fb35c8e342c13ac576a516cbecc0dc62833823f352918fa71b5676b10e3349bb326ee221c291a49e52f1bca8bf33232353bb9ded745d19513d6c516c840544",
+            "id": "component-GenerateFriendlyNameComponent-72188a05025bb1d61c654322acf8b971412e17442eda1e5d1b649950ab0f54750968b26caf24e789ee524180e65b6405735a0df35dfaa6aa0e3f2d96b03622c4",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/FriendlyNames/friendly-name.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3773,7 +3773,7 @@
             "selector": "jsv-friendly-name",
             "styleUrls": [],
             "styles": [],
-            "template": "<!--  In case the schema is always valid or not -->\n<ng-container *ngIf=\"isBoolean\" else titleOrCustomBlock>\n  <jsv-type-label-switch [type]=\"typedBoolean\" />\n</ng-container>\n\n<ng-template #titleOrCustomBlock>\n\n  <!-- Some people maintaining schemas provide a friendly name by themself -->\n  <ng-container *ngIf=\"typedSchema.title; else customTypeBlock\">\n    {{ typedSchema.title }}\n  </ng-container>\n\n  <!-- -->\n  <ng-template #customTypeBlock>\n    <ng-container *ngIf=\"foundTypes.length === 0; else customTypeLoopBlock\">\n      <jsv-friendly-name-fallback [schema]=\"typedSchema\" />\n    </ng-container>\n    <ng-template #customTypeLoopBlock>\n      <ng-container *ngFor=\"let type of foundTypes; let idx = index\">\n        <jsv-friendly-name-custom [schema]=\"typedSchema\" [type]=\"type\"/>\n        <ng-container *ngIf=\"shouldAddSeparator(idx, foundTypes.length)\">\n          <labels-or />\n        </ng-container>\n      </ng-container>\n    </ng-template>\n\n</ng-template>\n",
+            "template": "<!--  In case the schema is always valid or not -->\n<ng-container *ngIf=\"isBoolean\" else titleOrCustomBlock>\n  <jsv-type-label-switch [type]=\"typedBoolean\" />\n</ng-container>\n\n<ng-template #titleOrCustomBlock>\n\n  <!-- Some people maintaining schemas provide a friendly name by themself -->\n  <ng-container *ngIf=\"typedSchema.title; else customTypeBlock\">\n    {{ typedSchema.title }}\n  </ng-container>\n\n  <!-- Default strategy -->\n  <ng-template #customTypeBlock>\n\n    <ng-container *ngIf=\"foundTypes.length === 0; else customTypeLoopBlock\">\n      <jsv-friendly-name-fallback [schema]=\"typedSchema\" />\n    </ng-container>\n\n    <ng-template #customTypeLoopBlock>\n      <ng-container *ngFor=\"let type of foundTypes; let isLast = last\">\n        <jsv-friendly-name-custom [schema]=\"typedSchema\" [type]=\"type\"/>\n        <ng-container *ngIf=\"!isLast\">\n          <labels-or />\n        </ng-container>\n      </ng-container>\n    </ng-template>\n\n</ng-template>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -3784,58 +3784,14 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 64,
+                    "line": 66,
                     "type": "JSONSchema",
                     "decorators": []
                 }
             ],
             "outputsClass": [],
             "propertiesClass": [],
-            "methodsClass": [
-                {
-                    "name": "shouldAddSeparator",
-                    "args": [
-                        {
-                            "name": "idx",
-                            "type": "number",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        },
-                        {
-                            "name": "length",
-                            "type": "number",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "boolean",
-                    "typeParameters": [],
-                    "line": 82,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "idx",
-                            "type": "number",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        },
-                        {
-                            "name": "length",
-                            "type": "number",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                }
-            ],
+            "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -3866,7 +3822,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    OrLabelComponent,\r\n} from \"../../labels/index\"\r\n\r\nimport {\r\n    detectedTypes\r\n} from \"../detectTypes\";\r\n\r\nimport {\r\n  TypeLabelSwitchComponent\r\n} from \"../type-label-switch\";\r\n\r\nimport {\r\n    GenerateFriendlyNameFallbackComponent,\r\n    GenerateFriendlyNameCustomComponent\r\n} from \"./index\";\r\n\r\nimport type { JSONSchema, TypeValues } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jsv-friendly-name',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    OrLabelComponent,\r\n    TypeLabelSwitchComponent,\r\n    forwardRef( () => GenerateFriendlyNameFallbackComponent),\r\n    forwardRef( () => GenerateFriendlyNameCustomComponent)\r\n  ],\r\n  template: `\r\n    <!--  In case the schema is always valid or not -->\r\n    <ng-container *ngIf=\"isBoolean\" else titleOrCustomBlock>\r\n      <jsv-type-label-switch [type]=\"typedBoolean\" />\r\n    </ng-container>\r\n\r\n    <ng-template #titleOrCustomBlock>\r\n\r\n      <!-- Some people maintaining schemas provide a friendly name by themself -->\r\n      <ng-container *ngIf=\"typedSchema.title; else customTypeBlock\">\r\n        {{ typedSchema.title }}\r\n      </ng-container>\r\n\r\n      <!-- -->\r\n      <ng-template #customTypeBlock>\r\n        <ng-container *ngIf=\"foundTypes.length === 0; else customTypeLoopBlock\">\r\n          <jsv-friendly-name-fallback [schema]=\"typedSchema\" />\r\n        </ng-container>\r\n        <ng-template #customTypeLoopBlock>\r\n          <ng-container *ngFor=\"let type of foundTypes; let idx = index\">\r\n            <jsv-friendly-name-custom [schema]=\"typedSchema\" [type]=\"type\"/>\r\n            <ng-container *ngIf=\"shouldAddSeparator(idx, foundTypes.length)\">\r\n              <labels-or />\r\n            </ng-container>\r\n          </ng-container>\r\n        </ng-template>\r\n\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class GenerateFriendlyNameComponent {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n\r\n  get foundTypes(): TypeValues[] {\r\n    return (typeof this.schema !== \"boolean\") ? detectedTypes(this.schema) : [];\r\n  }\r\n\r\n  get isBoolean(): boolean {\r\n    return typeof this.schema === 'boolean';\r\n  }\r\n\r\n  get typedBoolean(): boolean {\r\n    return this.schema as boolean;\r\n  }\r\n\r\n  get typedSchema(): Exclude<JSONSchema, true | false> {\r\n    return this.schema as Exclude<JSONSchema, true | false>;\r\n  }\r\n\r\n  shouldAddSeparator(idx: number, length: number): boolean {\r\n    return length <= 1 ? false : idx !== length - 1;\r\n  }\r\n}\r\n\r\n",
+            "sourceCode": "import { Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    OrLabelComponent,\r\n} from \"../../labels/index\"\r\n\r\nimport {\r\n    detectedTypes\r\n} from \"../detectTypes\";\r\n\r\nimport {\r\n  TypeLabelSwitchComponent\r\n} from \"../type-label-switch\";\r\n\r\nimport {\r\n    GenerateFriendlyNameFallbackComponent,\r\n    GenerateFriendlyNameCustomComponent\r\n} from \"./index\";\r\n\r\nimport type { JSONSchema, TypeValues } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jsv-friendly-name',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    OrLabelComponent,\r\n    TypeLabelSwitchComponent,\r\n    forwardRef( () => GenerateFriendlyNameFallbackComponent),\r\n    forwardRef( () => GenerateFriendlyNameCustomComponent)\r\n  ],\r\n  template: `\r\n    <!--  In case the schema is always valid or not -->\r\n    <ng-container *ngIf=\"isBoolean\" else titleOrCustomBlock>\r\n      <jsv-type-label-switch [type]=\"typedBoolean\" />\r\n    </ng-container>\r\n\r\n    <ng-template #titleOrCustomBlock>\r\n\r\n      <!-- Some people maintaining schemas provide a friendly name by themself -->\r\n      <ng-container *ngIf=\"typedSchema.title; else customTypeBlock\">\r\n        {{ typedSchema.title }}\r\n      </ng-container>\r\n\r\n      <!-- Default strategy -->\r\n      <ng-template #customTypeBlock>\r\n\r\n        <ng-container *ngIf=\"foundTypes.length === 0; else customTypeLoopBlock\">\r\n          <jsv-friendly-name-fallback [schema]=\"typedSchema\" />\r\n        </ng-container>\r\n\r\n        <ng-template #customTypeLoopBlock>\r\n          <ng-container *ngFor=\"let type of foundTypes; let isLast = last\">\r\n            <jsv-friendly-name-custom [schema]=\"typedSchema\" [type]=\"type\"/>\r\n            <ng-container *ngIf=\"!isLast\">\r\n              <labels-or />\r\n            </ng-container>\r\n          </ng-container>\r\n        </ng-template>\r\n\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class GenerateFriendlyNameComponent {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n\r\n  get foundTypes(): TypeValues[] {\r\n    return (typeof this.schema !== \"boolean\") ? detectedTypes(this.schema) : [];\r\n  }\r\n\r\n  get isBoolean(): boolean {\r\n    return typeof this.schema === 'boolean';\r\n  }\r\n\r\n  get typedBoolean(): boolean {\r\n    return this.schema as boolean;\r\n  }\r\n\r\n  get typedSchema(): Exclude<JSONSchema, true | false> {\r\n    return this.schema as Exclude<JSONSchema, true | false>;\r\n  }\r\n\r\n}\r\n\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -3877,7 +3833,7 @@
                         "name": "foundTypes",
                         "type": "[]",
                         "returnType": "TypeValues[]",
-                        "line": 66
+                        "line": 68
                     }
                 },
                 "isBoolean": {
@@ -3886,7 +3842,7 @@
                         "name": "isBoolean",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 70
+                        "line": 72
                     }
                 },
                 "typedBoolean": {
@@ -3895,7 +3851,7 @@
                         "name": "typedBoolean",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 74
+                        "line": 76
                     }
                 },
                 "typedSchema": {
@@ -3904,14 +3860,14 @@
                         "name": "typedSchema",
                         "type": "",
                         "returnType": "Exclude<JSONSchema,  | >",
-                        "line": 78
+                        "line": 80
                     }
                 }
             }
         },
         {
             "name": "GenerateFriendlyNameCustomArrayComponent",
-            "id": "component-GenerateFriendlyNameCustomArrayComponent-b858600c956d712ef82968f6ddae4bd0dd530e8bf90698853ebda9847276e512d6ae57968d8631777a006f94e84a4ce66752ece9f001c9947f268d2fe469afc0",
+            "id": "component-GenerateFriendlyNameCustomArrayComponent-1af74a49b1a77753887a65841da43cc8c153e5050a3224875d73524385c9b60d381035253d12d19693088b843f439d81776b6de30e3f249b198d92b658484374",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/FriendlyNames/customized-array.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3921,7 +3877,7 @@
             "selector": "jsv-friendly-name-custom-array",
             "styleUrls": [],
             "styles": [],
-            "template": "<!-- KISS return the generic type when specs are messy -->\n<ng-template *ngIf=\"noClearSpecs; else clearSpecs\">\n    <jsv-type-label-switch [type]=\"'array'\"] />\n</ng-template>\n\n<ng-template #clearSpecs>\n\n    <!-- 1) \"prefixItems\" -->\n    <ng-container *ngIf=\"isPrefixItemsArray\">\n        <ng-container *ngFor=\"let subSchema of typedPrefixItemsArray; let idx = index\">\n            <jsv-friendly-name [schema]=\"subSchema\" />\n            {{ shouldAddSeparator(idx, typedPrefixItemsArray.length) ? ',' : '' }}\n        </ng-container>\n    </ng-container>\n\n    <!-- Separator -->\n    <ng-container *ngIf=\"firstSeparator\">\n        {{ ',' }}\n    </ng-container>\n\n    <!-- 2A) \"items\" -->\n    <ng-container *ngIf=\"hasItems\">\n        <ng-container *ngFor=\"let subSchema of itemsAsArray; let idx = index\">\n            <jsv-friendly-name [schema]=\"subSchema\" />\n            {{ shouldAddSeparator(idx, typedPrefixItemsArray.length) ? ',' : '' }}\n        </ng-container>\n    </ng-container>\n\n    <!-- Separator -->\n    <ng-container *ngIf=\"secondSeparator\">\n        {{ ',' }}\n    </ng-container>\n\n    <!-- 2B) \"additionalItems\" (to cover cases for specs below the draft-2020-12 version) -->\n    <ng-container *ngIf=\"hasAdditionalItems\">\n        <jsv-friendly-name [schema]=\"schema.additionalItems!\" />\n    </ng-container>\n\n    <!-- Separator -->\n    <ng-container *ngIf=\"thirdSeparator\">\n        {{ ',' }}\n    </ng-container>\n\n    <!-- 2C) \"unevaluatedItems\" (to cover cases specs >= draft-2020-12 version) -->\n    <ng-container *ngIf=\"hasUnevaluatedItems\">\n        <jsv-friendly-name [schema]=\"schema.unevaluatedItems!\" />\n    </ng-container>\n\n    <!-- Separator -->\n    <ng-container *ngIf=\"fourSeparator\">\n        {{ ',' }}\n    </ng-container>\n\n    <!-- 3) \"contains\" -->\n    <ng-container *ngIf=\"hasContains\">\n        {{ '...' }}\n        {{ ',' }}\n        <jsv-friendly-name [schema]=\"schema.contains!\" />\n    </ng-container>\n\n    <!-- Separator -->\n    <ng-container *ngIf=\"fithSeparator\">\n        {{ ',' }}\n    </ng-container>\n\n    <!-- 4) Is it a open tuple ? -->\n    <ng-container *ngIf=\"isOpenTuple\">\n        {{ '...' }}\n    </ng-container>\n\n</ng-template>\n",
+            "template": "<!-- KISS return the generic type when specs are messy -->\n<ng-template *ngIf=\"noClearSpecs; else clearSpecs\">\n    <jsv-type-label-switch [type]=\"'array'\"] />\n</ng-template>\n\n<ng-template #clearSpecs>\n\n    <!-- 1) \"prefixItems\" -->\n    <ng-container *ngIf=\"isPrefixItemsArray\">\n        <ng-container *ngFor=\"let subSchema of typedPrefixItemsArray; let isLast = last\">\n            <jsv-friendly-name [schema]=\"subSchema\" />\n            {{ !isLast ? ',' : '' }}\n        </ng-container>\n    </ng-container>\n\n    <!-- Separator -->\n    <ng-container *ngIf=\"firstSeparator\">\n        {{ ',' }}\n    </ng-container>\n\n    <!-- 2A) \"items\" -->\n    <ng-container *ngIf=\"hasItems\">\n        <ng-container *ngFor=\"let subSchema of itemsAsArray; let isLast = last\">\n            <jsv-friendly-name [schema]=\"subSchema\" />\n            {{ !isLast ? ',' : '' }}\n        </ng-container>\n    </ng-container>\n\n    <!-- Separator -->\n    <ng-container *ngIf=\"secondSeparator\">\n        {{ ',' }}\n    </ng-container>\n\n    <!-- 2B) \"additionalItems\" (to cover cases for specs below the draft-2020-12 version) -->\n    <ng-container *ngIf=\"hasAdditionalItems\">\n        <jsv-friendly-name [schema]=\"schema.additionalItems!\" />\n    </ng-container>\n\n    <!-- Separator -->\n    <ng-container *ngIf=\"thirdSeparator\">\n        {{ ',' }}\n    </ng-container>\n\n    <!-- 2C) \"unevaluatedItems\" (to cover cases specs >= draft-2020-12 version) -->\n    <ng-container *ngIf=\"hasUnevaluatedItems\">\n        <jsv-friendly-name [schema]=\"schema.unevaluatedItems!\" />\n    </ng-container>\n\n    <!-- Separator -->\n    <ng-container *ngIf=\"fourSeparator\">\n        {{ ',' }}\n    </ng-container>\n\n    <!-- 3) \"contains\" -->\n    <ng-container *ngIf=\"hasContains\">\n        {{ '...' }}\n        {{ ',' }}\n        <jsv-friendly-name [schema]=\"schema.contains!\" />\n    </ng-container>\n\n    <!-- Separator -->\n    <ng-container *ngIf=\"fithSeparator\">\n        {{ ',' }}\n    </ng-container>\n\n    <!-- 4) Is it a open tuple ? -->\n    <ng-container *ngIf=\"isOpenTuple\">\n        {{ '...' }}\n    </ng-container>\n\n</ng-template>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -3939,51 +3895,7 @@
             ],
             "outputsClass": [],
             "propertiesClass": [],
-            "methodsClass": [
-                {
-                    "name": "shouldAddSeparator",
-                    "args": [
-                        {
-                            "name": "idx",
-                            "type": "number",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        },
-                        {
-                            "name": "length",
-                            "type": "number",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "boolean",
-                    "typeParameters": [],
-                    "line": 132,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "idx",
-                            "type": "number",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        },
-                        {
-                            "name": "length",
-                            "type": "number",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                }
-            ],
+            "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -4006,7 +3918,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    TypeLabelSwitchComponent,\r\n    GenerateFriendlyNameComponent\r\n} from \"../index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n    selector: 'jsv-friendly-name-custom-array',\r\n    standalone: true,\r\n    imports: [\r\n      CommonModule,\r\n      TypeLabelSwitchComponent,\r\n      forwardRef(() => GenerateFriendlyNameComponent)\r\n    ],\r\n    template: `\r\n        <!-- KISS return the generic type when specs are messy -->\r\n        <ng-template *ngIf=\"noClearSpecs; else clearSpecs\">\r\n            <jsv-type-label-switch [type]=\"'array'\"] />\r\n        </ng-template>\r\n\r\n        <ng-template #clearSpecs>\r\n\r\n            <!-- 1) \"prefixItems\" -->\r\n            <ng-container *ngIf=\"isPrefixItemsArray\">\r\n                <ng-container *ngFor=\"let subSchema of typedPrefixItemsArray; let idx = index\">\r\n                    <jsv-friendly-name [schema]=\"subSchema\" />\r\n                    {{ shouldAddSeparator(idx, typedPrefixItemsArray.length) ? ',' : '' }}\r\n                </ng-container>\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"firstSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 2A) \"items\" -->\r\n            <ng-container *ngIf=\"hasItems\">\r\n                <ng-container *ngFor=\"let subSchema of itemsAsArray; let idx = index\">\r\n                    <jsv-friendly-name [schema]=\"subSchema\" />\r\n                    {{ shouldAddSeparator(idx, typedPrefixItemsArray.length) ? ',' : '' }}\r\n                </ng-container>\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"secondSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 2B) \"additionalItems\" (to cover cases for specs below the draft-2020-12 version) -->\r\n            <ng-container *ngIf=\"hasAdditionalItems\">\r\n                <jsv-friendly-name [schema]=\"schema.additionalItems!\" />\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"thirdSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 2C) \"unevaluatedItems\" (to cover cases specs >= draft-2020-12 version) -->\r\n            <ng-container *ngIf=\"hasUnevaluatedItems\">\r\n                <jsv-friendly-name [schema]=\"schema.unevaluatedItems!\" />\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"fourSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 3) \"contains\" -->\r\n            <ng-container *ngIf=\"hasContains\">\r\n                {{ '...' }}\r\n                {{ ',' }}\r\n                <jsv-friendly-name [schema]=\"schema.contains!\" />\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"fithSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 4) Is it a open tuple ? -->\r\n            <ng-container *ngIf=\"isOpenTuple\">\r\n                {{ '...' }}\r\n            </ng-container>\r\n\r\n        </ng-template>\r\n    `\r\n})\r\nexport class GenerateFriendlyNameCustomArrayComponent {\r\n    @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n    // For separators\r\n    get firstSeparator() : boolean {\r\n        return this.isPrefixItemsArray && this.hasItems;\r\n    }\r\n\r\n    get secondSeparator() : boolean {\r\n        return this.hasItems && this.hasAdditionalItems;\r\n    }\r\n\r\n    get thirdSeparator() : boolean {\r\n        return this.hasAdditionalItems && this.hasUnevaluatedItems;\r\n    }\r\n\r\n    get fourSeparator() : boolean {\r\n        return this.hasUnevaluatedItems && this.hasContains;\r\n    }\r\n\r\n    get fithSeparator() : boolean {\r\n        return this.hasContains && this.isOpenTuple;\r\n    }\r\n\r\n    // No clear specifications about the contents of the array ?\r\n    get noClearSpecs(): boolean {\r\n        return [undefined, false].includes(this.schema.items as any) &&\r\n            [undefined, false].includes(this.schema.prefixItems as any) &&\r\n            this.schema.contains === undefined;\r\n    }\r\n\r\n    get isPrefixItemsArray(): boolean {\r\n        return Array.isArray(this.schema.prefixItems);\r\n    }\r\n\r\n    get typedPrefixItemsArray() {\r\n        return this.schema.prefixItems as JSONSchema[];\r\n    }\r\n\r\n    shouldAddSeparator(idx: number, length: number): boolean {\r\n        return length <= 1 ? false : idx !== length - 1;\r\n    }\r\n\r\n    get hasItems() : boolean {\r\n        return this.schema.items !== undefined && typeof this.schema.items !== \"boolean\";\r\n    }\r\n\r\n    get itemsAsArray() : JSONSchema[] {\r\n        return (Array.isArray(this.schema.items) ? this.schema.items : [this.schema.items]) as JSONSchema[];\r\n    }\r\n\r\n    get hasAdditionalItems(): boolean {\r\n        return this.schema.additionalItems !== undefined && typeof this.schema.additionalItems !== \"boolean\";\r\n    }\r\n\r\n    get hasUnevaluatedItems(): boolean {\r\n        return this.schema.unevaluatedItems !== undefined && typeof this.schema.unevaluatedItems !== \"boolean\";\r\n    }\r\n\r\n    get hasContains(): boolean {\r\n        return this.schema.contains !== undefined;\r\n    }\r\n\r\n    get isOpenTuple(): boolean {\r\n        return !(\r\n            (this.schema as JSONSchemaNS.Array).unevaluatedItems === false ||\r\n            this.schema.items === false ||\r\n            this.schema.additionalItems === false\r\n        );\r\n    }\r\n}",
+            "sourceCode": "import { Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    TypeLabelSwitchComponent,\r\n    GenerateFriendlyNameComponent\r\n} from \"../index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n    selector: 'jsv-friendly-name-custom-array',\r\n    standalone: true,\r\n    imports: [\r\n      CommonModule,\r\n      TypeLabelSwitchComponent,\r\n      forwardRef(() => GenerateFriendlyNameComponent)\r\n    ],\r\n    template: `\r\n        <!-- KISS return the generic type when specs are messy -->\r\n        <ng-template *ngIf=\"noClearSpecs; else clearSpecs\">\r\n            <jsv-type-label-switch [type]=\"'array'\"] />\r\n        </ng-template>\r\n\r\n        <ng-template #clearSpecs>\r\n\r\n            <!-- 1) \"prefixItems\" -->\r\n            <ng-container *ngIf=\"isPrefixItemsArray\">\r\n                <ng-container *ngFor=\"let subSchema of typedPrefixItemsArray; let isLast = last\">\r\n                    <jsv-friendly-name [schema]=\"subSchema\" />\r\n                    {{ !isLast ? ',' : '' }}\r\n                </ng-container>\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"firstSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 2A) \"items\" -->\r\n            <ng-container *ngIf=\"hasItems\">\r\n                <ng-container *ngFor=\"let subSchema of itemsAsArray; let isLast = last\">\r\n                    <jsv-friendly-name [schema]=\"subSchema\" />\r\n                    {{ !isLast ? ',' : '' }}\r\n                </ng-container>\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"secondSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 2B) \"additionalItems\" (to cover cases for specs below the draft-2020-12 version) -->\r\n            <ng-container *ngIf=\"hasAdditionalItems\">\r\n                <jsv-friendly-name [schema]=\"schema.additionalItems!\" />\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"thirdSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 2C) \"unevaluatedItems\" (to cover cases specs >= draft-2020-12 version) -->\r\n            <ng-container *ngIf=\"hasUnevaluatedItems\">\r\n                <jsv-friendly-name [schema]=\"schema.unevaluatedItems!\" />\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"fourSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 3) \"contains\" -->\r\n            <ng-container *ngIf=\"hasContains\">\r\n                {{ '...' }}\r\n                {{ ',' }}\r\n                <jsv-friendly-name [schema]=\"schema.contains!\" />\r\n            </ng-container>\r\n\r\n            <!-- Separator -->\r\n            <ng-container *ngIf=\"fithSeparator\">\r\n                {{ ',' }}\r\n            </ng-container>\r\n\r\n            <!-- 4) Is it a open tuple ? -->\r\n            <ng-container *ngIf=\"isOpenTuple\">\r\n                {{ '...' }}\r\n            </ng-container>\r\n\r\n        </ng-template>\r\n    `\r\n})\r\nexport class GenerateFriendlyNameCustomArrayComponent {\r\n    @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n\r\n    // For separators\r\n    get firstSeparator() : boolean {\r\n        return this.isPrefixItemsArray && this.hasItems;\r\n    }\r\n\r\n    get secondSeparator() : boolean {\r\n        return this.hasItems && this.hasAdditionalItems;\r\n    }\r\n\r\n    get thirdSeparator() : boolean {\r\n        return this.hasAdditionalItems && this.hasUnevaluatedItems;\r\n    }\r\n\r\n    get fourSeparator() : boolean {\r\n        return this.hasUnevaluatedItems && this.hasContains;\r\n    }\r\n\r\n    get fithSeparator() : boolean {\r\n        return this.hasContains && this.isOpenTuple;\r\n    }\r\n\r\n    // No clear specifications about the contents of the array ?\r\n    get noClearSpecs(): boolean {\r\n        return [undefined, false].includes(this.schema.items as any) &&\r\n            [undefined, false].includes(this.schema.prefixItems as any) &&\r\n            this.schema.contains === undefined;\r\n    }\r\n\r\n    get isPrefixItemsArray(): boolean {\r\n        return Array.isArray(this.schema.prefixItems);\r\n    }\r\n\r\n    get typedPrefixItemsArray() {\r\n        return this.schema.prefixItems as JSONSchema[];\r\n    }\r\n\r\n    get hasItems() : boolean {\r\n        return this.schema.items !== undefined && typeof this.schema.items !== \"boolean\";\r\n    }\r\n\r\n    get itemsAsArray() : JSONSchema[] {\r\n        return (Array.isArray(this.schema.items) ? this.schema.items : [this.schema.items]) as JSONSchema[];\r\n    }\r\n\r\n    get hasAdditionalItems(): boolean {\r\n        return this.schema.additionalItems !== undefined && typeof this.schema.additionalItems !== \"boolean\";\r\n    }\r\n\r\n    get hasUnevaluatedItems(): boolean {\r\n        return this.schema.unevaluatedItems !== undefined && typeof this.schema.unevaluatedItems !== \"boolean\";\r\n    }\r\n\r\n    get hasContains(): boolean {\r\n        return this.schema.contains !== undefined;\r\n    }\r\n\r\n    get isOpenTuple(): boolean {\r\n        return !(\r\n            (this.schema as JSONSchemaNS.Array).unevaluatedItems === false ||\r\n            this.schema.items === false ||\r\n            this.schema.additionalItems === false\r\n        );\r\n    }\r\n}",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -4089,7 +4001,7 @@
                         "name": "hasItems",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 136
+                        "line": 132
                     }
                 },
                 "itemsAsArray": {
@@ -4098,7 +4010,7 @@
                         "name": "itemsAsArray",
                         "type": "[]",
                         "returnType": "JSONSchema[]",
-                        "line": 140
+                        "line": 136
                     }
                 },
                 "hasAdditionalItems": {
@@ -4107,7 +4019,7 @@
                         "name": "hasAdditionalItems",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 144
+                        "line": 140
                     }
                 },
                 "hasUnevaluatedItems": {
@@ -4116,7 +4028,7 @@
                         "name": "hasUnevaluatedItems",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 148
+                        "line": 144
                     }
                 },
                 "hasContains": {
@@ -4125,7 +4037,7 @@
                         "name": "hasContains",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 152
+                        "line": 148
                     }
                 },
                 "isOpenTuple": {
@@ -4134,7 +4046,7 @@
                         "name": "isOpenTuple",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 156
+                        "line": 152
                     }
                 }
             }
@@ -4218,7 +4130,7 @@
         },
         {
             "name": "GenerateFriendlyNameFallbackComponent",
-            "id": "component-GenerateFriendlyNameFallbackComponent-bf300e882875a66f03ce96a6dff8b8af15e248a245930374b24d0776eb6d373ac82968a03a4c9f30dafb7ee37307f279b530029262859d39282db8e5eb4d7f68",
+            "id": "component-GenerateFriendlyNameFallbackComponent-54d4e3d8873e23cfb0baeafbcba9dd2b0096bc5d937c7ae302f584973bbf798ae8e51ed078d0fb81238bf8fe37b84dbe30b5dc0563eb5f8c30e93fa417cf14f8",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/FriendlyNames/friendly-name-fallback.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -4228,7 +4140,7 @@
             "selector": "jsv-friendly-name-fallback",
             "styleUrls": [],
             "styles": [],
-            "template": "<!--  1. we have a Schema Composition case (not, allOf, ...) -->\n\n<!--  1A) the \"not\" case -->\n<ng-container *ngIf=\"hasNotKeyword\">\n    <labels-not />\n    {{ ' (' }}\n    <jsv-friendly-name [schema]=\"schema.not!\" />\n    {{ ' ) ' }}\n</ng-container>\n\n<!--  1B) the \"allOf\" / \"oneOf\" / \"anyOf\" -->\n<ng-template *ngIf=\"hasOfKeyword; else defaultStrategy\">\n    <ng-container *ngFor=\"let elem of elementsOf; let idx = index\">\n        <jsv-friendly-name [schema]=\"elem\" />\n        <ng-container *ngIf=\"shouldAddSeparator(idx, elementsOf.length)\">\n            <ng-container [ngSwitch]=\"linkword\">\n                <labels-or *ngSwitchCase=\"'OR'\" />\n                <labels-xor *ngSwitchCase=\"'XOR'\" />\n                <labels-and *ngSwitchCase=\"'AND'\" />\n            </ng-container>\n        </ng-container>\n    </ng-container>\n</ng-template>\n\n<!--  2. Assume it is \"any\" by default -->\n<ng-template #defaultStrategy>\n    <jsv-type-label-switch [type]=\"true\"] />\n</ng-template>\n",
+            "template": "<!--  1. we have a Schema Composition case (not, allOf, ...) -->\n\n<!--  1A) the \"not\" case -->\n<ng-container *ngIf=\"hasNotKeyword\">\n    <labels-not />\n    {{ ' (' }}\n    <jsv-friendly-name [schema]=\"schema.not!\" />\n    {{ ' ) ' }}\n</ng-container>\n\n<!--  1B) the \"allOf\" / \"oneOf\" / \"anyOf\" -->\n<ng-template *ngIf=\"hasOfKeyword; else defaultStrategy\">\n    <ng-container *ngFor=\"let elem of elementsOf; let isLast = last\">\n        <jsv-friendly-name [schema]=\"elem\" />\n        <ng-container *ngIf=\"!isLast\">\n            <ng-container [ngSwitch]=\"linkword\">\n                <labels-or *ngSwitchCase=\"'OR'\" />\n                <labels-xor *ngSwitchCase=\"'XOR'\" />\n                <labels-and *ngSwitchCase=\"'AND'\" />\n            </ng-container>\n        </ng-container>\n    </ng-container>\n</ng-template>\n\n<!--  2. Assume it is \"any\" by default -->\n<ng-template #defaultStrategy>\n    <jsv-type-label-switch [type]=\"true\"] />\n</ng-template>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -4246,51 +4158,7 @@
             ],
             "outputsClass": [],
             "propertiesClass": [],
-            "methodsClass": [
-                {
-                    "name": "shouldAddSeparator",
-                    "args": [
-                        {
-                            "name": "idx",
-                            "type": "number",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        },
-                        {
-                            "name": "length",
-                            "type": "number",
-                            "deprecated": false,
-                            "deprecationMessage": ""
-                        }
-                    ],
-                    "optional": false,
-                    "returnType": "boolean",
-                    "typeParameters": [],
-                    "line": 84,
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "jsdoctags": [
-                        {
-                            "name": "idx",
-                            "type": "number",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        },
-                        {
-                            "name": "length",
-                            "type": "number",
-                            "deprecated": false,
-                            "deprecationMessage": "",
-                            "tagName": {
-                                "text": "param"
-                            }
-                        }
-                    ]
-                }
-            ],
+            "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -4329,7 +4197,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    AndLabelComponent,\r\n    NotLabelComponent,\r\n    OrLabelComponent,\r\n    XorLabelComponent\r\n} from \"../../labels/index\";\r\n\r\nimport {\r\n    GenerateFriendlyNameComponent\r\n} from \"./index\";\r\n\r\nimport {\r\n    TypeLabelSwitchComponent\r\n} from \"../index\";\r\n\r\nimport type { JSONSchema } from \"../../types\";\r\n\r\ntype LinkType = \"AND\" | \"OR\" | \"XOR\";\r\n\r\n@Component({\r\n    selector: 'jsv-friendly-name-fallback',\r\n    standalone: true,\r\n    imports: [\r\n      CommonModule,\r\n      NotLabelComponent,\r\n      AndLabelComponent,\r\n      XorLabelComponent,\r\n      OrLabelComponent,\r\n      forwardRef(() => GenerateFriendlyNameComponent),\r\n      TypeLabelSwitchComponent\r\n    ],\r\n    template: `\r\n        <!--  1. we have a Schema Composition case (not, allOf, ...) -->\r\n\r\n        <!--  1A) the \"not\" case -->\r\n        <ng-container *ngIf=\"hasNotKeyword\">\r\n            <labels-not />\r\n            {{ ' (' }}\r\n            <jsv-friendly-name [schema]=\"schema.not!\" />\r\n            {{ ' ) ' }}\r\n        </ng-container>\r\n\r\n        <!--  1B) the \"allOf\" / \"oneOf\" / \"anyOf\" -->\r\n        <ng-template *ngIf=\"hasOfKeyword; else defaultStrategy\">\r\n            <ng-container *ngFor=\"let elem of elementsOf; let idx = index\">\r\n                <jsv-friendly-name [schema]=\"elem\" />\r\n                <ng-container *ngIf=\"shouldAddSeparator(idx, elementsOf.length)\">\r\n                    <ng-container [ngSwitch]=\"linkword\">\r\n                        <labels-or *ngSwitchCase=\"'OR'\" />\r\n                        <labels-xor *ngSwitchCase=\"'XOR'\" />\r\n                        <labels-and *ngSwitchCase=\"'AND'\" />\r\n                    </ng-container>\r\n                </ng-container>\r\n            </ng-container>\r\n        </ng-template>\r\n\r\n        <!--  2. Assume it is \"any\" by default -->\r\n        <ng-template #defaultStrategy>\r\n            <jsv-type-label-switch [type]=\"true\"] />\r\n        </ng-template>\r\n    `\r\n})\r\nexport class GenerateFriendlyNameFallbackComponent {\r\n    @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>\r\n\r\n    // has a \"...Of\" keyword ?\r\n    get hasOfKeyword(): boolean {\r\n        return this.schema.allOf !== undefined || this.schema.anyOf !== undefined || this.schema.oneOf !== undefined;\r\n    }\r\n\r\n    // has a \"not\" keyword ?\r\n    get hasNotKeyword(): boolean {\r\n        return this.schema.not !== undefined;\r\n    }\r\n\r\n    // Kind of operators to use ?\r\n    get linkword(): LinkType {\r\n        return this.schema.anyOf ? \"OR\" : this.schema.oneOf ? \"XOR\" : \"AND\";\r\n    }\r\n\r\n    shouldAddSeparator(idx: number, length: number): boolean {\r\n        return length <= 1 ? false : idx !== length - 1;\r\n    }\r\n\r\n    // allOf / anyOf / oneOf\r\n    get elementsOf() : JSONSchema[] {\r\n        return (this.schema.allOf || this.schema.anyOf || this.schema.oneOf || []) as JSONSchema[];\r\n    }\r\n}",
+            "sourceCode": "import { Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    AndLabelComponent,\r\n    NotLabelComponent,\r\n    OrLabelComponent,\r\n    XorLabelComponent\r\n} from \"../../labels/index\";\r\n\r\nimport {\r\n    GenerateFriendlyNameComponent\r\n} from \"./index\";\r\n\r\nimport {\r\n    TypeLabelSwitchComponent\r\n} from \"../index\";\r\n\r\nimport type { JSONSchema } from \"../../types\";\r\n\r\ntype LinkType = \"AND\" | \"OR\" | \"XOR\";\r\n\r\n@Component({\r\n    selector: 'jsv-friendly-name-fallback',\r\n    standalone: true,\r\n    imports: [\r\n      CommonModule,\r\n      NotLabelComponent,\r\n      AndLabelComponent,\r\n      XorLabelComponent,\r\n      OrLabelComponent,\r\n      forwardRef(() => GenerateFriendlyNameComponent),\r\n      TypeLabelSwitchComponent\r\n    ],\r\n    template: `\r\n        <!--  1. we have a Schema Composition case (not, allOf, ...) -->\r\n\r\n        <!--  1A) the \"not\" case -->\r\n        <ng-container *ngIf=\"hasNotKeyword\">\r\n            <labels-not />\r\n            {{ ' (' }}\r\n            <jsv-friendly-name [schema]=\"schema.not!\" />\r\n            {{ ' ) ' }}\r\n        </ng-container>\r\n\r\n        <!--  1B) the \"allOf\" / \"oneOf\" / \"anyOf\" -->\r\n        <ng-template *ngIf=\"hasOfKeyword; else defaultStrategy\">\r\n            <ng-container *ngFor=\"let elem of elementsOf; let isLast = last\">\r\n                <jsv-friendly-name [schema]=\"elem\" />\r\n                <ng-container *ngIf=\"!isLast\">\r\n                    <ng-container [ngSwitch]=\"linkword\">\r\n                        <labels-or *ngSwitchCase=\"'OR'\" />\r\n                        <labels-xor *ngSwitchCase=\"'XOR'\" />\r\n                        <labels-and *ngSwitchCase=\"'AND'\" />\r\n                    </ng-container>\r\n                </ng-container>\r\n            </ng-container>\r\n        </ng-template>\r\n\r\n        <!--  2. Assume it is \"any\" by default -->\r\n        <ng-template #defaultStrategy>\r\n            <jsv-type-label-switch [type]=\"true\"] />\r\n        </ng-template>\r\n    `\r\n})\r\nexport class GenerateFriendlyNameFallbackComponent {\r\n    @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>\r\n\r\n    // has a \"...Of\" keyword ?\r\n    get hasOfKeyword(): boolean {\r\n        return this.schema.allOf !== undefined || this.schema.anyOf !== undefined || this.schema.oneOf !== undefined;\r\n    }\r\n\r\n    // has a \"not\" keyword ?\r\n    get hasNotKeyword(): boolean {\r\n        return this.schema.not !== undefined;\r\n    }\r\n\r\n    // Kind of operators to use ?\r\n    get linkword(): LinkType {\r\n        return this.schema.anyOf ? \"OR\" : this.schema.oneOf ? \"XOR\" : \"AND\";\r\n    }\r\n\r\n    // allOf / anyOf / oneOf\r\n    get elementsOf() : JSONSchema[] {\r\n        return (this.schema.allOf || this.schema.anyOf || this.schema.oneOf || []) as JSONSchema[];\r\n    }\r\n}",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -4367,7 +4235,7 @@
                         "name": "elementsOf",
                         "type": "[]",
                         "returnType": "JSONSchema[]",
-                        "line": 89
+                        "line": 85
                     }
                 }
             }
@@ -9505,7 +9373,7 @@
                 "linktype": "component",
                 "name": "GenerateFriendlyNameCustomArrayComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/3",
+                "coverageCount": "0/2",
                 "status": "low"
             },
             {
@@ -9523,7 +9391,7 @@
                 "linktype": "component",
                 "name": "GenerateFriendlyNameFallbackComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/3",
+                "coverageCount": "0/2",
                 "status": "low"
             },
             {
@@ -9532,7 +9400,7 @@
                 "linktype": "component",
                 "name": "GenerateFriendlyNameComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/3",
+                "coverageCount": "0/2",
                 "status": "low"
             },
             {

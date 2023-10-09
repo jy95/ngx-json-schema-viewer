@@ -26,9 +26,9 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
 
             <!-- 1) "prefixItems" -->
             <ng-container *ngIf="isPrefixItemsArray">
-                <ng-container *ngFor="let subSchema of typedPrefixItemsArray; let idx = index">
+                <ng-container *ngFor="let subSchema of typedPrefixItemsArray; let isLast = last">
                     <jsv-friendly-name [schema]="subSchema" />
-                    {{ shouldAddSeparator(idx, typedPrefixItemsArray.length) ? ',' : '' }}
+                    {{ !isLast ? ',' : '' }}
                 </ng-container>
             </ng-container>
 
@@ -39,9 +39,9 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
 
             <!-- 2A) "items" -->
             <ng-container *ngIf="hasItems">
-                <ng-container *ngFor="let subSchema of itemsAsArray; let idx = index">
+                <ng-container *ngFor="let subSchema of itemsAsArray; let isLast = last">
                     <jsv-friendly-name [schema]="subSchema" />
-                    {{ shouldAddSeparator(idx, typedPrefixItemsArray.length) ? ',' : '' }}
+                    {{ !isLast ? ',' : '' }}
                 </ng-container>
             </ng-container>
 
@@ -127,10 +127,6 @@ export class GenerateFriendlyNameCustomArrayComponent {
 
     get typedPrefixItemsArray() {
         return this.schema.prefixItems as JSONSchema[];
-    }
-
-    shouldAddSeparator(idx: number, length: number): boolean {
-        return length <= 1 ? false : idx !== length - 1;
     }
 
     get hasItems() : boolean {

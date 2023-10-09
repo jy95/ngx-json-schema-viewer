@@ -45,9 +45,9 @@ type LinkType = "AND" | "OR" | "XOR";
 
         <!--  1B) the "allOf" / "oneOf" / "anyOf" -->
         <ng-template *ngIf="hasOfKeyword; else defaultStrategy">
-            <ng-container *ngFor="let elem of elementsOf; let idx = index">
+            <ng-container *ngFor="let elem of elementsOf; let isLast = last">
                 <jsv-friendly-name [schema]="elem" />
-                <ng-container *ngIf="shouldAddSeparator(idx, elementsOf.length)">
+                <ng-container *ngIf="!isLast">
                     <ng-container [ngSwitch]="linkword">
                         <labels-or *ngSwitchCase="'OR'" />
                         <labels-xor *ngSwitchCase="'XOR'" />
@@ -79,10 +79,6 @@ export class GenerateFriendlyNameFallbackComponent {
     // Kind of operators to use ?
     get linkword(): LinkType {
         return this.schema.anyOf ? "OR" : this.schema.oneOf ? "XOR" : "AND";
-    }
-
-    shouldAddSeparator(idx: number, length: number): boolean {
-        return length <= 1 ? false : idx !== length - 1;
     }
 
     // allOf / anyOf / oneOf

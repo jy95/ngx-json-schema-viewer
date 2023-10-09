@@ -43,15 +43,17 @@ import type { JSONSchema, TypeValues } from "../../types";
         {{ typedSchema.title }}
       </ng-container>
 
-      <!-- -->
+      <!-- Default strategy -->
       <ng-template #customTypeBlock>
+
         <ng-container *ngIf="foundTypes.length === 0; else customTypeLoopBlock">
           <jsv-friendly-name-fallback [schema]="typedSchema" />
         </ng-container>
+
         <ng-template #customTypeLoopBlock>
-          <ng-container *ngFor="let type of foundTypes; let idx = index">
+          <ng-container *ngFor="let type of foundTypes; let isLast = last">
             <jsv-friendly-name-custom [schema]="typedSchema" [type]="type"/>
-            <ng-container *ngIf="shouldAddSeparator(idx, foundTypes.length)">
+            <ng-container *ngIf="!isLast">
               <labels-or />
             </ng-container>
           </ng-container>
@@ -79,8 +81,5 @@ export class GenerateFriendlyNameComponent {
     return this.schema as Exclude<JSONSchema, true | false>;
   }
 
-  shouldAddSeparator(idx: number, length: number): boolean {
-    return length <= 1 ? false : idx !== length - 1;
-  }
 }
 
