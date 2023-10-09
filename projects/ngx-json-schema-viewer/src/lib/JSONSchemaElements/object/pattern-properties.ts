@@ -5,7 +5,7 @@ import {
   CreateEdgeComponent
 } from "../../common/index";
 
-import type { JSONSchemaNS } from "../../types";
+import type { JSONSchemaNS, JSONSchema } from "../../types";
 
 @Component({
   selector: 'jse-object-pattern-properties',
@@ -27,7 +27,7 @@ import type { JSONSchemaNS } from "../../types";
 export class CreatePatternPropertiesComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Object;
 
-  get patternPropertiesEntries() {
+  get patternPropertiesEntries() : [string, JSONSchema][] {
     return Object.entries(this.schema.patternProperties || {});
   }
 

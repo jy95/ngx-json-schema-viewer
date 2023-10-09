@@ -5,7 +5,7 @@ import {
   CreateEdgeComponent
 } from "../../common/index";
 
-import type { JSONSchemaNS } from "../../types";
+import type { JSONSchemaNS, JSONSchema } from "../../types";
 
 @Component({
   selector: 'jse-object-properties',
@@ -27,7 +27,7 @@ import type { JSONSchemaNS } from "../../types";
 export class CreatePropertiesComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Object;
 
-  get propertiesEntries() {
+  get propertiesEntries() : [string, JSONSchema][] {
     return Object.entries(this.schema.properties || {});
   }
 

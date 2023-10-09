@@ -2279,7 +2279,7 @@
         },
         {
             "name": "CreatePatternPropertiesComponent",
-            "id": "component-CreatePatternPropertiesComponent-76f6b090713d59412ac45ffde3c3ddac3c50ce18e1862351dacedc18804c23295b86b80c8511b63ff41c1d51dd798c7903c276d3d4853ee9764c0ae570c50fb1",
+            "id": "component-CreatePatternPropertiesComponent-2f1f8ba8645605bdf1c9a9cb71d0c29d6689c6bae9dc4bf21781729ee628bcbc1c080f64a23bd8e417749dd52deb903686999788b3418b564189019a57969d67",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/object/pattern-properties.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2355,7 +2355,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-pattern-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul>\r\n      <jse-common-create-edge [schema]=\"entry[1]\" [required]=\"false\" *ngFor=\"let entry of patternPropertiesEntries\">\r\n        <code name>\r\n          {{ generatePropertyName(entry[0]) }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreatePatternPropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  get patternPropertiesEntries() {\r\n    return Object.entries(this.schema.patternProperties || {});\r\n  }\r\n\r\n  generatePropertyName(key: string): string {\r\n    return `${key}`;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-pattern-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul>\r\n      <jse-common-create-edge [schema]=\"entry[1]\" [required]=\"false\" *ngFor=\"let entry of patternPropertiesEntries\">\r\n        <code name>\r\n          {{ generatePropertyName(entry[0]) }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreatePatternPropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  get patternPropertiesEntries() : [string, JSONSchema][] {\r\n    return Object.entries(this.schema.patternProperties || {});\r\n  }\r\n\r\n  generatePropertyName(key: string): string {\r\n    return `${key}`;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -2364,8 +2364,8 @@
                     "name": "patternPropertiesEntries",
                     "getSignature": {
                         "name": "patternPropertiesEntries",
-                        "type": "",
-                        "returnType": "",
+                        "type": "[]",
+                        "returnType": "[]",
                         "line": 30
                     }
                 }
@@ -2477,7 +2477,7 @@
         },
         {
             "name": "CreatePropertiesComponent",
-            "id": "component-CreatePropertiesComponent-d282aeb38c63bf4a6cb733c0d4c5daa91bad0e0ba40a89063ba2c384839714af3321cbc65a8e6c14866c2f55c45e195418e2004f68fec2950605301259b35582",
+            "id": "component-CreatePropertiesComponent-3b40b2cd7ae0afa2981e3c3d2e7b9dc5921b35a336b3e59f145f7f7da1251fef9f5c1bfe3b491c9c1d08106246e0ea057840e0c2c4dc40f936cbc3c0fd0e8904",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/object/properties.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2581,7 +2581,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul>\r\n      <jse-common-create-edge [schema]=\"entry[1]\" [required]=\"isRequired(entry[0])\" *ngFor=\"let entry of propertiesEntries\">\r\n        <strong name>\r\n          {{ generatePropertyName(entry[0]) }}\r\n        </strong>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreatePropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  get propertiesEntries() {\r\n    return Object.entries(this.schema.properties || {});\r\n  }\r\n\r\n  generatePropertyName(key: string): string {\r\n    return `${key}`;\r\n  }\r\n\r\n  isRequired(key: string): boolean {\r\n    return Array.isArray(this.schema.required) ? this.schema.required.includes(key) : false;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul>\r\n      <jse-common-create-edge [schema]=\"entry[1]\" [required]=\"isRequired(entry[0])\" *ngFor=\"let entry of propertiesEntries\">\r\n        <strong name>\r\n          {{ generatePropertyName(entry[0]) }}\r\n        </strong>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreatePropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  get propertiesEntries() : [string, JSONSchema][] {\r\n    return Object.entries(this.schema.properties || {});\r\n  }\r\n\r\n  generatePropertyName(key: string): string {\r\n    return `${key}`;\r\n  }\r\n\r\n  isRequired(key: string): boolean {\r\n    return Array.isArray(this.schema.required) ? this.schema.required.includes(key) : false;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -2590,8 +2590,8 @@
                     "name": "propertiesEntries",
                     "getSignature": {
                         "name": "propertiesEntries",
-                        "type": "",
-                        "returnType": "",
+                        "type": "[]",
+                        "returnType": "[]",
                         "line": 30
                     }
                 }
@@ -5479,7 +5479,7 @@
         },
         {
             "name": "PropertyNamesComponent",
-            "id": "component-PropertyNamesComponent-b4e48c0badd1ed1983eef292b7312f51719e914d571151c224c73e2771c062eea8eed9f1aa4c3d11ab1ebc3027fecdca80776679f0d1f9c3db0ce92a69d436b3",
+            "id": "component-PropertyNamesComponent-f742b95efe7d5b38fd27efb68e20c1d83410f8f7dc4a928acf0320cb61237ba65a7e06b106048b96f52bbdb5e2171bf250874099377ab375cd4428e834bfa8c9",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/object/property-names.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -5489,7 +5489,7 @@
             "selector": "jse-object-property-names",
             "styleUrls": [],
             "styles": [],
-            "template": "<ul *ngIf=\"isPropertyNamesValid()\">\n  <jse-common-create-edge [schema]=\"generateSchema()\" [required]=\"false\">\n    <code name>\n      {{ generatePropertyName() }}\n    </code>\n  </jse-common-create-edge>\n</ul>\n",
+            "template": "<ul *ngIf=\"schema.propertyNames !== undefined\">\n  <jse-common-create-edge [schema]=\"schema.propertyNames\" [required]=\"false\">\n    <code name>\n      {{ generatePropertyName() }}\n    </code>\n  </jse-common-create-edge>\n</ul>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -5514,26 +5514,6 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 39,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                },
-                {
-                    "name": "generateSchema",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "JSONSchema",
-                    "typeParameters": [],
-                    "line": 45,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                },
-                {
-                    "name": "isPropertyNamesValid",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "boolean",
-                    "typeParameters": [],
                     "line": 30,
                     "deprecated": false,
                     "deprecationMessage": ""
@@ -5557,7 +5537,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-property-names',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul *ngIf=\"isPropertyNamesValid()\">\r\n      <jse-common-create-edge [schema]=\"generateSchema()\" [required]=\"false\">\r\n        <code name>\r\n          {{ generatePropertyName() }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class PropertyNamesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  isPropertyNamesValid(): boolean {\r\n    const propertyNames = this.schema.propertyNames;\r\n    return (\r\n      propertyNames !== undefined &&\r\n      typeof propertyNames !== \"boolean\" &&\r\n      propertyNames.pattern !== undefined\r\n    );\r\n  }\r\n\r\n  generatePropertyName(): string {\r\n    const propertyNames = this.schema.propertyNames!;\r\n    const pattern = typeof propertyNames !== \"boolean\" ? propertyNames?.pattern : \"\";\r\n    return `${pattern}`;\r\n  }\r\n\r\n  generateSchema(): JSONSchema {\r\n    const propertyNames = this.schema.propertyNames;\r\n    if (propertyNames && typeof propertyNames !== \"boolean\") {\r\n      const { pattern, ...newSchema } = propertyNames;\r\n      return newSchema;\r\n    }\r\n    return {};\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-property-names',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  template: `\r\n    <ul *ngIf=\"schema.propertyNames !== undefined\">\r\n      <jse-common-create-edge [schema]=\"schema.propertyNames\" [required]=\"false\">\r\n        <code name>\r\n          {{ generatePropertyName() }}\r\n        </code>\r\n      </jse-common-create-edge>\r\n    </ul>\r\n  `,\r\n})\r\nexport class PropertyNamesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  generatePropertyName(): string {\r\n    let pattern = \"^.+$\";\r\n    return `${pattern}`;\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -8968,7 +8948,7 @@
                 "linktype": "component",
                 "name": "PropertyNamesComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {

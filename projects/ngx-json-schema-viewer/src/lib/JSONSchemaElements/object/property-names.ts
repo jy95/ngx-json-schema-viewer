@@ -15,8 +15,8 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
     forwardRef(() => CreateEdgeComponent)
   ],
   template: `
-    <ul *ngIf="isPropertyNamesValid()">
-      <jse-common-create-edge [schema]="generateSchema()" [required]="false">
+    <ul *ngIf="schema.propertyNames !== undefined">
+      <jse-common-create-edge [schema]="schema.propertyNames" [required]="false">
         <code name>
           {{ generatePropertyName() }}
         </code>
@@ -27,27 +27,9 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
 export class PropertyNamesComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Object;
 
-  isPropertyNamesValid(): boolean {
-    const propertyNames = this.schema.propertyNames;
-    return (
-      propertyNames !== undefined &&
-      typeof propertyNames !== "boolean" &&
-      propertyNames.pattern !== undefined
-    );
-  }
-
   generatePropertyName(): string {
-    const propertyNames = this.schema.propertyNames!;
-    const pattern = typeof propertyNames !== "boolean" ? propertyNames?.pattern : "";
+    let pattern = "^.+$";
     return `${pattern}`;
   }
 
-  generateSchema(): JSONSchema {
-    const propertyNames = this.schema.propertyNames;
-    if (propertyNames && typeof propertyNames !== "boolean") {
-      const { pattern, ...newSchema } = propertyNames;
-      return newSchema;
-    }
-    return {};
-  }
 }
