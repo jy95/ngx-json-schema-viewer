@@ -3763,7 +3763,7 @@
         },
         {
             "name": "GenerateFriendlyNameComponent",
-            "id": "component-GenerateFriendlyNameComponent-72188a05025bb1d61c654322acf8b971412e17442eda1e5d1b649950ab0f54750968b26caf24e789ee524180e65b6405735a0df35dfaa6aa0e3f2d96b03622c4",
+            "id": "component-GenerateFriendlyNameComponent-7f54674a94777e860130b7e4898d0efb08d810af50f73247aa183673b6f419afeb32fbccfb2141cf6662e7d5a588a9996c21833bda29c66075e0903736267745",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/FriendlyNames/friendly-name.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3773,7 +3773,7 @@
             "selector": "jsv-friendly-name",
             "styleUrls": [],
             "styles": [],
-            "template": "<!--  In case the schema is always valid or not -->\n<ng-container *ngIf=\"isBoolean\" else titleOrCustomBlock>\n  <jsv-type-label-switch [type]=\"typedBoolean\" />\n</ng-container>\n\n<ng-template #titleOrCustomBlock>\n\n  <!-- Some people maintaining schemas provide a friendly name by themself -->\n  <ng-container *ngIf=\"typedSchema.title; else customTypeBlock\">\n    {{ typedSchema.title }}\n  </ng-container>\n\n  <!-- Default strategy -->\n  <ng-template #customTypeBlock>\n\n    <ng-container *ngIf=\"foundTypes.length === 0; else customTypeLoopBlock\">\n      <jsv-friendly-name-fallback [schema]=\"typedSchema\" />\n    </ng-container>\n\n    <ng-template #customTypeLoopBlock>\n      <ng-container *ngFor=\"let type of foundTypes; let isLast = last\">\n        <jsv-friendly-name-custom [schema]=\"typedSchema\" [type]=\"type\"/>\n        <ng-container *ngIf=\"!isLast\">\n          <labels-or />\n        </ng-container>\n      </ng-container>\n    </ng-template>\n\n</ng-template>\n",
+            "template": "<!-- Final rendered friendly name -->\n<ng-container [ngSwitch]=\"selectTemplate\">\n\n  <ng-container *ngSwitchCase=\"'booleanSchema'\">\n    <ng-container *ngTemplateOutlet=\"booleanSchema\"></ng-container>\n  </ng-container>\n\n  <ng-container *ngSwitchCase=\"'schemaTitle'\">\n    <ng-container *ngTemplateOutlet=\"schemaTitle\"></ng-container>\n  </ng-container>\n\n  <ng-container *ngSwitchCase=\"'schemaTypes'\">\n    <ng-container *ngTemplateOutlet=\"schemaTypes\"></ng-container>\n  </ng-container>\n\n  <ng-container *ngSwitchDefault>\n    <ng-container *ngTemplateOutlet=\"schemaFallback\"></ng-container>\n  </ng-container>\n\n</ng-container>\n\n<!-- Templates -->\n\n<!--  In case the schema is always valid or not -->\n<ng-template #booleanSchema>\n  <jsv-type-label-switch [type]=\"typedBoolean\" />\n</ng-template>\n\n<!-- Some people maintaining schemas provide a friendly name by themself -->\n<ng-template #schemaTitle>\n  {{ typedSchema.title! }}\n</ng-template>\n\n<!-- Default strategy, when types are known -->\n<ng-template #schemaTypes>\n  <ng-container *ngFor=\"let type of foundTypes; let isLast = last\">\n    <jsv-friendly-name-custom [schema]=\"typedSchema\" [type]=\"type\"/>\n    <ng-container *ngIf=\"!isLast\">\n      <labels-or />\n    </ng-container>\n  </ng-container>\n</ng-template>\n\n<!-- Fallback, when none of the previous rules matched -->\n<ng-template #schemaFallback>\n  <jsv-friendly-name-fallback [schema]=\"typedSchema\" />\n</ng-template>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -3784,7 +3784,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 66,
+                    "line": 86,
                     "type": "JSONSchema",
                     "decorators": []
                 }
@@ -3822,7 +3822,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    OrLabelComponent,\r\n} from \"../../labels/index\"\r\n\r\nimport {\r\n    detectedTypes\r\n} from \"../detectTypes\";\r\n\r\nimport {\r\n  TypeLabelSwitchComponent\r\n} from \"../type-label-switch\";\r\n\r\nimport {\r\n    GenerateFriendlyNameFallbackComponent,\r\n    GenerateFriendlyNameCustomComponent\r\n} from \"./index\";\r\n\r\nimport type { JSONSchema, TypeValues } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jsv-friendly-name',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    OrLabelComponent,\r\n    TypeLabelSwitchComponent,\r\n    forwardRef( () => GenerateFriendlyNameFallbackComponent),\r\n    forwardRef( () => GenerateFriendlyNameCustomComponent)\r\n  ],\r\n  template: `\r\n    <!--  In case the schema is always valid or not -->\r\n    <ng-container *ngIf=\"isBoolean\" else titleOrCustomBlock>\r\n      <jsv-type-label-switch [type]=\"typedBoolean\" />\r\n    </ng-container>\r\n\r\n    <ng-template #titleOrCustomBlock>\r\n\r\n      <!-- Some people maintaining schemas provide a friendly name by themself -->\r\n      <ng-container *ngIf=\"typedSchema.title; else customTypeBlock\">\r\n        {{ typedSchema.title }}\r\n      </ng-container>\r\n\r\n      <!-- Default strategy -->\r\n      <ng-template #customTypeBlock>\r\n\r\n        <ng-container *ngIf=\"foundTypes.length === 0; else customTypeLoopBlock\">\r\n          <jsv-friendly-name-fallback [schema]=\"typedSchema\" />\r\n        </ng-container>\r\n\r\n        <ng-template #customTypeLoopBlock>\r\n          <ng-container *ngFor=\"let type of foundTypes; let isLast = last\">\r\n            <jsv-friendly-name-custom [schema]=\"typedSchema\" [type]=\"type\"/>\r\n            <ng-container *ngIf=\"!isLast\">\r\n              <labels-or />\r\n            </ng-container>\r\n          </ng-container>\r\n        </ng-template>\r\n\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class GenerateFriendlyNameComponent {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n\r\n  get foundTypes(): TypeValues[] {\r\n    return (typeof this.schema !== \"boolean\") ? detectedTypes(this.schema) : [];\r\n  }\r\n\r\n  get isBoolean(): boolean {\r\n    return typeof this.schema === 'boolean';\r\n  }\r\n\r\n  get typedBoolean(): boolean {\r\n    return this.schema as boolean;\r\n  }\r\n\r\n  get typedSchema(): Exclude<JSONSchema, true | false> {\r\n    return this.schema as Exclude<JSONSchema, true | false>;\r\n  }\r\n\r\n}\r\n\r\n",
+            "sourceCode": "import { Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    OrLabelComponent,\r\n} from \"../../labels/index\"\r\n\r\nimport {\r\n    detectedTypes\r\n} from \"../detectTypes\";\r\n\r\nimport {\r\n  TypeLabelSwitchComponent\r\n} from \"../type-label-switch\";\r\n\r\nimport {\r\n    GenerateFriendlyNameFallbackComponent,\r\n    GenerateFriendlyNameCustomComponent\r\n} from \"./index\";\r\n\r\nimport type { JSONSchema, TypeValues } from \"../../types\";\r\n\r\ntype renderTemplates = \"booleanSchema\" | \"schemaTitle\" | \"schemaTypes\" | \"schemaFallback\";\r\n\r\n@Component({\r\n  selector: 'jsv-friendly-name',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    OrLabelComponent,\r\n    TypeLabelSwitchComponent,\r\n    forwardRef( () => GenerateFriendlyNameFallbackComponent),\r\n    forwardRef( () => GenerateFriendlyNameCustomComponent)\r\n  ],\r\n  template: `\r\n    <!-- Final rendered friendly name -->\r\n    <ng-container [ngSwitch]=\"selectTemplate\">\r\n\r\n      <ng-container *ngSwitchCase=\"'booleanSchema'\">\r\n        <ng-container *ngTemplateOutlet=\"booleanSchema\"></ng-container>\r\n      </ng-container>\r\n\r\n      <ng-container *ngSwitchCase=\"'schemaTitle'\">\r\n        <ng-container *ngTemplateOutlet=\"schemaTitle\"></ng-container>\r\n      </ng-container>\r\n\r\n      <ng-container *ngSwitchCase=\"'schemaTypes'\">\r\n        <ng-container *ngTemplateOutlet=\"schemaTypes\"></ng-container>\r\n      </ng-container>\r\n\r\n      <ng-container *ngSwitchDefault>\r\n        <ng-container *ngTemplateOutlet=\"schemaFallback\"></ng-container>\r\n      </ng-container>\r\n\r\n    </ng-container>\r\n\r\n    <!-- Templates -->\r\n\r\n    <!--  In case the schema is always valid or not -->\r\n    <ng-template #booleanSchema>\r\n      <jsv-type-label-switch [type]=\"typedBoolean\" />\r\n    </ng-template>\r\n\r\n    <!-- Some people maintaining schemas provide a friendly name by themself -->\r\n    <ng-template #schemaTitle>\r\n      {{ typedSchema.title! }}\r\n    </ng-template>\r\n\r\n    <!-- Default strategy, when types are known -->\r\n    <ng-template #schemaTypes>\r\n      <ng-container *ngFor=\"let type of foundTypes; let isLast = last\">\r\n        <jsv-friendly-name-custom [schema]=\"typedSchema\" [type]=\"type\"/>\r\n        <ng-container *ngIf=\"!isLast\">\r\n          <labels-or />\r\n        </ng-container>\r\n      </ng-container>\r\n    </ng-template>\r\n\r\n    <!-- Fallback, when none of the previous rules matched -->\r\n    <ng-template #schemaFallback>\r\n      <jsv-friendly-name-fallback [schema]=\"typedSchema\" />\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class GenerateFriendlyNameComponent {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n\r\n  get foundTypes(): TypeValues[] {\r\n    return (typeof this.schema !== \"boolean\") ? detectedTypes(this.schema) : [];\r\n  }\r\n\r\n  get isBoolean(): boolean {\r\n    return typeof this.schema === 'boolean';\r\n  }\r\n\r\n  get typedBoolean(): boolean {\r\n    return this.schema as boolean;\r\n  }\r\n\r\n  get typedSchema(): Exclude<JSONSchema, true | false> {\r\n    return this.schema as Exclude<JSONSchema, true | false>;\r\n  }\r\n\r\n  // To know which template to render\r\n  get selectTemplate(): renderTemplates {\r\n    if (this.isBoolean) {\r\n      return \"booleanSchema\";\r\n    } else {\r\n      let castSchema = this.typedSchema;\r\n      \r\n      if (castSchema.title !== undefined) {\r\n        return \"schemaTitle\";\r\n      }\r\n\r\n      if (this.foundTypes.length !== 0) {\r\n        return \"schemaTypes\";\r\n      }\r\n\r\n      return \"schemaFallback\";\r\n    }\r\n  }\r\n\r\n}\r\n\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -3833,7 +3833,7 @@
                         "name": "foundTypes",
                         "type": "[]",
                         "returnType": "TypeValues[]",
-                        "line": 68
+                        "line": 88
                     }
                 },
                 "isBoolean": {
@@ -3842,7 +3842,7 @@
                         "name": "isBoolean",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 72
+                        "line": 92
                     }
                 },
                 "typedBoolean": {
@@ -3851,7 +3851,7 @@
                         "name": "typedBoolean",
                         "type": "boolean",
                         "returnType": "boolean",
-                        "line": 76
+                        "line": 96
                     }
                 },
                 "typedSchema": {
@@ -3860,7 +3860,16 @@
                         "name": "typedSchema",
                         "type": "",
                         "returnType": "Exclude<JSONSchema,  | >",
-                        "line": 80
+                        "line": 100
+                    }
+                },
+                "selectTemplate": {
+                    "name": "selectTemplate",
+                    "getSignature": {
+                        "name": "selectTemplate",
+                        "type": "",
+                        "returnType": "renderTemplates",
+                        "line": 105
                     }
                 }
             }
@@ -7662,6 +7671,17 @@
                 "kind": 190
             },
             {
+                "name": "renderTemplates",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "\"booleanSchema\" | \"schemaTitle\" | \"schemaTypes\" | \"schemaFallback\"",
+                "file": "projects/ngx-json-schema-viewer/src/lib/utils/FriendlyNames/friendly-name.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 189
+            },
+            {
                 "name": "StatusType",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
@@ -8718,6 +8738,19 @@
                     "subtype": "typealias",
                     "rawtype": "\"AND\" | \"OR\" | \"XOR\"",
                     "file": "projects/ngx-json-schema-viewer/src/lib/utils/FriendlyNames/friendly-name-fallback.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 189
+                }
+            ],
+            "projects/ngx-json-schema-viewer/src/lib/utils/FriendlyNames/friendly-name.ts": [
+                {
+                    "name": "renderTemplates",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "\"booleanSchema\" | \"schemaTitle\" | \"schemaTypes\" | \"schemaFallback\"",
+                    "file": "projects/ngx-json-schema-viewer/src/lib/utils/FriendlyNames/friendly-name.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
