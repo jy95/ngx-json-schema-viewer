@@ -11,7 +11,7 @@ import type { JSONSchema } from '../../types';
     <div>
       <strong>{{ enumLabel }}</strong>
       &nbsp;
-      <lib-print-schema-type [obj]="schema.enum" />
+      <lib-print-schema-type [obj]="enumValue" />
     </div>
   `,
 })
@@ -19,4 +19,8 @@ export class EnumComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
 
   enumLabel = 'Possible values :';
+
+  get enumValue(): unknown {
+    return this.schema.enum;
+  }
 }

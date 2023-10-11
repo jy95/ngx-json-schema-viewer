@@ -5,7 +5,7 @@ import { PrintSchemaTypeComponent } from './print-schema-type';
 
 import type { JSONSchema } from '../../types';
 
-type itemsType = { id: number; value: any; label: string }[]
+type itemsType = { id: number; value: unknown; label: string }[]
 
 @Component({
   selector: 'qm-examples',
@@ -20,7 +20,7 @@ type itemsType = { id: number; value: any; label: string }[]
       <strong>{{ examplesLabel }}</strong>&nbsp;
       <mat-tab-group>
         <mat-tab *ngFor="let item of items" [label]="item.label">
-            <lib-print-schema-type [obj]="item.value"></lib-print-schema-type>
+            <lib-print-schema-type [obj]="item.value" />
         </mat-tab>
       </mat-tab-group>
     </div>

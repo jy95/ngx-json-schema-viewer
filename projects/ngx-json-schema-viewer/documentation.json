@@ -710,7 +710,7 @@
         },
         {
             "name": "ConstantComponent",
-            "id": "component-ConstantComponent-4816735e9c57d881dbc1031a0125318ebe008049f86ee139be46c8732302b8cecea264ee50f825033b6bd2219e6d295c85e44bd7b0b44705692a9fe487db7d45",
+            "id": "component-ConstantComponent-33ba63cd9caa7d7a613d0d3bb523911e3548b09ec893e6905284fe43dc5e557b743d73a40768b5552171971f20afb5d303dc9291b33e92abd55b6540ca0cfd75",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/constant.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -720,7 +720,7 @@
             "selector": "qm-constant",
             "styleUrls": [],
             "styles": [],
-            "template": "<div>\n    <strong>Constant value :</strong>\n    &nbsp;\n    <lib-print-schema-type [obj]=\"constValue()\" />\n</div>\n",
+            "template": "<div>\n    <strong>Constant value :</strong>\n    &nbsp;\n    <lib-print-schema-type [obj]=\"constValue\" />\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -753,7 +753,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-constant',\r\n  standalone: true,\r\n  imports: [PrintSchemaTypeComponent],\r\n  template: `\r\n  <div>\r\n      <strong>Constant value :</strong>\r\n      &nbsp;\r\n      <lib-print-schema-type [obj]=\"constValue()\" />\r\n  </div>\r\n  `\r\n})\r\nexport class ConstantComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  get constValue(): any {\r\n    return this.schema.const;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-constant',\r\n  standalone: true,\r\n  imports: [PrintSchemaTypeComponent],\r\n  template: `\r\n  <div>\r\n      <strong>Constant value :</strong>\r\n      &nbsp;\r\n      <lib-print-schema-type [obj]=\"constValue\" />\r\n  </div>\r\n  `\r\n})\r\nexport class ConstantComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  get constValue(): any {\r\n    return this.schema.const;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -3538,7 +3538,7 @@
         },
         {
             "name": "EnumComponent",
-            "id": "component-EnumComponent-9c216389a3b1397ae0a474ce4cbd2bb46b067528bb886d79c58d7b1eea4732f3e57062fe4d6daae2323cbfa15da720678536e357b66ab9676b8bdad18564b865",
+            "id": "component-EnumComponent-eb75277709b7885bcc2b22805fd81fb00add272369659bfff98c354166e04101a039e3e5f3331f20f9162dd3cebba2de36c253a762cbed01501203c972815867",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/enum.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3548,7 +3548,7 @@
             "selector": "qm-enum",
             "styleUrls": [],
             "styles": [],
-            "template": "<div>\n  <strong>{{ enumLabel }}</strong>\n  &nbsp;\n  <lib-print-schema-type [obj]=\"schema.enum\" />\n</div>\n",
+            "template": "<div>\n  <strong>{{ enumLabel }}</strong>\n  &nbsp;\n  <lib-print-schema-type [obj]=\"enumValue\" />\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -3592,10 +3592,21 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-enum',\r\n  standalone: true,\r\n  imports: [PrintSchemaTypeComponent],\r\n  template: `\r\n    <div>\r\n      <strong>{{ enumLabel }}</strong>\r\n      &nbsp;\r\n      <lib-print-schema-type [obj]=\"schema.enum\" />\r\n    </div>\r\n  `,\r\n})\r\nexport class EnumComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  enumLabel = 'Possible values :';\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-enum',\r\n  standalone: true,\r\n  imports: [PrintSchemaTypeComponent],\r\n  template: `\r\n    <div>\r\n      <strong>{{ enumLabel }}</strong>\r\n      &nbsp;\r\n      <lib-print-schema-type [obj]=\"enumValue\" />\r\n    </div>\r\n  `,\r\n})\r\nexport class EnumComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  enumLabel = 'Possible values :';\r\n\r\n  get enumValue(): unknown {\r\n    return this.schema.enum;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "accessors": {
+                "enumValue": {
+                    "name": "enumValue",
+                    "getSignature": {
+                        "name": "enumValue",
+                        "type": "",
+                        "returnType": "",
+                        "line": 23
+                    }
+                }
+            }
         },
         {
             "name": "ErrorOccurredLabelComponent",
@@ -3649,7 +3660,7 @@
         },
         {
             "name": "ExamplesComponent",
-            "id": "component-ExamplesComponent-4798d17eea320ea4b14c679ba9bc28faa5555ce1d9627ed9fd0c57185310ace973af29e9e86884553c5c906e5fa1c5c1f7431c9e90f0dabd7103be4787648fa8",
+            "id": "component-ExamplesComponent-41965bd06f9c760c03ad056b73d177c20e2354dabf746210ddf5494c389c5d835c88a5dd5a19e40cde2ac1049e7c07752b393f56d79e207d42f1d2b913542b3f",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/examples.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3659,7 +3670,7 @@
             "selector": "qm-examples",
             "styleUrls": [],
             "styles": [],
-            "template": "<div>\n  <strong>{{ examplesLabel }}</strong>&nbsp;\n  <mat-tab-group>\n    <mat-tab *ngFor=\"let item of items\" [label]=\"item.label\">\n        <lib-print-schema-type [obj]=\"item.value\"></lib-print-schema-type>\n    </mat-tab>\n  </mat-tab-group>\n</div>\n",
+            "template": "<div>\n  <strong>{{ examplesLabel }}</strong>&nbsp;\n  <mat-tab-group>\n    <mat-tab *ngFor=\"let item of items\" [label]=\"item.label\">\n        <lib-print-schema-type [obj]=\"item.value\" />\n    </mat-tab>\n  </mat-tab-group>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -3711,7 +3722,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport {MatTabsModule} from '@angular/material/tabs';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\ntype itemsType = { id: number; value: any; label: string }[]\r\n\r\n@Component({\r\n  selector: 'qm-examples',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatTabsModule, \r\n    PrintSchemaTypeComponent\r\n  ],\r\n  template: `\r\n    <div>\r\n      <strong>{{ examplesLabel }}</strong>&nbsp;\r\n      <mat-tab-group>\r\n        <mat-tab *ngFor=\"let item of items\" [label]=\"item.label\">\r\n            <lib-print-schema-type [obj]=\"item.value\"></lib-print-schema-type>\r\n        </mat-tab>\r\n      </mat-tab-group>\r\n    </div>\r\n  `,\r\n})\r\nexport class ExamplesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  examplesLabel = 'Example values :';\r\n\r\n  get items(): itemsType {\r\n    return (this.schema.examples || [])\r\n      .map((val, idx) => ({\r\n        id: idx,\r\n        value: val,\r\n        label: `Example ${idx}`,\r\n    }));\r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import { Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport {MatTabsModule} from '@angular/material/tabs';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\ntype itemsType = { id: number; value: unknown; label: string }[]\r\n\r\n@Component({\r\n  selector: 'qm-examples',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatTabsModule, \r\n    PrintSchemaTypeComponent\r\n  ],\r\n  template: `\r\n    <div>\r\n      <strong>{{ examplesLabel }}</strong>&nbsp;\r\n      <mat-tab-group>\r\n        <mat-tab *ngFor=\"let item of items\" [label]=\"item.label\">\r\n            <lib-print-schema-type [obj]=\"item.value\" />\r\n        </mat-tab>\r\n      </mat-tab-group>\r\n    </div>\r\n  `,\r\n})\r\nexport class ExamplesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  examplesLabel = 'Example values :';\r\n\r\n  get items(): itemsType {\r\n    return (this.schema.examples || [])\r\n      .map((val, idx) => ({\r\n        id: idx,\r\n        value: val,\r\n        label: `Example ${idx}`,\r\n    }));\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",

@@ -11,7 +11,7 @@ import type { JSONSchema } from '../../types';
   <div>
       <strong>Constant value :</strong>
       &nbsp;
-      <lib-print-schema-type [obj]="constValue()" />
+      <lib-print-schema-type [obj]="constValue" />
   </div>
   `
 })
