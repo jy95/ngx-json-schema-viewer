@@ -20,14 +20,20 @@ import type { JSONSchema, JSONSchemaNS, TypeValues } from "../../types";
       forwardRef(() => GenerateFriendlyNameCustomArrayComponent)
     ],
     template: `
-        <ng-container *ngIf="type === 'string' && schema.format !== undefined">
-            <jsv-type-label-switch [type]="schema.format" />
-        </ng-container>
-        <ng-container *ngIf="type === 'array'">
-            <jsv-friendly-name-custom-array [schema]="asTypedArray" />
-        </ng-container>
-        <ng-container *ngIf="type !== 'string' && type !== 'array'">
-            <jsv-type-label-switch [type]="type" />
+        <ng-container [ngSwitch]="type">
+            
+            <ng-container *ngSwitchCase="'string'">
+                <jsv-type-label-switch [type]="stringOrFormat" />
+            </ng-container>
+            
+            <ng-container *ngSwitchCase="'array'">
+                <jsv-friendly-name-custom-array [schema]="asTypedArray" />
+            </ng-container>
+            
+            <ng-container *ngSwitchDefault>
+                <jsv-type-label-switch [type]="type" />
+            </ng-container>
+
         </ng-container>
     `
 })
@@ -37,5 +43,9 @@ export class GenerateFriendlyNameCustomComponent {
 
     get asTypedArray() {
         return this.schema as JSONSchemaNS.Array;
+    }
+
+    get stringOrFormat() {
+        return this.schema.format ? this.schema.format : "string";
     }
 }

@@ -4062,7 +4062,7 @@
         },
         {
             "name": "GenerateFriendlyNameCustomComponent",
-            "id": "component-GenerateFriendlyNameCustomComponent-9bd9ae3edca1bf15ef19cdc37b0eb55af7d23d8b3ec55c24895a340835485c0e9bb899ca718bb9174cbfab0a9e9e3a09cfc0e3a02e3cbecfc933f92fb7309722",
+            "id": "component-GenerateFriendlyNameCustomComponent-b932c0c928c87784b223bbcf086d5025c4cddea6fa69d93bbfd1574ea0e5896474fe104b26e5d856b803b5dad239f15e719f88ff478da70248d58e3888c187a7",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/FriendlyNames/customized-name.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -4072,7 +4072,7 @@
             "selector": "jsv-friendly-name-custom",
             "styleUrls": [],
             "styles": [],
-            "template": "<ng-container *ngIf=\"type === 'string' && schema.format !== undefined\">\n    <jsv-type-label-switch [type]=\"schema.format\" />\n</ng-container>\n<ng-container *ngIf=\"type === 'array'\">\n    <jsv-friendly-name-custom-array [schema]=\"asTypedArray\" />\n</ng-container>\n<ng-container *ngIf=\"type !== 'string' && type !== 'array'\">\n    <jsv-type-label-switch [type]=\"type\" />\n</ng-container>\n",
+            "template": "<ng-container [ngSwitch]=\"type\">\n\n    <ng-container *ngSwitchCase=\"'string'\">\n        <jsv-type-label-switch [type]=\"stringOrFormat\" />\n    </ng-container>\n\n    <ng-container *ngSwitchCase=\"'array'\">\n        <jsv-friendly-name-custom-array [schema]=\"asTypedArray\" />\n    </ng-container>\n\n    <ng-container *ngSwitchDefault>\n        <jsv-type-label-switch [type]=\"type\" />\n    </ng-container>\n\n</ng-container>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -4083,7 +4083,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 35,
+                    "line": 41,
                     "type": "Exclude<JSONSchema |  | >",
                     "decorators": []
                 },
@@ -4091,7 +4091,7 @@
                     "name": "type",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 36,
+                    "line": 42,
                     "type": "TypeValues | string",
                     "decorators": []
                 }
@@ -4121,7 +4121,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    TypeLabelSwitchComponent,\r\n} from \"../index\"\r\n\r\nimport {\r\n    GenerateFriendlyNameCustomArrayComponent\r\n} from \"./index\";\r\n\r\nimport type { JSONSchema, JSONSchemaNS, TypeValues } from \"../../types\";\r\n\r\n@Component({\r\n    selector: 'jsv-friendly-name-custom',\r\n    standalone: true,\r\n    imports: [\r\n      CommonModule,\r\n      TypeLabelSwitchComponent,\r\n      forwardRef(() => GenerateFriendlyNameCustomArrayComponent)\r\n    ],\r\n    template: `\r\n        <ng-container *ngIf=\"type === 'string' && schema.format !== undefined\">\r\n            <jsv-type-label-switch [type]=\"schema.format\" />\r\n        </ng-container>\r\n        <ng-container *ngIf=\"type === 'array'\">\r\n            <jsv-friendly-name-custom-array [schema]=\"asTypedArray\" />\r\n        </ng-container>\r\n        <ng-container *ngIf=\"type !== 'string' && type !== 'array'\">\r\n            <jsv-type-label-switch [type]=\"type\" />\r\n        </ng-container>\r\n    `\r\n})\r\nexport class GenerateFriendlyNameCustomComponent {\r\n    @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n    @Input() type!: TypeValues | string;\r\n\r\n    get asTypedArray() {\r\n        return this.schema as JSONSchemaNS.Array;\r\n    }\r\n}",
+            "sourceCode": "import { Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    TypeLabelSwitchComponent,\r\n} from \"../index\"\r\n\r\nimport {\r\n    GenerateFriendlyNameCustomArrayComponent\r\n} from \"./index\";\r\n\r\nimport type { JSONSchema, JSONSchemaNS, TypeValues } from \"../../types\";\r\n\r\n@Component({\r\n    selector: 'jsv-friendly-name-custom',\r\n    standalone: true,\r\n    imports: [\r\n      CommonModule,\r\n      TypeLabelSwitchComponent,\r\n      forwardRef(() => GenerateFriendlyNameCustomArrayComponent)\r\n    ],\r\n    template: `\r\n        <ng-container [ngSwitch]=\"type\">\r\n            \r\n            <ng-container *ngSwitchCase=\"'string'\">\r\n                <jsv-type-label-switch [type]=\"stringOrFormat\" />\r\n            </ng-container>\r\n            \r\n            <ng-container *ngSwitchCase=\"'array'\">\r\n                <jsv-friendly-name-custom-array [schema]=\"asTypedArray\" />\r\n            </ng-container>\r\n            \r\n            <ng-container *ngSwitchDefault>\r\n                <jsv-type-label-switch [type]=\"type\" />\r\n            </ng-container>\r\n\r\n        </ng-container>\r\n    `\r\n})\r\nexport class GenerateFriendlyNameCustomComponent {\r\n    @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n    @Input() type!: TypeValues | string;\r\n\r\n    get asTypedArray() {\r\n        return this.schema as JSONSchemaNS.Array;\r\n    }\r\n\r\n    get stringOrFormat() {\r\n        return this.schema.format ? this.schema.format : \"string\";\r\n    }\r\n}",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -4132,7 +4132,16 @@
                         "name": "asTypedArray",
                         "type": "",
                         "returnType": "",
-                        "line": 38
+                        "line": 44
+                    }
+                },
+                "stringOrFormat": {
+                    "name": "stringOrFormat",
+                    "getSignature": {
+                        "name": "stringOrFormat",
+                        "type": "",
+                        "returnType": "",
+                        "line": 48
                     }
                 }
             }
