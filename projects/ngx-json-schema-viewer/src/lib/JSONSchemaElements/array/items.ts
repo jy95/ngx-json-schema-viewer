@@ -15,7 +15,7 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
     forwardRef(() => CreateEdgeComponent)
   ],
   template: `
-    <ul>
+    <ul *ngIf="itemsAsArray.length > 0">
       <jse-common-create-edge [schema]="item" [required]="isMinItemsValid()" *ngFor="let item of itemsAsArray; let idx = index">
         <code name>
           {{ itemsLabel(startingIndex + idx, isArray) }}

@@ -15,7 +15,7 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
     forwardRef(() => CreateEdgeComponent)
   ],
   template: `
-    <ul>
+    <ul *ngIf="patternPropertiesEntries.length > 0">
       <jse-common-create-edge [schema]="entry[1]" [required]="false" *ngFor="let entry of patternPropertiesEntries">
         <code name>
           {{ generatePropertyName(entry[0]) }}

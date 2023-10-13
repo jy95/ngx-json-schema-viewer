@@ -15,7 +15,7 @@ import type { JSONSchemaNS } from "../../types";
     forwardRef(() => CreateEdgeComponent)
   ],
   template: `
-    <ul>
+    <ul *ngIf="unlistedProperties.length > 0">
       <jse-common-create-edge
         [schema]="true"
         [required]="true"
