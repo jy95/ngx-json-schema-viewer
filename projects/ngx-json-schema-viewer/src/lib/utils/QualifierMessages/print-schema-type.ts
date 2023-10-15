@@ -13,7 +13,10 @@ import { HighlightModule } from 'ngx-highlightjs';
     </ng-template>
   `,
   standalone: true,
-  imports: [CommonModule,HighlightModule]
+  imports: [
+    CommonModule,
+    HighlightModule
+  ]
 })
 export class PrintSchemaTypeComponent {
   @Input({ required: true }) obj!: unknown;

@@ -16,7 +16,7 @@ type itemsType = { id: number; value: unknown; label: string }[]
     PrintSchemaTypeComponent
   ],
   template: `
-    <div>
+    <div *ngIf="items.length > 0">
       <strong>{{ examplesLabel }}</strong>&nbsp;
       <mat-tab-group>
         <mat-tab *ngFor="let item of items" [label]="item.label">

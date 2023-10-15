@@ -104,7 +104,7 @@ export class QualifierMessages {
     get filteredQualifiers(): CheckKey[] {
         const qualifierMessagesOrder = this.options.qualifierMessagesOrder;
 
-        return qualifierMessagesOrder.filter(qualifierKey => {
+        const filteredMessagesOrder = qualifierMessagesOrder.filter(qualifierKey => {
             switch(qualifierKey) {
                 case 'const':
                     return this.schema.const !== undefined;
@@ -150,5 +150,7 @@ export class QualifierMessages {
                     return (this.schema as JSONSchemaNS.String).contentSchema !== undefined;
             }
         });
+        // To debug easily in the future ;)
+        return filteredMessagesOrder;
     }
 }
