@@ -12,15 +12,8 @@ import { HighlightModule } from 'ngx-highlightjs';
         <pre><code [highlight]="jsonCode" [languages]="languages"></code></pre>
     </ng-template>
   `,
-  styles: [`
-    .json-block {
-      background-color: #f5f5f5;
-      padding: 10px;
-      border: 1px solid #ddd;
-    }
-  `],
   standalone: true,
-  imports: [HighlightModule, CommonModule]
+  imports: [CommonModule,HighlightModule]
 })
 export class PrintSchemaTypeComponent {
   @Input({ required: true }) obj!: unknown;

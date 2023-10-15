@@ -20,7 +20,12 @@ import type {
 @Component({
   selector: 'jse-common-create-types',
   standalone: true,
-  imports: [CommonModule, CreateValidOrInvalidComponent, RenderProvidedTypeComponent,RenderMultipleTypesComponent],
+  imports: [
+    CommonModule, 
+    CreateValidOrInvalidComponent, 
+    RenderProvidedTypeComponent,
+    RenderMultipleTypesComponent
+  ],
   template: `
     <ng-container>
 

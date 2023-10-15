@@ -31,7 +31,7 @@ import type { JSONSchemaNS } from "../../types";
 export class CreateUnlistedPropertiesComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Object;
 
-  get unlistedProperties() {
+  get unlistedProperties() : string[] {
     const required: string[] = (this.schema.required || []) as string[];
     const listedProperties = Object.keys(this.schema.properties || {});
     return required.filter((r) => !listedProperties.includes(r));

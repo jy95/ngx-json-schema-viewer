@@ -28,18 +28,10 @@ import type {
     OneOfSchemaComponent
   ],
   template: `
-    <ng-container *ngIf="schema.oneOf">
-      <jse-schema-composition-one-of [schema]="schema" />
-    </ng-container>
-    <ng-container *ngIf="schema.anyOf">
-      <jse-schema-composition-any-of [schema]="schema" />
-    </ng-container>
-    <ng-container *ngIf="schema.allOf">
-      <jse-schema-composition-all-of [schema]="schema" />
-    </ng-container>
-    <ng-container *ngIf="schema.not">
-      <jse-schema-composition-not [schema]="schema" />
-    </ng-container>
+    <jse-schema-composition-one-of [schema]="schema" *ngIf="schema.oneOf" />
+    <jse-schema-composition-any-of [schema]="schema" *ngIf="schema.anyOf" />
+    <jse-schema-composition-all-of [schema]="schema" *ngIf="schema.allOf" />
+    <jse-schema-composition-not [schema]="schema" *ngIf="schema.not" />
   `,
 })
 export class SchemaCompositionComponent {

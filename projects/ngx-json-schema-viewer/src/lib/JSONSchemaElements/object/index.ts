@@ -41,17 +41,15 @@ import type { JSONSchemaNS } from "../../types";
       &nbsp;&#58;&nbsp;
       <labels-object />
       <jse-object-unlisted-properties [schema]="schema" />
-      <jse-object-properties [schema]="schema" />
-      <jse-object-pattern-properties [schema]="schema" />
-      <jse-object-property-names [schema]="schema" />
-      <jse-object-additional-properties [schema]="schema" />
-      <jse-object-unevaluated-properties [schema]="schema" />
+      <jse-object-properties [schema]="schema" *ngIf="schema.properties !== undefined" />
+      <jse-object-pattern-properties [schema]="schema" *ngIf="schema.patternProperties !== undefined" />
+      <jse-object-property-names [schema]="schema" *ngIf="schema.propertyNames !== undefined" />
+      <jse-object-additional-properties [schema]="schema" *ngIf="schema.additionalProperties !== undefined" />
+      <jse-object-unevaluated-properties [schema]="schema" *ngIf="schema.unevaluatedProperties !== undefined" />
       <div style="margin-top: 0.75rem;">
         <qm-messages [schema]="schema" />
       </div>
-      <ng-container *ngIf="description">
-        <jse-description [description]="description"></jse-description>
-      </ng-container>
+      <jse-description [description]="description" *ngIf="description" />
     </div>
   `,
 })

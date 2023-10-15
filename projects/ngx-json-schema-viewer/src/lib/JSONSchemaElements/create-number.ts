@@ -35,9 +35,7 @@ import type { JSONSchemaNS } from '../types';
       <div style="margin-top: 0.75rem;">
         <qm-messages [schema]="schema" />
       </div>
-      <ng-container *ngIf="description">
-        <jse-description [description]="description"></jse-description>
-      </ng-container>
+      <jse-description [description]="description" *ngIf="description" />
     </div>
   `,
 })
