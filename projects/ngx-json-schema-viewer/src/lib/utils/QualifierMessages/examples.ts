@@ -18,10 +18,13 @@ type itemsType = { id: number; value: unknown; label: string }[]
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <strong>{{ examplesLabel }}</strong>&nbsp;
+      <strong>{{ examplesLabel }}</strong>
       <mat-tab-group>
-        <mat-tab *ngFor="let item of items" [label]="item.label">
-            <lib-print-schema-type [obj]="item.value" />
+        <mat-tab *ngFor="let item of items">
+          <ng-template mat-tab-label>
+            {{ item.label }}
+          </ng-template>
+          <lib-print-schema-type [obj]="item.value" />
         </mat-tab>
       </mat-tab-group>
     </div>

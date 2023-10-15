@@ -3707,7 +3707,7 @@
         },
         {
             "name": "ExamplesComponent",
-            "id": "component-ExamplesComponent-17e19cb06d2a9c8ab9eee6bc683624a934ccf5e42c6f78b49f06a5ea4ce7b29701f385afc62092851020eeeb525c22ce9468a77022a5214d4457aa4e459a9676",
+            "id": "component-ExamplesComponent-5cbc746c86f833e7d50a3496943499190d46ec65e559916103a23780e99f1273259b645546bc3f3b472ebbd9eb88b77301467bd68cf1375b07f39ef0f6c41aa4",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/examples.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -3718,7 +3718,7 @@
             "selector": "qm-examples",
             "styleUrls": [],
             "styles": [],
-            "template": "<div>\n  <strong>{{ examplesLabel }}</strong>&nbsp;\n  <mat-tab-group>\n    <mat-tab *ngFor=\"let item of items\" [label]=\"item.label\">\n        <lib-print-schema-type [obj]=\"item.value\" />\n    </mat-tab>\n  </mat-tab-group>\n</div>\n",
+            "template": "<div>\n  <strong>{{ examplesLabel }}</strong>\n  <mat-tab-group>\n    <mat-tab *ngFor=\"let item of items\">\n      <ng-template mat-tab-label>\n        {{ item.label }}\n      </ng-template>\n      <lib-print-schema-type [obj]=\"item.value\" />\n    </mat-tab>\n  </mat-tab-group>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -3729,7 +3729,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 31,
+                    "line": 34,
                     "type": "Exclude<JSONSchema |  | >",
                     "decorators": []
                 }
@@ -3744,7 +3744,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 33
+                    "line": 36
                 }
             ],
             "methodsClass": [],
@@ -3770,7 +3770,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport {MatTabsModule} from '@angular/material/tabs';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\ntype itemsType = { id: number; value: unknown; label: string }[]\r\n\r\n@Component({\r\n  selector: 'qm-examples',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatTabsModule, \r\n    PrintSchemaTypeComponent\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <strong>{{ examplesLabel }}</strong>&nbsp;\r\n      <mat-tab-group>\r\n        <mat-tab *ngFor=\"let item of items\" [label]=\"item.label\">\r\n            <lib-print-schema-type [obj]=\"item.value\" />\r\n        </mat-tab>\r\n      </mat-tab-group>\r\n    </div>\r\n  `,\r\n})\r\nexport class ExamplesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  examplesLabel = 'Example values :';\r\n\r\n  get items(): itemsType {\r\n    return (this.schema.examples || [])\r\n      .map((val, idx) => ({\r\n        id: idx,\r\n        value: val,\r\n        label: `Example ${idx}`,\r\n    }));\r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport {MatTabsModule} from '@angular/material/tabs';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\ntype itemsType = { id: number; value: unknown; label: string }[]\r\n\r\n@Component({\r\n  selector: 'qm-examples',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatTabsModule, \r\n    PrintSchemaTypeComponent\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <strong>{{ examplesLabel }}</strong>\r\n      <mat-tab-group>\r\n        <mat-tab *ngFor=\"let item of items\">\r\n          <ng-template mat-tab-label>\r\n            {{ item.label }}\r\n          </ng-template>\r\n          <lib-print-schema-type [obj]=\"item.value\" />\r\n        </mat-tab>\r\n      </mat-tab-group>\r\n    </div>\r\n  `,\r\n})\r\nexport class ExamplesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  examplesLabel = 'Example values :';\r\n\r\n  get items(): itemsType {\r\n    return (this.schema.examples || [])\r\n      .map((val, idx) => ({\r\n        id: idx,\r\n        value: val,\r\n        label: `Example ${idx}`,\r\n    }));\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -3781,7 +3781,7 @@
                         "name": "items",
                         "type": "",
                         "returnType": "itemsType",
-                        "line": 35
+                        "line": 38
                     }
                 }
             }
