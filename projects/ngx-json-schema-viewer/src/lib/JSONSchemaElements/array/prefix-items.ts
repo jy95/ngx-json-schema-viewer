@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
   CreateEdgeComponent
@@ -14,6 +14,7 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
     CommonModule,
     forwardRef(() => CreateEdgeComponent)
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul *ngIf="arrayItems.length > 0">
       <jse-common-create-edge [schema]="val" [required]="isMinItemsValid()" *ngFor="let val of arrayItems; let idx = index">

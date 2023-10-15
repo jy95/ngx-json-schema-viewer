@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { CreateNodesComponent } from "../../common/create-nodes";
@@ -19,6 +19,7 @@ import type { JSONSchema } from "../../types";
     ElseLabelComponent,
     forwardRef(() => CreateNodesComponent)
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-tab-group>
       <mat-tab *ngFor="let val of values">

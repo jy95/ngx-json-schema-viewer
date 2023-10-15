@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import { CreateUnlistedPropertiesComponent } from "./unlisted-required-properties";
 import { CreatePropertiesComponent } from "./properties";
@@ -35,6 +35,7 @@ import type { JSONSchemaNS } from "../../types";
     TypeLabelComponent,
     forwardRef(() => CreateDescriptionComponent)
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <labels-type />

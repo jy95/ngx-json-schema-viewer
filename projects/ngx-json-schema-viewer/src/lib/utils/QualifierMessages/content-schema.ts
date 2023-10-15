@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {MatExpansionModule} from '@angular/material/expansion';
 
@@ -15,6 +15,7 @@ import type { JSONSchemaNS } from "../../types"
     MatExpansionModule,
     forwardRef(() => CreateNodesComponent)
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <strong>{{ contentSchemaLabel }}</strong>

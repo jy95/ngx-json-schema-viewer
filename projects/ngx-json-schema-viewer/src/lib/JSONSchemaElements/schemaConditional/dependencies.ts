@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import {
   DependentRequiredComponent,
@@ -12,6 +12,7 @@ import type { JSONSchema } from "../../types";
   selector: 'jse-schema-conditional-dependencies',
   standalone: true,
   imports: [CommonModule,DependentRequiredComponent,DependentSchemasComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="hasDependentRequired">
       <jse-schema-conditional-dependent-required [schema]="dependentRequired" />

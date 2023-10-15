@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import { CreateNodesComponent } from "../../common/create-nodes";
 
@@ -10,6 +10,7 @@ import type { JSONSchema } from "../../types";
   imports: [
     forwardRef(() => CreateNodesComponent)
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
         <span class="badge badge--info">{{ typeOf }}</span>

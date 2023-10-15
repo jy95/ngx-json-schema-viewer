@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import {
     TypeLabelComponent,
@@ -9,6 +9,7 @@ import {
   selector: 'jse-always-invalid',
   standalone: true,
   imports: [TypeLabelComponent, FalseLabelComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <labels-type></labels-type>

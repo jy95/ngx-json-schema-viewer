@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import {
   AllOfSchemaComponent
@@ -11,6 +11,7 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
   selector: 'jse-schema-conditional-dependent-required',
   standalone: true,
   imports: [CommonModule,AllOfSchemaComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <jse-schema-composition-all-of [schema]="simplifiedSchema" />
   `,

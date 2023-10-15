@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { GenerateFriendlyNameComponent } from "../../utils/index";
@@ -16,6 +16,7 @@ import type { JSONSchema } from "../../types";
     forwardRef(() => GenerateFriendlyNameComponent),
     forwardRef(() => CreateNodesComponent)
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <span class="badge badge--info">{{ typeOf }}</span>

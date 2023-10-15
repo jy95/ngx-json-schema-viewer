@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -27,6 +27,7 @@ import type { JSONSchemaNS } from '../types';
     CommonModule,
     QualifierMessages
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <labels-type></labels-type>

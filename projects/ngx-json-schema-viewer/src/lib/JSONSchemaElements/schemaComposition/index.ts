@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { AllOfSchemaComponent } from "./all-of";
 import { AnyOfSchemaComponent } from "./any-of";
@@ -27,6 +27,7 @@ import type {
     NotSchemaComponent,
     OneOfSchemaComponent
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <jse-schema-composition-one-of [schema]="schema" *ngIf="schema.oneOf" />
     <jse-schema-composition-any-of [schema]="schema" *ngIf="schema.anyOf" />

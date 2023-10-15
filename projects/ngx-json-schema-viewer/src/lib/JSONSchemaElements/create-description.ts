@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'jse-description',
   standalone: true,
   imports: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div style="margin-top: 0.75rem;">
       {{ description }}
@@ -11,5 +12,5 @@ import { Component, Input } from '@angular/core';
   `,
 })
 export class CreateDescriptionComponent {
-  @Input() description!: string;
+  @Input({ required: true }) description!: string;
 }

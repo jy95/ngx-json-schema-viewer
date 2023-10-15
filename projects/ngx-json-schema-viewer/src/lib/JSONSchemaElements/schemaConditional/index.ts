@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 import { IfElseThenComponent } from "./if-else-then";
@@ -27,6 +27,7 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
     DependentSchemasComponent,
     DependenciesComponent
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-accordion>
         <mat-expansion-panel>

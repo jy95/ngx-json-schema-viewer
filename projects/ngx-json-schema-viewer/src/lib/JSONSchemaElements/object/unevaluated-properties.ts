@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
   CreateEdgeComponent
@@ -14,6 +14,7 @@ import type { JSONSchemaNS } from "../../types";
     CommonModule,
     forwardRef(() => CreateEdgeComponent)
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul *ngIf="!isUndefinedOrBoolean(unevaluatedProperties)">
       <jse-common-create-edge [schema]="unevaluatedProperties!" [required]="false">

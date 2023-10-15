@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
     TypeLabelComponent,
@@ -27,6 +27,7 @@ import type { JSONSchema } from '../types';
     CommonModule,
     forwardRef(() => CreateDescriptionComponent)
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <labels-type></labels-type>
