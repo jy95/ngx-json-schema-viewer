@@ -17,11 +17,13 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul>
-      <jse-common-create-edge [schema]="val" [required]="isMinItemsValid()" *ngFor="let val of arrayItems; let idx = index">
-        <code name>
-          {{ prefixItemsLabel(idx) }}
-        </code>
-      </jse-common-create-edge>
+      <ng-container *ngFor="let val of arrayItems; let idx = index">
+        <jse-common-create-edge [schema]="val" [required]="isMinItemsValid()">
+          <code name>
+            {{ prefixItemsLabel(idx) }}
+          </code>
+        </jse-common-create-edge>
+      </ng-container>
     </ul>
   `,
 })

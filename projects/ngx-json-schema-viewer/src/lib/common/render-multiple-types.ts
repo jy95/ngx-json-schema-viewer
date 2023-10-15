@@ -27,12 +27,14 @@ import type {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-tab-group>
-      <mat-tab *ngFor="let type of types">
-        <ng-template mat-tab-label>
-            <jsv-type-label-switch [type]="type" />
-        </ng-template>
-        <jse-common-render-provided-type [type]="type" [schema]="schema" [nullable]="nullable" />
-      </mat-tab>
+      <ng-container *ngFor="let type of types">
+        <mat-tab>
+          <ng-template mat-tab-label>
+              <jsv-type-label-switch [type]="type" />
+          </ng-template>
+          <jse-common-render-provided-type [type]="type" [schema]="schema" [nullable]="nullable" /> 
+        </mat-tab>
+      </ng-container>
     </mat-tab-group>
   `
 })

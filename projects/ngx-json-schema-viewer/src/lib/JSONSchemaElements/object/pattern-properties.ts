@@ -17,11 +17,13 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul>
-      <jse-common-create-edge [schema]="entry[1]" [required]="false" *ngFor="let entry of patternPropertiesEntries">
-        <code name>
-          {{ generatePropertyName(entry[0]) }}
-        </code>
-      </jse-common-create-edge>
+      <ng-container *ngFor="let entry of patternPropertiesEntries">
+        <jse-common-create-edge [schema]="entry[1]" [required]="false">
+          <code name>
+            {{ generatePropertyName(entry[0]) }}
+          </code>
+        </jse-common-create-edge>
+      </ng-container>
     </ul>
   `,
 })

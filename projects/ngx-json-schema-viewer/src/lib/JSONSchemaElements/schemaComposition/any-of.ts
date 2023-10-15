@@ -21,12 +21,14 @@ import type { JSONSchema } from "../../types";
     <div>
       <span class="badge badge--info">{{ typeOf }}</span>
       <mat-tab-group>
-        <mat-tab *ngFor="let compositeSchema of typedSchema">
-          <ng-template mat-tab-label>
-            <jsv-friendly-name [schema]="compositeSchema" />
-          </ng-template>
-          <jse-common-create-nodes [schema]="compositeSchema" />
-        </mat-tab>
+        <ng-container *ngFor="let compositeSchema of typedSchema">
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <jsv-friendly-name [schema]="compositeSchema" />
+            </ng-template>
+            <jse-common-create-nodes [schema]="compositeSchema" />
+          </mat-tab>
+        </ng-container>
       </mat-tab-group>
     </div>
   `,

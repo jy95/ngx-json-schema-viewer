@@ -20,12 +20,14 @@ type itemsType = { id: number; value: unknown; label: string }[]
     <div>
       <strong>{{ examplesLabel }}</strong>
       <mat-tab-group>
-        <mat-tab *ngFor="let item of items">
-          <ng-template mat-tab-label>
-            {{ item.label }}
-          </ng-template>
-          <lib-print-schema-type [obj]="item.value" />
-        </mat-tab>
+        <ng-container *ngFor="let item of items">
+          <mat-tab>
+            <ng-template mat-tab-label>
+              {{ item.label }}
+            </ng-template>
+            <lib-print-schema-type [obj]="item.value" />
+          </mat-tab>
+        </ng-container>
       </mat-tab-group>
     </div>
   `,
