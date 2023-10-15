@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -16,6 +16,7 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
       TypeLabelSwitchComponent,
       forwardRef(() => GenerateFriendlyNameComponent)
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <!-- KISS return the generic type when specs are messy -->
         <ng-template *ngIf="noClearSpecs; else clearSpecs">

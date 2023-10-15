@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import {
   AndLabelComponent
@@ -11,6 +11,7 @@ import type { JSONSchema } from '../../types';
   selector: 'qm-number-bounds',
   standalone: true,
   imports: [CommonModule, AndLabelComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <strong>{{ boundsLabel }}</strong>&nbsp;

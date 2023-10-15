@@ -1,10 +1,13 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'labels-xor',
   standalone: true,
-  imports: [NgTemplateOutlet],
+  imports: [
+    NgTemplateOutlet
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container *ngTemplateOutlet="spaceTemplate"></ng-container>
     <strong>XOR</strong>

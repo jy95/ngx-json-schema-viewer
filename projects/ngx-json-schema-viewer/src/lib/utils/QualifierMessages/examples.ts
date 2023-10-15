@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatTabsModule} from '@angular/material/tabs';
 import { PrintSchemaTypeComponent } from './print-schema-type';
@@ -15,6 +15,7 @@ type itemsType = { id: number; value: unknown; label: string }[]
     MatTabsModule, 
     PrintSchemaTypeComponent
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="items.length > 0">
       <strong>{{ examplesLabel }}</strong>&nbsp;

@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -32,6 +32,7 @@ type LinkType = "AND" | "OR" | "XOR";
       forwardRef(() => GenerateFriendlyNameComponent),
       TypeLabelSwitchComponent
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <!--  1. we have a Schema Composition case (not, allOf, ...) -->
 

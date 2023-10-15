@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import type { JSONSchema } from '../../types';
@@ -7,6 +7,7 @@ import type { JSONSchema } from '../../types';
   selector: 'qm-object-properties',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <strong>{{ lengthLabel }}</strong>&nbsp;

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import type { JSONSchema } from '../../types';
 
@@ -6,6 +6,7 @@ import type { JSONSchema } from '../../types';
   selector: 'qm-multiple-of',
   standalone: true,
   imports: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <strong>{{ possibleValuesLabel }}</strong>&nbsp;

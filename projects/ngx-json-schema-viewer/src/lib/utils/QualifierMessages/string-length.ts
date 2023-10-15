@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import type { JSONSchema } from '../../types';
 
@@ -7,6 +7,7 @@ import type { JSONSchema } from '../../types';
   selector: 'qm-string-length',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <strong>{{ lengthLabel }}</strong>&nbsp;

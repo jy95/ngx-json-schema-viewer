@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { PrintSchemaTypeComponent } from './print-schema-type';
 
 import type { JSONSchema } from '../../types';
@@ -7,6 +7,7 @@ import type { JSONSchema } from '../../types';
   selector: 'qm-default-value',
   standalone: true,
   imports: [PrintSchemaTypeComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <strong>{{ defaultLabel }}</strong>

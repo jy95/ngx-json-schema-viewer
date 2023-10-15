@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JSVOptionsService } from '../services/jsv-options';
 
@@ -58,6 +58,7 @@ import type { JSVOptions, CheckKey } from '../services/jsv-options';
         ContentMediaTypeComponent,
         ContentSchemaComponent
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <div>
             <ng-container *ngFor="let key of filteredQualifiers">

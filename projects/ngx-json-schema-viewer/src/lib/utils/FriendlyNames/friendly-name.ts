@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -32,6 +32,7 @@ type renderTemplates = "booleanSchema" | "schemaTitle" | "schemaTypes" | "schema
     forwardRef( () => GenerateFriendlyNameFallbackComponent),
     forwardRef( () => GenerateFriendlyNameCustomComponent)
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- Final rendered friendly name -->
     <ng-container [ngSwitch]="selectTemplate">

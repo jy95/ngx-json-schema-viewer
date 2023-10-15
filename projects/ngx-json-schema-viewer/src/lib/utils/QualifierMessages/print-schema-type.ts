@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { HighlightModule } from 'ngx-highlightjs';
 
 @Component({
@@ -13,6 +13,7 @@ import { HighlightModule } from 'ngx-highlightjs';
     </ng-template>
   `,
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     HighlightModule

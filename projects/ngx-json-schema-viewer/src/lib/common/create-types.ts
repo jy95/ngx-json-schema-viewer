@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import {
     CreateValidOrInvalidComponent,
@@ -26,6 +26,7 @@ import type {
     RenderProvidedTypeComponent,
     RenderMultipleTypesComponent
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container>
 

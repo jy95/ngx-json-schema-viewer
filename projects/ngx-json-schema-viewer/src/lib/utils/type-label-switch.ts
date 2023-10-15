@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -30,6 +30,7 @@ import type { TypeValues } from "../types"
     TrueLabelComponent,
     FalseLabelComponent
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container [ngSwitch]="type">
       <ng-container *ngSwitchCase="'string'">

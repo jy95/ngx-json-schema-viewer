@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import type { JSONSchema } from '../../types';
@@ -8,6 +8,7 @@ import { PrintSchemaTypeComponent } from './print-schema-type';
   selector: 'qm-content-encoding',
   standalone: true,
   imports: [CommonModule,PrintSchemaTypeComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="schema" key="contentEncoding">
       <strong>Encoding :</strong>

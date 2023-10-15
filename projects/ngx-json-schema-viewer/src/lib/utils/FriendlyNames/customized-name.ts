@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -19,6 +19,7 @@ import type { JSONSchema, JSONSchemaNS, TypeValues } from "../../types";
       TypeLabelSwitchComponent,
       forwardRef(() => GenerateFriendlyNameCustomArrayComponent)
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <ng-container [ngSwitch]="type">
             
