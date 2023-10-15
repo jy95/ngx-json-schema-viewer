@@ -16,13 +16,15 @@ import type { JSONSchemaNS } from "../../types";
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul *ngIf="!isUndefinedOrBoolean(additionalProperties)">
-      <jse-common-create-edge [schema]="additionalProperties!" [required]="false">
-        <code name>
-          {{ additionalPropertiesLabel() }}
-        </code>
-      </jse-common-create-edge>
-    </ul>
+    <ng-container *ngIf="!isUndefinedOrBoolean(additionalProperties)">
+      <ul>
+        <jse-common-create-edge [schema]="additionalProperties!" [required]="false">
+          <code name>
+            {{ additionalPropertiesLabel() }}
+          </code>
+        </jse-common-create-edge>
+      </ul>
+    </ng-container>
   `,
 })
 export class CreateAdditionalPropertiesComponent {

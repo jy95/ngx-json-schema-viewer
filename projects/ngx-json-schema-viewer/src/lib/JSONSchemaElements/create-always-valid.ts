@@ -36,10 +36,14 @@ import type { JSONSchema } from '../types';
       <div style="margin-top: 0.75rem;">
         {{ "Always valid" }}
       </div>
-      <div style="margin-top: 0.75rem;" *ngIf="notBoolean" >
-        <qm-messages [schema]="typedSchema" />
-      </div>
-      <jse-description [description]="description" *ngIf="description" />
+      <ng-container *ngIf="notBoolean">
+        <div style="margin-top: 0.75rem;">
+          <qm-messages [schema]="typedSchema" />
+        </div>
+      </ng-container>
+      <ng-container *ngIf="description">
+        <jse-description [description]="description" />
+      </ng-container>
     </div>
   `,
 })

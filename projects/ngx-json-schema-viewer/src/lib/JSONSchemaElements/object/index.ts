@@ -42,15 +42,27 @@ import type { JSONSchemaNS } from "../../types";
       &nbsp;&#58;&nbsp;
       <labels-object />
       <jse-object-unlisted-properties [schema]="schema" />
-      <jse-object-properties [schema]="schema" *ngIf="schema.properties !== undefined" />
-      <jse-object-pattern-properties [schema]="schema" *ngIf="schema.patternProperties !== undefined" />
-      <jse-object-property-names [schema]="schema" *ngIf="schema.propertyNames !== undefined" />
-      <jse-object-additional-properties [schema]="schema" *ngIf="schema.additionalProperties !== undefined" />
-      <jse-object-unevaluated-properties [schema]="schema" *ngIf="schema.unevaluatedProperties !== undefined" />
+      <ng-container *ngIf="schema.properties !== undefined">
+        <jse-object-properties [schema]="schema" />
+      </ng-container>
+      <ng-container *ngIf="schema.patternProperties !== undefined">
+        <jse-object-pattern-properties [schema]="schema" />
+      </ng-container>
+      <ng-container *ngIf="schema.propertyNames !== undefined">
+        <jse-object-property-names [schema]="schema" />
+      </ng-container>
+      <ng-container *ngIf="schema.additionalProperties !== undefined">
+        <jse-object-additional-properties [schema]="schema" />
+      </ng-container>
+      <ng-container *ngIf="schema.unevaluatedProperties !== undefined">
+        <jse-object-unevaluated-properties [schema]="schema" />
+      </ng-container>
       <div style="margin-top: 0.75rem;">
         <qm-messages [schema]="schema" />
       </div>
-      <jse-description [description]="description" *ngIf="description" />
+      <ng-container *ngIf="description">
+        <jse-description [description]="description" />
+      </ng-container>
     </div>
   `,
 })

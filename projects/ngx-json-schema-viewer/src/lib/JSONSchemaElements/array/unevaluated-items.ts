@@ -16,7 +16,7 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul *ngIf="items !== undefined">
+    <ul>
       <jse-common-create-edge [schema]="items" [required]="false">
         <code name>
           {{ unevaluatedItemsLabel() }}
@@ -28,8 +28,8 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
 export class CreateUnevaluatedItemsComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Array;
 
-  get items() : JSONSchema | undefined {
-    return this.schema.unevaluatedItems;
+  get items() : JSONSchema {
+    return this.schema.unevaluatedItems!;
   }
 
   unevaluatedItemsLabel(): string {

@@ -19,9 +19,9 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <!-- KISS return the generic type when specs are messy -->
-        <ng-template *ngIf="noClearSpecs; else clearSpecs">
+        <ng-container *ngIf="noClearSpecs; else clearSpecs">
             <jsv-type-label-switch [type]="'array'" />
-        </ng-template>
+        </ng-container>
 
         <ng-template #clearSpecs>
 

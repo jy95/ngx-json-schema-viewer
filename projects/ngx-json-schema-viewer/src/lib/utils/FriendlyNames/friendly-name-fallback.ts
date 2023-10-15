@@ -45,7 +45,7 @@ type LinkType = "AND" | "OR" | "XOR";
         </ng-container>
 
         <!--  1B) the "allOf" / "oneOf" / "anyOf" -->
-        <ng-template *ngIf="hasOfKeyword; else defaultStrategy">
+        <ng-container *ngIf="hasOfKeyword; else defaultStrategy">
             <ng-container *ngFor="let elem of elementsOf; let isLast = last">
                 <jsv-friendly-name [schema]="elem" />
                 <ng-container *ngIf="!isLast">
@@ -56,7 +56,7 @@ type LinkType = "AND" | "OR" | "XOR";
                     </ng-container>
                 </ng-container>
             </ng-container>
-        </ng-template>
+        </ng-container>
 
         <!--  2. Assume it is "any" by default -->
         <ng-template #defaultStrategy>

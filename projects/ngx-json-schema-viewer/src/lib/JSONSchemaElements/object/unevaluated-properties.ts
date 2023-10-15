@@ -16,13 +16,15 @@ import type { JSONSchemaNS } from "../../types";
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul *ngIf="!isUndefinedOrBoolean(unevaluatedProperties)">
-      <jse-common-create-edge [schema]="unevaluatedProperties!" [required]="false">
-        <code name>
-          {{ unevaluatedPropertiesLabel() }}
-        </code>
-      </jse-common-create-edge>
-    </ul>
+    <ng-container *ngIf="!isUndefinedOrBoolean(unevaluatedProperties)">
+      <ul>
+        <jse-common-create-edge [schema]="unevaluatedProperties!" [required]="false">
+          <code name>
+            {{ unevaluatedPropertiesLabel() }}
+          </code>
+        </jse-common-create-edge>
+      </ul>
+    </ng-container>
   `,
 })
 export class CreateUnevaluatedPropertiesComponent {

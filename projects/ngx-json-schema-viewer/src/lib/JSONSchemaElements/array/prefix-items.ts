@@ -16,7 +16,7 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul *ngIf="arrayItems.length > 0">
+    <ul>
       <jse-common-create-edge [schema]="val" [required]="isMinItemsValid()" *ngFor="let val of arrayItems; let idx = index">
         <code name>
           {{ prefixItemsLabel(idx) }}

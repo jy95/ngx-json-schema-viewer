@@ -47,12 +47,12 @@ type StatusType = "LOADING" | "ERROR" | "DONE";
     </ng-container>
 
     <!-- Loading ... -->
-    <div *ngIf="status() === 'LOADING'">
+    <ng-container *ngIf="status() === 'LOADING'">
         <labels-loading />
-    </div>
+    </ng-container>
 
     <!-- Schema -->
-    <div *ngIf="status() === 'DONE'">
+    <ng-container *ngIf="status() === 'DONE'">
       <mat-accordion>
         <mat-expansion-panel [(expanded)]="expanded">
           <mat-expansion-panel-header>
@@ -67,7 +67,7 @@ type StatusType = "LOADING" | "ERROR" | "DONE";
           </ng-template>
         </mat-expansion-panel>
       </mat-accordion>
-    </div>
+    </ng-container>
   `
 })
 export class NgxJsonSchemaViewerComponent implements OnInit {

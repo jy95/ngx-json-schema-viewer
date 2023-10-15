@@ -50,6 +50,7 @@ import type {
 
         <ng-template #compositionCase>
           <!--  Otherwise, we have a SchemaComposition, which will be handled by CreateNodes -->
+          <div></div>
         </ng-template>
       </ng-template>
     </ng-container>

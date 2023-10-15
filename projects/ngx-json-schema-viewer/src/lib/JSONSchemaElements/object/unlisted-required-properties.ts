@@ -16,17 +16,19 @@ import type { JSONSchemaNS } from "../../types";
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul *ngIf="unlistedProperties.length > 0">
-      <jse-common-create-edge
-        [schema]="true"
-        [required]="true"
-        *ngFor="let prop of unlistedProperties"
-      >
-        <strong name>
-          {{ generatePropertyName(prop) }}
-        </strong>
-      </jse-common-create-edge>
-    </ul>
+    <ng-container *ngIf="unlistedProperties.length > 0">
+      <ul>
+        <jse-common-create-edge
+          [schema]="true"
+          [required]="true"
+          *ngFor="let prop of unlistedProperties"
+        >
+          <strong name>
+            {{ generatePropertyName(prop) }}
+          </strong>
+        </jse-common-create-edge>
+      </ul>
+    </ng-container>
   `,
 })
 export class CreateUnlistedPropertiesComponent {

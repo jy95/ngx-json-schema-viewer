@@ -16,7 +16,7 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul *ngIf="propertiesEntries.length > 0">
+    <ul>
       <jse-common-create-edge [schema]="entry[1]" [required]="isRequired(entry[0])" *ngFor="let entry of propertiesEntries">
         <strong name>
           {{ generatePropertyName(entry[0]) }}

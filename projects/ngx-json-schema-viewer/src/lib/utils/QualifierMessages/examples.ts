@@ -17,7 +17,7 @@ type itemsType = { id: number; value: unknown; label: string }[]
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="items.length > 0">
+    <div>
       <strong>{{ examplesLabel }}</strong>&nbsp;
       <mat-tab-group>
         <mat-tab *ngFor="let item of items" [label]="item.label">

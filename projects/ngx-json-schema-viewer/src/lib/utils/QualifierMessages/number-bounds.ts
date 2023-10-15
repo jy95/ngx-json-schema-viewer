@@ -17,8 +17,10 @@ import type { JSONSchema } from '../../types';
       <strong>{{ boundsLabel }}</strong>&nbsp;
       <ng-container *ngIf="minimum !== undefined">
         <code>
-          <span *ngIf="isExclusiveMinimum">&gt;</span>
-          <span *ngIf="!isExclusiveMinimum">&ge;</span>
+          <ng-container [ngSwitch]="isExclusiveMinimum">
+            <span *ngSwitchCase="true">&gt;</span>
+            <span *ngSwitchDefault>&ge;</span>
+          </ng-container>
           {{ minimum }}
         </code>
       </ng-container>
@@ -27,8 +29,10 @@ import type { JSONSchema } from '../../types';
       </ng-container>
       <ng-container *ngIf="maximum !== undefined">
         <code>
-          <span *ngIf="isExclusiveMaximum">&lt;</span>
-          <span *ngIf="!isExclusiveMaximum">&le;</span>
+          <ng-container [ngSwitch]="isExclusiveMaximum">
+            <span *ngSwitchCase="true">&lt;</span>
+            <span *ngSwitchDefault>&le;</span>
+          </ng-container>
           {{ maximum }}
         </code>
       </ng-container>

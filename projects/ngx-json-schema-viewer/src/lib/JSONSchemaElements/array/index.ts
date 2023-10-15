@@ -39,15 +39,27 @@ import type { JSONSchemaNS } from "../../types";
       <labels-type />
       &nbsp;&#58;&nbsp;
       <labels-array />
-      <jse-array-prefix-items [schema]="schema" *ngIf="schema.prefixItems !== undefined" />
-      <jse-array-items [schema]="schema" *ngIf="schema.items !== undefined"/>
-      <jse-array-additional-items [schema]="schema" *ngIf="schema.additionalItems !== undefined" />
-      <jse-array-unevaluated-items [schema]="schema" *ngIf="schema.unevaluatedItems !== undefined" />
-      <jse-array-contains [schema]="schema" *ngIf="schema.contains !== undefined"/>
+      <ng-container *ngIf="schema.prefixItems !== undefined">
+        <jse-array-prefix-items [schema]="schema" />
+      </ng-container>
+      <ng-container *ngIf="schema.items !== undefined">
+        <jse-array-items [schema]="schema" />
+      </ng-container>
+      <ng-container *ngIf="schema.additionalItems !== undefined">
+        <jse-array-additional-items [schema]="schema" />
+      </ng-container>
+      <ng-container *ngIf="schema.unevaluatedItems !== undefined">
+        <jse-array-unevaluated-items [schema]="schema" />
+      </ng-container>
+      <ng-container *ngIf="schema.contains !== undefined">
+        <jse-array-contains [schema]="schema" />
+      </ng-container>
       <div style="margin-top: 0.75rem;">
         <qm-messages [schema]="schema" />
       </div>
-      <jse-description [description]="description" *ngIf="description"/>
+      <ng-container *ngIf="description">
+        <jse-description [description]="description" />
+      </ng-container>
     </div>
   `,
 })

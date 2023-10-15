@@ -44,19 +44,18 @@ import type { JSONSchema, JSONSchema_Draft_2019_09 } from '../types';
                         <jsv-friendly-name [schema]="schema" />
                     </mat-panel-title>
                     <mat-panel-description>
-                        <labels-required *ngIf="isRequired" />
-                        <ng-container *ngIf="isRequired" >
-                            &nbsp;
-                        </ng-container>
-                        <labels-deprecated *ngIf="isDeprecated" />
-                        <ng-container *ngIf="isDeprecated" >
-                            &nbsp;
-                        </ng-container>
-                        <labels-read-only *ngIf="isReadOnly" />
-                        <ng-container *ngIf="isReadOnly" >
-                            &nbsp;
-                        </ng-container>
-                        <labels-write-only *ngIf="isWriteOnly" />
+                      <ng-container *ngIf="isRequired">
+                          <labels-required />
+                      </ng-container>
+                      <ng-container *ngIf="isDeprecated">
+                          <labels-deprecated />
+                      </ng-container>
+                      <ng-container *ngIf="isReadOnly">
+                          <labels-read-only />
+                      </ng-container>
+                      <ng-container *ngIf="isWriteOnly">
+                          <labels-write-only />
+                      </ng-container>
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 <ng-template matExpansionPanelContent>

@@ -10,11 +10,13 @@ import { PrintSchemaTypeComponent } from './print-schema-type';
   imports: [CommonModule,PrintSchemaTypeComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="schema" key="contentEncoding">
-      <strong>Encoding :</strong>
-      &nbsp;
-      <lib-print-schema-type [obj]="schema.contentEncoding" />
-    </div>
+    <ng-container *ngIf="schema">
+      <div>
+        <strong>Encoding :</strong>
+        &nbsp;
+        <lib-print-schema-type [obj]="schema.contentEncoding" />
+      </div>
+    </ng-container>
   `,
 })
 export class ContentEncodingComponent {

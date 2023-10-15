@@ -14,12 +14,12 @@ import type { JSONSchema } from "../../types";
   imports: [CommonModule,DependentRequiredComponent,DependentSchemasComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="hasDependentRequired">
+    <ng-container *ngIf="hasDependentRequired">
       <jse-schema-conditional-dependent-required [schema]="dependentRequired" />
-    </div>
-    <div *ngIf="hasDependentSchemas">
+    </ng-container>
+    <ng-container *ngIf="hasDependentSchemas">
       <jse-schema-conditional-dependent-schemas [schema]="dependentSchemas" />
-    </div>
+    </ng-container>
   `,
 })
 export class DependenciesComponent {

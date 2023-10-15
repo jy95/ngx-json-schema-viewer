@@ -37,10 +37,14 @@ import type { JSONSchema } from '../types';
       <jse-common-create-types [schema]="typedSchema" />
 
       <!-- Handle Composition -->
-      <jse-schema-composition [schema]="typedSchema" *ngIf="isCompositionSchema" />
+      <ng-container *ngIf="isCompositionSchema">
+        <jse-schema-composition [schema]="typedSchema" />
+      </ng-container>
 
       <!-- Handle Conditional -->
-      <jse-schema-conditional [schema]="typedSchema" *ngIf="isConditionalSchema" />
+      <ng-container *ngIf="isConditionalSchema">
+        <jse-schema-conditional [schema]="typedSchema" />
+      </ng-container>
       
     </ng-container>
 

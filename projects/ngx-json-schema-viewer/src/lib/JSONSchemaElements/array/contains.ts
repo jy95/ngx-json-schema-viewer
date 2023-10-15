@@ -16,7 +16,7 @@ import type { JSONSchemaNS, JSONSchema } from '../../types';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul *ngIf="item !== undefined">
+    <ul>
       <jse-common-create-edge [schema]="item" [required]="isMinContainsValid()">
         <code name>
           {{ containsLabel }}
@@ -28,8 +28,8 @@ import type { JSONSchemaNS, JSONSchema } from '../../types';
 export class CreateContainsComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Array;
 
-  get item() : JSONSchema | undefined {
-    return this.schema.contains;
+  get item() : JSONSchema {
+    return this.schema.contains!;
   }
 
   get containsLabel() {

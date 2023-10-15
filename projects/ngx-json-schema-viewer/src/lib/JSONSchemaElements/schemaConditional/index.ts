@@ -38,13 +38,21 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
             </mat-expansion-panel-header>
             <ng-template matExpansionPanelContent>
               <!-- Handles if-then-else case -->
-              <jse-schema-conditional-if-else-then [schema]="schema" *ngIf="isIfThenElse" />
+              <ng-container *ngIf="isIfThenElse">
+                <jse-schema-conditional-if-else-then [schema]="schema" />
+              </ng-container>
               <!-- Handles dependentRequired case -->
-              <jse-schema-conditional-dependent-required [schema]="schema" *ngIf="isDependentRequired" />
+              <ng-container *ngIf="isDependentRequired">
+                <jse-schema-conditional-dependent-required [schema]="schema" />
+              </ng-container>
               <!-- Handles dependentSchemas case -->
-              <jse-schema-conditional-dependent-schemas [schema]="schema" *ngIf="isDependentSchemas" />
+              <ng-container *ngIf="isDependentSchemas">
+                <jse-schema-conditional-dependent-schemas [schema]="schema" />
+              </ng-container>
               <!-- Handles dependencies (deprecated) -->
-              <jse-schema-conditional-dependencies [schema]="schema" *ngIf="isDependencies" />
+              <ng-container *ngIf="isDependencies">
+                <jse-schema-conditional-dependencies [schema]="schema" />
+              </ng-container>
             </ng-template>
         </mat-expansion-panel>
     </mat-accordion>
