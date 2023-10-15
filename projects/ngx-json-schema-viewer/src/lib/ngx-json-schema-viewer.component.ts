@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, signal, computed } from '@angular/core';
+import { Component, OnInit, Input, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 
 // imports
 import { CommonModule } from '@angular/common';
@@ -34,6 +34,7 @@ type StatusType = "LOADING" | "ERROR" | "DONE";
     ErrorOccurredLabelComponent,
     LoadingLabelComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     JSVOptionsService
   ],

@@ -4586,8 +4586,9 @@
         },
         {
             "name": "NgxJsonSchemaViewerComponent",
-            "id": "component-NgxJsonSchemaViewerComponent-0cf6fa0688fa2035516d4f7a42407167ca3fe21a5d698a71168cba280674a8ebc6c224a9f51f5891ca2297b717d93b3056446bc55038efd83bdc496aca0bd552",
+            "id": "component-NgxJsonSchemaViewerComponent-8c42a7704caef8e0e452045a565160220589c90cdb296203919df8dfbb6eb26fb8794ffe8f09a509c5feb198f8bfa95cd3821fc9456d5f499faaa9b77c179be6",
             "file": "projects/ngx-json-schema-viewer/src/lib/ngx-json-schema-viewer.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -4610,7 +4611,7 @@
                     "name": "resolverOptions",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 74,
+                    "line": 75,
                     "type": "IResolveOpts",
                     "decorators": []
                 },
@@ -4620,7 +4621,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 73,
+                    "line": 74,
                     "type": "",
                     "decorators": []
                 },
@@ -4628,7 +4629,7 @@
                     "name": "viewerOptions",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 75,
+                    "line": 76,
                     "type": "Partial<JSVOptions>",
                     "decorators": []
                 }
@@ -4643,7 +4644,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 79
+                    "line": 80
                 },
                 {
                     "name": "expanded",
@@ -4653,7 +4654,7 @@
                     "type": "boolean",
                     "optional": false,
                     "description": "",
-                    "line": 77
+                    "line": 78
                 },
                 {
                     "name": "resolvedSchema",
@@ -4663,7 +4664,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 78
+                    "line": 79
                 },
                 {
                     "name": "status",
@@ -4673,7 +4674,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 81
+                    "line": 82
                 }
             ],
             "methodsClass": [
@@ -4683,7 +4684,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 96,
+                    "line": 97,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4693,7 +4694,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 105,
+                    "line": 106,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -4731,7 +4732,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input, signal, computed } from '@angular/core';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\nimport { JSVOptionsService } from \"./services/jsv-options\";\r\n\r\n// Labels\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// Types\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSVOptions } from \"./services/jsv-options\";\r\ntype StatusType = \"LOADING\" | \"ERROR\" | \"DONE\";\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  providers: [\r\n    JSVOptionsService\r\n  ],\r\n  template: `\r\n    <!-- Error ... -->\r\n    <ng-container *ngIf=\"status() === 'ERROR'\">\r\n      <div>\r\n        <labels-error-occurred [error]=\"error()!\"/>\r\n      </div>\r\n    </ng-container>\r\n\r\n    <!-- Loading ... -->\r\n    <div *ngIf=\"status() === 'LOADING'\">\r\n        <labels-loading />\r\n    </div>\r\n\r\n    <!-- Schema -->\r\n    <div *ngIf=\"status() === 'DONE'\">\r\n      <mat-accordion>\r\n        <mat-expansion-panel [(expanded)]=\"expanded\">\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <ng-template matExpansionPanelContent>\r\n            <jse-common-create-nodes [schema]=\"resolvedSchema()!\" />\r\n          </ng-template>\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </div>\r\n  `\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  @Input() viewerOptions?: Partial<JSVOptions>;\r\n\r\n  expanded : boolean = true;\r\n  resolvedSchema = signal<JSONSchema | undefined>(undefined);\r\n  error = signal<Error | undefined>(undefined);\r\n\r\n  status = computed<StatusType>(() => {\r\n    if (this.error() !== undefined) {\r\n      return \"ERROR\";\r\n    } else if (this.resolvedSchema() === undefined) {\r\n      return \"LOADING\";\r\n    } else {\r\n      return \"DONE\";\r\n    }\r\n  });\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService,\r\n    private jsvOptionsService: JSVOptionsService,\r\n  ) {}\r\n\r\n  ngOnInit(): void {\r\n    // If asked, apply user options\r\n    if (this.viewerOptions) {\r\n      this.jsvOptionsService.setOptions(this.viewerOptions);\r\n    }\r\n    // Perform the asynchronous schema resolution\r\n    this.schemaResolution();\r\n  }\r\n\r\n  private schemaResolution() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .subscribe({\r\n        error: (err) => {\r\n          this.error.set(err);\r\n          this.resolvedSchema.set(undefined);\r\n        },\r\n        next: (result) => {\r\n          this.resolvedSchema.set(result);\r\n          this.error.set(undefined);\r\n        }\r\n      });\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    let schema = this.resolvedSchema()!;\r\n    if (typeof schema !== \"boolean\" && schema.title !== undefined) {\r\n      return schema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit, Input, signal, computed, ChangeDetectionStrategy } from '@angular/core';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\nimport { JSVOptionsService } from \"./services/jsv-options\";\r\n\r\n// Labels\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// Types\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSVOptions } from \"./services/jsv-options\";\r\ntype StatusType = \"LOADING\" | \"ERROR\" | \"DONE\";\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  providers: [\r\n    JSVOptionsService\r\n  ],\r\n  template: `\r\n    <!-- Error ... -->\r\n    <ng-container *ngIf=\"status() === 'ERROR'\">\r\n      <div>\r\n        <labels-error-occurred [error]=\"error()!\"/>\r\n      </div>\r\n    </ng-container>\r\n\r\n    <!-- Loading ... -->\r\n    <div *ngIf=\"status() === 'LOADING'\">\r\n        <labels-loading />\r\n    </div>\r\n\r\n    <!-- Schema -->\r\n    <div *ngIf=\"status() === 'DONE'\">\r\n      <mat-accordion>\r\n        <mat-expansion-panel [(expanded)]=\"expanded\">\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <ng-template matExpansionPanelContent>\r\n            <jse-common-create-nodes [schema]=\"resolvedSchema()!\" />\r\n          </ng-template>\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </div>\r\n  `\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  @Input() viewerOptions?: Partial<JSVOptions>;\r\n\r\n  expanded : boolean = true;\r\n  resolvedSchema = signal<JSONSchema | undefined>(undefined);\r\n  error = signal<Error | undefined>(undefined);\r\n\r\n  status = computed<StatusType>(() => {\r\n    if (this.error() !== undefined) {\r\n      return \"ERROR\";\r\n    } else if (this.resolvedSchema() === undefined) {\r\n      return \"LOADING\";\r\n    } else {\r\n      return \"DONE\";\r\n    }\r\n  });\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService,\r\n    private jsvOptionsService: JSVOptionsService,\r\n  ) {}\r\n\r\n  ngOnInit(): void {\r\n    // If asked, apply user options\r\n    if (this.viewerOptions) {\r\n      this.jsvOptionsService.setOptions(this.viewerOptions);\r\n    }\r\n    // Perform the asynchronous schema resolution\r\n    this.schemaResolution();\r\n  }\r\n\r\n  private schemaResolution() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .subscribe({\r\n        error: (err) => {\r\n          this.error.set(err);\r\n          this.resolvedSchema.set(undefined);\r\n        },\r\n        next: (result) => {\r\n          this.resolvedSchema.set(result);\r\n          this.error.set(undefined);\r\n        }\r\n      });\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    let schema = this.resolvedSchema()!;\r\n    if (typeof schema !== \"boolean\" && schema.title !== undefined) {\r\n      return schema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -4754,7 +4755,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 89,
+                "line": 90,
                 "jsdoctags": [
                     {
                         "name": "schemaResolutionService",
@@ -4786,7 +4787,7 @@
                         "name": "getSchemaTitle",
                         "type": "string",
                         "returnType": "string",
-                        "line": 120
+                        "line": 121
                     }
                 }
             }
