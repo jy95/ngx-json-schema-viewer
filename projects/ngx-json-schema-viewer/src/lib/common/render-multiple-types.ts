@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import {MatTabsModule} from '@angular/material/tabs';
 
 import {
@@ -24,6 +24,7 @@ import type {
     RenderProvidedTypeComponent,
     TypeLabelSwitchComponent
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-tab-group>
       <mat-tab *ngFor="let type of types">

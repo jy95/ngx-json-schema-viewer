@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 
 import {
@@ -32,6 +32,7 @@ import type { JSONSchema, JSONSchema_Draft_2019_09 } from '../types';
     DeprecatedLabelComponent,
     forwardRef(() => CreateNodesComponent)
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <li class="schemaItem">
         <mat-accordion>

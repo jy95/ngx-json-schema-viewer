@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
     SchemaConditionalComponent,
@@ -29,6 +29,7 @@ import type { JSONSchema } from '../types';
     forwardRef(() => CreateTypesComponent),
     forwardRef(() => CreateValidOrInvalidComponent)
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container *ngIf="typedSchema !== undefined; else BooleanSchema">
 

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
     CreateAlwaysInvalidComponent,
@@ -16,6 +16,7 @@ import type { JSONSchema } from '../types';
     forwardRef(() => CreateAlwaysInvalidComponent),
     forwardRef(() => CreateAlwaysValidComponent),
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container *ngIf="schema; else alwaysInvalid">
       <jse-always-valid [schema]="schema" />

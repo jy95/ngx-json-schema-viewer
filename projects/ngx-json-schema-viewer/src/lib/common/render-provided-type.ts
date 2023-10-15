@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
     CreateArrayComponent,
@@ -30,6 +30,7 @@ import type {
     forwardRef(() => CreateIntegerComponent),
     forwardRef(() => CreateNullComponent)
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container [ngSwitch]="type">
       <jse-array
