@@ -2308,7 +2308,7 @@
         },
         {
             "name": "CreatePatternPropertiesComponent",
-            "id": "component-CreatePatternPropertiesComponent-027c16bf4518f212ad3ab572414b2ba87081a7a49bf3d9d10a5dd388b102e58e92dcc974a14cb1ecef5a4387459630939b888116aabeeaba44434720db64abfd",
+            "id": "component-CreatePatternPropertiesComponent-ec132f60ca724f6710852f6cef662c1b95a639ccfe1b80323eb363b27f2517c547398aa14fc5d11f959dc515878218bd4ee1bfa8d2583c7f522fb9288889d0ee",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/object/pattern-properties.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -2319,7 +2319,7 @@
             "selector": "jse-object-pattern-properties",
             "styleUrls": [],
             "styles": [],
-            "template": "<ul>\n  <ng-container *ngFor=\"let entry of patternPropertiesEntries\">\n    <jse-common-create-edge [schema]=\"entry[1]\" [required]=\"false\">\n      <code name>\n        {{ generatePropertyName(entry[0]) }}\n      </code>\n    </jse-common-create-edge>\n  </ng-container>\n</ul>\n",
+            "template": "<ul>\n  <ng-container *ngFor=\"let entry of schema.patternProperties | keyvalue\">\n    <jse-common-create-edge [schema]=\"entry.value\" [required]=\"false\">\n      <code name>\n        {{ generatePropertyName(entry.key) }}\n      </code>\n    </jse-common-create-edge>\n  </ng-container>\n</ul>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -2351,7 +2351,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 37,
+                    "line": 33,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2385,21 +2385,10 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-pattern-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ul>\r\n      <ng-container *ngFor=\"let entry of patternPropertiesEntries\">\r\n        <jse-common-create-edge [schema]=\"entry[1]\" [required]=\"false\">\r\n          <code name>\r\n            {{ generatePropertyName(entry[0]) }}\r\n          </code>\r\n        </jse-common-create-edge>\r\n      </ng-container>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreatePatternPropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  get patternPropertiesEntries() : [string, JSONSchema][] {\r\n    return Object.entries(this.schema.patternProperties || {});\r\n  }\r\n\r\n  generatePropertyName(key: string): string {\r\n    return `${key}`;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-pattern-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ul>\r\n      <ng-container *ngFor=\"let entry of schema.patternProperties | keyvalue\">\r\n        <jse-common-create-edge [schema]=\"entry.value\" [required]=\"false\">\r\n          <code name>\r\n            {{ generatePropertyName(entry.key) }}\r\n          </code>\r\n        </jse-common-create-edge>\r\n      </ng-container>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreatePatternPropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  generatePropertyName(key: string): string {\r\n    return `${key}`;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": "",
-            "accessors": {
-                "patternPropertiesEntries": {
-                    "name": "patternPropertiesEntries",
-                    "getSignature": {
-                        "name": "patternPropertiesEntries",
-                        "type": "[]",
-                        "returnType": "[]",
-                        "line": 33
-                    }
-                }
-            }
+            "stylesData": ""
         },
         {
             "name": "CreatePrefixItemsComponent",
@@ -2508,7 +2497,7 @@
         },
         {
             "name": "CreatePropertiesComponent",
-            "id": "component-CreatePropertiesComponent-44549a76defe7198fadd42b2bf3ebc02d9d709414757dc49d747bbcdca71514e33063938b4e809b88a3545558fd1ddfcb124fa0efdd8f577cc70acb605f51c90",
+            "id": "component-CreatePropertiesComponent-1c959b324b5e094373c4060419c4b183529714dd87be37f82445a6fe0aa1385f83dcc7232c0d5a191666207bac265aeab82ba68b4ee5713a4651dcf963fdae39",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/object/properties.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -2519,7 +2508,7 @@
             "selector": "jse-object-properties",
             "styleUrls": [],
             "styles": [],
-            "template": "<ul>\n  <ng-container *ngFor=\"let entry of propertiesEntries\">\n    <jse-common-create-edge [schema]=\"entry[1]\" [required]=\"isRequired(entry[0])\">\n      <strong name>\n        {{ generatePropertyName(entry[0]) }}\n      </strong>\n    </jse-common-create-edge>\n  </ng-container>\n</ul>\n",
+            "template": "<ul>\n  <ng-container *ngFor=\"let entry of schema.properties | keyvalue\">\n    <jse-common-create-edge [schema]=\"entry.value\" [required]=\"isRequired(entry.key)\">\n      <strong name>\n        {{ generatePropertyName(entry.key) }}\n      </strong>\n    </jse-common-create-edge>\n  </ng-container>\n</ul>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -2551,7 +2540,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 37,
+                    "line": 33,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2579,7 +2568,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 41,
+                    "line": 37,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2613,21 +2602,10 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ul>\r\n      <ng-container *ngFor=\"let entry of propertiesEntries\">\r\n        <jse-common-create-edge [schema]=\"entry[1]\" [required]=\"isRequired(entry[0])\">\r\n          <strong name>\r\n            {{ generatePropertyName(entry[0]) }}\r\n          </strong>\r\n        </jse-common-create-edge>\r\n      </ng-container>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreatePropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  get propertiesEntries() : [string, JSONSchema][] {\r\n    return Object.entries(this.schema.properties || {});\r\n  }\r\n\r\n  generatePropertyName(key: string): string {\r\n    return `${key}`;\r\n  }\r\n\r\n  isRequired(key: string): boolean {\r\n    return Array.isArray(this.schema.required) ? this.schema.required.includes(key) : false;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ul>\r\n      <ng-container *ngFor=\"let entry of schema.properties | keyvalue\">\r\n        <jse-common-create-edge [schema]=\"entry.value\" [required]=\"isRequired(entry.key)\">\r\n          <strong name>\r\n            {{ generatePropertyName(entry.key) }}\r\n          </strong>\r\n        </jse-common-create-edge>\r\n      </ng-container>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreatePropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  generatePropertyName(key: string): string {\r\n    return `${key}`;\r\n  }\r\n\r\n  isRequired(key: string): boolean {\r\n    return Array.isArray(this.schema.required) ? this.schema.required.includes(key) : false;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": "",
-            "accessors": {
-                "propertiesEntries": {
-                    "name": "propertiesEntries",
-                    "getSignature": {
-                        "name": "propertiesEntries",
-                        "type": "[]",
-                        "returnType": "[]",
-                        "line": 33
-                    }
-                }
-            }
+            "stylesData": ""
         },
         {
             "name": "CreateStringComponent",

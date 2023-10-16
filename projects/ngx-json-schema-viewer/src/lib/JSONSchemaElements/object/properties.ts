@@ -17,10 +17,10 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul>
-      <ng-container *ngFor="let entry of propertiesEntries">
-        <jse-common-create-edge [schema]="entry[1]" [required]="isRequired(entry[0])">
+      <ng-container *ngFor="let entry of schema.properties | keyvalue">
+        <jse-common-create-edge [schema]="entry.value" [required]="isRequired(entry.key)">
           <strong name>
-            {{ generatePropertyName(entry[0]) }}
+            {{ generatePropertyName(entry.key) }}
           </strong>
         </jse-common-create-edge>
       </ng-container>
@@ -29,10 +29,6 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
 })
 export class CreatePropertiesComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Object;
-
-  get propertiesEntries() : [string, JSONSchema][] {
-    return Object.entries(this.schema.properties || {});
-  }
 
   generatePropertyName(key: string): string {
     return `${key}`;

@@ -17,10 +17,10 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul>
-      <ng-container *ngFor="let entry of patternPropertiesEntries">
-        <jse-common-create-edge [schema]="entry[1]" [required]="false">
+      <ng-container *ngFor="let entry of schema.patternProperties | keyvalue">
+        <jse-common-create-edge [schema]="entry.value" [required]="false">
           <code name>
-            {{ generatePropertyName(entry[0]) }}
+            {{ generatePropertyName(entry.key) }}
           </code>
         </jse-common-create-edge>
       </ng-container>
@@ -29,10 +29,6 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
 })
 export class CreatePatternPropertiesComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Object;
-
-  get patternPropertiesEntries() : [string, JSONSchema][] {
-    return Object.entries(this.schema.patternProperties || {});
-  }
 
   generatePropertyName(key: string): string {
     return `${key}`;
