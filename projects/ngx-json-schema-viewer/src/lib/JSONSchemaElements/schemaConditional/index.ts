@@ -51,7 +51,7 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
               </ng-container>
               <!-- Handles dependencies (deprecated) -->
               <ng-container *ngIf="isDependencies">
-                <jse-schema-conditional-dependencies [schema]="schema" />
+                <jse-schema-conditional-dependencies [schema]="dependencies" />
               </ng-container>
             </ng-template>
         </mat-expansion-panel>
@@ -79,6 +79,10 @@ export class SchemaConditionalComponent {
 
   get isDependentSchemas(): boolean {
     return (this.schema as JSONSchemaNS.Object).dependentSchemas !== undefined;
+  }
+
+  get dependencies() {
+    return this.schema.dependencies!;
   }
 
   get isDependencies(): boolean {
