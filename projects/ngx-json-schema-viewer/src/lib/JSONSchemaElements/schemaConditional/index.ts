@@ -43,11 +43,11 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
               </ng-container>
               <!-- Handles dependentRequired case -->
               <ng-container *ngIf="isDependentRequired">
-                <jse-schema-conditional-dependent-required [schema]="schema" />
+                <jse-schema-conditional-dependent-required [schema]="dependentRequired" />
               </ng-container>
               <!-- Handles dependentSchemas case -->
               <ng-container *ngIf="isDependentSchemas">
-                <jse-schema-conditional-dependent-schemas [schema]="schema" />
+                <jse-schema-conditional-dependent-schemas [schema]="dependentSchemas" />
               </ng-container>
               <!-- Handles dependencies (deprecated) -->
               <ng-container *ngIf="isDependencies">
@@ -65,8 +65,16 @@ export class SchemaConditionalComponent {
     return this.schema.if !== undefined;
   }
 
+  get dependentRequired() : Record<string, string[] | readonly string[]> {
+    return (this.schema as JSONSchemaNS.Object).dependentRequired!;
+  }
+
   get isDependentRequired(): boolean {
     return (this.schema as JSONSchemaNS.Object).dependentRequired !== undefined;
+  }
+
+  get dependentSchemas() : Record<string, JSONSchema> {
+    return (this.schema as JSONSchemaNS.Object).dependentSchemas!;
   }
 
   get isDependentSchemas(): boolean {

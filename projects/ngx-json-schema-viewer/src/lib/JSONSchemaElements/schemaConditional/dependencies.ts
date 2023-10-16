@@ -39,7 +39,7 @@ export class DependenciesComponent {
     );
   }
 
-  get dependentRequired(): { dependentRequired: Record<string, string[] | readonly string[]> } {
+  get dependentRequired(): Record<string, string[] | readonly string[]> {
     const result: Record<string, string[] | readonly string[]> = {};
 
     if (this.schema.dependencies) {
@@ -51,10 +51,10 @@ export class DependenciesComponent {
       }
     }
 
-    return { dependentRequired: result };
+    return result;
   }
 
-  get dependentSchemas(): { dependentSchemas: Record<string, JSONSchema> } {
+  get dependentSchemas(): Record<string, JSONSchema> {
     const result: Record<string, JSONSchema> = {};
 
     if (this.schema.dependencies) {
@@ -66,6 +66,6 @@ export class DependenciesComponent {
       }
     }
 
-    return { dependentSchemas: result };
+    return result;
   }
 }
