@@ -15,8 +15,8 @@ export class DependanciesToDependentRequiredPipe implements PipeTransform {
 
         for (const [property, subSchema] of Object.entries(dependentRequired)) {
             if (Array.isArray(subSchema)) {
-              // dependentRequired case
-              result[property] = subSchema;
+                // dependentRequired case
+                result[property] = subSchema;
             }
         }
 

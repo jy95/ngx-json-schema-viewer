@@ -2,7 +2,7 @@
     "pipes": [
         {
             "name": "DependanciesToDependentRequiredPipe",
-            "id": "pipe-DependanciesToDependentRequiredPipe-30ab1a45012bfb67d5b476c711bf8c8cc7078fe93f705ec27ba39d1ab2d6878e935e1c86b151f0f39bd1907d441dd729b9665f5d7a33ab3ae3169edd351244b7",
+            "id": "pipe-DependanciesToDependentRequiredPipe-7949c153bdf49d4aa858b33b1c5764422fd1d5ea8813aa031672f5bb9e7d86f33fcbed5e74ef5f61518dc081d0fd3abead92c977cdc451dfc59042bcc0126669",
             "file": "projects/ngx-json-schema-viewer/src/lib/pipes/dependancies-to-dependent-required.pipe.ts",
             "type": "pipe",
             "deprecated": false,
@@ -42,11 +42,11 @@
             ],
             "standalone": true,
             "ngname": "dependanciesTodependentRequired",
-            "sourceCode": "import { Pipe, PipeTransform } from '@angular/core';\r\n\r\nimport type { JSONSchema } from \"../types\";\r\n\r\ntype ValueType = Record<string, string[] | readonly string[] | JSONSchema>;\r\ntype OutputType = Record<string, string[] | readonly string[]>;\r\n\r\n@Pipe({ \r\n    name: 'dependanciesTodependentRequired',\r\n    standalone: true \r\n})\r\nexport class DependanciesToDependentRequiredPipe implements PipeTransform {\r\n    transform(dependentRequired: ValueType) : OutputType {\r\n        const result: Record<string, string[] | readonly string[]> = {};\r\n\r\n        for (const [property, subSchema] of Object.entries(dependentRequired)) {\r\n            if (Array.isArray(subSchema)) {\r\n              // dependentRequired case\r\n              result[property] = subSchema;\r\n            }\r\n        }\r\n\r\n        return result;\r\n    }\r\n}"
+            "sourceCode": "import { Pipe, PipeTransform } from '@angular/core';\r\n\r\nimport type { JSONSchema } from \"../types\";\r\n\r\ntype ValueType = Record<string, string[] | readonly string[] | JSONSchema>;\r\ntype OutputType = Record<string, string[] | readonly string[]>;\r\n\r\n@Pipe({ \r\n    name: 'dependanciesTodependentRequired',\r\n    standalone: true \r\n})\r\nexport class DependanciesToDependentRequiredPipe implements PipeTransform {\r\n    transform(dependentRequired: ValueType) : OutputType {\r\n        const result: Record<string, string[] | readonly string[]> = {};\r\n\r\n        for (const [property, subSchema] of Object.entries(dependentRequired)) {\r\n            if (Array.isArray(subSchema)) {\r\n                // dependentRequired case\r\n                result[property] = subSchema;\r\n            }\r\n        }\r\n\r\n        return result;\r\n    }\r\n}"
         },
         {
             "name": "DependanciesToDependentSchemasPipe",
-            "id": "pipe-DependanciesToDependentSchemasPipe-6d89bca3986d12d7fd2c8650b6ee2969c981991bfc2c396eb16c40a9eef575e9d4e1535ecba92f351e429e0f4ee52471321a1100917670670c76b260ca3011a1",
+            "id": "pipe-DependanciesToDependentSchemasPipe-303772049d13e26a79220d6df0c637005ba53364578ca1d338d9384724b73ec510f60be6e00648e5805156c8325b063404dc9b669a5df1ffcdaedfd0ea57a9b6",
             "file": "projects/ngx-json-schema-viewer/src/lib/pipes/dependancies-to-dependent-schemas.pipe.ts",
             "type": "pipe",
             "deprecated": false,
@@ -86,7 +86,7 @@
             ],
             "standalone": true,
             "ngname": "dependanciesTodependentSchemas",
-            "sourceCode": "import { Pipe, PipeTransform } from '@angular/core';\r\n\r\nimport type { JSONSchema } from \"../types\";\r\n\r\ntype ValueType = Record<string, string[] | readonly string[] | JSONSchema>;\r\ntype OutputType = Record<string, JSONSchema>;\r\n\r\n@Pipe({ \r\n    name: 'dependanciesTodependentSchemas',\r\n    standalone: true \r\n})\r\nexport class DependanciesToDependentSchemasPipe implements PipeTransform {\r\n    transform(dependentSchemas: ValueType) : OutputType {\r\n        const result: Record<string, JSONSchema> = {};\r\n\r\n        if (dependentSchemas) {\r\n            for (const [property, subSchema] of Object.entries(dependentSchemas)) {\r\n                if (!Array.isArray(subSchema)) {\r\n                    // dependentSchemas case\r\n                    result[property] = subSchema as JSONSchema;\r\n                }\r\n            }\r\n        }\r\n\r\n        return result;\r\n    }\r\n}"
+            "sourceCode": "import { Pipe, PipeTransform } from '@angular/core';\r\n\r\nimport type { JSONSchema } from \"../types\";\r\n\r\ntype ValueType = Record<string, string[] | readonly string[] | JSONSchema>;\r\ntype OutputType = Record<string, JSONSchema>;\r\n\r\n@Pipe({ \r\n    name: 'dependanciesTodependentSchemas',\r\n    standalone: true \r\n})\r\nexport class DependanciesToDependentSchemasPipe implements PipeTransform {\r\n    transform(dependentSchemas: ValueType) : OutputType {\r\n        const result: Record<string, JSONSchema> = {};\r\n\r\n        for (const [property, subSchema] of Object.entries(dependentSchemas)) {\r\n            if (!Array.isArray(subSchema)) {\r\n                // dependentSchemas case\r\n                result[property] = subSchema as JSONSchema;\r\n            }\r\n        }\r\n        \r\n        return result;\r\n    }\r\n}"
         },
         {
             "name": "DependentRequiredPipe",
@@ -3377,7 +3377,7 @@
         },
         {
             "name": "DependenciesComponent",
-            "id": "component-DependenciesComponent-233d900fb597d24f43f35455eb5023096f40203e0558ad9a2168c24f9da2c2f591aec897321da64d2c3c1e9cd9d93df4cbd30b8fec2cc4ab44a3096ed2faecfd",
+            "id": "component-DependenciesComponent-24084a0bd4b4b3380b6f32d4eaf76b02117aa50f9c12d2d6a6835b808ad19e156ed5daf9d14fc4c8bf8b01ca376795051429deba04419b7128e3db34241892fe",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/schemaConditional/dependencies.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -3388,7 +3388,7 @@
             "selector": "jse-schema-conditional-dependencies",
             "styleUrls": [],
             "styles": [],
-            "template": "<ng-container *ngIf=\"hasDependentRequired\">\n  <jse-schema-conditional-dependent-required [schema]=\"schema | dependanciesTodependentRequired\" />\n</ng-container>\n<ng-container *ngIf=\"hasDependentSchemas\">\n  <jse-schema-conditional-dependent-schemas [schema]=\"schema | dependanciesTodependentSchemas\" />\n</ng-container>\n",
+            "template": "<ng-container *ngIf=\"schema | dependanciesTodependentRequired as dependentRequired\">\n  <jse-schema-conditional-dependent-required [schema]=\"dependentRequired\" />\n</ng-container>\n<ng-container *ngIf=\"schema | dependanciesTodependentSchemas as dependentSchemas\">\n  <jse-schema-conditional-dependent-schemas [schema]=\"dependentSchemas\" />\n</ng-container>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -3437,30 +3437,10 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\n\r\nimport {\r\n  DependentRequiredComponent,\r\n  DependentSchemasComponent\r\n} from \"./index\";\r\n\r\nimport { DependanciesToDependentRequiredPipe } from '../../pipes/dependancies-to-dependent-required.pipe';\r\nimport { DependanciesToDependentSchemasPipe } from '../../pipes/dependancies-to-dependent-schemas.pipe';\r\n\r\nimport type { JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-schema-conditional-dependencies',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    DependentRequiredComponent,\r\n    DependentSchemasComponent,\r\n    DependanciesToDependentRequiredPipe,\r\n    DependanciesToDependentSchemasPipe\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ng-container *ngIf=\"hasDependentRequired\">\r\n      <jse-schema-conditional-dependent-required [schema]=\"schema | dependanciesTodependentRequired\" />\r\n    </ng-container>\r\n    <ng-container *ngIf=\"hasDependentSchemas\">\r\n      <jse-schema-conditional-dependent-schemas [schema]=\"schema | dependanciesTodependentSchemas\" />\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class DependenciesComponent {\r\n  @Input({ required: true }) schema!: Record<string, string[] | readonly string[] | JSONSchema>;\r\n\r\n  get hasDependentRequired(): boolean {\r\n    return Object.values(this.schema).some(Array.isArray);\r\n  }\r\n  \r\n  get hasDependentSchemas(): boolean {\r\n    return Object.values(this.schema).some((subSchema) => !Array.isArray(subSchema));\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\n\r\nimport {\r\n  DependentRequiredComponent,\r\n  DependentSchemasComponent\r\n} from \"./index\";\r\n\r\nimport { DependanciesToDependentRequiredPipe } from '../../pipes/dependancies-to-dependent-required.pipe';\r\nimport { DependanciesToDependentSchemasPipe } from '../../pipes/dependancies-to-dependent-schemas.pipe';\r\n\r\nimport type { JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-schema-conditional-dependencies',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    DependentRequiredComponent,\r\n    DependentSchemasComponent,\r\n    DependanciesToDependentRequiredPipe,\r\n    DependanciesToDependentSchemasPipe\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ng-container *ngIf=\"schema | dependanciesTodependentRequired as dependentRequired\">\r\n      <jse-schema-conditional-dependent-required [schema]=\"dependentRequired\" />\r\n    </ng-container>\r\n    <ng-container *ngIf=\"schema | dependanciesTodependentSchemas as dependentSchemas\">\r\n      <jse-schema-conditional-dependent-schemas [schema]=\"dependentSchemas\" />\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class DependenciesComponent {\r\n  @Input({ required: true }) schema!: Record<string, string[] | readonly string[] | JSONSchema>;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": "",
-            "accessors": {
-                "hasDependentRequired": {
-                    "name": "hasDependentRequired",
-                    "getSignature": {
-                        "name": "hasDependentRequired",
-                        "type": "boolean",
-                        "returnType": "boolean",
-                        "line": 37
-                    }
-                },
-                "hasDependentSchemas": {
-                    "name": "hasDependentSchemas",
-                    "getSignature": {
-                        "name": "hasDependentSchemas",
-                        "type": "boolean",
-                        "returnType": "boolean",
-                        "line": 41
-                    }
-                }
-            }
+            "stylesData": ""
         },
         {
             "name": "DependentRequiredComponent",
@@ -4437,7 +4417,7 @@
         },
         {
             "name": "IfElseThenComponent",
-            "id": "component-IfElseThenComponent-16765bcaa42263aa96ed711e1c6aa7a753fa61a1e252bff4caf9d7f8d1ef23c1d2acc15762a5307ab442cf8d3aa97efa76bf7fd48b5b187c05703d0205c4bb31",
+            "id": "component-IfElseThenComponent-f87246a5495bb791849629d11fe7c7fc417b5d9164f1efec8a5ef0a8d618526901218db92d79f59f411f129a8066490f62c538288412b299cfe471726c0bf109",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/schemaConditional/if-else-then.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -4448,7 +4428,7 @@
             "selector": "jse-schema-conditional-if-else-then",
             "styleUrls": [],
             "styles": [],
-            "template": "<mat-tab-group>\n  <mat-tab *ngFor=\"let val of values\">\n    <ng-template mat-tab-label>\n      <ng-container *ngIf=\"val.key === 'if'; else elseTemplate\">\n        <labels-if />\n      </ng-container>\n      <ng-template #elseTemplate>\n        <ng-container *ngIf=\"val.key === 'then'; else otherElseTemplate\">\n          <labels-then />\n        </ng-container>\n        <ng-template #otherElseTemplate>\n          <labels-else />\n        </ng-template>\n      </ng-template>\n    </ng-template>\n    <ng-template matTabContent>\n        <jse-common-create-nodes [schema]=\"val.schema\" />\n    </ng-template>\n  </mat-tab>\n</mat-tab-group>\n",
+            "template": "<mat-tab-group>\n\n  <!-- If case -->\n  <ng-container *ngIf=\"schema.if\">\n    <mat-tab>\n      <ng-template mat-tab-label>\n        <labels-if />\n      </ng-template>\n      <ng-template matTabContent>\n        <jse-common-create-nodes [schema]=\"schema.if\" />\n      </ng-template>\n    </mat-tab>\n  </ng-container>\n\n  <!-- Then case -->\n  <ng-container *ngIf=\"schema.then\">\n    <mat-tab>\n      <ng-template mat-tab-label>\n        <labels-then />\n      </ng-template>\n      <ng-template matTabContent>\n        <jse-common-create-nodes [schema]=\"schema.then\" />\n      </ng-template>\n    </mat-tab>\n  </ng-container>\n\n  <!-- Else case -->\n  <ng-container *ngIf=\"schema.else\">\n    <mat-tab>\n      <ng-template mat-tab-label>\n        <labels-else />\n      </ng-template>\n      <ng-template matTabContent>\n        <jse-common-create-nodes [schema]=\"schema.else\" />\n      </ng-template>\n    </mat-tab>\n  </ng-container>\n\n</mat-tab-group>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -4459,7 +4439,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 47,
+                    "line": 66,
                     "type": "Exclude<JSONSchema |  | >",
                     "decorators": []
                 }
@@ -4501,39 +4481,10 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\nimport { MatTabsModule } from '@angular/material/tabs';\r\n\r\nimport { CreateNodesComponent } from \"../../common/create-nodes\";\r\n\r\nimport { IfLabelComponent, ThenLabelComponent, ElseLabelComponent } from \"../../labels/index\";\r\n\r\nimport type { JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-schema-conditional-if-else-then',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule, \r\n    MatTabsModule,\r\n    IfLabelComponent,\r\n    ThenLabelComponent,\r\n    ElseLabelComponent,\r\n    forwardRef(() => CreateNodesComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <mat-tab-group>\r\n      <mat-tab *ngFor=\"let val of values\">\r\n        <ng-template mat-tab-label>\r\n          <ng-container *ngIf=\"val.key === 'if'; else elseTemplate\">\r\n            <labels-if />\r\n          </ng-container>\r\n          <ng-template #elseTemplate>\r\n            <ng-container *ngIf=\"val.key === 'then'; else otherElseTemplate\">\r\n              <labels-then />\r\n            </ng-container>\r\n            <ng-template #otherElseTemplate>\r\n              <labels-else />\r\n            </ng-template>\r\n          </ng-template>\r\n        </ng-template>\r\n        <ng-template matTabContent>\r\n            <jse-common-create-nodes [schema]=\"val.schema\" />\r\n        </ng-template>\r\n      </mat-tab>\r\n    </mat-tab-group>\r\n  `,\r\n})\r\nexport class IfElseThenComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  get hasThen(): boolean {\r\n    return this.schema.then !== undefined;\r\n  }\r\n\r\n  get hasElse(): boolean {\r\n    return this.schema.else !== undefined;\r\n  }\r\n\r\n  get values(): { key: string, schema: JSONSchema }[] {\r\n    const values = [\r\n      {\r\n        key: \"if\",\r\n        schema: this.schema.if!,\r\n      },\r\n      this.hasThen && {\r\n        key: \"then\",\r\n        schema: this.schema.then!,\r\n      },\r\n      this.hasElse && {\r\n        key: \"else\",\r\n        schema: this.schema.else!,\r\n      },\r\n    ].filter((v) => !!v) as { key: string, schema: JSONSchema }[];\r\n\r\n    return values;\r\n  }\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\nimport { MatTabsModule } from '@angular/material/tabs';\r\n\r\nimport { CreateNodesComponent } from \"../../common/create-nodes\";\r\n\r\nimport { IfLabelComponent, ThenLabelComponent, ElseLabelComponent } from \"../../labels/index\";\r\n\r\nimport type { JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-schema-conditional-if-else-then',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule, \r\n    MatTabsModule,\r\n    IfLabelComponent,\r\n    ThenLabelComponent,\r\n    ElseLabelComponent,\r\n    forwardRef(() => CreateNodesComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <mat-tab-group>\r\n\r\n      <!-- If case -->\r\n      <ng-container *ngIf=\"schema.if\">\r\n        <mat-tab>\r\n          <ng-template mat-tab-label>\r\n            <labels-if />\r\n          </ng-template>\r\n          <ng-template matTabContent>\r\n            <jse-common-create-nodes [schema]=\"schema.if\" />\r\n          </ng-template>\r\n        </mat-tab>\r\n      </ng-container>\r\n\r\n      <!-- Then case -->\r\n      <ng-container *ngIf=\"schema.then\">\r\n        <mat-tab>\r\n          <ng-template mat-tab-label>\r\n            <labels-then />\r\n          </ng-template>\r\n          <ng-template matTabContent>\r\n            <jse-common-create-nodes [schema]=\"schema.then\" />\r\n          </ng-template>\r\n        </mat-tab>\r\n      </ng-container>\r\n\r\n      <!-- Else case -->\r\n      <ng-container *ngIf=\"schema.else\">\r\n        <mat-tab>\r\n          <ng-template mat-tab-label>\r\n            <labels-else />\r\n          </ng-template>\r\n          <ng-template matTabContent>\r\n            <jse-common-create-nodes [schema]=\"schema.else\" />\r\n          </ng-template>\r\n        </mat-tab>\r\n      </ng-container>\r\n\r\n    </mat-tab-group>\r\n  `,\r\n})\r\nexport class IfElseThenComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": "",
-            "accessors": {
-                "hasThen": {
-                    "name": "hasThen",
-                    "getSignature": {
-                        "name": "hasThen",
-                        "type": "boolean",
-                        "returnType": "boolean",
-                        "line": 49
-                    }
-                },
-                "hasElse": {
-                    "name": "hasElse",
-                    "getSignature": {
-                        "name": "hasElse",
-                        "type": "boolean",
-                        "returnType": "boolean",
-                        "line": 53
-                    }
-                },
-                "values": {
-                    "name": "values",
-                    "getSignature": {
-                        "name": "values",
-                        "type": "[]",
-                        "returnType": "literal type[]",
-                        "line": 57
-                    }
-                }
-            }
+            "stylesData": ""
         },
         {
             "name": "IfLabelComponent",

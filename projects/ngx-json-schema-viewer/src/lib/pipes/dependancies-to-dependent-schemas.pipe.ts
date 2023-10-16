@@ -13,15 +13,13 @@ export class DependanciesToDependentSchemasPipe implements PipeTransform {
     transform(dependentSchemas: ValueType) : OutputType {
         const result: Record<string, JSONSchema> = {};
 
-        if (dependentSchemas) {
-            for (const [property, subSchema] of Object.entries(dependentSchemas)) {
-                if (!Array.isArray(subSchema)) {
-                    // dependentSchemas case
-                    result[property] = subSchema as JSONSchema;
-                }
+        for (const [property, subSchema] of Object.entries(dependentSchemas)) {
+            if (!Array.isArray(subSchema)) {
+                // dependentSchemas case
+                result[property] = subSchema as JSONSchema;
             }
         }
-
+        
         return result;
     }
 }
