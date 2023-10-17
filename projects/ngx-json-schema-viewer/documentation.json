@@ -3391,7 +3391,7 @@
         },
         {
             "name": "DependenciesComponent",
-            "id": "component-DependenciesComponent-24084a0bd4b4b3380b6f32d4eaf76b02117aa50f9c12d2d6a6835b808ad19e156ed5daf9d14fc4c8bf8b01ca376795051429deba04419b7128e3db34241892fe",
+            "id": "component-DependenciesComponent-3fc4492dc5d94a8837e468740fd0a3f6bd52a9fa739279faf0e6e214fbb6fa88907b0d3e51a5f9d693ea8da9ca950473da2a0c3f58009ddf3a98df2dfd44ae73",
             "file": "projects/ngx-json-schema-viewer/src/lib/JSONSchemaElements/schemaConditional/dependencies.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -3402,7 +3402,7 @@
             "selector": "jse-schema-conditional-dependencies",
             "styleUrls": [],
             "styles": [],
-            "template": "<ng-container *ngIf=\"schema | dependanciesTodependentRequired as dependentRequired\">\n  <jse-schema-conditional-dependent-required [schema]=\"dependentRequired\" />\n</ng-container>\n<ng-container *ngIf=\"schema | dependanciesTodependentSchemas as dependentSchemas\">\n  <jse-schema-conditional-dependent-schemas [schema]=\"dependentSchemas\" />\n</ng-container>\n",
+            "template": "<ng-container *ngIf=\"schema | dependanciesTodependentRequired as dependentRequired\">\n  <ng-container *ngIf=\"!isEmptyObject(dependentRequired)\">\n    <jse-schema-conditional-dependent-required [schema]=\"dependentRequired\" />\n  </ng-container>\n</ng-container>\n<ng-container *ngIf=\"schema | dependanciesTodependentSchemas as dependentSchemas\">\n  <ng-container *ngIf=\"!isEmptyObject(dependentSchemas)\">\n    <jse-schema-conditional-dependent-schemas [schema]=\"dependentSchemas\" />\n  </ng-container>\n</ng-container>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -3413,14 +3413,43 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 35,
+                    "line": 39,
                     "type": "Record<string | [] |  | JSONSchema>",
                     "decorators": []
                 }
             ],
             "outputsClass": [],
             "propertiesClass": [],
-            "methodsClass": [],
+            "methodsClass": [
+                {
+                    "name": "isEmptyObject",
+                    "args": [
+                        {
+                            "name": "obj",
+                            "type": "Record<string | any>",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "boolean",
+                    "typeParameters": [],
+                    "line": 41,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "obj",
+                            "type": "Record<string | any>",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -3451,7 +3480,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\n\r\nimport {\r\n  DependentRequiredComponent,\r\n  DependentSchemasComponent\r\n} from \"./index\";\r\n\r\nimport { DependanciesToDependentRequiredPipe } from '../../pipes/dependancies-to-dependent-required.pipe';\r\nimport { DependanciesToDependentSchemasPipe } from '../../pipes/dependancies-to-dependent-schemas.pipe';\r\n\r\nimport type { JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-schema-conditional-dependencies',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    DependentRequiredComponent,\r\n    DependentSchemasComponent,\r\n    DependanciesToDependentRequiredPipe,\r\n    DependanciesToDependentSchemasPipe\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ng-container *ngIf=\"schema | dependanciesTodependentRequired as dependentRequired\">\r\n      <jse-schema-conditional-dependent-required [schema]=\"dependentRequired\" />\r\n    </ng-container>\r\n    <ng-container *ngIf=\"schema | dependanciesTodependentSchemas as dependentSchemas\">\r\n      <jse-schema-conditional-dependent-schemas [schema]=\"dependentSchemas\" />\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class DependenciesComponent {\r\n  @Input({ required: true }) schema!: Record<string, string[] | readonly string[] | JSONSchema>;\r\n}\r\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\n\r\nimport {\r\n  DependentRequiredComponent,\r\n  DependentSchemasComponent\r\n} from \"./index\";\r\n\r\nimport { DependanciesToDependentRequiredPipe } from '../../pipes/dependancies-to-dependent-required.pipe';\r\nimport { DependanciesToDependentSchemasPipe } from '../../pipes/dependancies-to-dependent-schemas.pipe';\r\n\r\nimport type { JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-schema-conditional-dependencies',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    DependentRequiredComponent,\r\n    DependentSchemasComponent,\r\n    DependanciesToDependentRequiredPipe,\r\n    DependanciesToDependentSchemasPipe\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ng-container *ngIf=\"schema | dependanciesTodependentRequired as dependentRequired\">\r\n      <ng-container *ngIf=\"!isEmptyObject(dependentRequired)\">\r\n        <jse-schema-conditional-dependent-required [schema]=\"dependentRequired\" />\r\n      </ng-container>\r\n    </ng-container>\r\n    <ng-container *ngIf=\"schema | dependanciesTodependentSchemas as dependentSchemas\">\r\n      <ng-container *ngIf=\"!isEmptyObject(dependentSchemas)\">\r\n        <jse-schema-conditional-dependent-schemas [schema]=\"dependentSchemas\" />\r\n      </ng-container>\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class DependenciesComponent {\r\n  @Input({ required: true }) schema!: Record<string, string[] | readonly string[] | JSONSchema>;\r\n\r\n  isEmptyObject(obj : Record<string, any>) : boolean {\r\n    return Object.keys(obj).length === 0;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -9465,7 +9494,7 @@
                 "linktype": "component",
                 "name": "DependenciesComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/2",
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {

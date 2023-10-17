@@ -24,13 +24,21 @@ import type { JSONSchema } from "../../types";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container *ngIf="schema | dependanciesTodependentRequired as dependentRequired">
-      <jse-schema-conditional-dependent-required [schema]="dependentRequired" />
+      <ng-container *ngIf="!isEmptyObject(dependentRequired)">
+        <jse-schema-conditional-dependent-required [schema]="dependentRequired" />
+      </ng-container>
     </ng-container>
     <ng-container *ngIf="schema | dependanciesTodependentSchemas as dependentSchemas">
-      <jse-schema-conditional-dependent-schemas [schema]="dependentSchemas" />
+      <ng-container *ngIf="!isEmptyObject(dependentSchemas)">
+        <jse-schema-conditional-dependent-schemas [schema]="dependentSchemas" />
+      </ng-container>
     </ng-container>
   `,
 })
 export class DependenciesComponent {
   @Input({ required: true }) schema!: Record<string, string[] | readonly string[] | JSONSchema>;
+
+  isEmptyObject(obj : Record<string, any>) : boolean {
+    return Object.keys(obj).length === 0;
+  }
 }
