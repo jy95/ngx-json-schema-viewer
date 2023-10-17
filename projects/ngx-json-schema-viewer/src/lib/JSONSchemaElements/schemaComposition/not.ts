@@ -13,11 +13,12 @@ import type { JSONSchema } from "../../types";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-        <span class="badge badge--info">{{ typeOf }}</span>
+        <span class="badge not">{{ typeOf }}</span>
         <br />
         <jse-common-create-nodes [schema]="typedSchema" />
     </div>
   `,
+  styleUrls: ["./not.css"]
 })
 export class NotSchemaComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;

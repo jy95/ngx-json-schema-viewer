@@ -1,0 +1,9 @@
+.badge.not {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: red; /* Custom background color for "not" */
+    border-radius: 50%;
+    color: #fff; /* Custom font color for "not" */
+    font-weight: bold; /* Make text bold */
+}
+  
