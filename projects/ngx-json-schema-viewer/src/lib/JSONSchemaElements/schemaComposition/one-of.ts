@@ -19,7 +19,7 @@ import type { JSONSchema } from "../../types";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <span class="badge badge--info">{{ typeOf }}</span>
+      <span class="badge oneOf">{{ typeOf }}</span>
       <mat-tab-group>
         <ng-container *ngFor="let compositeSchema of typedSchema">
           <mat-tab>
@@ -32,6 +32,7 @@ import type { JSONSchema } from "../../types";
       </mat-tab-group>
     </div>
   `,
+  styleUrls: ["./one-of.css"]
 })
 export class OneOfSchemaComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;

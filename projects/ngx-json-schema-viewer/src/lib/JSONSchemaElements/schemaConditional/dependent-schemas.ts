@@ -5,33 +5,23 @@ import {
   AllOfSchemaComponent
 } from "../schemaComposition/index";
 
-import type { JSONSchema, JSONSchemaNS } from "../../types";
+import { DependentSchemasPipe } from '../../pipes/dependent-schemas.pipe';
+
+import type { JSONSchema } from "../../types";
 
 @Component({
   selector: 'jse-schema-conditional-dependent-schemas',
   standalone: true,
-  imports: [CommonModule,AllOfSchemaComponent],
+  imports: [
+    CommonModule,
+    AllOfSchemaComponent,
+    DependentSchemasPipe
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <jse-schema-composition-all-of [schema]="simplifiedSchema" />
+    <jse-schema-composition-all-of [schema]="schema | dependentSchemas" />
   `,
 })
 export class DependentSchemasComponent {
-  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
-
-  get dependentSchemas(): JSONSchemaNS.Object {
-    return this.schema as JSONSchemaNS.Object;
-  }
-
-  get simplifiedSchema(): Exclude<JSONSchema, true | false> {
-    const allOf = Object.entries(this.dependentSchemas).map(([property, subSchema]) => ({
-      if: {
-        type: "object",
-        required: [property],
-      },
-      then: subSchema,
-    }));
-
-    return { allOf };
-  }
+  @Input({ required: true }) schema!: Record<string, JSONSchema>;
 }

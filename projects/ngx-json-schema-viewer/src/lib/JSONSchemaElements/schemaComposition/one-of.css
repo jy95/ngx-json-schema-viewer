@@ -1,0 +1,9 @@
+.badge.oneOf {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: green; /* Custom background color for "oneOf" */
+    border-radius: 50%;
+    color: #000; /* Custom font color for "oneOf" */
+    font-weight: bold; /* Make text bold */
+}
+  

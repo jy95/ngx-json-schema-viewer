@@ -1,0 +1,9 @@
+.badge.allOf {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: blue; /* Custom background color for "allOf" */
+    border-radius: 50%;
+    color: #fff; /* Custom font color for "allOf" */
+    font-weight: bold; /* Make text bold */
+}
+  

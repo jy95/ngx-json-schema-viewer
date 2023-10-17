@@ -1,0 +1,9 @@
+.badge.anyOf {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: orange; /* Custom background color for "anyOf" */
+    border-radius: 50%;
+    color: #000; /* Custom font color for "anyOf" */
+    font-weight: bold; /* Make text bold */
+}
+  

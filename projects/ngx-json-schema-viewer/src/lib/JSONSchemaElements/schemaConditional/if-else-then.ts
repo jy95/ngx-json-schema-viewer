@@ -22,54 +22,46 @@ import type { JSONSchema } from "../../types";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-tab-group>
-      <mat-tab *ngFor="let val of values">
-        <ng-template mat-tab-label>
-          <ng-container *ngIf="val.key === 'if'; else elseTemplate">
+
+      <!-- If case -->
+      <ng-container *ngIf="schema.if">
+        <mat-tab>
+          <ng-template mat-tab-label>
             <labels-if />
-          </ng-container>
-          <ng-template #elseTemplate>
-            <ng-container *ngIf="val.key === 'then'; else otherElseTemplate">
-              <labels-then />
-            </ng-container>
-            <ng-template #otherElseTemplate>
-              <labels-else />
-            </ng-template>
           </ng-template>
-        </ng-template>
-        <ng-template matTabContent>
-            <jse-common-create-nodes [schema]="val.schema" />
-        </ng-template>
-      </mat-tab>
+          <ng-template matTabContent>
+            <jse-common-create-nodes [schema]="schema.if" />
+          </ng-template>
+        </mat-tab>
+      </ng-container>
+
+      <!-- Then case -->
+      <ng-container *ngIf="schema.then">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <labels-then />
+          </ng-template>
+          <ng-template matTabContent>
+            <jse-common-create-nodes [schema]="schema.then" />
+          </ng-template>
+        </mat-tab>
+      </ng-container>
+
+      <!-- Else case -->
+      <ng-container *ngIf="schema.else">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <labels-else />
+          </ng-template>
+          <ng-template matTabContent>
+            <jse-common-create-nodes [schema]="schema.else" />
+          </ng-template>
+        </mat-tab>
+      </ng-container>
+
     </mat-tab-group>
   `,
 })
 export class IfElseThenComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
-
-  get hasThen(): boolean {
-    return this.schema.then !== undefined;
-  }
-
-  get hasElse(): boolean {
-    return this.schema.else !== undefined;
-  }
-
-  get values(): { key: string, schema: JSONSchema }[] {
-    const values = [
-      {
-        key: "if",
-        schema: this.schema.if!,
-      },
-      this.hasThen && {
-        key: "then",
-        schema: this.schema.then!,
-      },
-      this.hasElse && {
-        key: "else",
-        schema: this.schema.else!,
-      },
-    ].filter((v) => !!v) as { key: string, schema: JSONSchema }[];
-
-    return values;
-  }
 }
