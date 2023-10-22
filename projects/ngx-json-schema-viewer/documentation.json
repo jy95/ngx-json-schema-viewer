@@ -7171,7 +7171,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  ...createStory({\r\n    \"storybook-name\": \"📌 Annotations\",\r\n    schema: {\r\n      \"title\": \"Match anything\",\r\n      \"description\": \"This is a *schema* that matches **anything.**\",\r\n      \"default\": \"Default value\",\r\n      \"examples\": [\r\n        \"Anything\",\r\n        4035\r\n      ],\r\n      \"deprecated\": true,\r\n      \"readOnly\": true,\r\n      \"writeOnly\": false\r\n    }\r\n  }),\r\n  decorators: [\r\n    moduleMetadata({\r\n      providers: [\r\n        {\r\n          provide: JSV_OPTIONS,\r\n          useValue: {\r\n            showExamples: true\r\n          }\r\n        }\r\n      ]\r\n    })\r\n  ]\r\n}"
+                "defaultValue": "{\r\n  ...createStory({\r\n    \"storybook-name\": \"📌 Annotations\",\r\n    schema: {\r\n      \"title\": \"Match anything\",\r\n      \"description\": \"This is a *schema* that matches **anything.**\",\r\n      \"default\": \"Default value\",\r\n      \"examples\": [\r\n        \"Anything\",\r\n        4035\r\n      ],\r\n      \"deprecated\": true,\r\n      \"readOnly\": true,\r\n      \"writeOnly\": false\r\n    }\r\n  }),\r\n  decorators: [\r\n    applicationConfig({\r\n      providers: [\r\n        {\r\n          provide: JSV_OPTIONS,\r\n          useValue: {\r\n            showExamples: true\r\n          }\r\n        }\r\n      ]\r\n    })\r\n  ]\r\n}"
             },
             {
                 "name": "anyOf",
@@ -8550,7 +8550,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n  ...createStory({\r\n    \"storybook-name\": \"📌 Annotations\",\r\n    schema: {\r\n      \"title\": \"Match anything\",\r\n      \"description\": \"This is a *schema* that matches **anything.**\",\r\n      \"default\": \"Default value\",\r\n      \"examples\": [\r\n        \"Anything\",\r\n        4035\r\n      ],\r\n      \"deprecated\": true,\r\n      \"readOnly\": true,\r\n      \"writeOnly\": false\r\n    }\r\n  }),\r\n  decorators: [\r\n    moduleMetadata({\r\n      providers: [\r\n        {\r\n          provide: JSV_OPTIONS,\r\n          useValue: {\r\n            showExamples: true\r\n          }\r\n        }\r\n      ]\r\n    })\r\n  ]\r\n}"
+                    "defaultValue": "{\r\n  ...createStory({\r\n    \"storybook-name\": \"📌 Annotations\",\r\n    schema: {\r\n      \"title\": \"Match anything\",\r\n      \"description\": \"This is a *schema* that matches **anything.**\",\r\n      \"default\": \"Default value\",\r\n      \"examples\": [\r\n        \"Anything\",\r\n        4035\r\n      ],\r\n      \"deprecated\": true,\r\n      \"readOnly\": true,\r\n      \"writeOnly\": false\r\n    }\r\n  }),\r\n  decorators: [\r\n    applicationConfig({\r\n      providers: [\r\n        {\r\n          provide: JSV_OPTIONS,\r\n          useValue: {\r\n            showExamples: true\r\n          }\r\n        }\r\n      ]\r\n    })\r\n  ]\r\n}"
                 },
                 {
                     "name": "Const",

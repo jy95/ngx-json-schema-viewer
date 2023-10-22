@@ -1,5 +1,5 @@
 import { defaultMeta, createStory } from "./setup";
-import { moduleMetadata } from '@storybook/angular';
+import { applicationConfig } from '@storybook/angular';
 import type { MetaViewer, Story } from "./setup";
 import { JSV_OPTIONS } from "ngx-json-schema-viewer";
 
@@ -27,7 +27,7 @@ export const Annotations : Story = {
     }
   }),
   decorators: [
-    moduleMetadata({
+    applicationConfig({
       providers: [
         {
           provide: JSV_OPTIONS,
