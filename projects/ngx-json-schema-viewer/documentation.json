@@ -175,6 +175,50 @@
             "standalone": true,
             "ngname": "dependentSchemas",
             "sourceCode": "import { Pipe, PipeTransform } from '@angular/core';\r\n\r\nimport type { JSONSchema } from \"../types\";\r\n\r\ntype ValueType = Record<string, JSONSchema>;\r\ntype OutputType = Exclude<JSONSchema, true | false>;\r\n\r\n@Pipe({ \r\n    name: 'dependentSchemas',\r\n    standalone: true \r\n})\r\nexport class DependentSchemasPipe implements PipeTransform {\r\n    transform(dependentSchemas: ValueType) : OutputType {\r\n        return {\r\n            allOf: Object.entries(dependentSchemas).map(\r\n                ([property, subSchema]) => ({\r\n                    if: {\r\n                      type: \"object\",\r\n                      required: [property],\r\n                    },\r\n                    then: subSchema,\r\n                })\r\n            )\r\n        }\r\n    }\r\n}"
+        },
+        {
+            "name": "ExamplesListPipe",
+            "id": "pipe-ExamplesListPipe-b35d1ddaa9a6e041fb6fb0297848fe7bbea64e5deae125581a63a6b8b8e468cc90746354318f98e4d0c9095a128eab07d0e5e76104879d13ccec0ad34d12247a",
+            "file": "projects/ngx-json-schema-viewer/src/lib/pipes/examples-list.pipe.ts",
+            "type": "pipe",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "description": "",
+            "rawdescription": "\n",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "transform",
+                    "args": [
+                        {
+                            "name": "schema",
+                            "type": "ValueType",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "OutputType",
+                    "typeParameters": [],
+                    "line": 15,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "schema",
+                            "type": "ValueType",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "standalone": true,
+            "ngname": "examplesList",
+            "sourceCode": "import { Pipe, PipeTransform } from '@angular/core';\r\n\r\nimport type { JSONSchema } from \"../types\";\r\n\r\ntype itemsType = { id: number; value: unknown; label: string }\r\n\r\ntype ValueType = Exclude<JSONSchema, true | false>;\r\ntype OutputType = itemsType[];\r\n\r\n@Pipe({ \r\n    name: 'examplesList',\r\n    standalone: true \r\n})\r\nexport class ExamplesListPipe implements PipeTransform {\r\n    transform(schema: ValueType) : OutputType {\r\n        return (schema.examples || [])\r\n            .map((val, idx) => ({\r\n            id: idx,\r\n            value: val,\r\n            label: `Example ${idx}`,\r\n        }));\r\n    }\r\n}"
         }
     ],
     "interfaces": [],
@@ -3908,7 +3952,7 @@
         },
         {
             "name": "ExamplesComponent",
-            "id": "component-ExamplesComponent-1b23f3d7e312d6a4dd9c6f1662cf904e3f4d5fcdd1417f15f0a18c1c368cf98b779efd0ffc305d5039dbb242170e46b835f4b77cf66992cfd10fa607d5bcb27b",
+            "id": "component-ExamplesComponent-d7cecf7226bdcbdc8d55a6a6497f6597da8a47e2469e42b67fc757b5670c1a6e600e829b202c54e708c44b12752a909892068b1b598f749bcf98238472e5afad",
             "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/examples.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -3919,7 +3963,7 @@
             "selector": "qm-examples",
             "styleUrls": [],
             "styles": [],
-            "template": "<div>\n  <strong>{{ examplesLabel }}</strong>\n  <mat-tab-group>\n    <ng-container *ngFor=\"let item of items\">\n      <mat-tab>\n        <ng-template mat-tab-label>\n          {{ item.label }}\n        </ng-template>\n        <lib-print-schema-type [obj]=\"item.value\" />\n      </mat-tab>\n    </ng-container>\n  </mat-tab-group>\n</div>\n",
+            "template": "<ng-container *ngIf=\"schema | examplesList as items\">\n  <div>\n    <strong>{{ examplesLabel }}</strong>\n    <mat-tab-group>\n      <ng-container *ngFor=\"let item of items\">\n        <mat-tab>\n          <ng-template mat-tab-label>\n            {{ item.label }}\n          </ng-template>\n          <lib-print-schema-type [obj]=\"item.value\" />\n        </mat-tab>\n      </ng-container>\n    </mat-tab-group>\n  </div>\n</ng-container>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -3930,7 +3974,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 36,
+                    "line": 40,
                     "type": "Exclude<JSONSchema |  | >",
                     "decorators": []
                 }
@@ -3945,7 +3989,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 38
+                    "line": 42
                 }
             ],
             "methodsClass": [],
@@ -3966,27 +4010,20 @@
                 {
                     "name": "PrintSchemaTypeComponent",
                     "type": "component"
+                },
+                {
+                    "name": "ExamplesListPipe",
+                    "type": "pipe"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport {MatTabsModule} from '@angular/material/tabs';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\ntype itemsType = { id: number; value: unknown; label: string }[]\r\n\r\n@Component({\r\n  selector: 'qm-examples',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatTabsModule, \r\n    PrintSchemaTypeComponent\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <strong>{{ examplesLabel }}</strong>\r\n      <mat-tab-group>\r\n        <ng-container *ngFor=\"let item of items\">\r\n          <mat-tab>\r\n            <ng-template mat-tab-label>\r\n              {{ item.label }}\r\n            </ng-template>\r\n            <lib-print-schema-type [obj]=\"item.value\" />\r\n          </mat-tab>\r\n        </ng-container>\r\n      </mat-tab-group>\r\n    </div>\r\n  `,\r\n})\r\nexport class ExamplesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  examplesLabel = 'Example values :';\r\n\r\n  get items(): itemsType {\r\n    return (this.schema.examples || [])\r\n      .map((val, idx) => ({\r\n        id: idx,\r\n        value: val,\r\n        label: `Example ${idx}`,\r\n    }));\r\n  }\r\n\r\n}\r\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport {MatTabsModule} from '@angular/material/tabs';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\nimport { ExamplesListPipe } from \"../../pipes/examples-list.pipe\";\r\n\r\ntype itemsType = { id: number; value: unknown; label: string }[]\r\n\r\n@Component({\r\n    selector: 'qm-examples',\r\n    standalone: true,\r\n    changeDetection: ChangeDetectionStrategy.OnPush,\r\n    template: `\r\n    <ng-container *ngIf=\"schema | examplesList as items\">\r\n      <div>\r\n        <strong>{{ examplesLabel }}</strong>\r\n        <mat-tab-group>\r\n          <ng-container *ngFor=\"let item of items\">\r\n            <mat-tab>\r\n              <ng-template mat-tab-label>\r\n                {{ item.label }}\r\n              </ng-template>\r\n              <lib-print-schema-type [obj]=\"item.value\" />\r\n            </mat-tab>\r\n          </ng-container>\r\n        </mat-tab-group>\r\n      </div>\r\n    </ng-container>\r\n  `,\r\n    imports: [\r\n        CommonModule,\r\n        MatTabsModule,\r\n        PrintSchemaTypeComponent,\r\n        ExamplesListPipe\r\n    ]\r\n})\r\nexport class ExamplesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  examplesLabel = 'Example values :';\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
-            "extends": [],
-            "accessors": {
-                "items": {
-                    "name": "items",
-                    "getSignature": {
-                        "name": "items",
-                        "type": "",
-                        "returnType": "itemsType",
-                        "line": 40
-                    }
-                }
-            }
+            "extends": []
         },
         {
             "name": "FalseLabelComponent",
@@ -7923,6 +7960,17 @@
                 "name": "itemsType",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "literal type",
+                "file": "projects/ngx-json-schema-viewer/src/lib/pipes/examples-list.pipe.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 187
+            },
+            {
+                "name": "itemsType",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "literal type[]",
                 "file": "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/examples.ts",
                 "deprecated": false,
@@ -8052,6 +8100,17 @@
                 "kind": 183
             },
             {
+                "name": "OutputType",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "itemsType[]",
+                "file": "projects/ngx-json-schema-viewer/src/lib/pipes/examples-list.pipe.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 188
+            },
+            {
                 "name": "Params",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
@@ -8167,6 +8226,17 @@
                 "subtype": "typealias",
                 "rawtype": "Record<string | JSONSchema>",
                 "file": "projects/ngx-json-schema-viewer/src/lib/pipes/dependent-schemas.pipe.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "ValueType",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "Exclude<JSONSchema |  | >",
+                "file": "projects/ngx-json-schema-viewer/src/lib/pipes/examples-list.pipe.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -9109,6 +9179,41 @@
                     "kind": 183
                 }
             ],
+            "projects/ngx-json-schema-viewer/src/lib/pipes/examples-list.pipe.ts": [
+                {
+                    "name": "itemsType",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "literal type",
+                    "file": "projects/ngx-json-schema-viewer/src/lib/pipes/examples-list.pipe.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 187
+                },
+                {
+                    "name": "OutputType",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "itemsType[]",
+                    "file": "projects/ngx-json-schema-viewer/src/lib/pipes/examples-list.pipe.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 188
+                },
+                {
+                    "name": "ValueType",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "Exclude<JSONSchema |  | >",
+                    "file": "projects/ngx-json-schema-viewer/src/lib/pipes/examples-list.pipe.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
             "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/examples.ts": [
                 {
                     "name": "itemsType",
@@ -9938,6 +10043,15 @@
                 "type": "pipe",
                 "linktype": "pipe",
                 "name": "DependentSchemasPipe",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/lib/pipes/examples-list.pipe.ts",
+                "type": "pipe",
+                "linktype": "pipe",
+                "name": "ExamplesListPipe",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
