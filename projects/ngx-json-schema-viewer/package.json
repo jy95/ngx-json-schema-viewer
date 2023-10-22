@@ -1,6 +1,6 @@
 {
   "name": "ngx-json-schema-viewer",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "peerDependencies": {
     "@angular/common": "^16.2.0",
     "@angular/core": "^16.2.0",
@@ -17,6 +17,16 @@
   "devDependencies": {
     "json-schema-typed": "^8.0.1"
   },
+  "keywords": [
+    "angular",
+    "json schema",
+    "json schema viewer",
+    "json schema documentation",
+    "openapi",
+    "documentation",
+    "viewer",
+    "json"
+  ],
   "sideEffects": false,
   "repository": "https://github.com/jy95/ngx-json-schema-viewer.git",
   "homepage": "https://master--65174c82cd070b9998efd7f6.chromatic.com/",

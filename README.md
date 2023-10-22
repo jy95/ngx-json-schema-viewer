@@ -73,6 +73,24 @@ export class AppComponent {
 }
 ```
 
+## Inputs
+
+|  Parameter   | Type   | Mandatory | Description |
+|-----------------|----------|-----------|-----------|
+| `schema` | JSON Schema | Yes         | The JSON schema object to be displayed |
+| `resolverOptions`    | `IResolveOpts`         | No         | Additional options for schema resolution. It accepts an object of type `IResolveOpts`. If not provided, the component will use default options. |
+
+**Note**: For more information on `IResolveOpts`, refer to the [GitHub page of @stoplight/json-ref-resolver](https://github.com/stoplightio/json-ref-resolver).
+
+## Providers
+
+### JSV_OPTIONS 
+
+| Field Name                    | Description                                  | Type       | Default Value |
+|-------------------------------|----------------------------------------------|------------|---------------|
+| `showExamples`               | Controls whether to display "examples."     | `boolean`  | `false`       |
+| `qualifierMessagesOrder`     | Defines the order of qualifier messages.    | `CheckKey[]` | Default order: `["nullable", "deprecated", "readOnly", "writeOnly", "enum", "stringLength", "objectProperties", "no-extra-properties", "arrayItems", "arrayContains", "no-extra-items", "number-range", "pattern", "multipleOf", "uniqueItems", "contentEncoding", "contentMediaType", "contentSchema", "default", "const", "examples"]` |
+
 ## Credits
 
 Special thanks to [docusaurus-json-schema-plugin](https://github.com/jy95/docusaurus-json-schema-plugin), which this project ported it to the Angular world.
