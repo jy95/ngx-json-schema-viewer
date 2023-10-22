@@ -181,7 +181,7 @@
     "injectables": [
         {
             "name": "JSVOptionsService",
-            "id": "injectable-JSVOptionsService-64e9d6382bec6ea6a3fde1450bf67f5df65b416671aef23334a417bd4614a566f0f7b3f9d538d34450845fc3dbf9b1e1fdd3c2b3d2268b26a7136a7d6daa0f9d",
+            "id": "injectable-JSVOptionsService-7fb856394ac0891cf846c880da4e841b85428cbaaea34cf2b8deeda8f0a32d10ce416a872ddc74c21b3c798ce9e5f74ee971a1aaee67a31a57505e39572faaa9",
             "file": "projects/ngx-json-schema-viewer/src/lib/services/jsv-options.ts",
             "properties": [
                 {
@@ -191,9 +191,9 @@
                     "type": "JSVOptions",
                     "optional": false,
                     "description": "",
-                    "line": 44,
+                    "line": 47,
                     "modifierKind": [
-                        121
+                        123
                     ]
                 }
             ],
@@ -204,7 +204,7 @@
                     "optional": false,
                     "returnType": "JSVOptions",
                     "typeParameters": [],
-                    "line": 82,
+                    "line": 88,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -222,7 +222,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 75,
+                    "line": 81,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -243,15 +243,34 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\r\n\r\nexport type CheckKey =\r\n  | \"nullable\"\r\n  | \"deprecated\"\r\n  | \"readOnly\"\r\n  | \"writeOnly\"\r\n  | \"enum\"\r\n  | \"stringLength\"\r\n  | \"objectProperties\"\r\n  | \"no-extra-properties\"\r\n  | \"arrayItems\"\r\n  | \"arrayContains\"\r\n  | \"no-extra-items\"\r\n  | \"number-range\"\r\n  | \"pattern\"\r\n  | \"multipleOf\"\r\n  | \"uniqueItems\"\r\n  | \"default\"\r\n  | \"const\"\r\n  | \"examples\"\r\n  | \"contentMediaType\"\r\n  | \"contentEncoding\"\r\n  | \"contentSchema\"\r\n\r\nexport type JSVOptions = {\r\n    /**\r\n     * Should we display \"examples\" ?\r\n     * @default false\r\n     */\r\n    showExamples: boolean\r\n    /**\r\n     * To overwrite the order to display qualifier messages\r\n     * @default [\"nullable\",\"deprecated\",\"readOnly\",\"writeOnly\",\"enum\",\"stringLength\",\"objectProperties\",\"no-extra-properties\",\"arrayItems\",\"arrayContains\",\"no-extra-items\",\"number-range\",\"pattern\",\"multipleOf\",\"uniqueItems\",\"contentEncoding\",\"contentMediaType\",\"contentSchema\",\"default\",\"const\",\"examples\"]\r\n     */\r\n    qualifierMessagesOrder: CheckKey[]\r\n}\r\n\r\n@Injectable({\r\n    providedIn: \"root\"\r\n})\r\nexport class JSVOptionsService {\r\n\r\n    private options: JSVOptions;\r\n\r\n    constructor() {\r\n        this.options = {\r\n            showExamples: false,\r\n            qualifierMessagesOrder: [\r\n                \"nullable\",\r\n                \"deprecated\",\r\n                \"readOnly\",\r\n                \"writeOnly\",\r\n                \"enum\",\r\n                \"stringLength\",\r\n                \"objectProperties\",\r\n                \"no-extra-properties\",\r\n                \"arrayItems\",\r\n                \"arrayContains\",\r\n                \"no-extra-items\",\r\n                \"number-range\",\r\n                \"pattern\",\r\n                \"multipleOf\",\r\n                \"uniqueItems\",\r\n                \"contentEncoding\",\r\n                \"contentMediaType\",\r\n                \"contentSchema\",\r\n                \"default\",\r\n                \"const\",\r\n                \"examples\"\r\n            ]\r\n        }\r\n    }\r\n\r\n    setOptions(userOptions?: Partial<JSVOptions>) {\r\n        this.options = {\r\n            ...this.options,\r\n            ...userOptions\r\n        }\r\n    }\r\n\r\n    getOptions(): JSVOptions {\r\n        return this.options;\r\n    }\r\n\r\n}",
+            "sourceCode": "import { Inject, Injectable, InjectionToken } from '@angular/core';\r\n\r\nexport type CheckKey =\r\n  | \"nullable\"\r\n  | \"deprecated\"\r\n  | \"readOnly\"\r\n  | \"writeOnly\"\r\n  | \"enum\"\r\n  | \"stringLength\"\r\n  | \"objectProperties\"\r\n  | \"no-extra-properties\"\r\n  | \"arrayItems\"\r\n  | \"arrayContains\"\r\n  | \"no-extra-items\"\r\n  | \"number-range\"\r\n  | \"pattern\"\r\n  | \"multipleOf\"\r\n  | \"uniqueItems\"\r\n  | \"default\"\r\n  | \"const\"\r\n  | \"examples\"\r\n  | \"contentMediaType\"\r\n  | \"contentEncoding\"\r\n  | \"contentSchema\"\r\n\r\nexport type JSVOptions = {\r\n    /**\r\n     * Should we display \"examples\" ?\r\n     * @default false\r\n     */\r\n    showExamples: boolean\r\n    /**\r\n     * To overwrite the order to display qualifier messages\r\n     * @default [\"nullable\",\"deprecated\",\"readOnly\",\"writeOnly\",\"enum\",\"stringLength\",\"objectProperties\",\"no-extra-properties\",\"arrayItems\",\"arrayContains\",\"no-extra-items\",\"number-range\",\"pattern\",\"multipleOf\",\"uniqueItems\",\"contentEncoding\",\"contentMediaType\",\"contentSchema\",\"default\",\"const\",\"examples\"]\r\n     */\r\n    qualifierMessagesOrder: CheckKey[]\r\n}\r\n\r\n// Define an InjectionToken for JSVOptions\r\nexport const JSV_OPTIONS = new InjectionToken<Partial<JSVOptions>>('JSVOptions');\r\n\r\n@Injectable({\r\n    providedIn: \"root\"\r\n})\r\nexport class JSVOptionsService {\r\n\r\n    private options: JSVOptions;\r\n\r\n    constructor(@Inject(JSV_OPTIONS) userOptions: Partial<JSVOptions>) {\r\n        // Set default options\r\n        this.options = {\r\n            showExamples: false,\r\n            qualifierMessagesOrder: [\r\n                \"nullable\",\r\n                \"deprecated\",\r\n                \"readOnly\",\r\n                \"writeOnly\",\r\n                \"enum\",\r\n                \"stringLength\",\r\n                \"objectProperties\",\r\n                \"no-extra-properties\",\r\n                \"arrayItems\",\r\n                \"arrayContains\",\r\n                \"no-extra-items\",\r\n                \"number-range\",\r\n                \"pattern\",\r\n                \"multipleOf\",\r\n                \"uniqueItems\",\r\n                \"contentEncoding\",\r\n                \"contentMediaType\",\r\n                \"contentSchema\",\r\n                \"default\",\r\n                \"const\",\r\n                \"examples\"\r\n            ]\r\n        }\r\n        // Apply user provided options\r\n        this.setOptions(userOptions);\r\n    }\r\n\r\n    setOptions(userOptions?: Partial<JSVOptions>) {\r\n        this.options = {\r\n            ...this.options,\r\n            ...userOptions\r\n        }\r\n    }\r\n\r\n    getOptions(): JSVOptions {\r\n        return this.options;\r\n    }\r\n\r\n}",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "args": [],
-                "line": 44
+                "args": [
+                    {
+                        "name": "userOptions",
+                        "type": "Partial<JSVOptions>",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 47,
+                "jsdoctags": [
+                    {
+                        "name": "userOptions",
+                        "type": "Partial<JSVOptions>",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
             },
+            "extends": [],
             "type": "injectable"
         },
         {
@@ -311,6 +330,7 @@
             "description": "",
             "rawdescription": "\n",
             "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { Resolver } from '@stoplight/json-ref-resolver';\r\nimport { Observable } from 'rxjs';\r\n\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSONSchema } from \"../types\";\r\n\r\n@Injectable({\r\n    providedIn: 'root',\r\n})\r\nexport class SchemaResolutionService {\r\n\r\n    resolveSchema(schema: unknown, resolverOptions?: IResolveOpts): Observable<JSONSchema> {\r\n        return new Observable((observer) => {\r\n          new Resolver()\r\n            .resolve(schema, resolverOptions)\r\n            .then((result) => {\r\n              observer.next(result.result);\r\n              observer.complete();\r\n            })\r\n            .catch((err) => {\r\n              observer.error(err);\r\n            });\r\n        });\r\n    }\r\n}",
+            "extends": [],
             "type": "injectable"
         }
     ],
@@ -388,6 +408,7 @@
                 }
             ],
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "typedSchema": {
                     "name": "typedSchema",
@@ -446,7 +467,8 @@
             "sourceCode": "import { NgTemplateOutlet } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-and',\r\n  standalone: true,\r\n  imports: [NgTemplateOutlet],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ng-container *ngTemplateOutlet=\"spaceTemplate\"></ng-container>\r\n    <strong>AND</strong>\r\n    <ng-container *ngTemplateOutlet=\"spaceTemplate\"></ng-container>\r\n\r\n    <ng-template #spaceTemplate>\r\n      &nbsp;\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class AndLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "AnyOfSchemaComponent",
@@ -517,6 +539,7 @@
                 }
             ],
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "typedSchema": {
                     "name": "typedSchema",
@@ -649,6 +672,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "typedSchema": {
                     "name": "typedSchema",
@@ -703,7 +727,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-array',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <span style=\"opacity: 0.6\">\r\n        array\r\n    </span>\r\n  `,\r\n})\r\nexport class ArrayLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "ArrayNumberOfItemsComponent",
@@ -816,6 +841,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "typedSchema": {
                     "name": "typedSchema",
@@ -870,7 +896,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'qm-array-unique-items',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n  <div>\r\n      <strong>Unique items :</strong>\r\n      &nbsp;\r\n      <code>yes</code>\r\n  </div>\r\n  `\r\n})\r\nexport class ArrayUniqueItemsComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "BooleanLabelComponent",
@@ -905,7 +932,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-boolean',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <span style=\"opacity: 0.6\">\r\n        boolean\r\n    </span>\r\n  `,\r\n})\r\nexport class BooleanLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "ConstantComponent",
@@ -957,6 +985,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "constValue": {
                     "name": "constValue",
@@ -1022,7 +1051,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport type { JSONSchema } from '../../types';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\n@Component({\r\n  selector: 'qm-content-encoding',\r\n  standalone: true,\r\n  imports: [CommonModule,PrintSchemaTypeComponent],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ng-container *ngIf=\"schema\">\r\n      <div>\r\n        <strong>Encoding :</strong>\r\n        &nbsp;\r\n        <lib-print-schema-type [obj]=\"schema.contentEncoding\" />\r\n      </div>\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class ContentEncodingComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "ContentMediaTypeComponent",
@@ -1073,7 +1103,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-content-media-type',\r\n  standalone: true,\r\n  imports: [PrintSchemaTypeComponent],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div key=\"contentMediaType\">\r\n      <strong>Media type :</strong>\r\n      &nbsp;\r\n      <lib-print-schema-type [obj]=\"schema.contentMediaType\" />\r\n    </div>\r\n  `,\r\n})\r\nexport class ContentMediaTypeComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "ContentSchemaComponent",
@@ -1149,7 +1180,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {MatExpansionModule} from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\"\r\n\r\n@Component({\r\n  selector: 'qm-content-schema',\r\n  standalone: true,\r\n  imports: [\r\n    MatExpansionModule,\r\n    forwardRef(() => CreateNodesComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <strong>{{ contentSchemaLabel }}</strong>\r\n      &nbsp;\r\n      <mat-accordion>\r\n        <mat-expansion-panel>\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              {{ title }}\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <ng-template matExpansionPanelContent>\r\n            <jse-common-create-nodes [schema]=\"schema.contentSchema!\"/>\r\n          </ng-template>\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </div>\r\n  `,\r\n})\r\nexport class ContentSchemaComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.String;\r\n\r\n  // Translated Label\r\n  contentSchemaLabel = 'Decoded content must be validated against this schema :';\r\n\r\n  // TODO maybe later refactor this name ...\r\n  title = 'Schema';\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "CreateAdditionalItemsComponent",
@@ -1244,6 +1276,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "items": {
                     "name": "items",
@@ -1358,6 +1391,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "additionalProperties": {
                     "name": "additionalProperties",
@@ -1412,7 +1446,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\nimport {\r\n    TypeLabelComponent,\r\n    FalseLabelComponent\r\n} from \"../labels/index\";\r\n\r\n@Component({\r\n  selector: 'jse-always-invalid',\r\n  standalone: true,\r\n  imports: [TypeLabelComponent, FalseLabelComponent],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <labels-type></labels-type>\r\n      &nbsp;&#58;&nbsp;\r\n      <labels-false></labels-false>\r\n      <div style=\"margin-top: 0.75rem;\">\r\n        {{ \"Always invalid\" }}\r\n      </div>\r\n    </div>\r\n  `,\r\n})\r\nexport class CreateAlwaysInvalidComponent {\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "CreateAlwaysValidComponent",
@@ -1479,6 +1514,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "notBoolean": {
                     "name": "notBoolean",
@@ -1601,7 +1637,8 @@
             "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport { \r\n    TypeLabelComponent,\r\n    ArrayLabelComponent\r\n } from \"../../labels/index\";\r\nimport { \r\n    CreateDescriptionComponent\r\n } from \"../index\";\r\nimport { CreatePrefixItemsComponent } from \"./prefix-items\";\r\nimport { CreateItemsComponent } from \"./items\";\r\nimport { CreateAdditionalItemsComponent } from \"./additional-items\";\r\nimport { CreateUnevaluatedItemsComponent } from \"./unevaluated-items\";\r\nimport { CreateContainsComponent } from \"./contains\";\r\n\r\nimport { QualifierMessages } from \"../../utils/index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-array',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule, \r\n    TypeLabelComponent, \r\n    ArrayLabelComponent,\r\n    forwardRef(() => CreateDescriptionComponent),\r\n    QualifierMessages,\r\n    CreateAdditionalItemsComponent,\r\n    CreateContainsComponent,\r\n    CreateItemsComponent,\r\n    CreatePrefixItemsComponent,\r\n    CreateUnevaluatedItemsComponent\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <labels-type />\r\n      &nbsp;&#58;&nbsp;\r\n      <labels-array />\r\n      <ng-container *ngIf=\"schema.prefixItems !== undefined\">\r\n        <jse-array-prefix-items [schema]=\"schema\" />\r\n      </ng-container>\r\n      <ng-container *ngIf=\"schema.items !== undefined\">\r\n        <jse-array-items [schema]=\"schema\" />\r\n      </ng-container>\r\n      <ng-container *ngIf=\"schema.additionalItems !== undefined\">\r\n        <jse-array-additional-items [schema]=\"schema\" />\r\n      </ng-container>\r\n      <ng-container *ngIf=\"schema.unevaluatedItems !== undefined\">\r\n        <jse-array-unevaluated-items [schema]=\"schema\" />\r\n      </ng-container>\r\n      <ng-container *ngIf=\"schema.contains !== undefined\">\r\n        <jse-array-contains [schema]=\"schema\" />\r\n      </ng-container>\r\n      <div style=\"margin-top: 0.75rem;\">\r\n        <qm-messages [schema]=\"schema\" />\r\n      </div>\r\n      <ng-container *ngIf=\"description\">\r\n        <jse-description [description]=\"description\" />\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class CreateArrayComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Array;\r\n  @Input() description?: string;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "CreateBooleanComponent",
@@ -1675,7 +1712,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    CreateDescriptionComponent\r\n} from \"./index\";\r\n\r\nimport {\r\n    TypeLabelComponent,\r\n    BooleanLabelComponent\r\n} from \"../labels/index\";\r\n\r\nimport {\r\n    QualifierMessages\r\n} from \"../utils/index\";\r\n\r\nimport type { JSONSchemaNS } from '../types';\r\n\r\n\r\n@Component({\r\n  selector: 'jse-boolean',\r\n  standalone: true,\r\n  imports: [\r\n    TypeLabelComponent, \r\n    BooleanLabelComponent,\r\n    forwardRef(() => CreateDescriptionComponent),\r\n    CommonModule,\r\n    QualifierMessages\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <labels-type></labels-type>\r\n      &nbsp;&#58;&nbsp;\r\n      <labels-boolean></labels-boolean>\r\n      <div style=\"margin-top: 0.75rem;\">\r\n        <qm-messages [schema]=\"schema\" />\r\n      </div>\r\n      <ng-container *ngIf=\"description\">\r\n        <jse-description [description]=\"description\" />\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class CreateBooleanComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Boolean;\r\n  @Input() description?: string;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "CreateContainsComponent",
@@ -1742,6 +1780,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "item": {
                     "name": "item",
@@ -1807,7 +1846,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'jse-description',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div style=\"margin-top: 0.75rem;\">\r\n      {{ description }}\r\n    </div>\r\n  `,\r\n})\r\nexport class CreateDescriptionComponent {\r\n  @Input({ required: true }) description!: string;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "CreateEdgeComponent",
@@ -1904,6 +1944,7 @@
                 }
             ],
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "isDeprecated": {
                     "name": "isDeprecated",
@@ -2015,7 +2056,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    CreateDescriptionComponent\r\n} from \"./index\";\r\n\r\nimport {\r\n    TypeLabelComponent,\r\n    IntegerLabelComponent\r\n} from \"../labels/index\";\r\n\r\nimport {\r\n    QualifierMessages\r\n} from \"../utils/index\";\r\n\r\nimport type { JSONSchemaNS } from '../types';\r\n\r\n\r\n@Component({\r\n  selector: 'jse-integer',\r\n  standalone: true,\r\n  imports: [\r\n    TypeLabelComponent, \r\n    IntegerLabelComponent,\r\n    forwardRef(() => CreateDescriptionComponent),\r\n    CommonModule,\r\n    QualifierMessages\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <labels-type></labels-type>\r\n      &nbsp;&#58;&nbsp;\r\n      <labels-integer></labels-integer>\r\n      <div style=\"margin-top: 0.75rem;\">\r\n        <qm-messages [schema]=\"schema\" />\r\n      </div>\r\n      <ng-container *ngIf=\"description\">\r\n        <jse-description [description]=\"description\" />\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class CreateIntegerComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Integer;\r\n  @Input() description?: string;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "CreateItemsComponent",
@@ -2125,6 +2167,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "itemsAsArray": {
                     "name": "itemsAsArray",
@@ -2221,6 +2264,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "isCompositionSchema": {
                     "name": "isCompositionSchema",
@@ -2323,7 +2367,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    CreateDescriptionComponent\r\n} from \"./index\";\r\n\r\nimport {\r\n    TypeLabelComponent,\r\n    NullLabelComponent\r\n} from \"../labels/index\";\r\n\r\nimport {\r\n    QualifierMessages\r\n} from \"../utils/index\";\r\n\r\nimport type { JSONSchemaNS } from '../types';\r\n\r\n\r\n@Component({\r\n  selector: 'jse-null',\r\n  standalone: true,\r\n  imports: [\r\n    TypeLabelComponent, \r\n    NullLabelComponent,\r\n    forwardRef(() => CreateDescriptionComponent),\r\n    CommonModule,\r\n    QualifierMessages\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <labels-type></labels-type>\r\n      &nbsp;&#58;&nbsp;\r\n      <labels-null></labels-null>\r\n      <div style=\"margin-top: 0.75rem;\">\r\n        <qm-messages [schema]=\"schema\" />\r\n      </div>\r\n      <ng-container *ngIf=\"description\">\r\n        <jse-description [description]=\"description\" />\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class CreateNullComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Null;\r\n  @Input() description?: string;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "CreateNumberComponent",
@@ -2397,7 +2442,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    CreateDescriptionComponent\r\n} from \"./index\";\r\n\r\nimport {\r\n    TypeLabelComponent,\r\n    NumberLabelComponent\r\n} from \"../labels/index\";\r\n\r\nimport {\r\n    QualifierMessages\r\n} from \"../utils/index\";\r\n\r\nimport type { JSONSchemaNS } from '../types';\r\n\r\n\r\n@Component({\r\n  selector: 'jse-number',\r\n  standalone: true,\r\n  imports: [\r\n    TypeLabelComponent, \r\n    NumberLabelComponent,\r\n    forwardRef(() => CreateDescriptionComponent),\r\n    CommonModule,\r\n    QualifierMessages\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <labels-type></labels-type>\r\n      &nbsp;&#58;&nbsp;\r\n      <labels-number></labels-number>\r\n      <div style=\"margin-top: 0.75rem;\">\r\n        <qm-messages [schema]=\"schema\" />\r\n      </div>\r\n      <ng-container *ngIf=\"description\">\r\n        <jse-description [description]=\"description\" />\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class CreateNumberComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Number;\r\n  @Input() description?: string;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "CreateObjectComponent",
@@ -2495,7 +2541,8 @@
             "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport { CreateUnlistedPropertiesComponent } from \"./unlisted-required-properties\";\r\nimport { CreatePropertiesComponent } from \"./properties\";\r\nimport { CreatePatternPropertiesComponent } from \"./pattern-properties\";\r\nimport { PropertyNamesComponent } from \"./property-names\";\r\nimport { CreateAdditionalPropertiesComponent } from \"./additional-properties\";\r\nimport { CreateUnevaluatedPropertiesComponent } from \"./unevaluated-properties\";\r\n\r\nimport { QualifierMessages } from \"../../utils/index\";\r\n\r\nimport { \r\n    ObjectLabelComponent,\r\n    TypeLabelComponent\r\n} from \"../../labels/index\";\r\n\r\nimport { CreateDescriptionComponent } from \"../index\";\r\n\r\nimport type { JSONSchemaNS } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    QualifierMessages,\r\n    CreateUnlistedPropertiesComponent,\r\n    CreatePropertiesComponent,\r\n    CreatePatternPropertiesComponent,\r\n    PropertyNamesComponent,\r\n    CreateAdditionalPropertiesComponent,\r\n    CreateUnevaluatedPropertiesComponent,\r\n    ObjectLabelComponent,\r\n    TypeLabelComponent,\r\n    forwardRef(() => CreateDescriptionComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <labels-type />\r\n      &nbsp;&#58;&nbsp;\r\n      <labels-object />\r\n      <jse-object-unlisted-properties [schema]=\"schema\" />\r\n      <ng-container *ngIf=\"schema.properties !== undefined\">\r\n        <jse-object-properties [schema]=\"schema\" />\r\n      </ng-container>\r\n      <ng-container *ngIf=\"schema.patternProperties !== undefined\">\r\n        <jse-object-pattern-properties [schema]=\"schema\" />\r\n      </ng-container>\r\n      <ng-container *ngIf=\"schema.propertyNames !== undefined\">\r\n        <jse-object-property-names [schema]=\"schema\" />\r\n      </ng-container>\r\n      <ng-container *ngIf=\"schema.additionalProperties !== undefined\">\r\n        <jse-object-additional-properties [schema]=\"schema\" />\r\n      </ng-container>\r\n      <ng-container *ngIf=\"schema.unevaluatedProperties !== undefined\">\r\n        <jse-object-unevaluated-properties [schema]=\"schema\" />\r\n      </ng-container>\r\n      <div style=\"margin-top: 0.75rem;\">\r\n        <qm-messages [schema]=\"schema\" />\r\n      </div>\r\n      <ng-container *ngIf=\"description\">\r\n        <jse-description [description]=\"description\" />\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class CreateObjectComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n  @Input() description?: string;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "CreatePatternPropertiesComponent",
@@ -2579,7 +2626,8 @@
             "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-pattern-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ul>\r\n      <ng-container *ngFor=\"let entry of schema.patternProperties | keyvalue\">\r\n        <jse-common-create-edge [schema]=\"entry.value\" [required]=\"false\">\r\n          <code name>\r\n            {{ generatePropertyName(entry.key) }}\r\n          </code>\r\n        </jse-common-create-edge>\r\n      </ng-container>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreatePatternPropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  generatePropertyName(key: string): string {\r\n    return `${key}`;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "CreatePrefixItemsComponent",
@@ -2674,6 +2722,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "arrayItems": {
                     "name": "arrayItems",
@@ -2796,7 +2845,8 @@
             "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-properties',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ul>\r\n      <ng-container *ngFor=\"let entry of schema.properties | keyvalue\">\r\n        <jse-common-create-edge [schema]=\"entry.value\" [required]=\"isRequired(entry.key)\">\r\n          <strong name>\r\n            {{ generatePropertyName(entry.key) }}\r\n          </strong>\r\n        </jse-common-create-edge>\r\n      </ng-container>\r\n    </ul>\r\n  `,\r\n})\r\nexport class CreatePropertiesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  generatePropertyName(key: string): string {\r\n    return `${key}`;\r\n  }\r\n\r\n  isRequired(key: string): boolean {\r\n    return Array.isArray(this.schema.required) ? this.schema.required.includes(key) : false;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "CreateStringComponent",
@@ -2870,7 +2920,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    CreateDescriptionComponent\r\n} from \"./index\";\r\n\r\nimport {\r\n    TypeLabelComponent,\r\n    StringLabelComponent\r\n} from \"../labels/index\";\r\n\r\nimport {\r\n    QualifierMessages\r\n} from \"../utils/index\";\r\n\r\nimport type { JSONSchemaNS } from '../types';\r\n\r\n\r\n@Component({\r\n  selector: 'jse-string',\r\n  standalone: true,\r\n  imports: [\r\n    TypeLabelComponent, \r\n    StringLabelComponent,\r\n    forwardRef(() => CreateDescriptionComponent),\r\n    CommonModule,\r\n    QualifierMessages\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <labels-type></labels-type>\r\n      &nbsp;&#58;&nbsp;\r\n      <labels-string></labels-string>\r\n      <div style=\"margin-top: 0.75rem;\">\r\n        <qm-messages [schema]=\"schema\" />\r\n      </div>\r\n      <ng-container *ngIf=\"description\">\r\n        <jse-description [description]=\"description\" />\r\n      </ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class CreateStringComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.String;\r\n  @Input() description?: string;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "CreateTypesComponent",
@@ -2934,6 +2985,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "foundTypes": {
                     "name": "foundTypes",
@@ -3056,6 +3108,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "items": {
                     "name": "items",
@@ -3161,6 +3214,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "unevaluatedProperties": {
                     "name": "unevaluatedProperties",
@@ -3256,6 +3310,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "unlistedProperties": {
                     "name": "unlistedProperties",
@@ -3325,7 +3380,8 @@
             "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n    CreateAlwaysInvalidComponent,\r\n    CreateAlwaysValidComponent\r\n} from \"../JSONSchemaElements/index\";\r\n\r\nimport type { JSONSchema } from '../types';\r\n\r\n@Component({\r\n  selector: 'jse-common-create-valid-or-invalid',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateAlwaysInvalidComponent),\r\n    forwardRef(() => CreateAlwaysValidComponent),\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ng-container *ngIf=\"schema; else alwaysInvalid\">\r\n      <jse-always-valid [schema]=\"schema\" />\r\n    </ng-container>\r\n    <ng-template #alwaysInvalid>\r\n      <jse-always-invalid />\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class CreateValidOrInvalidComponent {\r\n  @Input({ required: true }) schema!: JSONSchema;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "DefaultValueComponent",
@@ -3387,7 +3443,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\nimport { PrintSchemaTypeComponent } from './print-schema-type';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-default-value',\r\n  standalone: true,\r\n  imports: [PrintSchemaTypeComponent],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <strong>{{ defaultLabel }}</strong>\r\n      &nbsp;\r\n      <lib-print-schema-type [obj]=\"schema.default\" />\r\n    </div>\r\n  `,\r\n})\r\nexport class DefaultValueComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  defaultLabel = 'Default value :';\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "DependenciesComponent",
@@ -3483,7 +3540,8 @@
             "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\n\r\nimport {\r\n  DependentRequiredComponent,\r\n  DependentSchemasComponent\r\n} from \"./index\";\r\n\r\nimport { DependanciesToDependentRequiredPipe } from '../../pipes/dependancies-to-dependent-required.pipe';\r\nimport { DependanciesToDependentSchemasPipe } from '../../pipes/dependancies-to-dependent-schemas.pipe';\r\n\r\nimport type { JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-schema-conditional-dependencies',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    DependentRequiredComponent,\r\n    DependentSchemasComponent,\r\n    DependanciesToDependentRequiredPipe,\r\n    DependanciesToDependentSchemasPipe\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ng-container *ngIf=\"schema | dependanciesTodependentRequired as dependentRequired\">\r\n      <ng-container *ngIf=\"!isEmptyObject(dependentRequired)\">\r\n        <jse-schema-conditional-dependent-required [schema]=\"dependentRequired\" />\r\n      </ng-container>\r\n    </ng-container>\r\n    <ng-container *ngIf=\"schema | dependanciesTodependentSchemas as dependentSchemas\">\r\n      <ng-container *ngIf=\"!isEmptyObject(dependentSchemas)\">\r\n        <jse-schema-conditional-dependent-schemas [schema]=\"dependentSchemas\" />\r\n      </ng-container>\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class DependenciesComponent {\r\n  @Input({ required: true }) schema!: Record<string, string[] | readonly string[] | JSONSchema>;\r\n\r\n  isEmptyObject(obj : Record<string, any>) : boolean {\r\n    return Object.keys(obj).length === 0;\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "DependentRequiredComponent",
@@ -3542,7 +3600,8 @@
             "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\n\r\nimport {\r\n  AllOfSchemaComponent\r\n} from \"../schemaComposition/index\";\r\n\r\nimport type { JSONSchema, JSONSchemaNS } from \"../../types\";\r\nimport { DependentRequiredPipe } from '../../pipes/dependent-required.pipe';\r\n\r\n@Component({\r\n  selector: 'jse-schema-conditional-dependent-required',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    AllOfSchemaComponent,\r\n    DependentRequiredPipe\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <jse-schema-composition-all-of [schema]=\"schema | dependentRequired\" />\r\n  `,\r\n})\r\nexport class DependentRequiredComponent {\r\n  @Input({ required: true }) schema!: Record<string, string[] | readonly string[]>;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "DependentSchemasComponent",
@@ -3601,7 +3660,8 @@
             "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\n\r\nimport {\r\n  AllOfSchemaComponent\r\n} from \"../schemaComposition/index\";\r\n\r\nimport { DependentSchemasPipe } from '../../pipes/dependent-schemas.pipe';\r\n\r\nimport type { JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-schema-conditional-dependent-schemas',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    AllOfSchemaComponent,\r\n    DependentSchemasPipe\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <jse-schema-composition-all-of [schema]=\"schema | dependentSchemas\" />\r\n  `,\r\n})\r\nexport class DependentSchemasComponent {\r\n  @Input({ required: true }) schema!: Record<string, JSONSchema>;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "DeprecatedComponent",
@@ -3636,7 +3696,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'qm-deprecated',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <span>🚨&nbsp;</span>\r\n      <ng-container>Deprecated</ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class DeprecatedComponent {}",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "DeprecatedLabelComponent",
@@ -3680,6 +3741,7 @@
                 }
             ],
             "stylesData": "",
+            "extends": [],
             "templateData": "<strong class=\"deprecated\">\r\n    deprecated\r\n</strong>  "
         },
         {
@@ -3715,7 +3777,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-else',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <strong>\r\n        Else\r\n    </strong>\r\n  `,\r\n})\r\nexport class ElseLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "EnumComponent",
@@ -3778,6 +3841,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "enumValue": {
                     "name": "enumValue",
@@ -3839,7 +3903,8 @@
             "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-error-occurred',\r\n  standalone: true,\r\n  imports: [CommonModule],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ng-container *ngIf=\"error\">\r\n      <strong>Something bad happens : </strong> {{ error.message }}\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class ErrorOccurredLabelComponent {\r\n  @Input({ required: true }) error!: Error;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "ExamplesComponent",
@@ -3910,6 +3975,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "items": {
                     "name": "items",
@@ -3955,7 +4021,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-false',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <span style=\"opacity: 0.6\">\r\n        none\r\n    </span>\r\n  `,\r\n})\r\nexport class FalseLabelComponent {}",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "GenerateFriendlyNameComponent",
@@ -4023,6 +4090,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "foundTypes": {
                     "name": "foundTypes",
@@ -4129,6 +4197,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "firstSeparator": {
                     "name": "firstSeparator",
@@ -4324,6 +4393,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "asTypedArray": {
                     "name": "asTypedArray",
@@ -4419,6 +4489,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "hasOfKeyword": {
                     "name": "hasOfKeyword",
@@ -4527,7 +4598,8 @@
             "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\nimport { MatTabsModule } from '@angular/material/tabs';\r\n\r\nimport { CreateNodesComponent } from \"../../common/create-nodes\";\r\n\r\nimport { IfLabelComponent, ThenLabelComponent, ElseLabelComponent } from \"../../labels/index\";\r\n\r\nimport type { JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-schema-conditional-if-else-then',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule, \r\n    MatTabsModule,\r\n    IfLabelComponent,\r\n    ThenLabelComponent,\r\n    ElseLabelComponent,\r\n    forwardRef(() => CreateNodesComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <mat-tab-group>\r\n\r\n      <!-- If case -->\r\n      <ng-container *ngIf=\"schema.if\">\r\n        <mat-tab>\r\n          <ng-template mat-tab-label>\r\n            <labels-if />\r\n          </ng-template>\r\n          <ng-template matTabContent>\r\n            <jse-common-create-nodes [schema]=\"schema.if\" />\r\n          </ng-template>\r\n        </mat-tab>\r\n      </ng-container>\r\n\r\n      <!-- Then case -->\r\n      <ng-container *ngIf=\"schema.then\">\r\n        <mat-tab>\r\n          <ng-template mat-tab-label>\r\n            <labels-then />\r\n          </ng-template>\r\n          <ng-template matTabContent>\r\n            <jse-common-create-nodes [schema]=\"schema.then\" />\r\n          </ng-template>\r\n        </mat-tab>\r\n      </ng-container>\r\n\r\n      <!-- Else case -->\r\n      <ng-container *ngIf=\"schema.else\">\r\n        <mat-tab>\r\n          <ng-template mat-tab-label>\r\n            <labels-else />\r\n          </ng-template>\r\n          <ng-template matTabContent>\r\n            <jse-common-create-nodes [schema]=\"schema.else\" />\r\n          </ng-template>\r\n        </mat-tab>\r\n      </ng-container>\r\n\r\n    </mat-tab-group>\r\n  `,\r\n})\r\nexport class IfElseThenComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "IfLabelComponent",
@@ -4562,7 +4634,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-if',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <strong>\r\n        If\r\n    </strong>\r\n  `,\r\n})\r\nexport class IfLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "IntegerLabelComponent",
@@ -4597,7 +4670,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-integer',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <span style=\"opacity: 0.6\">\r\n      integer\r\n    </span>\r\n  `,\r\n})\r\nexport class IntegerLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "LoadingLabelComponent",
@@ -4632,7 +4706,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-loading',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n        Loading ....\r\n    </div>\r\n  `,\r\n})\r\nexport class LoadingLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "MultipleOfComponent",
@@ -4689,23 +4764,19 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\n\r\nimport type { JSONSchema } from '../../types';\r\n\r\n@Component({\r\n  selector: 'qm-multiple-of',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <strong>{{ possibleValuesLabel }}</strong>&nbsp;\r\n      <code>\r\n        <ng-container>\r\n          multiple of {{ schema.multipleOf }}\r\n        </ng-container>\r\n      </code>\r\n    </div>\r\n  `,\r\n})\r\nexport class MultipleOfComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n\r\n  possibleValuesLabel = 'Possible values :';\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "NgxJsonSchemaViewerComponent",
-            "id": "component-NgxJsonSchemaViewerComponent-630aec1036eba6eb12b90e82568dc7001b83032f2ee4b6b0954f50a2422843eb0327535101e6e7114be31db026172d096f6fff1f7bd5668598a2584adfba4c02",
+            "id": "component-NgxJsonSchemaViewerComponent-a4773a80f81285f556048ed4c752d483f3d1693ec9584e6516eba9b5d4182c7c2d5a279c886d8fde0517ba950a7e4c855564e4867820915666cb3263e50a6e03",
             "file": "projects/ngx-json-schema-viewer/src/lib/ngx-json-schema-viewer.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
             "outputs": [],
-            "providers": [
-                {
-                    "name": "JSVOptionsService",
-                    "type": "injectable"
-                }
-            ],
+            "providers": [],
             "selector": "ngx-json-schema-viewer",
             "styleUrls": [],
             "styles": [],
@@ -4718,7 +4789,7 @@
                     "name": "resolverOptions",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 75,
+                    "line": 70,
                     "type": "IResolveOpts",
                     "decorators": []
                 },
@@ -4728,16 +4799,8 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "optional": false,
-                    "line": 74,
+                    "line": 69,
                     "type": "",
-                    "decorators": []
-                },
-                {
-                    "name": "viewerOptions",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 76,
-                    "type": "Partial<JSVOptions>",
                     "decorators": []
                 }
             ],
@@ -4751,7 +4814,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 80
+                    "line": 74
                 },
                 {
                     "name": "expanded",
@@ -4761,7 +4824,7 @@
                     "type": "boolean",
                     "optional": false,
                     "description": "",
-                    "line": 78
+                    "line": 72
                 },
                 {
                     "name": "resolvedSchema",
@@ -4771,7 +4834,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 79
+                    "line": 73
                 },
                 {
                     "name": "status",
@@ -4781,7 +4844,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 82
+                    "line": 76
                 }
             ],
             "methodsClass": [
@@ -4791,7 +4854,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 97,
+                    "line": 90,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4801,11 +4864,11 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 106,
+                    "line": 95,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
-                        121
+                        123
                     ]
                 }
             ],
@@ -4839,7 +4902,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit, Input, signal, computed, ChangeDetectionStrategy } from '@angular/core';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\nimport { JSVOptionsService } from \"./services/jsv-options\";\r\n\r\n// Labels\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// Types\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\nimport type { JSVOptions } from \"./services/jsv-options\";\r\ntype StatusType = \"LOADING\" | \"ERROR\" | \"DONE\";\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  providers: [\r\n    JSVOptionsService\r\n  ],\r\n  template: `\r\n    <!-- Error ... -->\r\n    <ng-container *ngIf=\"status() === 'ERROR'\">\r\n      <div>\r\n        <labels-error-occurred [error]=\"error()!\"/>\r\n      </div>\r\n    </ng-container>\r\n\r\n    <!-- Loading ... -->\r\n    <ng-container *ngIf=\"status() === 'LOADING'\">\r\n        <labels-loading />\r\n    </ng-container>\r\n\r\n    <!-- Schema -->\r\n    <ng-container *ngIf=\"status() === 'DONE'\">\r\n      <mat-accordion>\r\n        <mat-expansion-panel [(expanded)]=\"expanded\">\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <ng-template matExpansionPanelContent>\r\n            <jse-common-create-nodes [schema]=\"resolvedSchema()!\" />\r\n          </ng-template>\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </ng-container>\r\n  `\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n  @Input() viewerOptions?: Partial<JSVOptions>;\r\n\r\n  expanded : boolean = true;\r\n  resolvedSchema = signal<JSONSchema | undefined>(undefined);\r\n  error = signal<Error | undefined>(undefined);\r\n\r\n  status = computed<StatusType>(() => {\r\n    if (this.error() !== undefined) {\r\n      return \"ERROR\";\r\n    } else if (this.resolvedSchema() === undefined) {\r\n      return \"LOADING\";\r\n    } else {\r\n      return \"DONE\";\r\n    }\r\n  });\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService,\r\n    private jsvOptionsService: JSVOptionsService,\r\n  ) {}\r\n\r\n  ngOnInit(): void {\r\n    // If asked, apply user options\r\n    if (this.viewerOptions) {\r\n      this.jsvOptionsService.setOptions(this.viewerOptions);\r\n    }\r\n    // Perform the asynchronous schema resolution\r\n    this.schemaResolution();\r\n  }\r\n\r\n  private schemaResolution() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .subscribe({\r\n        error: (err) => {\r\n          this.error.set(err);\r\n          this.resolvedSchema.set(undefined);\r\n        },\r\n        next: (result) => {\r\n          this.resolvedSchema.set(result);\r\n          this.error.set(undefined);\r\n        }\r\n      });\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    let schema = this.resolvedSchema()!;\r\n    if (typeof schema !== \"boolean\" && schema.title !== undefined) {\r\n      return schema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, OnInit, Input, signal, computed, ChangeDetectionStrategy } from '@angular/core';\r\n\r\n// imports\r\nimport { CommonModule } from '@angular/common';\r\nimport { MatExpansionModule } from '@angular/material/expansion';\r\n\r\nimport {\r\n  CreateNodesComponent\r\n} from \"./common/index\"\r\n\r\n// services\r\nimport { SchemaResolutionService } from './services/schema-resolver';\r\n\r\n// Labels\r\nimport {\r\n  ErrorOccurredLabelComponent,\r\n  LoadingLabelComponent\r\n} from \"./labels/index\";\r\n\r\n// Types\r\nimport type { JSONSchema } from './types';\r\nimport type { IResolveOpts } from \"@stoplight/json-ref-resolver/types\"\r\ntype StatusType = \"LOADING\" | \"ERROR\" | \"DONE\";\r\n\r\n@Component({\r\n  selector: 'ngx-json-schema-viewer',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatExpansionModule,\r\n    CreateNodesComponent,\r\n    ErrorOccurredLabelComponent,\r\n    LoadingLabelComponent,\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <!-- Error ... -->\r\n    <ng-container *ngIf=\"status() === 'ERROR'\">\r\n      <div>\r\n        <labels-error-occurred [error]=\"error()!\"/>\r\n      </div>\r\n    </ng-container>\r\n\r\n    <!-- Loading ... -->\r\n    <ng-container *ngIf=\"status() === 'LOADING'\">\r\n        <labels-loading />\r\n    </ng-container>\r\n\r\n    <!-- Schema -->\r\n    <ng-container *ngIf=\"status() === 'DONE'\">\r\n      <mat-accordion>\r\n        <mat-expansion-panel [(expanded)]=\"expanded\">\r\n          <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              <strong>\r\n                {{ getSchemaTitle }}\r\n              </strong>\r\n            </mat-panel-title>\r\n          </mat-expansion-panel-header>\r\n          <ng-template matExpansionPanelContent>\r\n            <jse-common-create-nodes [schema]=\"resolvedSchema()!\" />\r\n          </ng-template>\r\n        </mat-expansion-panel>\r\n      </mat-accordion>\r\n    </ng-container>\r\n  `\r\n})\r\nexport class NgxJsonSchemaViewerComponent implements OnInit {\r\n  @Input({ required: true }) schema: unknown;\r\n  @Input() resolverOptions?: IResolveOpts;\r\n\r\n  expanded : boolean = true;\r\n  resolvedSchema = signal<JSONSchema | undefined>(undefined);\r\n  error = signal<Error | undefined>(undefined);\r\n\r\n  status = computed<StatusType>(() => {\r\n    if (this.error() !== undefined) {\r\n      return \"ERROR\";\r\n    } else if (this.resolvedSchema() === undefined) {\r\n      return \"LOADING\";\r\n    } else {\r\n      return \"DONE\";\r\n    }\r\n  });\r\n  \r\n  constructor(\r\n    private schemaResolutionService: SchemaResolutionService,\r\n  ) {}\r\n\r\n  ngOnInit(): void {\r\n    // Perform the asynchronous schema resolution\r\n    this.schemaResolution();\r\n  }\r\n\r\n  private schemaResolution() {\r\n    this.schemaResolutionService\r\n      .resolveSchema(this.schema, this.resolverOptions)\r\n      .subscribe({\r\n        error: (err) => {\r\n          this.error.set(err);\r\n          this.resolvedSchema.set(undefined);\r\n        },\r\n        next: (result) => {\r\n          this.resolvedSchema.set(result);\r\n          this.error.set(undefined);\r\n        }\r\n      });\r\n  }\r\n\r\n  get getSchemaTitle() : string {\r\n    let schema = this.resolvedSchema()!;\r\n    if (typeof schema !== \"boolean\" && schema.title !== undefined) {\r\n      return schema.title;\r\n    }\r\n    return \"Schema\";\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -4854,15 +4917,9 @@
                         "type": "SchemaResolutionService",
                         "deprecated": false,
                         "deprecationMessage": ""
-                    },
-                    {
-                        "name": "jsvOptionsService",
-                        "type": "JSVOptionsService",
-                        "deprecated": false,
-                        "deprecationMessage": ""
                     }
                 ],
-                "line": 90,
+                "line": 84,
                 "jsdoctags": [
                     {
                         "name": "schemaResolutionService",
@@ -4872,18 +4929,10 @@
                         "tagName": {
                             "text": "param"
                         }
-                    },
-                    {
-                        "name": "jsvOptionsService",
-                        "type": "JSVOptionsService",
-                        "deprecated": false,
-                        "deprecationMessage": "",
-                        "tagName": {
-                            "text": "param"
-                        }
                     }
                 ]
             },
+            "extends": [],
             "implements": [
                 "OnInit"
             ],
@@ -4894,7 +4943,7 @@
                         "name": "getSchemaTitle",
                         "type": "string",
                         "returnType": "string",
-                        "line": 121
+                        "line": 110
                     }
                 }
             }
@@ -4932,7 +4981,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'qm-no-extra-items',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <span>🚨&nbsp;</span>\r\n      <ng-container>No extra item(s) are authorized in this array</ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class NoExtraItemsComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "NoExtraPropertiesComponent",
@@ -4967,7 +5017,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'qm-no-extra-properties',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <span>🚨&nbsp;</span>\r\n      <ng-container>No extra propertie(s) are authorized in this object</ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class NoExtraPropertiesComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "NotLabelComponent",
@@ -5002,7 +5053,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-not',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <strong>\r\n      NOT\r\n    </strong>\r\n  `,\r\n})\r\nexport class NotLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "NotSchemaComponent",
@@ -5061,6 +5113,7 @@
                 }
             ],
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "typedSchema": {
                     "name": "typedSchema",
@@ -5115,7 +5168,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'qm-nullable',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      <span>❓&nbsp;</span>\r\n      <ng-container>Nullable</ng-container>\r\n    </div>\r\n  `,\r\n})\r\nexport class NullableComponent {}",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "NullLabelComponent",
@@ -5150,7 +5204,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-null',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <span style=\"opacity: 0.6\">\r\n      null\r\n    </span>\r\n  `,\r\n})\r\nexport class NullLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "NumberBoundsComponent",
@@ -5217,6 +5272,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "minimum": {
                     "name": "minimum",
@@ -5298,7 +5354,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-number',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <span style=\"opacity: 0.6\">\r\n      number\r\n    </span>\r\n  `,\r\n})\r\nexport class NumberLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "ObjectLabelComponent",
@@ -5333,7 +5390,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-object',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <span style=\"opacity: 0.6\">\r\n      object\r\n    </span>\r\n  `,\r\n})\r\nexport class ObjectLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "ObjectPropertiesComponent",
@@ -5396,6 +5454,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "minAndMax": {
                     "name": "minAndMax",
@@ -5477,6 +5536,7 @@
                 }
             ],
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "typedSchema": {
                     "name": "typedSchema",
@@ -5535,7 +5595,8 @@
             "sourceCode": "import { NgTemplateOutlet } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-or',\r\n  standalone: true,\r\n  imports: [NgTemplateOutlet],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ng-container *ngTemplateOutlet=\"spaceTemplate\"></ng-container>\r\n    <strong>OR</strong>\r\n    <ng-container *ngTemplateOutlet=\"spaceTemplate\"></ng-container>\r\n\r\n    <ng-template #spaceTemplate>\r\n      &nbsp;\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class OrLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "PatternComponent",
@@ -5593,6 +5654,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "pattern": {
                     "name": "pattern",
@@ -5659,6 +5721,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "isSimpleType": {
                     "name": "isSimpleType",
@@ -5762,7 +5825,8 @@
             "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';\r\n\r\nimport {\r\n  CreateEdgeComponent\r\n} from \"../../common/index\";\r\n\r\nimport type { JSONSchemaNS, JSONSchema } from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-object-property-names',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    forwardRef(() => CreateEdgeComponent)\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ng-container *ngIf=\"schema.propertyNames !== undefined\">\r\n      <ul>\r\n        <jse-common-create-edge [schema]=\"schema.propertyNames\" [required]=\"false\">\r\n          <code name>\r\n            {{ generatePropertyName() }}\r\n          </code>\r\n        </jse-common-create-edge>\r\n      </ul>\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class PropertyNamesComponent {\r\n  @Input({ required: true }) schema!: JSONSchemaNS.Object;\r\n\r\n  generatePropertyName(): string {\r\n    let pattern = \"^.+$\";\r\n    return `${pattern}`;\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "QualifierMessages",
@@ -5924,6 +5988,7 @@
                     }
                 ]
             },
+            "extends": [],
             "accessors": {
                 "options": {
                     "name": "options",
@@ -5998,7 +6063,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'qm-read-only',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      🚨&nbsp;\r\n      <strong>{{ readOnlyLabel }}</strong>\r\n    </div>\r\n  `,\r\n})\r\nexport class ReadOnlyComponent {\r\n  readOnlyLabel = 'read only';\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "ReadOnlyLabelComponent",
@@ -6042,6 +6108,7 @@
                 }
             ],
             "stylesData": "",
+            "extends": [],
             "templateData": "<strong class=\"readOnly\">\r\n    readOnly\r\n</strong>\r\n  "
         },
         {
@@ -6123,7 +6190,8 @@
             "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\nimport {MatTabsModule} from '@angular/material/tabs';\r\n\r\nimport {\r\n    RenderProvidedTypeComponent\r\n} from \"./index\";\r\n\r\nimport {\r\n    TypeLabelSwitchComponent\r\n} from \"../utils/index\";\r\n\r\nimport type {\r\n    TypeValues,\r\n    JSONSchema\r\n} from \"../types\";\r\n\r\n@Component({\r\n  selector: 'jse-common-multiple-types',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    MatTabsModule,\r\n    RenderProvidedTypeComponent,\r\n    TypeLabelSwitchComponent\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <mat-tab-group>\r\n      <ng-container *ngFor=\"let type of types\">\r\n        <mat-tab>\r\n          <ng-template mat-tab-label>\r\n              <jsv-type-label-switch [type]=\"type\" />\r\n          </ng-template>\r\n          <jse-common-render-provided-type [type]=\"type\" [schema]=\"schema\" [nullable]=\"nullable\" /> \r\n        </mat-tab>\r\n      </ng-container>\r\n    </mat-tab-group>\r\n  `\r\n})\r\nexport class RenderMultipleTypesComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n  @Input() nullable?: boolean;\r\n  @Input({ required: true }) types!: TypeValues[];\r\n}",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "RenderProvidedTypeComponent",
@@ -6221,6 +6289,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "description": {
                     "name": "description",
@@ -6338,6 +6407,7 @@
                 }
             ],
             "stylesData": "",
+            "extends": [],
             "templateData": "<strong class=\"required\">\r\n    required\r\n</strong>  "
         },
         {
@@ -6405,7 +6475,8 @@
             "sourceCode": "import { CommonModule } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\n\r\nimport { AllOfSchemaComponent } from \"./all-of\";\r\nimport { AnyOfSchemaComponent } from \"./any-of\";\r\nimport { NotSchemaComponent } from \"./not\";\r\nimport { OneOfSchemaComponent } from \"./one-of\";\r\n\r\nexport {\r\n  AllOfSchemaComponent,\r\n  AnyOfSchemaComponent,\r\n  NotSchemaComponent,\r\n  OneOfSchemaComponent\r\n}\r\n\r\nimport type {\r\n    JSONSchema\r\n} from \"../../types\";\r\n\r\n@Component({\r\n  selector: 'jse-schema-composition',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    AllOfSchemaComponent,\r\n    AnyOfSchemaComponent,\r\n    NotSchemaComponent,\r\n    OneOfSchemaComponent\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ng-container *ngIf=\"schema.oneOf\">\r\n      <jse-schema-composition-one-of [schema]=\"schema\" />\r\n    </ng-container>\r\n    <ng-container *ngIf=\"schema.anyOf\">\r\n      <jse-schema-composition-any-of [schema]=\"schema\" />\r\n    </ng-container>\r\n    <ng-container *ngIf=\"schema.allOf\">\r\n      <jse-schema-composition-all-of [schema]=\"schema\" />\r\n    </ng-container>\r\n    <ng-container *ngIf=\"schema.not\">\r\n      <jse-schema-composition-not [schema]=\"schema\" />\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class SchemaCompositionComponent {\r\n  @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "SchemaConditionalComponent",
@@ -6477,6 +6548,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "isIfThenElse": {
                     "name": "isIfThenElse",
@@ -6585,7 +6657,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-string',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <span style=\"opacity: 0.6\">\r\n      string\r\n    </span>\r\n  `,\r\n})\r\nexport class StringLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "StringLengthComponent",
@@ -6648,6 +6721,7 @@
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
+            "extends": [],
             "accessors": {
                 "minAndMaxLength": {
                     "name": "minAndMaxLength",
@@ -6693,7 +6767,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-then',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <strong>\r\n        Then\r\n    </strong>\r\n  `,\r\n})\r\nexport class ThenLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "TrueLabelComponent",
@@ -6728,7 +6803,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-true',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <span style=\"opacity: 0.6\">\r\n      any\r\n    </span>\r\n  `,\r\n})\r\nexport class TrueLabelComponent {}",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "TypeLabelComponent",
@@ -6763,7 +6839,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-type',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <strong>\r\n      type\r\n    </strong>\r\n  `,\r\n})\r\nexport class TypeLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "TypeLabelSwitchComponent",
@@ -6850,7 +6927,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\n\r\nimport {\r\n    StringLabelComponent,\r\n    NumberLabelComponent,\r\n    BooleanLabelComponent,\r\n    ObjectLabelComponent,\r\n    ArrayLabelComponent,\r\n    IntegerLabelComponent,\r\n    NullLabelComponent,\r\n    TrueLabelComponent,\r\n    FalseLabelComponent\r\n} from \"../labels/index\";\r\n\r\nimport type { TypeValues } from \"../types\"\r\n\r\n@Component({\r\n  selector: 'jsv-type-label-switch',\r\n  standalone: true,\r\n  imports: [\r\n    CommonModule,\r\n    StringLabelComponent,\r\n    NumberLabelComponent,\r\n    BooleanLabelComponent,\r\n    ObjectLabelComponent,\r\n    ArrayLabelComponent,\r\n    IntegerLabelComponent,\r\n    NullLabelComponent,\r\n    TrueLabelComponent,\r\n    FalseLabelComponent\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ng-container [ngSwitch]=\"type\">\r\n      <ng-container *ngSwitchCase=\"'string'\">\r\n        <labels-string />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"'number'\">\r\n        <labels-number />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"'boolean'\">\r\n        <labels-boolean />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"'object'\">\r\n        <labels-object />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"'array'\">\r\n        <labels-array />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"'integer'\">\r\n        <labels-integer />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"'null'\">\r\n        <labels-null />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"true\">\r\n        <labels-true />\r\n      </ng-container>\r\n      <ng-container *ngSwitchCase=\"false\">\r\n        <labels-false />\r\n      </ng-container>\r\n      <ng-container *ngSwitchDefault>\r\n        <span style=\"opacity: 0.6\">{{ type }}</span>\r\n      </ng-container>\r\n    </ng-container>\r\n  `,\r\n})\r\nexport class TypeLabelSwitchComponent {\r\n  @Input({ required: true }) type!: TypeValues | true | false | string;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "WriteOnlyComponent",
@@ -6896,7 +6974,8 @@
             "sourceCode": "import { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'qm-write-only',\r\n  standalone: true,\r\n  imports: [],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <div>\r\n      🚨&nbsp;\r\n      <strong>{{ writeOnlyLabel }}</strong>\r\n    </div>\r\n  `,\r\n})\r\nexport class WriteOnlyComponent {\r\n  writeOnlyLabel = 'write only';\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         },
         {
             "name": "WriteOnlyLabelComponent",
@@ -6940,6 +7019,7 @@
                 }
             ],
             "stylesData": "",
+            "extends": [],
             "templateData": "<strong class=\"writeOnly\">\r\n    writeOnly\r\n</strong>\r\n  "
         },
         {
@@ -6979,7 +7059,8 @@
             "sourceCode": "import { NgTemplateOutlet } from '@angular/common';\r\nimport { ChangeDetectionStrategy, Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'labels-xor',\r\n  standalone: true,\r\n  imports: [\r\n    NgTemplateOutlet\r\n  ],\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  template: `\r\n    <ng-container *ngTemplateOutlet=\"spaceTemplate\"></ng-container>\r\n    <strong>XOR</strong>\r\n    <ng-container *ngTemplateOutlet=\"spaceTemplate\"></ng-container>\r\n\r\n    <ng-template #spaceTemplate>\r\n      &nbsp;\r\n    </ng-template>\r\n  `,\r\n})\r\nexport class XorLabelComponent {}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "extends": []
         }
     ],
     "modules": [],
@@ -7052,8 +7133,8 @@
                 "file": "projects/ngx-json-schema-viewer/src/stories/Generics.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "createStory({\r\n    \"storybook-name\": \"📌 Annotations\",\r\n    schema: {\r\n        \"title\": \"Match anything\",\r\n        \"description\": \"This is a *schema* that matches **anything.**\",\r\n        \"default\": \"Default value\",\r\n        \"examples\": [\r\n          \"Anything\",\r\n          4035\r\n        ],\r\n        \"deprecated\": true,\r\n        \"readOnly\": true,\r\n        \"writeOnly\": false\r\n    },\r\n    viewerOptions: {\r\n        showExamples: true\r\n    }\r\n  })"
+                "type": "Story",
+                "defaultValue": "{\r\n  ...createStory({\r\n    \"storybook-name\": \"📌 Annotations\",\r\n    schema: {\r\n      \"title\": \"Match anything\",\r\n      \"description\": \"This is a *schema* that matches **anything.**\",\r\n      \"default\": \"Default value\",\r\n      \"examples\": [\r\n        \"Anything\",\r\n        4035\r\n      ],\r\n      \"deprecated\": true,\r\n      \"readOnly\": true,\r\n      \"writeOnly\": false\r\n    }\r\n  }),\r\n  decorators: [\r\n    moduleMetadata({\r\n      providers: [\r\n        {\r\n          provide: JSV_OPTIONS,\r\n          useValue: {\r\n            showExamples: true\r\n          }\r\n        }\r\n      ]\r\n    })\r\n  ]\r\n}"
             },
             {
                 "name": "anyOf",
@@ -7153,7 +7234,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<NgxJsonSchemaViewerComponent>",
-                "defaultValue": "{\r\n    decorators: [\r\n        moduleMetadata({\r\n            imports: [NgxJsonSchemaViewerComponent],\r\n        }),\r\n        applicationConfig({\r\n            providers: [\r\n                // BrowserAnimationsModule\r\n                provideAnimations(),\r\n                // HighlightModule \r\n                {\r\n                    provide: HIGHLIGHT_OPTIONS,\r\n                    useValue: {\r\n                        coreLibraryLoader: () => import('highlight.js/lib/core'),\r\n                        languages: {\r\n                            json: () => import('highlight.js/lib/languages/json'),\r\n                        }\r\n                    }\r\n                }\r\n            ],\r\n        })\r\n    ]\r\n}"
+                "defaultValue": "{\r\n    decorators: [\r\n        moduleMetadata({\r\n            imports: [NgxJsonSchemaViewerComponent],\r\n        }),\r\n        applicationConfig({\r\n            providers: [\r\n                // BrowserAnimationsModule\r\n                provideAnimations(),\r\n                // HighlightModule \r\n                {\r\n                    provide: HIGHLIGHT_OPTIONS,\r\n                    useValue: {\r\n                        coreLibraryLoader: () => import('highlight.js/lib/core'),\r\n                        languages: {\r\n                            json: () => import('highlight.js/lib/languages/json'),\r\n                        }\r\n                    }\r\n                },\r\n                // Json schema viewer options\r\n                {\r\n                    provide: JSV_OPTIONS,\r\n                    useValue: {}\r\n                }\r\n            ],\r\n        })\r\n    ]\r\n}"
             },
             {
                 "name": "dependentRequired1",
@@ -7354,6 +7435,16 @@
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "createStory({\r\n  \"storybook-name\": \"🛍️ Items\",\r\n  schema: {\r\n    \"type\": \"array\",\r\n    \"items\": {\r\n      \"type\": \"number\"\r\n    }\r\n  }\r\n})"
+            },
+            {
+                "name": "JSV_OPTIONS",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ngx-json-schema-viewer/src/lib/services/jsv-options.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "new InjectionToken<Partial<JSVOptions>>('JSVOptions')"
             },
             {
                 "name": "Length",
@@ -7815,7 +7906,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 189
+                "kind": 192
             },
             {
                 "name": "ComponentProps",
@@ -7826,7 +7917,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 180
+                "kind": 183
             },
             {
                 "name": "itemsType",
@@ -7837,7 +7928,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 185
+                "kind": 188
             },
             {
                 "name": "JSONSchema",
@@ -7848,7 +7939,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 189
+                "kind": 192
             },
             {
                 "name": "JSONSchema_Draft_07",
@@ -7859,7 +7950,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 180
+                "kind": 183
             },
             {
                 "name": "JSONSchema_Draft_2019_09",
@@ -7870,7 +7961,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 180
+                "kind": 183
             },
             {
                 "name": "JSONSchema_Draft_2020_12",
@@ -7881,7 +7972,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 180
+                "kind": 183
             },
             {
                 "name": "JSVOptions",
@@ -7892,7 +7983,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 184
+                "kind": 187
             },
             {
                 "name": "LinkType",
@@ -7903,7 +7994,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 189
+                "kind": 192
             },
             {
                 "name": "MetaViewer",
@@ -7914,7 +8005,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 180
+                "kind": 183
             },
             {
                 "name": "OutputType",
@@ -7925,7 +8016,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 180
+                "kind": 183
             },
             {
                 "name": "OutputType",
@@ -7936,7 +8027,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 180
+                "kind": 183
             },
             {
                 "name": "OutputType",
@@ -7947,7 +8038,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 180
+                "kind": 183
             },
             {
                 "name": "OutputType",
@@ -7958,7 +8049,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 180
+                "kind": 183
             },
             {
                 "name": "Params",
@@ -7969,7 +8060,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 190
+                "kind": 193
             },
             {
                 "name": "renderTemplates",
@@ -7980,7 +8071,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 189
+                "kind": 192
             },
             {
                 "name": "StatusType",
@@ -7991,7 +8082,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 189
+                "kind": 192
             },
             {
                 "name": "Story",
@@ -8002,7 +8093,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 180
+                "kind": 183
             },
             {
                 "name": "typedJSONArraySchema",
@@ -8013,7 +8104,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 180
+                "kind": 183
             },
             {
                 "name": "typedJSONArraySchema",
@@ -8024,7 +8115,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 180
+                "kind": 183
             },
             {
                 "name": "TypeValues",
@@ -8035,7 +8126,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 200
+                "kind": 203
             },
             {
                 "name": "ValueType",
@@ -8046,7 +8137,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 180
+                "kind": 183
             },
             {
                 "name": "ValueType",
@@ -8057,7 +8148,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 180
+                "kind": 183
             },
             {
                 "name": "ValueType",
@@ -8068,7 +8159,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 180
+                "kind": 183
             },
             {
                 "name": "ValueType",
@@ -8079,7 +8170,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 180
+                "kind": 183
             }
         ],
         "enumerations": [],
@@ -8388,8 +8479,8 @@
                     "file": "projects/ngx-json-schema-viewer/src/stories/Generics.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "createStory({\r\n    \"storybook-name\": \"📌 Annotations\",\r\n    schema: {\r\n        \"title\": \"Match anything\",\r\n        \"description\": \"This is a *schema* that matches **anything.**\",\r\n        \"default\": \"Default value\",\r\n        \"examples\": [\r\n          \"Anything\",\r\n          4035\r\n        ],\r\n        \"deprecated\": true,\r\n        \"readOnly\": true,\r\n        \"writeOnly\": false\r\n    },\r\n    viewerOptions: {\r\n        showExamples: true\r\n    }\r\n  })"
+                    "type": "Story",
+                    "defaultValue": "{\r\n  ...createStory({\r\n    \"storybook-name\": \"📌 Annotations\",\r\n    schema: {\r\n      \"title\": \"Match anything\",\r\n      \"description\": \"This is a *schema* that matches **anything.**\",\r\n      \"default\": \"Default value\",\r\n      \"examples\": [\r\n        \"Anything\",\r\n        4035\r\n      ],\r\n      \"deprecated\": true,\r\n      \"readOnly\": true,\r\n      \"writeOnly\": false\r\n    }\r\n  }),\r\n  decorators: [\r\n    moduleMetadata({\r\n      providers: [\r\n        {\r\n          provide: JSV_OPTIONS,\r\n          useValue: {\r\n            showExamples: true\r\n          }\r\n        }\r\n      ]\r\n    })\r\n  ]\r\n}"
                 },
                 {
                     "name": "Const",
@@ -8545,7 +8636,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<NgxJsonSchemaViewerComponent>",
-                    "defaultValue": "{\r\n    decorators: [\r\n        moduleMetadata({\r\n            imports: [NgxJsonSchemaViewerComponent],\r\n        }),\r\n        applicationConfig({\r\n            providers: [\r\n                // BrowserAnimationsModule\r\n                provideAnimations(),\r\n                // HighlightModule \r\n                {\r\n                    provide: HIGHLIGHT_OPTIONS,\r\n                    useValue: {\r\n                        coreLibraryLoader: () => import('highlight.js/lib/core'),\r\n                        languages: {\r\n                            json: () => import('highlight.js/lib/languages/json'),\r\n                        }\r\n                    }\r\n                }\r\n            ],\r\n        })\r\n    ]\r\n}"
+                    "defaultValue": "{\r\n    decorators: [\r\n        moduleMetadata({\r\n            imports: [NgxJsonSchemaViewerComponent],\r\n        }),\r\n        applicationConfig({\r\n            providers: [\r\n                // BrowserAnimationsModule\r\n                provideAnimations(),\r\n                // HighlightModule \r\n                {\r\n                    provide: HIGHLIGHT_OPTIONS,\r\n                    useValue: {\r\n                        coreLibraryLoader: () => import('highlight.js/lib/core'),\r\n                        languages: {\r\n                            json: () => import('highlight.js/lib/languages/json'),\r\n                        }\r\n                    }\r\n                },\r\n                // Json schema viewer options\r\n                {\r\n                    provide: JSV_OPTIONS,\r\n                    useValue: {}\r\n                }\r\n            ],\r\n        })\r\n    ]\r\n}"
                 }
             ],
             "projects/ngx-json-schema-viewer/src/stories/SchemaConditionally.stories.ts": [
@@ -8774,6 +8865,18 @@
                     "defaultValue": "(schema: JSONSchema) =>\r\n    typeof schema !== \"boolean\" &&\r\n    (schema.type === \"string\" ||\r\n      schema.minLength !== undefined ||\r\n      schema.maxLength !== undefined ||\r\n      schema.pattern !== undefined ||\r\n      schema.enum?.some((val) => typeof val === \"string\") ||\r\n      typeof schema.const === \"string\")"
                 }
             ],
+            "projects/ngx-json-schema-viewer/src/lib/services/jsv-options.ts": [
+                {
+                    "name": "JSV_OPTIONS",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ngx-json-schema-viewer/src/lib/services/jsv-options.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "new InjectionToken<Partial<JSVOptions>>('JSVOptions')"
+                }
+            ],
             "projects/ngx-json-schema-viewer/src/stories/Null.stories.ts": [
                 {
                     "name": "meta",
@@ -8946,7 +9049,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 189
+                    "kind": 192
                 },
                 {
                     "name": "JSVOptions",
@@ -8957,7 +9060,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 184
+                    "kind": 187
                 }
             ],
             "projects/ngx-json-schema-viewer/src/stories/setup.ts": [
@@ -8970,7 +9073,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 180
+                    "kind": 183
                 },
                 {
                     "name": "MetaViewer",
@@ -8981,7 +9084,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 180
+                    "kind": 183
                 },
                 {
                     "name": "Params",
@@ -8992,7 +9095,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 190
+                    "kind": 193
                 },
                 {
                     "name": "Story",
@@ -9003,7 +9106,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 180
+                    "kind": 183
                 }
             ],
             "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/examples.ts": [
@@ -9016,7 +9119,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 185
+                    "kind": 188
                 }
             ],
             "projects/ngx-json-schema-viewer/src/lib/types.ts": [
@@ -9029,7 +9132,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 189
+                    "kind": 192
                 },
                 {
                     "name": "JSONSchema_Draft_07",
@@ -9040,7 +9143,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 180
+                    "kind": 183
                 },
                 {
                     "name": "JSONSchema_Draft_2019_09",
@@ -9051,7 +9154,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 180
+                    "kind": 183
                 },
                 {
                     "name": "JSONSchema_Draft_2020_12",
@@ -9062,7 +9165,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 180
+                    "kind": 183
                 },
                 {
                     "name": "TypeValues",
@@ -9073,7 +9176,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 200
+                    "kind": 203
                 }
             ],
             "projects/ngx-json-schema-viewer/src/lib/utils/FriendlyNames/friendly-name-fallback.ts": [
@@ -9086,7 +9189,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 189
+                    "kind": 192
                 }
             ],
             "projects/ngx-json-schema-viewer/src/lib/pipes/dependancies-to-dependent-required.pipe.ts": [
@@ -9099,7 +9202,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 180
+                    "kind": 183
                 },
                 {
                     "name": "ValueType",
@@ -9110,7 +9213,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 180
+                    "kind": 183
                 }
             ],
             "projects/ngx-json-schema-viewer/src/lib/pipes/dependancies-to-dependent-schemas.pipe.ts": [
@@ -9123,7 +9226,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 180
+                    "kind": 183
                 },
                 {
                     "name": "ValueType",
@@ -9134,7 +9237,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 180
+                    "kind": 183
                 }
             ],
             "projects/ngx-json-schema-viewer/src/lib/pipes/dependent-required.pipe.ts": [
@@ -9147,7 +9250,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 180
+                    "kind": 183
                 },
                 {
                     "name": "ValueType",
@@ -9158,7 +9261,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 180
+                    "kind": 183
                 }
             ],
             "projects/ngx-json-schema-viewer/src/lib/pipes/dependent-schemas.pipe.ts": [
@@ -9171,7 +9274,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 180
+                    "kind": 183
                 },
                 {
                     "name": "ValueType",
@@ -9182,7 +9285,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 180
+                    "kind": 183
                 }
             ],
             "projects/ngx-json-schema-viewer/src/lib/utils/FriendlyNames/friendly-name.ts": [
@@ -9195,7 +9298,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 189
+                    "kind": 192
                 }
             ],
             "projects/ngx-json-schema-viewer/src/lib/ngx-json-schema-viewer.component.ts": [
@@ -9208,7 +9311,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 189
+                    "kind": 192
                 }
             ],
             "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/array-contains-number.ts": [
@@ -9221,7 +9324,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 180
+                    "kind": 183
                 }
             ],
             "projects/ngx-json-schema-viewer/src/lib/utils/QualifierMessages/array-number-of-items.ts": [
@@ -9234,7 +9337,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 180
+                    "kind": 183
                 }
             ]
         }
@@ -9800,7 +9903,7 @@
                 "linktype": "component",
                 "name": "NgxJsonSchemaViewerComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/11",
+                "coverageCount": "0/10",
                 "status": "low"
             },
             {
@@ -9846,6 +9949,16 @@
                 "name": "JSVOptionsService",
                 "coveragePercent": 0,
                 "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ngx-json-schema-viewer/src/lib/services/jsv-options.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "JSV_OPTIONS",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {

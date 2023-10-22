@@ -37,13 +37,19 @@ npm install ngx-json-schema-viewer
 ## Usage
 
 ```ts
-import { NgxJsonSchemaViewerComponent } from "ngx-json-schema-viewer";
+import { NgxJsonSchemaViewerComponent, JSV_OPTIONS } from "ngx-json-schema-viewer";
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [NgxJsonSchemaViewerComponent],
+  providers: [
+    { 
+      provide: JSV_OPTIONS, 
+      useValue: {} 
+    }
+  ],
   template: `
     <div>
       <ngx-json-schema-viewer [schema]="jsonSchema"></ngx-json-schema-viewer>

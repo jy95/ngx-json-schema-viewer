@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 
 export type CheckKey =
   | "nullable"
@@ -36,6 +36,9 @@ export type JSVOptions = {
     qualifierMessagesOrder: CheckKey[]
 }
 
+// Define an InjectionToken for JSVOptions
+export const JSV_OPTIONS = new InjectionToken<Partial<JSVOptions>>('JSVOptions');
+
 @Injectable({
     providedIn: "root"
 })
@@ -43,7 +46,8 @@ export class JSVOptionsService {
 
     private options: JSVOptions;
 
-    constructor() {
+    constructor(@Inject(JSV_OPTIONS) userOptions: Partial<JSVOptions>) {
+        // Set default options
         this.options = {
             showExamples: false,
             qualifierMessagesOrder: [
@@ -70,6 +74,8 @@ export class JSVOptionsService {
                 "examples"
             ]
         }
+        // Apply user provided options
+        this.setOptions(userOptions);
     }
 
     setOptions(userOptions?: Partial<JSVOptions>) {

@@ -10,7 +10,6 @@ import {
 
 // services
 import { SchemaResolutionService } from './services/schema-resolver';
-import { JSVOptionsService } from "./services/jsv-options";
 
 // Labels
 import {
@@ -21,7 +20,6 @@ import {
 // Types
 import type { JSONSchema } from './types';
 import type { IResolveOpts } from "@stoplight/json-ref-resolver/types"
-import type { JSVOptions } from "./services/jsv-options";
 type StatusType = "LOADING" | "ERROR" | "DONE";
 
 @Component({
@@ -35,9 +33,6 @@ type StatusType = "LOADING" | "ERROR" | "DONE";
     LoadingLabelComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    JSVOptionsService
-  ],
   template: `
     <!-- Error ... -->
     <ng-container *ngIf="status() === 'ERROR'">
@@ -73,7 +68,6 @@ type StatusType = "LOADING" | "ERROR" | "DONE";
 export class NgxJsonSchemaViewerComponent implements OnInit {
   @Input({ required: true }) schema: unknown;
   @Input() resolverOptions?: IResolveOpts;
-  @Input() viewerOptions?: Partial<JSVOptions>;
 
   expanded : boolean = true;
   resolvedSchema = signal<JSONSchema | undefined>(undefined);
@@ -91,14 +85,9 @@ export class NgxJsonSchemaViewerComponent implements OnInit {
   
   constructor(
     private schemaResolutionService: SchemaResolutionService,
-    private jsvOptionsService: JSVOptionsService,
   ) {}
 
   ngOnInit(): void {
-    // If asked, apply user options
-    if (this.viewerOptions) {
-      this.jsvOptionsService.setOptions(this.viewerOptions);
-    }
     // Perform the asynchronous schema resolution
     this.schemaResolution();
   }

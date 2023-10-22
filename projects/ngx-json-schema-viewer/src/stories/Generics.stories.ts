@@ -1,5 +1,7 @@
 import { defaultMeta, createStory } from "./setup";
-import type { MetaViewer } from "./setup";
+import { moduleMetadata } from '@storybook/angular';
+import type { MetaViewer, Story } from "./setup";
+import { JSV_OPTIONS } from "ngx-json-schema-viewer";
 
 const meta : MetaViewer = {
   ...defaultMeta,
@@ -8,24 +10,35 @@ const meta : MetaViewer = {
 
 export default meta;
 
-export const Annotations = createStory({
+export const Annotations : Story = {
+  ...createStory({
     "storybook-name": "📌 Annotations",
     schema: {
-        "title": "Match anything",
-        "description": "This is a *schema* that matches **anything.**",
-        "default": "Default value",
-        "examples": [
-          "Anything",
-          4035
-        ],
-        "deprecated": true,
-        "readOnly": true,
-        "writeOnly": false
-    },
-    viewerOptions: {
-        showExamples: true
+      "title": "Match anything",
+      "description": "This is a *schema* that matches **anything.**",
+      "default": "Default value",
+      "examples": [
+        "Anything",
+        4035
+      ],
+      "deprecated": true,
+      "readOnly": true,
+      "writeOnly": false
     }
-  });
+  }),
+  decorators: [
+    moduleMetadata({
+      providers: [
+        {
+          provide: JSV_OPTIONS,
+          useValue: {
+            showExamples: true
+          }
+        }
+      ]
+    })
+  ]
+}
 
 export const Const = createStory({
     "storybook-name": "🧊 Const",

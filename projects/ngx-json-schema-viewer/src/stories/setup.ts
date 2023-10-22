@@ -1,5 +1,5 @@
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { NgxJsonSchemaViewerComponent } from "ngx-json-schema-viewer";
+import { NgxJsonSchemaViewerComponent, JSV_OPTIONS } from "ngx-json-schema-viewer";
 import { moduleMetadata, applicationConfig } from '@storybook/angular';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
@@ -25,6 +25,11 @@ export const defaultMeta : Meta<NgxJsonSchemaViewerComponent> = {
                             json: () => import('highlight.js/lib/languages/json'),
                         }
                     }
+                },
+                // Json schema viewer options
+                {
+                    provide: JSV_OPTIONS,
+                    useValue: {}
                 }
             ],
         })
@@ -40,7 +45,7 @@ export type ComponentProps = NgxJsonSchemaViewerComponent;
 // A default Story builder, for 95% of the test scenario here
 // https://storybook.js.org/docs/angular/writing-stories/naming-components-and-hierarchy#grouping
 // https://www.chromatic.com/setup
-type Params = Pick<ComponentProps, "schema" | "resolverOptions" | "viewerOptions"> & {
+type Params = Pick<ComponentProps, "schema" | "resolverOptions"> & {
     // to customize Storybook name
     "storybook-name"?: string
 }
@@ -50,13 +55,12 @@ export function createStory(params : Params): Story {
         render: (args) => ({
             props: args,
             template: `
-              <ngx-json-schema-viewer [schema]="schema" [resolverOptions]="resolverOptions" [viewerOptions]="viewerOptions"></ngx-json-schema-viewer>
+              <ngx-json-schema-viewer [schema]="schema" [resolverOptions]="resolverOptions"></ngx-json-schema-viewer>
             `,
         }),
         args: {
             schema: params.schema,
             resolverOptions: params.resolverOptions || undefined,
-            viewerOptions: params.viewerOptions || undefined,
         }
     }
 }
