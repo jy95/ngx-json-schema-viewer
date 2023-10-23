@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
@@ -6,10 +7,12 @@ import {
 
 import type { JSONSchemaNS, JSONSchema } from "../../types";
 
+
 @Component({
   selector: 'jse-array-unevaluated-items',
   standalone: true,
   imports: [
+    CommonModule,
     forwardRef(() => CreateEdgeComponent)
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

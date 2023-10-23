@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
@@ -10,6 +11,7 @@ import type { JSONSchemaNS, JSONSchema } from '../../types';
   selector: 'jse-array-contains',
   standalone: true,
   imports: [
+    CommonModule,
     forwardRef(() => CreateEdgeComponent)
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

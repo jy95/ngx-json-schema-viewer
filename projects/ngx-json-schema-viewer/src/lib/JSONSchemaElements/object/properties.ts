@@ -1,4 +1,4 @@
-import { KeyValuePipe, NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
@@ -11,8 +11,7 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
   selector: 'jse-object-properties',
   standalone: true,
   imports: [
-    NgFor,
-    KeyValuePipe,
+    CommonModule,
     forwardRef(() => CreateEdgeComponent)
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
