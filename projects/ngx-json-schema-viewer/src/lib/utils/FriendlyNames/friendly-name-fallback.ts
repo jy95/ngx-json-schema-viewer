@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 
 import {
     AndLabelComponent,
@@ -24,7 +24,10 @@ type LinkType = "AND" | "OR" | "XOR";
     selector: 'jsv-friendly-name-fallback',
     standalone: true,
     imports: [
-      CommonModule,
+      NgIf,
+      NgFor,
+      NgSwitch,
+      NgSwitchCase,
       NotLabelComponent,
       AndLabelComponent,
       XorLabelComponent,

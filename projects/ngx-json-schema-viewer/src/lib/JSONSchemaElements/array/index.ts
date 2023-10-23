@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import { 
@@ -22,7 +22,7 @@ import type { JSONSchemaNS } from "../../types";
   selector: 'jse-array',
   standalone: true,
   imports: [
-    CommonModule, 
+    NgIf, 
     TypeLabelComponent, 
     ArrayLabelComponent,
     forwardRef(() => CreateDescriptionComponent),

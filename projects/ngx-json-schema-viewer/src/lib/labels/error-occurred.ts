@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'labels-error-occurred',
   standalone: true,
-  imports: [CommonModule],
+  imports: [NgIf],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container *ngIf="error">

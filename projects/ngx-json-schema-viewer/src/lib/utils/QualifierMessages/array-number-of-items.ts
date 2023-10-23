@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 
 import { AndLabelComponent } from "../../labels/and-label";
 
@@ -9,7 +9,7 @@ type typedJSONArraySchema = JSONSchemaNS.Array;
 @Component({
   selector: 'qm-array-number-of-items',
   standalone: true,
-  imports: [CommonModule,AndLabelComponent],
+  imports: [NgIf,AndLabelComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>

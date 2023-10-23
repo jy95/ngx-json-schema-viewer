@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
@@ -11,7 +11,7 @@ import type { JSONSchemaNS } from "../../types";
   selector: 'jse-object-unlisted-properties',
   standalone: true,
   imports: [
-    CommonModule,
+    NgFor,
     forwardRef(() => CreateEdgeComponent)
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

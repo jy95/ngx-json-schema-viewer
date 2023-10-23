@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import {
@@ -10,7 +10,13 @@ import type { JSONSchema } from '../../types';
 @Component({
   selector: 'qm-number-bounds',
   standalone: true,
-  imports: [CommonModule, AndLabelComponent],
+  imports: [
+    NgIf, 
+    NgSwitch, 
+    NgSwitchCase,
+    NgSwitchDefault, 
+    AndLabelComponent
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>

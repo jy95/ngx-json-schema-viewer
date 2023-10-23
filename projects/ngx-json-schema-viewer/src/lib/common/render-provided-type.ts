@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgSwitch } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
@@ -21,7 +21,7 @@ import type {
   selector: 'jse-common-render-provided-type',
   standalone: true,
   imports: [
-    CommonModule,
+    NgSwitch,
     forwardRef(() => CreateArrayComponent),
     forwardRef(() => CreateObjectComponent),
     forwardRef(() => CreateStringComponent),

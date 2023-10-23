@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import {MatExpansionModule} from '@angular/material/expansion';
 
@@ -12,6 +13,7 @@ import type { JSONSchemaNS } from "../../types"
   selector: 'qm-content-schema',
   standalone: true,
   imports: [
+    CommonModule,
     MatExpansionModule,
     forwardRef(() => CreateNodesComponent)
   ],

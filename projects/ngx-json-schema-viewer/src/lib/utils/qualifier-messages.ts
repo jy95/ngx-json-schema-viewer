@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { JSVOptionsService } from '../services/jsv-options';
 
 // qualifier messages
@@ -35,7 +35,10 @@ import type { JSVOptions, CheckKey } from '../services/jsv-options';
     selector: 'qm-messages',
     standalone: true,
     imports: [
-        CommonModule,
+        NgIf,
+        NgFor,
+        NgSwitch,
+        NgSwitchCase,
         ConstantComponent,
         DefaultValueComponent,
         EnumComponent,

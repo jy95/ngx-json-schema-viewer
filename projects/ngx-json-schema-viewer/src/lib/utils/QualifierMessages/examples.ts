@@ -6,8 +6,6 @@ import { PrintSchemaTypeComponent } from './print-schema-type';
 import type { JSONSchema } from '../../types';
 import { ExamplesListPipe } from "../../pipes/examples-list.pipe";
 
-type itemsType = { id: number; value: unknown; label: string }[]
-
 @Component({
     selector: 'qm-examples',
     standalone: true,

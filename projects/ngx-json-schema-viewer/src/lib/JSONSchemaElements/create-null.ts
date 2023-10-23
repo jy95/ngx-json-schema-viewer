@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 
 import {
     CreateDescriptionComponent
@@ -24,7 +24,7 @@ import type { JSONSchemaNS } from '../types';
     TypeLabelComponent, 
     NullLabelComponent,
     forwardRef(() => CreateDescriptionComponent),
-    CommonModule,
+    NgIf,
     QualifierMessages
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

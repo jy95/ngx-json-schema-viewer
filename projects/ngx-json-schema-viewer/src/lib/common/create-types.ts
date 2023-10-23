@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import {
@@ -21,7 +21,7 @@ import type {
   selector: 'jse-common-create-types',
   standalone: true,
   imports: [
-    CommonModule, 
+    NgIf, 
     CreateValidOrInvalidComponent, 
     RenderProvidedTypeComponent,
     RenderMultipleTypesComponent

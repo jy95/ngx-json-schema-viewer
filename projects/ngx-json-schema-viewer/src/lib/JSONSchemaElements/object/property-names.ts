@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
@@ -11,7 +11,7 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
   selector: 'jse-object-property-names',
   standalone: true,
   imports: [
-    CommonModule,
+    NgIf,
     forwardRef(() => CreateEdgeComponent)
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

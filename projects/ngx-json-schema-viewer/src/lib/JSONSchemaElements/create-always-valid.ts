@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
@@ -24,7 +24,7 @@ import type { JSONSchema } from '../types';
     TypeLabelComponent, 
     TrueLabelComponent, 
     QualifierMessages, 
-    CommonModule,
+    NgIf,
     forwardRef(() => CreateDescriptionComponent)
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

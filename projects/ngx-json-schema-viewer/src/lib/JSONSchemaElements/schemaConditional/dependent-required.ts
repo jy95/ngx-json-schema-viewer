@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import {
@@ -12,7 +11,6 @@ import { DependentRequiredPipe } from '../../pipes/dependent-required.pipe';
   selector: 'jse-schema-conditional-dependent-required',
   standalone: true,
   imports: [
-    CommonModule,
     AllOfSchemaComponent,
     DependentRequiredPipe
   ],

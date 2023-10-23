@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 
 import {
     OrLabelComponent,
@@ -26,7 +26,11 @@ type renderTemplates = "booleanSchema" | "schemaTitle" | "schemaTypes" | "schema
   selector: 'jsv-friendly-name',
   standalone: true,
   imports: [
-    CommonModule,
+    NgIf,
+    NgFor,
+    NgSwitch,
+    NgSwitchCase,
+    NgSwitchDefault,
     OrLabelComponent,
     TypeLabelSwitchComponent,
     forwardRef( () => GenerateFriendlyNameFallbackComponent),

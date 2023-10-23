@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import type { JSONSchema } from '../../types';
@@ -6,7 +6,7 @@ import type { JSONSchema } from '../../types';
 @Component({
   selector: 'qm-string-length',
   standalone: true,
-  imports: [CommonModule],
+  imports: [NgIf],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 
 import { AndLabelComponent } from "../../labels/and-label";
 
@@ -29,7 +29,7 @@ type typedJSONArraySchema = JSONSchemaNS.Array;
       </ng-container>
   </div>
   `,
-    imports: [CommonModule, AndLabelComponent]
+    imports: [NgIf, AndLabelComponent]
 })
 export class ArrayContainsNumberComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;

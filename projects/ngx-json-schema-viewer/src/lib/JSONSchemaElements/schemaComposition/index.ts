@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { AllOfSchemaComponent } from "./all-of";
@@ -21,7 +21,7 @@ import type {
   selector: 'jse-schema-composition',
   standalone: true,
   imports: [
-    CommonModule,
+    NgIf,
     AllOfSchemaComponent,
     AnyOfSchemaComponent,
     NotSchemaComponent,

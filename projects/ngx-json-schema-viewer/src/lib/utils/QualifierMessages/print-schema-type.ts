@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { HighlightModule } from 'ngx-highlightjs';
 
@@ -15,7 +15,7 @@ import { HighlightModule } from 'ngx-highlightjs';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
+    NgIf,
     HighlightModule
   ]
 })

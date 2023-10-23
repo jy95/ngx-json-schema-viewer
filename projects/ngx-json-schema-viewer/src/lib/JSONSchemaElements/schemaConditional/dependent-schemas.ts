@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import {
@@ -13,7 +12,6 @@ import type { JSONSchema } from "../../types";
   selector: 'jse-schema-conditional-dependent-schemas',
   standalone: true,
   imports: [
-    CommonModule,
     AllOfSchemaComponent,
     DependentSchemasPipe
   ],

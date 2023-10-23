@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 
 import {
     TypeLabelSwitchComponent,
@@ -15,7 +15,9 @@ import type { JSONSchema, JSONSchemaNS, TypeValues } from "../../types";
     selector: 'jsv-friendly-name-custom',
     standalone: true,
     imports: [
-      CommonModule,
+      NgSwitch,
+      NgSwitchCase,
+      NgSwitchDefault,
       TypeLabelSwitchComponent,
       forwardRef(() => GenerateFriendlyNameCustomArrayComponent)
     ],

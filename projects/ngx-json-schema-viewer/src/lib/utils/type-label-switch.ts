@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 
 import {
     StringLabelComponent,
@@ -19,7 +19,9 @@ import type { TypeValues } from "../types"
   selector: 'jsv-type-label-switch',
   standalone: true,
   imports: [
-    CommonModule,
+    NgSwitch,
+    NgSwitchCase,
+    NgSwitchDefault,
     StringLabelComponent,
     NumberLabelComponent,
     BooleanLabelComponent,
