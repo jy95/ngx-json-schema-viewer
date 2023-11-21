@@ -40,7 +40,7 @@
     "@storybook/addon-interactions": "^7.4.5",
     "@storybook/addon-links": "^7.4.5",
     "@storybook/addon-styling-webpack": "^0.0.5",
-    "@storybook/angular": "^7.4.5",
+    "@storybook/angular": "^7.5.3",
     "@storybook/blocks": "^7.4.5",
     "@storybook/manager-api": "^7.4.5",
     "@storybook/testing-library": "^0.2.1",
