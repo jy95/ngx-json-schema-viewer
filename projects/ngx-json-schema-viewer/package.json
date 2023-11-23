@@ -28,7 +28,10 @@
     "json"
   ],
   "sideEffects": false,
-  "repository": "https://github.com/jy95/ngx-json-schema-viewer.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jy95/ngx-json-schema-viewer.git"
+  },
   "homepage": "https://master--65174c82cd070b9998efd7f6.chromatic.com/",
   "author": "jy95",
   "license": "AGPL-3.0-or-later"
