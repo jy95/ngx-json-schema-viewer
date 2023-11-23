@@ -1,15 +1,15 @@
 {
   "name": "ngx-json-schema-viewer",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "peerDependencies": {
-    "@angular/common": "^16.2.0",
-    "@angular/core": "^16.2.0",
+    "@angular/common": "^17.0.4",
+    "@angular/core": "^17.0.4",
     "ngx-highlightjs": "^10.0.0",
-    "@angular/material": "^16.2.5",
+    "@angular/material": "^17.0.1",
     "@stoplight/json-ref-resolver": "^3.1.6"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.6.2"
   },
   "scripts": {
     "packagr": "ng-packagr -p ng-package.json"
