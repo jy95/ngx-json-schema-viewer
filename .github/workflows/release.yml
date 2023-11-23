@@ -1,0 +1,36 @@
+name: Release
+on:
+  repository_dispatch:
+    types: [generate-release]
+  workflow_dispatch:
+
+permissions:
+    contents: read # for checkout
+    
+jobs:
+    release:
+        name: Release
+        permissions:
+            actions: write
+            contents: write # to be able to publish a GitHub release
+            issues: write # to be able to comment on released issues
+            pull-requests: write # to be able to comment on released pull requests
+            id-token: write # to enable use of OIDC for npm provenance
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout 🛎️
+              uses: actions/checkout@v4
+              with:
+                fetch-depth: 0
+            # Setup .npmrc file to publish to npm
+            - uses: actions/setup-node@v4
+              with:
+                node-version: "lts/*"
+                registry-url: 'https://registry.npmjs.org'
+            - run: npm install
+            - run: npm run buildLib
+            - run: | 
+                cd dist/ngx-json-schema-viewer
+                npm publish
+              env:
+                NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
