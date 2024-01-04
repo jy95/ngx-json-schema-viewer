@@ -39,7 +39,7 @@
     "@storybook/addon-essentials": "^7.5.3",
     "@storybook/addon-interactions": "^7.5.3",
     "@storybook/addon-links": "^7.5.3",
-    "@storybook/addon-styling-webpack": "^0.0.5",
+    "@storybook/addon-styling-webpack": "^0.0.6",
     "@storybook/angular": "^7.5.3",
     "@storybook/blocks": "^7.5.3",
     "@storybook/manager-api": "^7.5.3",
