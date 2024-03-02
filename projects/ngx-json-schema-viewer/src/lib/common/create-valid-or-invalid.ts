@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
@@ -12,19 +12,17 @@ import type { JSONSchema } from '../types';
   selector: 'jse-common-create-valid-or-invalid',
   standalone: true,
   imports: [
-    CommonModule,
     forwardRef(() => CreateAlwaysInvalidComponent),
-    forwardRef(() => CreateAlwaysValidComponent),
-  ],
+    forwardRef(() => CreateAlwaysValidComponent)
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="schema; else alwaysInvalid">
+    @if (schema) {
       <jse-always-valid [schema]="schema" />
-    </ng-container>
-    <ng-template #alwaysInvalid>
+    } @else {
       <jse-always-invalid />
-    </ng-template>
-  `,
+    }
+    `,
 })
 export class CreateValidOrInvalidComponent {
   @Input({ required: true }) schema!: JSONSchema;

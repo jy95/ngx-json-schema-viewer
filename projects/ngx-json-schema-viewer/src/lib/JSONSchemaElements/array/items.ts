@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
@@ -11,21 +11,20 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
   selector: 'jse-array-items',
   standalone: true,
   imports: [
-    CommonModule,
     forwardRef(() => CreateEdgeComponent)
-  ],
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul>
-      <ng-container *ngFor="let item of itemsAsArray; let idx = index">
+      @for (item of itemsAsArray; track item; let idx = $index) {
         <jse-common-create-edge [schema]="item" [required]="isMinItemsValid()">
           <code name>
             {{ itemsLabel(startingIndex + idx, isArray) }}
           </code>
         </jse-common-create-edge>
-      </ng-container>
+      }
     </ul>
-  `,
+    `,
 })
 export class CreateItemsComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Array;

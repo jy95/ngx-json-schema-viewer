@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 import {
     CreateDescriptionComponent
@@ -21,12 +21,11 @@ import type { JSONSchemaNS } from '../types';
   selector: 'jse-string',
   standalone: true,
   imports: [
-    TypeLabelComponent, 
+    TypeLabelComponent,
     StringLabelComponent,
     forwardRef(() => CreateDescriptionComponent),
-    CommonModule,
     QualifierMessages
-  ],
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
@@ -36,11 +35,11 @@ import type { JSONSchemaNS } from '../types';
       <div style="margin-top: 0.75rem;">
         <qm-messages [schema]="schema" />
       </div>
-      <ng-container *ngIf="description">
+      @if (description) {
         <jse-description [description]="description" />
-      </ng-container>
+      }
     </div>
-  `,
+    `,
 })
 export class CreateStringComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.String;

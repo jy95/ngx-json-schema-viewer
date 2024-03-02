@@ -1,31 +1,31 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 import type { JSONSchema } from '../../types';
 
 @Component({
   selector: 'qm-object-properties',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <strong>{{ lengthLabel }}</strong>&nbsp;
-      <ng-container *ngIf="schema.minProperties !== undefined">
+      @if (schema.minProperties !== undefined) {
         <code>
-            {{ '>= ' + schema.minProperties + ' propertie(s)' }}
+          {{ '>= ' + schema.minProperties + ' propertie(s)' }}
         </code>
-      </ng-container>
-      <ng-container *ngIf="minAndMax">
+      }
+      @if (minAndMax) {
         <span>&nbsp;&&nbsp;</span>
-      </ng-container>
-      <ng-container *ngIf="schema.maxProperties !== undefined">
+      }
+      @if (schema.maxProperties !== undefined) {
         <code>
-            {{ '<= ' + schema.maxProperties + ' propertie(s)' }}
+          {{ '<= ' + schema.maxProperties + ' propertie(s)' }}
         </code>
-      </ng-container>
+      }
     </div>
-  `,
+    `,
 })
 export class ObjectPropertiesComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;

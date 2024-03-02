@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 import {
     TypeLabelSwitchComponent,
@@ -12,84 +12,70 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
     selector: 'jsv-friendly-name-custom-array',
     standalone: true,
     imports: [
-      CommonModule,
-      TypeLabelSwitchComponent,
-      forwardRef(() => GenerateFriendlyNameComponent)
-    ],
+    TypeLabelSwitchComponent,
+    forwardRef(() => GenerateFriendlyNameComponent)
+],
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <!-- KISS return the generic type when specs are messy -->
-        <ng-container *ngIf="noClearSpecs; else clearSpecs">
-            <jsv-type-label-switch [type]="'array'" />
-        </ng-container>
-
-        <ng-template #clearSpecs>
-
-            <!-- 1) "prefixItems" -->
-            <ng-container *ngIf="isPrefixItemsArray">
-                <ng-container *ngFor="let subSchema of typedPrefixItemsArray; let isLast = last">
-                    <jsv-friendly-name [schema]="subSchema" />
-                    {{ !isLast ? ',' : '' }}
-                </ng-container>
-            </ng-container>
-
-            <!-- Separator -->
-            <ng-container *ngIf="firstSeparator">
-                {{ ',' }}
-            </ng-container>
-
-            <!-- 2A) "items" -->
-            <ng-container *ngIf="hasItems">
-                <ng-container *ngFor="let subSchema of itemsAsArray; let isLast = last">
-                    <jsv-friendly-name [schema]="subSchema" />
-                    {{ !isLast ? ',' : '' }}
-                </ng-container>
-            </ng-container>
-
-            <!-- Separator -->
-            <ng-container *ngIf="secondSeparator">
-                {{ ',' }}
-            </ng-container>
-
-            <!-- 2B) "additionalItems" (to cover cases for specs below the draft-2020-12 version) -->
-            <ng-container *ngIf="hasAdditionalItems">
-                <jsv-friendly-name [schema]="schema.additionalItems!" />
-            </ng-container>
-
-            <!-- Separator -->
-            <ng-container *ngIf="thirdSeparator">
-                {{ ',' }}
-            </ng-container>
-
-            <!-- 2C) "unevaluatedItems" (to cover cases specs >= draft-2020-12 version) -->
-            <ng-container *ngIf="hasUnevaluatedItems">
-                <jsv-friendly-name [schema]="schema.unevaluatedItems!" />
-            </ng-container>
-
-            <!-- Separator -->
-            <ng-container *ngIf="fourSeparator">
-                {{ ',' }}
-            </ng-container>
-
-            <!-- 3) "contains" -->
-            <ng-container *ngIf="hasContains">
-                {{ '...' }}
-                {{ ',' }}
-                <jsv-friendly-name [schema]="schema.contains!" />
-            </ng-container>
-
-            <!-- Separator -->
-            <ng-container *ngIf="fithSeparator">
-                {{ ',' }}
-            </ng-container>
-
-            <!-- 4) Is it a open tuple ? -->
-            <ng-container *ngIf="isOpenTuple">
-                {{ '...' }}
-            </ng-container>
-
-        </ng-template>
-    `
+        @if (noClearSpecs) {
+          <jsv-type-label-switch [type]="'array'" />
+        } @else {
+          <!-- 1) "prefixItems" -->
+          @if (isPrefixItemsArray) {
+            @for (subSchema of typedPrefixItemsArray; track subSchema; let isLast = $last) {
+              <jsv-friendly-name [schema]="subSchema" />
+              {{ !isLast ? ',' : '' }}
+            }
+          }
+          <!-- Separator -->
+          @if (firstSeparator) {
+            {{ ',' }}
+          }
+          <!-- 2A) "items" -->
+          @if (hasItems) {
+            @for (subSchema of itemsAsArray; track subSchema; let isLast = $last) {
+              <jsv-friendly-name [schema]="subSchema" />
+              {{ !isLast ? ',' : '' }}
+            }
+          }
+          <!-- Separator -->
+          @if (secondSeparator) {
+            {{ ',' }}
+          }
+          <!-- 2B) "additionalItems" (to cover cases for specs below the draft-2020-12 version) -->
+          @if (hasAdditionalItems) {
+            <jsv-friendly-name [schema]="schema.additionalItems!" />
+          }
+          <!-- Separator -->
+          @if (thirdSeparator) {
+            {{ ',' }}
+          }
+          <!-- 2C) "unevaluatedItems" (to cover cases specs >= draft-2020-12 version) -->
+          @if (hasUnevaluatedItems) {
+            <jsv-friendly-name [schema]="schema.unevaluatedItems!" />
+          }
+          <!-- Separator -->
+          @if (fourSeparator) {
+            {{ ',' }}
+          }
+          <!-- 3) "contains" -->
+          @if (hasContains) {
+            {{ '...' }}
+            {{ ',' }}
+            <jsv-friendly-name [schema]="schema.contains!" />
+          }
+          <!-- Separator -->
+          @if (fithSeparator) {
+            {{ ',' }}
+          }
+          <!-- 4) Is it a open tuple ? -->
+          @if (isOpenTuple) {
+            {{ '...' }}
+          }
+        }
+        
+        `
 })
 export class GenerateFriendlyNameCustomArrayComponent {
     @Input({ required: true }) schema!: JSONSchemaNS.Array;

@@ -35,53 +35,48 @@ type renderTemplates = "booleanSchema" | "schemaTitle" | "schemaTypes" | "schema
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- Final rendered friendly name -->
-    <ng-container [ngSwitch]="selectTemplate">
-
-      <ng-container *ngSwitchCase="'booleanSchema'">
+    @switch (selectTemplate) {
+      @case ('booleanSchema') {
         <ng-container *ngTemplateOutlet="booleanSchema"></ng-container>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'schemaTitle'">
+      }
+      @case ('schemaTitle') {
         <ng-container *ngTemplateOutlet="schemaTitle"></ng-container>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'schemaTypes'">
+      }
+      @case ('schemaTypes') {
         <ng-container *ngTemplateOutlet="schemaTypes"></ng-container>
-      </ng-container>
-
-      <ng-container *ngSwitchDefault>
+      }
+      @default {
         <ng-container *ngTemplateOutlet="schemaFallback"></ng-container>
-      </ng-container>
-
-    </ng-container>
-
+      }
+    }
+    
     <!-- Templates -->
-
+    
     <!--  In case the schema is always valid or not -->
     <ng-template #booleanSchema>
       <jsv-type-label-switch [type]="typedBoolean" />
     </ng-template>
-
+    
     <!-- Some people maintaining schemas provide a friendly name by themself -->
     <ng-template #schemaTitle>
       {{ typedSchema.title! }}
     </ng-template>
-
+    
     <!-- Default strategy, when types are known -->
     <ng-template #schemaTypes>
-      <ng-container *ngFor="let type of foundTypes; let isLast = last">
+      @for (type of foundTypes; track type; let isLast = $last) {
         <jsv-friendly-name-custom [schema]="typedSchema" [type]="type"/>
-        <ng-container *ngIf="!isLast">
+        @if (!isLast) {
           <labels-or />
-        </ng-container>
-      </ng-container>
+        }
+      }
     </ng-template>
-
+    
     <!-- Fallback, when none of the previous rules matched -->
     <ng-template #schemaFallback>
       <jsv-friendly-name-fallback [schema]="typedSchema" />
     </ng-template>
-  `,
+    `,
 })
 export class GenerateFriendlyNameComponent {
   @Input({ required: true }) schema!: JSONSchema;

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 import {
     AndLabelComponent,
@@ -24,45 +24,49 @@ type LinkType = "AND" | "OR" | "XOR";
     selector: 'jsv-friendly-name-fallback',
     standalone: true,
     imports: [
-      CommonModule,
-      NotLabelComponent,
-      AndLabelComponent,
-      XorLabelComponent,
-      OrLabelComponent,
-      forwardRef(() => GenerateFriendlyNameComponent),
-      TypeLabelSwitchComponent
-    ],
+    NotLabelComponent,
+    AndLabelComponent,
+    XorLabelComponent,
+    OrLabelComponent,
+    forwardRef(() => GenerateFriendlyNameComponent),
+    TypeLabelSwitchComponent
+],
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <!--  1. we have a Schema Composition case (not, allOf, ...) -->
-
+        
         <!--  1A) the "not" case -->
-        <ng-container *ngIf="hasNotKeyword">
-            <labels-not />
-            {{ ' (' }}
-            <jsv-friendly-name [schema]="schema.not!" />
-            {{ ' ) ' }}
-        </ng-container>
-
+        @if (hasNotKeyword) {
+          <labels-not />
+          {{ ' (' }}
+          <jsv-friendly-name [schema]="schema.not!" />
+          {{ ' ) ' }}
+        }
+        
         <!--  1B) the "allOf" / "oneOf" / "anyOf" -->
-        <ng-container *ngIf="hasOfKeyword; else defaultStrategy">
-            <ng-container *ngFor="let elem of elementsOf; let isLast = last">
-                <jsv-friendly-name [schema]="elem" />
-                <ng-container *ngIf="!isLast">
-                    <ng-container [ngSwitch]="linkword">
-                        <labels-or *ngSwitchCase="'OR'" />
-                        <labels-xor *ngSwitchCase="'XOR'" />
-                        <labels-and *ngSwitchCase="'AND'" />
-                    </ng-container>
-                </ng-container>
-            </ng-container>
-        </ng-container>
-
+        @if (hasOfKeyword) {
+          @for (elem of elementsOf; track elem; let isLast = $last) {
+            <jsv-friendly-name [schema]="elem" />
+            @if (!isLast) {
+              @switch (linkword) {
+                @case ('OR') {
+                  <labels-or />
+                }
+                @case ('XOR') {
+                  <labels-xor />
+                }
+                @case ('AND') {
+                  <labels-and />
+                }
+              }
+            }
+          }
+        } @else {
+          <jsv-type-label-switch [type]="true" />
+        }
+        
         <!--  2. Assume it is "any" by default -->
-        <ng-template #defaultStrategy>
-            <jsv-type-label-switch [type]="true" />
-        </ng-template>
-    `
+        `
 })
 export class GenerateFriendlyNameFallbackComponent {
     @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>

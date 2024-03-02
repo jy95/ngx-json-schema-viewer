@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
@@ -11,24 +11,23 @@ import type { JSONSchemaNS } from "../../types";
   selector: 'jse-object-unlisted-properties',
   standalone: true,
   imports: [
-    CommonModule,
     forwardRef(() => CreateEdgeComponent)
-  ],
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul>
-      <ng-container *ngFor="let prop of unlistedProperties">
+      @for (prop of unlistedProperties; track prop) {
         <jse-common-create-edge
           [schema]="true"
           [required]="true"
-        >
+          >
           <strong name>
             {{ generatePropertyName(prop) }}
           </strong>
         </jse-common-create-edge>
-      </ng-container>
+      }
     </ul>
-  `,
+    `,
 })
 export class CreateUnlistedPropertiesComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Object;

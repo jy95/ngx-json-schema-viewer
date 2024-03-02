@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { AllOfSchemaComponent } from "./all-of";
@@ -21,27 +21,26 @@ import type {
   selector: 'jse-schema-composition',
   standalone: true,
   imports: [
-    CommonModule,
     AllOfSchemaComponent,
     AnyOfSchemaComponent,
     NotSchemaComponent,
     OneOfSchemaComponent
-  ],
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="schema.oneOf">
+    @if (schema.oneOf) {
       <jse-schema-composition-one-of [schema]="schema" />
-    </ng-container>
-    <ng-container *ngIf="schema.anyOf">
+    }
+    @if (schema.anyOf) {
       <jse-schema-composition-any-of [schema]="schema" />
-    </ng-container>
-    <ng-container *ngIf="schema.allOf">
+    }
+    @if (schema.allOf) {
       <jse-schema-composition-all-of [schema]="schema" />
-    </ng-container>
-    <ng-container *ngIf="schema.not">
+    }
+    @if (schema.not) {
       <jse-schema-composition-not [schema]="schema" />
-    </ng-container>
-  `,
+    }
+    `,
 })
 export class SchemaCompositionComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;

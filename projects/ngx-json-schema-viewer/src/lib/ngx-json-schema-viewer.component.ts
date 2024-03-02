@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 
 // imports
-import { CommonModule } from '@angular/common';
+
 import { MatExpansionModule } from '@angular/material/expansion';
 
 import {
@@ -26,28 +26,27 @@ type StatusType = "LOADING" | "ERROR" | "DONE";
   selector: 'ngx-json-schema-viewer',
   standalone: true,
   imports: [
-    CommonModule,
     MatExpansionModule,
     CreateNodesComponent,
     ErrorOccurredLabelComponent,
-    LoadingLabelComponent,
-  ],
+    LoadingLabelComponent
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- Error ... -->
-    <ng-container *ngIf="status() === 'ERROR'">
+    @if (status() === 'ERROR') {
       <div>
         <labels-error-occurred [error]="error()!"/>
       </div>
-    </ng-container>
-
+    }
+    
     <!-- Loading ... -->
-    <ng-container *ngIf="status() === 'LOADING'">
-        <labels-loading />
-    </ng-container>
-
+    @if (status() === 'LOADING') {
+      <labels-loading />
+    }
+    
     <!-- Schema -->
-    <ng-container *ngIf="status() === 'DONE'">
+    @if (status() === 'DONE') {
       <mat-accordion>
         <mat-expansion-panel [(expanded)]="expanded">
           <mat-expansion-panel-header>
@@ -62,8 +61,8 @@ type StatusType = "LOADING" | "ERROR" | "DONE";
           </ng-template>
         </mat-expansion-panel>
       </mat-accordion>
-    </ng-container>
-  `
+    }
+    `
 })
 export class NgxJsonSchemaViewerComponent implements OnInit {
   @Input({ required: true }) schema: unknown;

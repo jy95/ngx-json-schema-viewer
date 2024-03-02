@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import {MatTabsModule} from '@angular/material/tabs';
 
@@ -19,24 +19,23 @@ import type {
   selector: 'jse-common-multiple-types',
   standalone: true,
   imports: [
-    CommonModule,
     MatTabsModule,
     RenderProvidedTypeComponent,
     TypeLabelSwitchComponent
-  ],
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-tab-group>
-      <ng-container *ngFor="let type of types">
+      @for (type of types; track type) {
         <mat-tab>
           <ng-template mat-tab-label>
-              <jsv-type-label-switch [type]="type" />
+            <jsv-type-label-switch [type]="type" />
           </ng-template>
-          <jse-common-render-provided-type [type]="type" [schema]="schema" [nullable]="nullable" /> 
+          <jse-common-render-provided-type [type]="type" [schema]="schema" [nullable]="nullable" />
         </mat-tab>
-      </ng-container>
+      }
     </mat-tab-group>
-  `
+    `
 })
 export class RenderMultipleTypesComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;

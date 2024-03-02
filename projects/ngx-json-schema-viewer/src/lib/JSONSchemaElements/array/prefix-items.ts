@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
@@ -11,21 +11,20 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
   selector: 'jse-array-prefix-items',
   standalone: true,
   imports: [
-    CommonModule,
     forwardRef(() => CreateEdgeComponent)
-  ],
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul>
-      <ng-container *ngFor="let val of arrayItems; let idx = index">
+      @for (val of arrayItems; track val; let idx = $index) {
         <jse-common-create-edge [schema]="val" [required]="isMinItemsValid()">
           <code name>
             {{ prefixItemsLabel(idx) }}
           </code>
         </jse-common-create-edge>
-      </ng-container>
+      }
     </ul>
-  `,
+    `,
 })
 export class CreatePrefixItemsComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Array;

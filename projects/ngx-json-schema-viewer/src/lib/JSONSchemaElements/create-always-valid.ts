@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
@@ -21,12 +21,11 @@ import type { JSONSchema } from '../types';
   selector: 'jse-always-valid',
   standalone: true,
   imports: [
-    TypeLabelComponent, 
-    TrueLabelComponent, 
-    QualifierMessages, 
-    CommonModule,
+    TypeLabelComponent,
+    TrueLabelComponent,
+    QualifierMessages,
     forwardRef(() => CreateDescriptionComponent)
-  ],
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
@@ -36,16 +35,16 @@ import type { JSONSchema } from '../types';
       <div style="margin-top: 0.75rem;">
         {{ "Always valid" }}
       </div>
-      <ng-container *ngIf="notBoolean">
+      @if (notBoolean) {
         <div style="margin-top: 0.75rem;">
           <qm-messages [schema]="typedSchema" />
         </div>
-      </ng-container>
-      <ng-container *ngIf="description">
+      }
+      @if (description) {
         <jse-description [description]="description" />
-      </ng-container>
+      }
     </div>
-  `,
+    `,
 })
 export class CreateAlwaysValidComponent {
   @Input({ required: true }) schema!: JSONSchema;

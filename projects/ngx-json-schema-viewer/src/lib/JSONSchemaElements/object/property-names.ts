@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
@@ -11,12 +11,11 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
   selector: 'jse-object-property-names',
   standalone: true,
   imports: [
-    CommonModule,
     forwardRef(() => CreateEdgeComponent)
-  ],
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="schema.propertyNames !== undefined">
+    @if (schema.propertyNames !== undefined) {
       <ul>
         <jse-common-create-edge [schema]="schema.propertyNames" [required]="false">
           <code name>
@@ -24,8 +23,8 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
           </code>
         </jse-common-create-edge>
       </ul>
-    </ng-container>
-  `,
+    }
+    `,
 })
 export class PropertyNamesComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Object;

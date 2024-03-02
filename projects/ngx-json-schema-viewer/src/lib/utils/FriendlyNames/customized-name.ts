@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 import {
     TypeLabelSwitchComponent,
@@ -15,28 +15,23 @@ import type { JSONSchema, JSONSchemaNS, TypeValues } from "../../types";
     selector: 'jsv-friendly-name-custom',
     standalone: true,
     imports: [
-      CommonModule,
-      TypeLabelSwitchComponent,
-      forwardRef(() => GenerateFriendlyNameCustomArrayComponent)
-    ],
+    TypeLabelSwitchComponent,
+    forwardRef(() => GenerateFriendlyNameCustomArrayComponent)
+],
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-        <ng-container [ngSwitch]="type">
-            
-            <ng-container *ngSwitchCase="'string'">
-                <jsv-type-label-switch [type]="stringOrFormat" />
-            </ng-container>
-            
-            <ng-container *ngSwitchCase="'array'">
-                <jsv-friendly-name-custom-array [schema]="asTypedArray" />
-            </ng-container>
-            
-            <ng-container *ngSwitchDefault>
-                <jsv-type-label-switch [type]="type" />
-            </ng-container>
-
-        </ng-container>
-    `
+@switch (type) {
+  @case ('string') {
+    <jsv-type-label-switch [type]="stringOrFormat" />
+  }
+  @case ('array') {
+    <jsv-friendly-name-custom-array [schema]="asTypedArray" />
+  }
+  @default {
+    <jsv-type-label-switch [type]="type" />
+  }
+}
+`
 })
 export class GenerateFriendlyNameCustomComponent {
     @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;

@@ -1,23 +1,21 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { HighlightModule } from 'ngx-highlightjs';
 
 @Component({
   selector: 'lib-print-schema-type',
   template: `
-    <ng-container *ngIf="isSimpleType; else complexType">
+    @if (isSimpleType) {
       <code>{{ value }}</code>
-    </ng-container>
-    <ng-template #complexType>
-        <pre><code [highlight]="jsonCode" [languages]="languages"></code></pre>
-    </ng-template>
-  `,
+    } @else {
+      <pre><code [highlight]="jsonCode" [languages]="languages"></code></pre>
+    }
+    `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     HighlightModule
-  ]
+]
 })
 export class PrintSchemaTypeComponent {
   @Input({ required: true }) obj!: unknown;

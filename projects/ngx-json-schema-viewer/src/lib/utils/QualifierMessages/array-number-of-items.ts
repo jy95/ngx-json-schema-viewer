@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 import { AndLabelComponent } from "../../labels/and-label";
 
@@ -9,27 +9,27 @@ type typedJSONArraySchema = JSONSchemaNS.Array;
 @Component({
   selector: 'qm-array-number-of-items',
   standalone: true,
-  imports: [CommonModule,AndLabelComponent],
+  imports: [AndLabelComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-        <strong>Length :</strong>
-        &nbsp;
-        <ng-container *ngIf="typedSchema.minItems !== undefined">
-          <code>
-            {{ getMinItemsLabel(typedSchema.minItems!) }}
-          </code>
-        </ng-container>
-        <ng-container *ngIf="hasMinAndMax">
-          <labels-and></labels-and>
-        </ng-container>
-        <ng-container *ngIf="typedSchema.maxItems !== undefined">
-          <code>
-            {{ getMaxItemsLabel(typedSchema.maxItems!) }}
-          </code>
-        </ng-container>
+      <strong>Length :</strong>
+      &nbsp;
+      @if (typedSchema.minItems !== undefined) {
+        <code>
+          {{ getMinItemsLabel(typedSchema.minItems!) }}
+        </code>
+      }
+      @if (hasMinAndMax) {
+        <labels-and></labels-and>
+      }
+      @if (typedSchema.maxItems !== undefined) {
+        <code>
+          {{ getMaxItemsLabel(typedSchema.maxItems!) }}
+        </code>
+      }
     </div>
-  `
+    `
 })
 export class ArrayNumberOfItemsComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;

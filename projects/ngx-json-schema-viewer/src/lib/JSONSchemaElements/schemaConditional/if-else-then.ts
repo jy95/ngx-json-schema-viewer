@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 
@@ -12,19 +12,18 @@ import type { JSONSchema } from "../../types";
   selector: 'jse-schema-conditional-if-else-then',
   standalone: true,
   imports: [
-    CommonModule, 
     MatTabsModule,
     IfLabelComponent,
     ThenLabelComponent,
     ElseLabelComponent,
     forwardRef(() => CreateNodesComponent)
-  ],
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-tab-group>
-
+    
       <!-- If case -->
-      <ng-container *ngIf="schema.if">
+      @if (schema.if) {
         <mat-tab>
           <ng-template mat-tab-label>
             <labels-if />
@@ -33,22 +32,15 @@ import type { JSONSchema } from "../../types";
             <jse-common-create-nodes [schema]="schema.if" />
           </ng-template>
         </mat-tab>
-      </ng-container>
-
+      }
+    
       <!-- Then case -->
-      <ng-container *ngIf="schema.then">
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <labels-then />
-          </ng-template>
-          <ng-template matTabContent>
-            <jse-common-create-nodes [schema]="schema.then" />
-          </ng-template>
-        </mat-tab>
-      </ng-container>
-
+      @if (schema.then) {
+        <ng-template [ngTemplateOutlet]=""></ng-template>
+      }
+    
       <!-- Else case -->
-      <ng-container *ngIf="schema.else">
+      @if (schema.else) {
         <mat-tab>
           <ng-template mat-tab-label>
             <labels-else />
@@ -57,10 +49,12 @@ import type { JSONSchema } from "../../types";
             <jse-common-create-nodes [schema]="schema.else" />
           </ng-template>
         </mat-tab>
-      </ng-container>
-
+      } @else {
+        <ng-template [ngTemplateOutlet]=""></ng-template>
+      }
+    
     </mat-tab-group>
-  `,
+    `,
 })
 export class IfElseThenComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
