@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { JSVOptionsService } from '../services/jsv-options';
 
 // qualifier messages
@@ -35,59 +35,100 @@ import type { JSVOptions, CheckKey } from '../services/jsv-options';
     selector: 'qm-messages',
     standalone: true,
     imports: [
-        CommonModule,
-        ConstantComponent,
-        DefaultValueComponent,
-        EnumComponent,
-        ExamplesComponent,
-        ReadOnlyComponent,
-        WriteOnlyComponent,
-        ArrayUniqueItemsComponent,
-        DeprecatedComponent,
-        NullableComponent,
-        StringLengthComponent,
-        ObjectPropertiesComponent,
-        NoExtraPropertiesComponent,
-        ArrayNumberOfItemsComponent,
-        ArrayContainsNumberComponent,
-        NoExtraItemsComponent,
-        NumberBoundsComponent,
-        PatternComponent,
-        MultipleOfComponent,
-        ContentEncodingComponent,
-        ContentMediaTypeComponent,
-        ContentSchemaComponent
-    ],
+    ConstantComponent,
+    DefaultValueComponent,
+    EnumComponent,
+    ExamplesComponent,
+    ReadOnlyComponent,
+    WriteOnlyComponent,
+    ArrayUniqueItemsComponent,
+    DeprecatedComponent,
+    NullableComponent,
+    StringLengthComponent,
+    ObjectPropertiesComponent,
+    NoExtraPropertiesComponent,
+    ArrayNumberOfItemsComponent,
+    ArrayContainsNumberComponent,
+    NoExtraItemsComponent,
+    NumberBoundsComponent,
+    PatternComponent,
+    MultipleOfComponent,
+    ContentEncodingComponent,
+    ContentMediaTypeComponent,
+    ContentSchemaComponent
+],
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <div>
-            <ng-container *ngFor="let key of filteredQualifiers">
-                <ng-container [ngSwitch]="key">
-                    <qm-constant *ngSwitchCase="'const'" [schema]="schema"/>
-                    <qm-default-value *ngSwitchCase="'default'" [schema]="schema"/>
-                    <qm-enum *ngSwitchCase="'enum'" [schema]="schema"/>
-                    <qm-examples *ngSwitchCase="'examples'" [schema]="schema"/>
-                    <qm-read-only *ngSwitchCase="'readOnly'" />
-                    <qm-write-only *ngSwitchCase="'writeOnly'" />
-                    <qm-array-unique-items *ngSwitchCase="'uniqueItems'" />
-                    <qm-deprecated *ngSwitchCase="'deprecated'" />
-                    <qm-nullable *ngSwitchCase="'nullable'" />
-                    <qm-string-length *ngSwitchCase="'stringLength'" [schema]="schema" />
-                    <qm-object-properties *ngSwitchCase="'objectProperties'" [schema]="schema" />
-                    <qm-no-extra-properties *ngSwitchCase="'no-extra-properties'" />
-                    <qm-array-number-of-items *ngSwitchCase="'arrayItems'" [schema]="schema" />
-                    <qm-array-contains *ngSwitchCase="'arrayContains'" [schema]="schema" />
-                    <qm-no-extra-items *ngSwitchCase="'no-extra-items'" />
-                    <qm-number-bounds *ngSwitchCase="'number-range'" [schema]="schema" />
-                    <qm-pattern *ngSwitchCase="'pattern'" [schema]="schema" />
-                    <qm-multiple-of *ngSwitchCase="'multipleOf'" [schema]="schema" />
-                    <qm-content-encoding *ngSwitchCase="'contentEncoding'" [schema]="schema" />
-                    <qm-content-media-type *ngSwitchCase="'contentMediaType'" [schema]="schema" />
-                    <qm-content-schema *ngSwitchCase="'contentSchema'" [schema]="typedAsJSONSchemaString" />
-                </ng-container>
-            </ng-container>
+          @for (key of filteredQualifiers; track key) {
+            @switch (key) {
+              @case ('const') {
+                <qm-constant [schema]="schema"/>
+              }
+              @case ('default') {
+                <qm-default-value [schema]="schema"/>
+              }
+              @case ('enum') {
+                <qm-enum [schema]="schema"/>
+              }
+              @case ('examples') {
+                <qm-examples [schema]="schema"/>
+              }
+              @case ('readOnly') {
+                <qm-read-only />
+              }
+              @case ('writeOnly') {
+                <qm-write-only />
+              }
+              @case ('uniqueItems') {
+                <qm-array-unique-items />
+              }
+              @case ('deprecated') {
+                <qm-deprecated />
+              }
+              @case ('nullable') {
+                <qm-nullable />
+              }
+              @case ('stringLength') {
+                <qm-string-length [schema]="schema" />
+              }
+              @case ('objectProperties') {
+                <qm-object-properties [schema]="schema" />
+              }
+              @case ('no-extra-properties') {
+                <qm-no-extra-properties />
+              }
+              @case ('arrayItems') {
+                <qm-array-number-of-items [schema]="schema" />
+              }
+              @case ('arrayContains') {
+                <qm-array-contains [schema]="schema" />
+              }
+              @case ('no-extra-items') {
+                <qm-no-extra-items />
+              }
+              @case ('number-range') {
+                <qm-number-bounds [schema]="schema" />
+              }
+              @case ('pattern') {
+                <qm-pattern [schema]="schema" />
+              }
+              @case ('multipleOf') {
+                <qm-multiple-of [schema]="schema" />
+              }
+              @case ('contentEncoding') {
+                <qm-content-encoding [schema]="schema" />
+              }
+              @case ('contentMediaType') {
+                <qm-content-media-type [schema]="schema" />
+              }
+              @case ('contentSchema') {
+                <qm-content-schema [schema]="typedAsJSONSchemaString" />
+              }
+            }
+          }
         </div>
-    `
+        `
 })
 export class QualifierMessages {
     @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;

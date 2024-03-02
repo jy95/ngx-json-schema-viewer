@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
@@ -11,12 +11,11 @@ import type { JSONSchemaNS } from "../../types";
   selector: 'jse-object-additional-properties',
   standalone: true,
   imports: [
-    CommonModule,
     forwardRef(() => CreateEdgeComponent)
-  ],
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="!isUndefinedOrBoolean(additionalProperties)">
+    @if (!isUndefinedOrBoolean(additionalProperties)) {
       <ul>
         <jse-common-create-edge [schema]="additionalProperties!" [required]="false">
           <code name>
@@ -24,8 +23,8 @@ import type { JSONSchemaNS } from "../../types";
           </code>
         </jse-common-create-edge>
       </ul>
-    </ng-container>
-  `,
+    }
+    `,
 })
 export class CreateAdditionalPropertiesComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Object;

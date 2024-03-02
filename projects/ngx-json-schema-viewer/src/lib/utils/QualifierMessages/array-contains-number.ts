@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 import { AndLabelComponent } from "../../labels/and-label";
 
@@ -13,23 +13,23 @@ type typedJSONArraySchema = JSONSchemaNS.Array;
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
   <div>
-      <strong>Must contain : </strong>
-      <ng-container *ngIf="typedSchema.minContains">
-        <code>
-          {{ getMinContainsLabel(typedSchema.minContains) }}
-        </code>
-      </ng-container>
-      <ng-container *ngIf="hasMinAndMax">
-        <labels-and></labels-and>
-      </ng-container>
-      <ng-container *ngIf="typedSchema.maxContains !== undefined">
-        <code>
-          {{ getMaxContainsLabel(typedSchema.maxContains) }}
-        </code>
-      </ng-container>
+    <strong>Must contain : </strong>
+    @if (typedSchema.minContains) {
+      <code>
+        {{ getMinContainsLabel(typedSchema.minContains) }}
+      </code>
+    }
+    @if (hasMinAndMax) {
+      <labels-and></labels-and>
+    }
+    @if (typedSchema.maxContains !== undefined) {
+      <code>
+        {{ getMaxContainsLabel(typedSchema.maxContains) }}
+      </code>
+    }
   </div>
   `,
-    imports: [CommonModule, AndLabelComponent]
+    imports: [AndLabelComponent]
 })
 export class ArrayContainsNumberComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;

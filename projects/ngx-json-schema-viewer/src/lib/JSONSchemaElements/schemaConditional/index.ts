@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 
@@ -20,43 +20,42 @@ import type { JSONSchema, JSONSchemaNS } from "../../types";
   selector: 'jse-schema-conditional',
   standalone: true,
   imports: [
-    CommonModule, 
     MatExpansionModule,
     IfElseThenComponent,
     DependentRequiredComponent,
     DependentSchemasComponent,
     DependenciesComponent
-  ],
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-accordion>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    {{ schemaConditionalLabel }}
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <ng-template matExpansionPanelContent>
-              <!-- Handles if-then-else case -->
-              <ng-container *ngIf="isIfThenElse">
-                <jse-schema-conditional-if-else-then [schema]="schema" />
-              </ng-container>
-              <!-- Handles dependentRequired case -->
-              <ng-container *ngIf="isDependentRequired">
-                <jse-schema-conditional-dependent-required [schema]="dependentRequired" />
-              </ng-container>
-              <!-- Handles dependentSchemas case -->
-              <ng-container *ngIf="isDependentSchemas">
-                <jse-schema-conditional-dependent-schemas [schema]="dependentSchemas" />
-              </ng-container>
-              <!-- Handles dependencies (deprecated) -->
-              <ng-container *ngIf="isDependencies">
-                <jse-schema-conditional-dependencies [schema]="dependencies" />
-              </ng-container>
-            </ng-template>
-        </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ schemaConditionalLabel }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <!-- Handles if-then-else case -->
+          @if (isIfThenElse) {
+            <jse-schema-conditional-if-else-then [schema]="schema" />
+          }
+          <!-- Handles dependentRequired case -->
+          @if (isDependentRequired) {
+            <jse-schema-conditional-dependent-required [schema]="dependentRequired" />
+          }
+          <!-- Handles dependentSchemas case -->
+          @if (isDependentSchemas) {
+            <jse-schema-conditional-dependent-schemas [schema]="dependentSchemas" />
+          }
+          <!-- Handles dependencies (deprecated) -->
+          @if (isDependencies) {
+            <jse-schema-conditional-dependencies [schema]="dependencies" />
+          }
+        </ng-template>
+      </mat-expansion-panel>
     </mat-accordion>
-  `,
+    `,
 })
 export class SchemaConditionalComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;

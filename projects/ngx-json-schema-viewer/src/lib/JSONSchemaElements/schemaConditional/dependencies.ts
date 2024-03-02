@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import {
@@ -15,25 +15,24 @@ import type { JSONSchema } from "../../types";
   selector: 'jse-schema-conditional-dependencies',
   standalone: true,
   imports: [
-    CommonModule,
     DependentRequiredComponent,
     DependentSchemasComponent,
     DependanciesToDependentRequiredPipe,
     DependanciesToDependentSchemasPipe
-  ],
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="schema | dependanciesTodependentRequired as dependentRequired">
-      <ng-container *ngIf="!isEmptyObject(dependentRequired)">
+    @if (schema | dependanciesTodependentRequired; as dependentRequired) {
+      @if (!isEmptyObject(dependentRequired)) {
         <jse-schema-conditional-dependent-required [schema]="dependentRequired" />
-      </ng-container>
-    </ng-container>
-    <ng-container *ngIf="schema | dependanciesTodependentSchemas as dependentSchemas">
-      <ng-container *ngIf="!isEmptyObject(dependentSchemas)">
+      }
+    }
+    @if (schema | dependanciesTodependentSchemas; as dependentSchemas) {
+      @if (!isEmptyObject(dependentSchemas)) {
         <jse-schema-conditional-dependent-schemas [schema]="dependentSchemas" />
-      </ng-container>
-    </ng-container>
-  `,
+      }
+    }
+    `,
 })
 export class DependenciesComponent {
   @Input({ required: true }) schema!: Record<string, string[] | readonly string[] | JSONSchema>;

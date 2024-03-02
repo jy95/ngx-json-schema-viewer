@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import {
@@ -10,34 +10,42 @@ import type { JSONSchema } from '../../types';
 @Component({
   selector: 'qm-number-bounds',
   standalone: true,
-  imports: [CommonModule, AndLabelComponent],
+  imports: [AndLabelComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <strong>{{ boundsLabel }}</strong>&nbsp;
-      <ng-container *ngIf="minimum !== undefined">
+      @if (minimum !== undefined) {
         <code>
-          <ng-container [ngSwitch]="isExclusiveMinimum">
-            <span *ngSwitchCase="true">&gt;</span>
-            <span *ngSwitchDefault>&ge;</span>
-          </ng-container>
+          @switch (isExclusiveMinimum) {
+            @case (true) {
+              <span>&gt;</span>
+            }
+            @default {
+              <span>&ge;</span>
+            }
+          }
           {{ minimum }}
         </code>
-      </ng-container>
-      <ng-container *ngIf="minAndMax">
+      }
+      @if (minAndMax) {
         <labels-and />
-      </ng-container>
-      <ng-container *ngIf="maximum !== undefined">
+      }
+      @if (maximum !== undefined) {
         <code>
-          <ng-container [ngSwitch]="isExclusiveMaximum">
-            <span *ngSwitchCase="true">&lt;</span>
-            <span *ngSwitchDefault>&le;</span>
-          </ng-container>
+          @switch (isExclusiveMaximum) {
+            @case (true) {
+              <span>&lt;</span>
+            }
+            @default {
+              <span>&le;</span>
+            }
+          }
           {{ maximum }}
         </code>
-      </ng-container>
+      }
     </div>
-  `,
+    `,
 })
 export class NumberBoundsComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;

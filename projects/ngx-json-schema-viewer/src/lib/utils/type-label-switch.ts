@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 import {
     StringLabelComponent,
@@ -19,7 +19,6 @@ import type { TypeValues } from "../types"
   selector: 'jsv-type-label-switch',
   standalone: true,
   imports: [
-    CommonModule,
     StringLabelComponent,
     NumberLabelComponent,
     BooleanLabelComponent,
@@ -29,42 +28,42 @@ import type { TypeValues } from "../types"
     NullLabelComponent,
     TrueLabelComponent,
     FalseLabelComponent
-  ],
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container [ngSwitch]="type">
-      <ng-container *ngSwitchCase="'string'">
-        <labels-string />
-      </ng-container>
-      <ng-container *ngSwitchCase="'number'">
-        <labels-number />
-      </ng-container>
-      <ng-container *ngSwitchCase="'boolean'">
-        <labels-boolean />
-      </ng-container>
-      <ng-container *ngSwitchCase="'object'">
-        <labels-object />
-      </ng-container>
-      <ng-container *ngSwitchCase="'array'">
-        <labels-array />
-      </ng-container>
-      <ng-container *ngSwitchCase="'integer'">
-        <labels-integer />
-      </ng-container>
-      <ng-container *ngSwitchCase="'null'">
-        <labels-null />
-      </ng-container>
-      <ng-container *ngSwitchCase="true">
-        <labels-true />
-      </ng-container>
-      <ng-container *ngSwitchCase="false">
-        <labels-false />
-      </ng-container>
-      <ng-container *ngSwitchDefault>
-        <span style="opacity: 0.6">{{ type }}</span>
-      </ng-container>
-    </ng-container>
-  `,
+@switch (type) {
+  @case ('string') {
+    <labels-string />
+  }
+  @case ('number') {
+    <labels-number />
+  }
+  @case ('boolean') {
+    <labels-boolean />
+  }
+  @case ('object') {
+    <labels-object />
+  }
+  @case ('array') {
+    <labels-array />
+  }
+  @case ('integer') {
+    <labels-integer />
+  }
+  @case ('null') {
+    <labels-null />
+  }
+  @case (true) {
+    <labels-true />
+  }
+  @case (false) {
+    <labels-false />
+  }
+  @default {
+    <span style="opacity: 0.6">{{ type }}</span>
+  }
+}
+`,
 })
 export class TypeLabelSwitchComponent {
   @Input({ required: true }) type!: TypeValues | true | false | string;

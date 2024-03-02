@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
@@ -23,35 +23,29 @@ import type { JSONSchema } from '../types';
   selector: 'jse-common-create-nodes',
   standalone: true,
   imports: [
-    CommonModule,
     forwardRef(() => SchemaConditionalComponent),
     forwardRef(() => SchemaCompositionComponent),
     forwardRef(() => CreateTypesComponent),
     forwardRef(() => CreateValidOrInvalidComponent)
-  ],
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="typedSchema !== undefined; else BooleanSchema">
-
+    @if (typedSchema !== undefined) {
       <!-- Handle standard types -->
       <jse-common-create-types [schema]="typedSchema" />
-
       <!-- Handle Composition -->
-      <ng-container *ngIf="isCompositionSchema">
+      @if (isCompositionSchema) {
         <jse-schema-composition [schema]="typedSchema" />
-      </ng-container>
-
+      }
       <!-- Handle Conditional -->
-      <ng-container *ngIf="isConditionalSchema">
+      @if (isConditionalSchema) {
         <jse-schema-conditional [schema]="typedSchema" />
-      </ng-container>
-      
-    </ng-container>
-
-    <ng-template #BooleanSchema>
+      }
+    } @else {
       <jse-common-create-valid-or-invalid [schema]="schema" />
-    </ng-template>
-  `,
+    }
+    
+    `,
 })
 export class CreateNodesComponent {
   @Input({ required: true }) schema!: JSONSchema;

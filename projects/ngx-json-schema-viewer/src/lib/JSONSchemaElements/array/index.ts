@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import { 
@@ -22,8 +22,7 @@ import type { JSONSchemaNS } from "../../types";
   selector: 'jse-array',
   standalone: true,
   imports: [
-    CommonModule, 
-    TypeLabelComponent, 
+    TypeLabelComponent,
     ArrayLabelComponent,
     forwardRef(() => CreateDescriptionComponent),
     QualifierMessages,
@@ -32,36 +31,36 @@ import type { JSONSchemaNS } from "../../types";
     CreateItemsComponent,
     CreatePrefixItemsComponent,
     CreateUnevaluatedItemsComponent
-  ],
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <labels-type />
       &nbsp;&#58;&nbsp;
       <labels-array />
-      <ng-container *ngIf="schema.prefixItems !== undefined">
+      @if (schema.prefixItems !== undefined) {
         <jse-array-prefix-items [schema]="schema" />
-      </ng-container>
-      <ng-container *ngIf="schema.items !== undefined">
+      }
+      @if (schema.items !== undefined) {
         <jse-array-items [schema]="schema" />
-      </ng-container>
-      <ng-container *ngIf="schema.additionalItems !== undefined">
+      }
+      @if (schema.additionalItems !== undefined) {
         <jse-array-additional-items [schema]="schema" />
-      </ng-container>
-      <ng-container *ngIf="schema.unevaluatedItems !== undefined">
+      }
+      @if (schema.unevaluatedItems !== undefined) {
         <jse-array-unevaluated-items [schema]="schema" />
-      </ng-container>
-      <ng-container *ngIf="schema.contains !== undefined">
+      }
+      @if (schema.contains !== undefined) {
         <jse-array-contains [schema]="schema" />
-      </ng-container>
+      }
       <div style="margin-top: 0.75rem;">
         <qm-messages [schema]="schema" />
       </div>
-      <ng-container *ngIf="description">
+      @if (description) {
         <jse-description [description]="description" />
-      </ng-container>
+      }
     </div>
-  `,
+    `,
 })
 export class CreateArrayComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Array;

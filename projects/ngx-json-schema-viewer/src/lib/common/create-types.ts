@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import {
@@ -21,40 +21,34 @@ import type {
   selector: 'jse-common-create-types',
   standalone: true,
   imports: [
-    CommonModule, 
-    CreateValidOrInvalidComponent, 
+    CreateValidOrInvalidComponent,
     RenderProvidedTypeComponent,
     RenderMultipleTypesComponent
-  ],
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container>
-
-      <ng-container *ngIf="foundTypes.length > 0; else defaultCase">
+    
+      @if (foundTypes.length > 0) {
         <!-- Case 1: Single type or type with null -->
-        <ng-container *ngIf="hasSingleType; else case2">
+        @if (hasSingleType) {
           <jse-common-render-provided-type [schema]="schema" [type]="firstType" [nullable]="hasNull" />
-        </ng-container>
-
-        <!-- Case 2: Multiple types -->
-        <ng-template #case2>
+        } @else {
           <jse-common-multiple-types [schema]="schema" [types]="notNullTypeValues" [nullable]="hasNull" />
-        </ng-template>
-      </ng-container>
-
-      <!-- Default Case: Handle cases like { "allOf": ... } or { "if": ... } -->
-      <ng-template #defaultCase>
-        <ng-container *ngIf="!hasSchemaComposition; else compositionCase">
+        }
+        <!-- Case 2: Multiple types -->
+      } @else {
+        @if (!hasSchemaComposition) {
           <jse-common-create-valid-or-invalid [schema]="schema" />
-        </ng-container>
-
-        <ng-template #compositionCase>
+        } @else {
           <!--  Otherwise, we have a SchemaComposition, which will be handled by CreateNodes -->
           <div></div>
-        </ng-template>
-      </ng-template>
+        }
+      }
+    
+      <!-- Default Case: Handle cases like { "allOf": ... } or { "if": ... } -->
     </ng-container>
-  `,
+    `,
 })
 export class CreateTypesComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;

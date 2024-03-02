@@ -17,15 +17,15 @@ import type { JSONSchemaNS, JSONSchema } from "../../types";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul>
-      <ng-container *ngFor="let entry of schema.patternProperties | keyvalue">
+      @for (entry of schema.patternProperties | keyvalue; track entry) {
         <jse-common-create-edge [schema]="entry.value" [required]="false">
           <code name>
             {{ generatePropertyName(entry.key) }}
           </code>
         </jse-common-create-edge>
-      </ng-container>
+      }
     </ul>
-  `,
+    `,
 })
 export class CreatePatternPropertiesComponent {
   @Input({ required: true }) schema!: JSONSchemaNS.Object;
