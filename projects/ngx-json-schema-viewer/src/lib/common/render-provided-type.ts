@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 
 import {
@@ -21,7 +20,6 @@ import type {
   selector: 'jse-common-render-provided-type',
   standalone: true,
   imports: [
-    CommonModule,
     forwardRef(() => CreateArrayComponent),
     forwardRef(() => CreateObjectComponent),
     forwardRef(() => CreateStringComponent),
@@ -32,43 +30,50 @@ import type {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container [ngSwitch]="type">
-      <jse-array
-        *ngSwitchCase="'array'"
-        [schema]="asTypedArray"
-        [description]="description"
-      />
-      <jse-object
-        *ngSwitchCase="'object'"
-        [schema]="asTypedObject"
-        [description]="description"
-      />
-      <jse-string
-        *ngSwitchCase="'string'"
-        [schema]="asTypedString"
-        [description]="description"
-      />
-      <jse-boolean
-        *ngSwitchCase="'boolean'"
-        [schema]="asTypedBoolean"
-        [description]="description"
-      />
-      <jse-number
-        *ngSwitchCase="'number'"
-        [schema]="asTypedNumber"
-        [description]="description"
-      />
-      <jse-integer
-        *ngSwitchCase="'integer'"
-        [schema]="asTypedInteger"
-        [description]="description"
-      />
-      <jse-null
-        *ngSwitchDefault
-        [schema]="asTypedNull"
-        [description]="description"
-      />
-    <ng-container>
+    @switch (type) {
+      @case ("array") {
+        <jse-array
+          [schema]="asTypedArray"
+          [description]="description"
+        />
+      }
+      @case ("object") {
+        <jse-object
+          [schema]="asTypedObject"
+          [description]="description"
+        />
+      }
+      @case ("string") {
+        <jse-string
+          [schema]="asTypedString"
+          [description]="description"
+        />
+      }
+      @case ("boolean") {
+        <jse-boolean
+          [schema]="asTypedBoolean"
+          [description]="description"
+        />
+      }
+      @case ("number") {
+        <jse-number
+          [schema]="asTypedNumber"
+          [description]="description"
+        />
+      }
+      @case ("integer") {
+        <jse-integer
+          [schema]="asTypedInteger"
+          [description]="description"
+        />
+      }
+      @default {
+        <jse-null
+          [schema]="asTypedNull"
+          [description]="description"
+        />
+      }
+    }
   `,
 })
 export class RenderProvidedTypeComponent {
