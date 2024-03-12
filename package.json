@@ -41,7 +41,7 @@
     "@storybook/addon-links": "^7.6.17",
     "@storybook/addon-styling-webpack": "^0.0.6",
     "@storybook/angular": "^7.6.17",
-    "@storybook/blocks": "^7.6.17",
+    "@storybook/blocks": "^8.0.0",
     "@storybook/manager-api": "^7.6.17",
     "@storybook/testing-library": "^0.2.2",
     "@storybook/theming": "7.6.16",
