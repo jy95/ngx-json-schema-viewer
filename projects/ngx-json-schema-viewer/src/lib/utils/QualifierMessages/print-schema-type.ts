@@ -1,6 +1,6 @@
 
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { HighlightModule } from 'ngx-highlightjs';
+import { Highlight } from 'ngx-highlightjs';
 
 @Component({
   selector: 'lib-print-schema-type',
@@ -8,13 +8,13 @@ import { HighlightModule } from 'ngx-highlightjs';
     @if (isSimpleType) {
       <code>{{ value }}</code>
     } @else {
-      <pre><code [highlight]="jsonCode" [languages]="languages"></code></pre>
+      <pre><code [highlight]="jsonCode" [language]="language"></code></pre>
     }
     `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    HighlightModule
+    Highlight
 ]
 })
 export class PrintSchemaTypeComponent {
@@ -32,7 +32,7 @@ export class PrintSchemaTypeComponent {
     return this.obj!.toString();
   }
 
-  get languages(): string[] {
-    return ["json"];
+  get language(): string {
+    return "json";
   }
 }
