@@ -38,7 +38,7 @@
     "@compodoc/compodoc": "^1.1.25",
     "@storybook/addon-docs": "^8.1.9",
     "@storybook/addon-essentials": "^8.1.5",
-    "@storybook/addon-interactions": "^8.1.6",
+    "@storybook/addon-interactions": "^8.1.9",
     "@storybook/addon-links": "^8.1.6",
     "@storybook/addon-styling-webpack": "^1.0.0",
     "@storybook/angular": "^8.1.6",
