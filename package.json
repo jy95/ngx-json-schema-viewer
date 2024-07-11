@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.0.6",
-    "@angular/cli": "~18.0.7",
+    "@angular/cli": "~18.1.0",
     "@angular/compiler-cli": "^18.0.1",
     "@chromatic-com/storybook": "^1.6.1",
     "@compodoc/compodoc": "^1.1.25",
