@@ -47,7 +47,7 @@
     "@storybook/test": "^8.1.5",
     "@storybook/theming": "8.2.9",
     "@types/jasmine": "~5.1.4",
-    "jasmine-core": "~5.2.0",
+    "jasmine-core": "~5.3.0",
     "karma": "~6.4.3",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.1",
