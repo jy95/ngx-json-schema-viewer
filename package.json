@@ -45,7 +45,7 @@
     "@storybook/blocks": "^8.1.5",
     "@storybook/manager-api": "^8.1.5",
     "@storybook/test": "^8.1.5",
-    "@storybook/theming": "8.4.5",
+    "@storybook/theming": "8.4.6",
     "@types/jasmine": "~5.1.4",
     "jasmine-core": "~5.4.0",
     "karma": "~6.4.3",
