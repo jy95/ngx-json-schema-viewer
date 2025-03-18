@@ -15,17 +15,14 @@ jobs:
         uses: actions/setup-node@v4.0.2
         with:
           node-version: "lts/*"
-      - name: 🤖 Remove package-lock.json files
-        run: |
-          find . -name "package-lock.json" -delete
       - name: 💻 Install npm packages
         run: npm install
       - name: Upgrade storybook 🤖
         run: |
-          npx --yes storybook@latest upgrade --yes
+          cd projects/ngx-json-schema-viewer && npx --yes storybook@latest upgrade --yes
       - name: Create Pull Request 🤖
         uses: peter-evans/create-pull-request@v7
         with:
-          title: Update npm & storybook packages
+          title: Update storybook deps
           body: |
-            This PR updates npm packages by removing package-lock.json files and reinstalling dependencies.
+            This PR updates storybook packages & tests.
