@@ -26,6 +26,6 @@ jobs:
       - name: Create Pull Request 🤖
         uses: peter-evans/create-pull-request@v7
         with:
-          title: Update npm packages
+          title: Update npm & storybook packages
           body: |
             This PR updates npm packages by removing package-lock.json files and reinstalling dependencies.
