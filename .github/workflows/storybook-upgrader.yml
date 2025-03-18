@@ -19,7 +19,7 @@ jobs:
         run: npm install
       - name: Upgrade storybook 🤖
         run: |
-          cd projects/ngx-json-schema-viewer && npx --yes storybook@latest upgrade --yes
+          npx --yes storybook@latest upgrade --yes --config-dir projects/ngx-json-schema-viewer/.storybook
       - name: Create Pull Request 🤖
         uses: peter-evans/create-pull-request@v7
         with:
