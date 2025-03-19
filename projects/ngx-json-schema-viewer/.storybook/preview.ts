@@ -5,6 +5,9 @@ import { themes } from '@storybook/theming';
 import docJson from "../documentation.json";
 setCompodocJson(docJson);
 
+// Because of https://github.com/storybookjs/storybook/issues/30691
+import 'zone.js';
+
 // https://storybook.js.org/docs/angular/configure/styling-and-css#importing-css-files
 // For some reason, it doesn't work with my version of Angular
 // import "../src/styles/global.scss"
