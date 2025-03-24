@@ -39,7 +39,7 @@
     "@storybook/addon-docs": "^8.6.7",
     "@storybook/addon-essentials": "^8.6.7",
     "@storybook/addon-interactions": "^8.6.7",
-    "@storybook/addon-links": "^8.6.7",
+    "@storybook/addon-links": "^8.6.9",
     "@storybook/addon-styling-webpack": "^1.0.0",
     "@storybook/angular": "^8.6.8",
     "@storybook/blocks": "^8.6.7",
