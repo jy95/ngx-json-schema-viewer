@@ -24,10 +24,13 @@ const preview: Preview = {
       theme: themes.dark,
     }
   },
+
   decorators: [
     // https://material.angular.io/guide/theming#application-background-color
     componentWrapperDecorator((story) => `<div class="mat-app-background">${story}</div>`),
-  ]
+  ],
+
+  tags: ["autodocs"]
 };
 
 export default preview;
