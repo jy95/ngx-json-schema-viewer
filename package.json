@@ -56,6 +56,6 @@
     "ng-packagr": "^19.0.1",
     "sass": "^1.86.3",
     "storybook": "^8.6.11",
-    "typescript": ">=5.4.5"
+    "typescript": ">=5.8.3"
   }
 }
