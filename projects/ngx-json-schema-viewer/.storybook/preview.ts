@@ -30,7 +30,7 @@ const preview: Preview = {
     componentWrapperDecorator((story) => `<div class="mat-app-background">${story}</div>`),
   ],
 
-  tags: ["autodocs", "autodocs"]
+  tags: ["autodocs"]
 };
 
 export default preview;
