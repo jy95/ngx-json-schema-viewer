@@ -54,7 +54,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^19.0.1",
-    "sass": "^1.87.0",
+    "sass": "^1.89.0",
     "storybook": "^8.6.12",
     "typescript": ">=5.8.3"
   }
