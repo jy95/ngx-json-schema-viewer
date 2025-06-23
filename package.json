@@ -41,7 +41,7 @@
     "@storybook/addon-styling-webpack": "^2.0.0",
     "@storybook/angular": "^9.0.12",
     "@types/jasmine": "~5.1.4",
-    "jasmine-core": "~5.7.0",
+    "jasmine-core": "~5.8.0",
     "karma": "~6.4.3",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.1",
