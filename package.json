@@ -47,7 +47,7 @@
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "ng-packagr": "^19.0.1",
+    "ng-packagr": "^20.0.1",
     "sass": "^1.87.0",
     "storybook": "^9.0.12",
     "typescript": ">=5.8.3"
