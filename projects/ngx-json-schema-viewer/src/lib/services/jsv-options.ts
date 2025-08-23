@@ -34,6 +34,16 @@ export type JSVOptions = {
      * @default ["nullable","deprecated","readOnly","writeOnly","enum","stringLength","objectProperties","no-extra-properties","arrayItems","arrayContains","no-extra-items","number-range","pattern","multipleOf","uniqueItems","contentEncoding","contentMediaType","contentSchema","default","const","examples"]
      */
     qualifierMessagesOrder: CheckKey[]
+    /**
+     * Defines how deep the schema should be expanded by default
+     * Examples:
+     *  - 0: only the root level is expanded
+     *  - 1: root level and its direct children are expanded
+     *  - Infinity: expand all levels
+     * @default 0
+     * @min 0
+     */
+    defaultExpandDepth: number
 }
 
 // Define an InjectionToken for JSVOptions
@@ -72,7 +82,8 @@ export class JSVOptionsService {
                 "default",
                 "const",
                 "examples"
-            ]
+            ],
+            defaultExpandDepth: 0
         }
         // Apply user provided options
         this.setOptions(userOptions);
