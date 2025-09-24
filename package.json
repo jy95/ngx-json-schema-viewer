@@ -39,7 +39,7 @@
     "@storybook/addon-docs": "^9.1.7",
     "@storybook/addon-links": "^9.1.7",
     "@storybook/addon-styling-webpack": "^2.0.0",
-    "@storybook/angular": "^9.1.7",
+    "@storybook/angular": "^9.1.8",
     "@types/jasmine": "~5.1.4",
     "jasmine-core": "~5.10.0",
     "karma": "~6.4.3",
