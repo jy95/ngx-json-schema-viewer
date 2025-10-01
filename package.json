@@ -36,7 +36,7 @@
     "@angular/compiler-cli": ">=19.0.0 < 21.0.0",
     "@chromatic-com/storybook": "^4.1.1",
     "@compodoc/compodoc": "^1.1.25",
-    "@storybook/addon-docs": "^9.1.8",
+    "@storybook/addon-docs": "^9.1.9",
     "@storybook/addon-links": "^9.1.8",
     "@storybook/addon-styling-webpack": "^2.0.0",
     "@storybook/angular": "^9.1.8",
