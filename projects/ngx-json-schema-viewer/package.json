@@ -15,7 +15,7 @@
     "packagr": "ng-packagr -p ng-package.json"
   },
   "devDependencies": {
-    "json-schema-typed": "8.0.1"
+    "json-schema-typed": "8.0.2"
   },
   "keywords": [
     "angular",
