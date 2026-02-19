@@ -37,7 +37,7 @@
     "@chromatic-com/storybook": "^5.0.1",
     "@compodoc/compodoc": "^1.1.32",
     "@storybook/addon-docs": "^10.2.8",
-    "@storybook/addon-links": "^10.2.8",
+    "@storybook/addon-links": "^10.2.10",
     "@storybook/addon-styling-webpack": "^3.0.0",
     "@storybook/angular": "^10.2.8",
     "@types/jasmine": "~5.1.13",
