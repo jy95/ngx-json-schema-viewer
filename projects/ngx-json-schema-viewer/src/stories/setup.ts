@@ -5,6 +5,7 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import type { Meta, StoryObj } from '@storybook/angular';
 
+
 // Return a pre-configured meta object to be export
 export type MetaViewer = Meta<NgxJsonSchemaViewerComponent>;
 export const defaultMeta : Meta<NgxJsonSchemaViewerComponent> = {
