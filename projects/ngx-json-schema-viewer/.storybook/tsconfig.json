@@ -4,9 +4,11 @@
     "types": ["node"],
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    "module": "ESNext",
+    "target": "ESNext"
   },
   "exclude": ["../src/test.ts", "../src/**/*.spec.ts"],
-  "include": ["../src/**/*", "./preview.ts"],
+  "include": ["../src/**/*", "./*.ts"],
   "files": ["./typings.d.ts"]
 }
