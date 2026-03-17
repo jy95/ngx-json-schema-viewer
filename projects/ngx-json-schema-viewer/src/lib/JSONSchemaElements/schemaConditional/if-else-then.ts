@@ -1,9 +1,7 @@
-
 import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { CreateNodesComponent } from "../../common/create-nodes";
-
 import { IfLabelComponent, ThenLabelComponent, ElseLabelComponent } from "../../labels/index";
 
 import type { JSONSchema } from "../../types";
@@ -17,11 +15,11 @@ import type { JSONSchema } from "../../types";
     ThenLabelComponent,
     ElseLabelComponent,
     forwardRef(() => CreateNodesComponent)
-],
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-tab-group>
-    
+
       <!-- If case -->
       @if (schema.if) {
         <mat-tab>
@@ -33,12 +31,19 @@ import type { JSONSchema } from "../../types";
           </ng-template>
         </mat-tab>
       }
-    
+
       <!-- Then case -->
       @if (schema.then) {
-        <ng-template [ngTemplateOutlet]=""></ng-template>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <labels-then />
+          </ng-template>
+          <ng-template matTabContent>
+            <jse-common-create-nodes [schema]="schema.then" />
+          </ng-template>
+        </mat-tab>
       }
-    
+
       <!-- Else case -->
       @if (schema.else) {
         <mat-tab>
@@ -49,12 +54,10 @@ import type { JSONSchema } from "../../types";
             <jse-common-create-nodes [schema]="schema.else" />
           </ng-template>
         </mat-tab>
-      } @else {
-        <ng-template [ngTemplateOutlet]=""></ng-template>
       }
-    
+
     </mat-tab-group>
-    `,
+  `,
 })
 export class IfElseThenComponent {
   @Input({ required: true }) schema!: Exclude<JSONSchema, true | false>;
