@@ -25,4 +25,6 @@ jobs:
         with:
           #👇 Chromatic projectToken,
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          zip: true
+        env:
+          LOG_LEVEL: "error"
