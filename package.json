@@ -38,7 +38,7 @@
     "@compodoc/compodoc": "^1.1.32",
     "@storybook/addon-docs": "^10.2.17",
     "@storybook/addon-links": "^10.2.17",
-    "@storybook/addon-styling-webpack": "^3.0.0",
+    "@storybook/addon-styling-webpack": "^3.0.1",
     "@storybook/angular": "^10.2.19",
     "@types/jasmine": "~5.1.13",
     "jasmine-core": "~5.12.0",
