@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: "lts/*"
       - name: 💻 Install npm packages
-        run: npm install
+        run: npm install --legacy-peer-deps
       - name: Upgrade storybook 🤖
         run: |
           npx --yes storybook@latest upgrade --yes --config-dir projects/ngx-json-schema-viewer/.storybook
