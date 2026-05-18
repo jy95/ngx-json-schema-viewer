@@ -51,7 +51,6 @@
         },
         "build-storybook": {
           "builder": "@storybook/angular:build-storybook",
-          "dependsOn": ["build"],
           "options": {
             "configDir": "projects/ngx-json-schema-viewer/.storybook",
             "browserTarget": "ngx-json-schema-viewer:build",
