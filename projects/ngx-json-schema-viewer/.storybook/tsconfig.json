@@ -8,7 +8,8 @@
     "moduleResolution": "bundler",
     "skipLibCheck": true,
     "paths": {
-      "@angular/*": ["../../../node_modules/@angular/*"]
+      "@angular/*": ["../../../node_modules/@angular/*"],
+      "ngx-json-schema-viewer": ["../../../dist/ngx-json-schema-viewer"]
     }
   },
   "exclude": ["../src/test.ts", "../src/**/*.spec.ts"],
