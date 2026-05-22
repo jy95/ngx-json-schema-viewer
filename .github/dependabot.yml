@@ -9,7 +9,27 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+    groups:
+      # Specify a name for the group, which will be used in pull request titles
+      # and branch names
+      angular:
+        applies-to: version-updates
+        patterns:
+          - "@angular*"
+        update-types:
+          - "minor"
+          - "patch"
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/projects/ngx-json-schema-viewer/" # Location of package manifests
     schedule:
       interval: "daily"
+    groups:
+      # Specify a name for the group, which will be used in pull request titles
+      # and branch names
+      angular:
+        applies-to: version-updates
+        patterns:
+          - "@angular*"
+        update-types:
+          - "minor"
+          - "patch"
