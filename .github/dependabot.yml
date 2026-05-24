@@ -16,9 +16,10 @@ updates:
         applies-to: version-updates
         patterns:
           - "@angular*"
-        update-types:
-          - "minor"
-          - "patch"
+      storybook:
+        applies-to: version-updates
+        patterns:
+          - "@storybook*"
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/projects/ngx-json-schema-viewer/" # Location of package manifests
     schedule:
@@ -30,6 +31,7 @@ updates:
         applies-to: version-updates
         patterns:
           - "@angular*"
-        update-types:
-          - "minor"
-          - "patch"
+      storybook:
+        applies-to: version-updates
+        patterns:
+          - "@storybook*"
