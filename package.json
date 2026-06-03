@@ -48,6 +48,6 @@
     "ng-packagr": "~22.0.0",
     "sass": "^1.98.0",
     "storybook": "^10.4.2",
-    "typescript": ">=5.9"
+    "typescript": ">=6.0 <6.1"
   }
 }
