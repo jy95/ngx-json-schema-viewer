@@ -1,6 +1,6 @@
 {
   "name": "ngx-json-schema-viewer",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "peerDependencies": {
     "@angular/common": "~22.0.0",
     "@angular/core": "~22.0.0",
