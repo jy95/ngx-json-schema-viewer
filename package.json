@@ -19,7 +19,7 @@
     "@angular/compiler": "~22.2.3",
     "@angular/core": "~22.2.3",
     "@angular/forms": "~22.2.3",
-    "@angular/material": "~22.2.3",
+    "@angular/material": "~22.2.4",
     "@angular/platform-browser": "~22.2.3",
     "@angular/platform-browser-dynamic": "~22.2.3",
     "@angular/router": "~22.2.3",
@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~22.2.3",
-    "@angular/cli": "~22.2.3",
+    "@angular/cli": "~22.2.4",
     "@angular/compiler-cli": "~22.2.3",
     "@chromatic-com/storybook": "^5.6.0",
     "@compodoc/compodoc": "^2.0.0",
